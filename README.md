@@ -8,13 +8,13 @@ Is [statuspage.io](https://www.statuspage.io/) too expensive? Do you need an ope
 
 [Live demo](https://status.polargalaxy.com)
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/onlinemantas/cstatet)
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/onlinemantas/cstate)
 
 ## Usage
 
 To set up cState, do the following:
 
-1. Deploy the status page, preferably using [Netlify](https://app.netlify.com/start/deploy?repository=https://github.com/onlinemantas/cstatet) and/or [GitHub Pages](https://pages.github.com).
+1. Deploy the status page, preferably using [Netlify](https://app.netlify.com/start/deploy?repository=https://github.com/onlinemantas/cstate) and/or [GitHub Pages](https://pages.github.com).
 2. Upload your favicon and logo to `/static/` and edit `config.yml`.
 
 Once that is done, you can create a new post like this:
