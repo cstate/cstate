@@ -1,0 +1,12 @@
+# General
+title: Polar Galaxy
+languageCode: en-US
+baseURL: /
+permalinks:
+  incidents: /incidents/:year/:month/:day/:slug/
+params:
+  # Extra customization
+  logo: /logo.png
+  description: We continuously monitor the status of our services and if there are any interruptions, a note will be posted here. Latency measurements work only on modern browsers and may not be 100% accurate. A ping below 1000ms is usually acceptable.
+  # Current state
+  announcement: Our Minecraft server is offline while we perform an overhaul of the entire server. Please keep an eye on our website or this status page for more updates.

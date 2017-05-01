@@ -1,0 +1,278 @@
+{{ partial "meta" . }}
+
+  <body>
+    <div class="header notice">
+      <div class="contain">
+        <a href="{{ .Site.BaseURL }}" class="logo">
+          <img src="{{ .Site.Params.logo }}" alt="{{ .Site.Title }}">
+        </a>
+
+        <button class="subscribe">Subscribe</button>
+      </div>
+    </div>
+
+    <!-- Main -->
+    <div class="contain">
+      <noscript>
+        <p class="error">Uh oh! It looks like you have disabled JavaScript or your browser is a piece of garbage. This means we cannot fetch the neccesary data to show you information about our services. Please <a href="//enable-javascript.com">enable scripting</a> and try again.</p>
+      </noscript>
+
+      <div class="subscriber-box">
+        <div class="subscriber-box--header">
+          <div class="contain">
+            <strong>Notifications</strong>
+            <span class="close">
+              <img alt="Close" src="https://cdn4.iconfinder.com/data/icons/geomicons/32/672366-x-128.png">
+            </span>
+          </div>
+        </div>
+
+        <div class="contain">
+          <p>Users of modern browsers such as Chrome and Firefox get access to web notifications, a feature that shows alerts for things such as Facebook mentions, new emails, or in our case, status updates. These updates can be seen even if the user is not actively looking at this status page, however, the tab has to stay open.</p>
+
+          <p class="error">Only some users may be able to use this feature. This feature does not work on mobile devices and is not fully tested.</p>
+
+          <div id="alert-init">
+            <input type="checkbox" id="alerts">
+            <label for="alerts">Ping me when the status changes</label>
+          </div>
+
+          <p class="alert-status faded">You have not enabled notifications.</p>
+        </div>
+      </div>
+
+      <!-- Main info -->
+      <div class="summary notice">
+        <div class="tldr notice">
+          <strong>Checking status…</strong>
+
+          <span class="status"></span>
+        </div>
+        <div class="details contain">
+          <p>{{ .Site.Params.announcement }}</p>
+        </div>
+      </div><br>
+
+      <!-- Individual info -->
+      <div class="components">
+        <div class="component" data-status="" data-id="forums">
+          Forums <small class="ping testing">Pinging…</small>
+        </div>
+        <div class="component" data-status="" data-id="website">
+          Website <small class="ping testing">Pinging…</small>
+        </div>
+        <div class="component" data-status="" data-id="gameserver">
+          Minecraft server
+        </div>
+      </div>
+
+      <br>
+      <small><a href="#disclaimer">Disclaimer</a></small>
+
+    <!-- End main -->
+    </div>
+
+    <div class="contain">
+      <h2>Incident history</h2><hr><br>
+
+      {{ range first 10 .Data.Pages }}
+        {{ .Render "post" }}
+      {{ end }}
+
+      <aside id="meta"> </aside>
+    </div>
+
+    <script async>
+      /**
+       * Dev toolset
+       */
+
+      console.log('Welcome to cState! https://github.com/onlinemantas/cstate');
+
+      /**
+       * Notifications
+       */
+
+      // Notification toggle
+      document.querySelector('#alerts').addEventListener('click', enableNotifications)
+
+      // Toggling logic
+      function enableNotifications() {
+        if(window.Notification && Notification.permission !== "denied") {
+        	Notification.requestPermission(function(status) {
+            // status is "granted", if accepted by user
+        		var n = new Notification('Great, you just enabled alerts!', {
+        			body: 'You are now going to receive notifications (like this one) whenever the status changes so long as this tab is open. This feature is still being tested.',
+        			icon: '/favicon.ico'
+        		})
+
+            // Looks like we DO have permission now
+            // So let's mark that checkbox
+            document.querySelector('#alert-init').setAttribute('hidden', 'hidden')
+            document.querySelector('.alert-status').innerHTML = '<strong>Notifications are enabled. </strong>'
+            document.querySelector('.alert-status').className = 'alert-status'
+        	})
+        }
+      }
+
+      if (Notification.permission === 'granted') {
+        // Looks like we DO have permission
+        // So let's mark that checkbox
+        document.querySelector('#alert-init').setAttribute('hidden', 'hidden')
+        document.querySelector('.alert-status').innerHTML = '<strong>Notifications are enabled. </strong>'
+        document.querySelector('.alert-status').className = 'alert-status'
+      }
+
+      /**
+       * Subscribe button
+       */
+
+      function hasClass(element, cls) {
+        return (' ' + element.className + ' ').indexOf(' ' + cls + ' ') > -1;
+      }
+
+      document.querySelector('.subscribe').addEventListener('click', pressSubscribeButton);
+      document.querySelector('.close').addEventListener('click', pressSubscribeButton);
+
+      function pressSubscribeButton() {
+        if (document.querySelector('.subscriber-box').className === 'subscriber-box active') {
+          document.querySelector('.subscriber-box').className = 'subscriber-box';
+        } else {
+          document.querySelector('.subscriber-box').className = 'subscriber-box active';
+        }
+      }
+
+      /**
+       * Apply data
+       */
+
+      document.querySelector('.component[data-id=forums]').setAttribute('data-status', 'ok');
+      document.querySelector('.component[data-id=website]').setAttribute('data-status', 'ok');
+      document.querySelector('.component[data-id=gameserver]').setAttribute('data-status', 'notice');
+
+      /**
+       * Get elements
+       */
+
+      const header = document.querySelector('.header');
+      const summary = document.querySelector('.summary');
+      const summaryDetails = document.querySelector('.details');
+      const tldr = document.querySelector('.tldr');
+
+      var summaryText = document.querySelector('.summary strong');
+      var lastUpdated = document.querySelector('.summary span');
+
+      /**
+       * Prelimenary logic
+       */
+
+      var online = navigator.onLine;
+
+      function updateStatus() {
+        var lastUpdate = new Date;
+      }
+
+      /**
+       * Check for internet
+       */
+
+       var lastUpdate = new Date();
+
+       function timeSince(date) {
+        var seconds = Math.floor((new Date() - date) / 1000);
+
+        var interval = Math.floor(seconds / 31536000);
+
+        if (interval > 1) {
+          return interval + ' years';
+        }
+        interval = Math.floor(seconds / 2592000);
+        if (interval > 1) {
+          return interval + ' months';
+        }
+        interval = Math.floor(seconds / 86400);
+        if (interval > 1) {
+          return interval + 'd';
+        }
+        interval = Math.floor(seconds / 3600);
+        if (interval > 1) {
+          return interval + 'h';
+        }
+        interval = Math.floor(seconds / 60);
+        if (interval > 1) {
+          return interval + 'min';
+        }
+        return Math.floor(seconds) + 's';
+      }
+      var aDay = 24*60*60*1000;
+
+      // Show second by second updates
+      window.setInterval(function() {
+       lastUpdated.innerHTML = 'Last updated ' + timeSince(lastUpdate) + ' ago';
+      }, 1000);
+
+
+      /**
+       * Adaptive TLDR
+       */
+
+      const status = document.querySelector('.component[data-id=forums]').getAttribute('data-status') === 'ok' &&
+      document.querySelector('.component[data-id=website]').getAttribute('data-status') === 'ok' &&
+      document.querySelector('.component[data-id=gameserver]').getAttribute('data-status') === 'ok'
+
+      if (status) {
+        // Change text
+        summaryText.innerHTML = 'All systems operational';
+        // Change design
+        summary.className = 'summary ok';
+        tldr.className = 'tldr ok';
+        summaryDetails.className = 'details contain ok';
+        header.className = 'header ok';
+      } else if (!status) {
+        // Change text
+        summaryText.innerHTML = 'Experiencing downtime';
+        // Change design
+        summary.className = 'summary down';
+        tldr.className = 'tldr down';
+        summaryDetails.className = 'details contain down';
+        header.className = 'header down';
+
+        new Notification (
+          'We are experiencing downtime!', {
+            body : 'Please view the status page for more information. This alert was automatically triggered to let you know of this change.',
+            icon : '/favicon.ico'
+          }
+        )
+      }
+
+
+      /**
+       * Check ping
+       */
+
+      // Links
+      const forumPingURL = 'https://forums.polargalaxy.com';
+      const websiteURL = 'https://www.polargalaxy.com';
+
+      // Lib
+      !function(a,b){"function"==typeof define&&define.amd?define([],b):"object"==typeof module&&module.exports?module.exports=b():a.ping=b()}(this,function(){function a(a){return new Promise(function(b,c){var d=new Image;d.onload=function(){b(d)},d.onerror=function(){c(a)},d.src=a+"?random-no-cache="+Math.floor(65536*(1+Math.random())).toString(16)})}function b(b,c){return new Promise(function(d,e){var f=(new Date).getTime(),g=function(){var a=(new Date).getTime()-f;a*=c||1,d(a)};a(b).then(g).catch(g),setTimeout(function(){e(Error("Timeout"))},5e3)})}return b});
+
+      // Check ping for everything
+      ping(forumPingURL).then(function(delta) {
+        document.querySelector('.component[data-id="forums"] .ping').innerHTML = String(delta) + 'ms';
+        document.querySelector('.component[data-id="forums"] .ping').className = 'ping done';
+      }).catch(function(err) {
+        document.querySelector('.component[data-id="forums"] .ping').innerHTML = 'Can’t ping';
+        document.querySelector('.component[data-id="forums"] .ping').className = 'ping error';
+      })
+
+      ping(websiteURL).then(function(delta) {
+        document.querySelector('.component[data-id="website"] .ping').innerHTML = String(delta) + 'ms';
+        document.querySelector('.component[data-id="website"] .ping').className = 'ping done';
+      }).catch(function(err) {
+        document.querySelector('.component[data-id="website"] .ping').innerHTML = 'Can’t ping';
+        document.querySelector('.component[data-id="website"] .ping').className = 'ping error';
+      })
+    </script>
+
+{{ partial "footer" . }}

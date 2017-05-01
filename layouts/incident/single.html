@@ -1,0 +1,13 @@
+{{ partial "meta" . }}
+
+  <body>
+
+    <div class="contain">
+      <a href="{{ .Site.BaseURL }}">← Go back</a>
+
+      <br><br><hr>
+
+      {{ .Render "post"}}
+    </div>
+
+{{ partial "footer" . }}

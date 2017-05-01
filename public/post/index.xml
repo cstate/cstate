@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Polar Galaxy Status</title>
+    <link>https://status.polargalaxy.com/post/index.xml</link>
+    <description>Recent content in Posts on Polar Galaxy Status</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 04 Apr 2017 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://status.polargalaxy.com/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Catastrophic DNS failure</title>
+      <link>https://status.polargalaxy.com/post/dns-catastrophy/</link>
+      <pubDate>Tue, 04 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://status.polargalaxy.com/post/dns-catastrophy/</guid>
+      <description>&lt;p&gt;A DNS change of some sort occurred that removed critical metadata after the server move. We switched name servers—which takes a while—but this should ensure smoother sailing forward. There is nothing else we can do at the moment—however—you can join the server with this IP for the time being: pgmc.mcs4.me&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
