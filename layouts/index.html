@@ -56,13 +56,10 @@
       <!-- Individual info -->
       <div class="components">
         <div class="component" data-status="" data-id="forums">
-          Forums <small class="ping testing">Pinging…</small>
+          API <small class="ping testing">Pinging…</small>
         </div>
         <div class="component" data-status="" data-id="website">
           Website <small class="ping testing">Pinging…</small>
-        </div>
-        <div class="component" data-status="" data-id="gameserver">
-          Minecraft server
         </div>
       </div>
 
@@ -87,7 +84,7 @@
        * Dev toolset
        */
 
-      console.log('Welcome to cState! https://github.com/onlinemantas/cstate');
+      console.log('Welcome to cState! https://github.com/mistermantas/cstate');
 
       /**
        * Notifications
@@ -251,8 +248,8 @@
        */
 
       // Links
-      const forumPingURL = 'https://forums.polargalaxy.com';
-      const websiteURL = 'https://www.polargalaxy.com';
+      const forumPingURL = 'https://api.choraleapp.com';
+      const websiteURL = 'https://www.choraleapp.com';
 
       // Lib
       !function(a,b){"function"==typeof define&&define.amd?define([],b):"object"==typeof module&&module.exports?module.exports=b():a.ping=b()}(this,function(){function a(a){return new Promise(function(b,c){var d=new Image;d.onload=function(){b(d)},d.onerror=function(){c(a)},d.src=a+"?random-no-cache="+Math.floor(65536*(1+Math.random())).toString(16)})}function b(b,c){return new Promise(function(d,e){var f=(new Date).getTime(),g=function(){var a=(new Date).getTime()-f;a*=c||1,d(a)};a(b).then(g).catch(g),setTimeout(function(){e(Error("Timeout"))},5e3)})}return b});
