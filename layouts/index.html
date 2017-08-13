@@ -145,7 +145,6 @@
 
       document.querySelector('.component[data-id=forums]').setAttribute('data-status', 'ok');
       document.querySelector('.component[data-id=website]').setAttribute('data-status', 'ok');
-      document.querySelector('.component[data-id=gameserver]').setAttribute('data-status', 'notice');
 
       /**
        * Get elements
@@ -214,8 +213,7 @@
        */
 
       const status = document.querySelector('.component[data-id=forums]').getAttribute('data-status') === 'ok' &&
-      document.querySelector('.component[data-id=website]').getAttribute('data-status') === 'ok' &&
-      document.querySelector('.component[data-id=gameserver]').getAttribute('data-status') === 'ok'
+      document.querySelector('.component[data-id=website]').getAttribute('data-status') === 'ok'
 
       if (status) {
         // Change text
@@ -241,35 +239,6 @@
           }
         )
       }
-
-
-      /**
-       * Check ping
-       */
-
-      // Links
-      const forumPingURL = 'https://api.choraleapp.com';
-      const websiteURL = 'https://www.choraleapp.com';
-
-      // Lib
-      !function(a,b){"function"==typeof define&&define.amd?define([],b):"object"==typeof module&&module.exports?module.exports=b():a.ping=b()}(this,function(){function a(a){return new Promise(function(b,c){var d=new Image;d.onload=function(){b(d)},d.onerror=function(){c(a)},d.src=a+"?random-no-cache="+Math.floor(65536*(1+Math.random())).toString(16)})}function b(b,c){return new Promise(function(d,e){var f=(new Date).getTime(),g=function(){var a=(new Date).getTime()-f;a*=c||1,d(a)};a(b).then(g).catch(g),setTimeout(function(){e(Error("Timeout"))},5e3)})}return b});
-
-      // Check ping for everything
-      ping(forumPingURL).then(function(delta) {
-        document.querySelector('.component[data-id="forums"] .ping').innerHTML = String(delta) + 'ms';
-        document.querySelector('.component[data-id="forums"] .ping').className = 'ping done';
-      }).catch(function(err) {
-        document.querySelector('.component[data-id="forums"] .ping').innerHTML = 'Can’t ping';
-        document.querySelector('.component[data-id="forums"] .ping').className = 'ping error';
-      })
-
-      ping(websiteURL).then(function(delta) {
-        document.querySelector('.component[data-id="website"] .ping').innerHTML = String(delta) + 'ms';
-        document.querySelector('.component[data-id="website"] .ping').className = 'ping done';
-      }).catch(function(err) {
-        document.querySelector('.component[data-id="website"] .ping').innerHTML = 'Can’t ping';
-        document.querySelector('.component[data-id="website"] .ping').className = 'ping error';
-      })
     </script>
 
 {{ partial "footer" . }}

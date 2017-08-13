@@ -6,7 +6,7 @@ permalinks:
   incidents: /incidents/:year/:month/:day/:slug/
 params:
   # Extra customization
-  logo: https://www.choraleapp.com/logo.png
-  description: We continuously monitor the status of our services and if there are any interruptions, a note will be posted here. Latency measurements work only on modern browsers and may not be 100% accurate. A ping below 1000ms is usually acceptable.
+  logo: /logo.png
+  description: We continuously monitor the status of our services and if there are any interruptions, a note will be posted here. For the best experience, use a modern browser like Chrome.
   # Current state
-  announcement: Status page has a hiccup with HTTPS, looking into it.
+  announcement: Everything looks fine, but if you see something wrong, give us a shout by using the chat box in the bottom right corner.
