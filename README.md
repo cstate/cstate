@@ -10,33 +10,14 @@ Is [statuspage.io](https://www.statuspage.io/) too expensive? Do you need an ope
 
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/mistermantas/cstate)
 
-## Usage
+## Table of Contents
 
-To set up cState, do the following:
-
-1. Deploy the status page, preferably using [Netlify](https://app.netlify.com/start/deploy?repository=https://github.com/mistermantas/cstate) and/or [GitHub Pages](https://pages.github.com).
-2. Upload your favicon and logo to `/static/` and edit `config.yml`.
-
-Once that is done, you can create a new post like this:
-
-```
-hugo new incident/dns-killed-us.md
-```
-
-Then, go into `incident/dns-killed-us.md` and follow this format:
-
-```md
----
-Title: Catastrophic DNS failure
-Description: After moving from one server to another, some DNS settings had unknowingly been tweaked which caused a complete outage for everything hosted on our domain.
-Date: 2017-04-04T15:58:32
-Section: post
----
-
-##### Post-mortem
-
-On Monday, Amazon gave up on us.
-```
++ [Features](#features)
++ [Installation](#installation)
+  + On Netlify
+  + GitHub Pages
++ [Contribute](#contribute)
++ [License](#license)
 
 ## Features
 
@@ -46,10 +27,45 @@ On Monday, Amazon gave up on us.
 + Simple, focused, and robust design
 + Easy to edit and deploy
 
-## Resources
+## Installation
 
-+ [Issue tracker](https://github.com/mistermantas/cstate)
-+ [Code repository](https://github.com/mistermantas/cstate)
+### On Netlify
+
+1. [Deploy to Netlify](https://app.netlify.com/start/deploy?repository=https://github.com/mistermantas/cstate).
+2. Upload your favicon and logo to `/static/` and edit `config.yml`.
+
+### Everywhere Else
+
+
+
+## Creating Incident
+
+Once in the project root directory, you can create a new post from the command line like this:
+
+```
+hugo new incident/dns-killed-us.md
+```
+
+Essentially, just go into `content/incident` and add a new file. This will be an incident. The file name will indicate the URL of the incident. So, for example, if you create `dns-killed-us.md`, the URL will lead to `status.example.com/incident/dns-killed-us`.
+
+Then, go into `incident/dns-killed-us.md` and follow this format:
+
+```md
+---
+Title: Catastrophic DNS failure
+Description: After moving from one server to another, DNS just kinda gave us the middle finger. Ugh.
+Date: 2017-04-04T15:58:32
+Section: post
+---
+
+##### Post-mortem
+
+On Monday, Amazon gave up on us.
+```
+
+## Contribute
+
+Feel free to open an issue or make a pull request, those should get answered pretty quickly on GitHub.
 
 ## License
 
