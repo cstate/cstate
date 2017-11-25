@@ -1,0 +1,38 @@
+# This is the main configuration file for Netlify CMS.
+# Netlify CMS is used as the admin panel for cState.
+#
+# While some settings here can be kept as is, you may
+# want to change some for a more customized solution.
+#
+# You can look at what each option does and how to
+# toggle between them on the Netlify CMS repo docs:
+#
+# https://github.com/netlify/netlify-cms/blob/master/docs/quick-start.md
+
+backend:
+  name: git-gateway
+  branch: master
+  media_folder: "static/admin/img"
+  public_folder: "/admin/img"
+  # Do not change this!
+  collections:
+    # Used in routes, e.g., /admin/collections/blog
+  - name: "issue"
+    # Used in the UI
+    label: "Issues"
+    # The path to the folder where the documents are stored
+    folder: "content/issues"
+    # Allow users to create new documents in this collection
+    create: true
+    # Filename template, e.g., YYYY-MM-DD-title.md
+    slug: "{{slug}}.md"
+    # The fields for each document, usually in front matter
+    fields:
+      - {label: "Section", name: "Section", widget: "hidden", default: "issue"}
+      - {label: "Title", name: "Title", widget: "string"}
+      - {label: "Description", name: "Description", widget: "string"}
+      - {label: "Date", name: "Date", widget: "datetime"}
+      - {label: "Resolved?", name: "Resolved", widget: "boolean"}
+      - {label: "Severity", name: "Severity", widget: "string"}
+      - {label: "Affected", name: "Affected", widget: "string"}
+      - {label: "Body", name: "body", widget: "markdown"}

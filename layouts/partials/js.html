@@ -1,0 +1,62 @@
+<script type="javascript">
+  /**
+   * Dev toolset
+   */
+
+  console.log('Welcome to cState! https://github.com/mistermantas/cstate');
+  document.querySelector('html').className = 'js';
+
+
+  /**
+   * Make theme color pretty
+   */
+
+  if (document.body.className === 'status-down') {
+    document.querySelector('meta[name=theme-color]').setAttribute('content', themeDownColor);
+  } else if (document.body.className === 'status-disrupted') {
+    document.querySelector('meta[name=theme-color]').setAttribute('content', themeDisruptedColor);
+  } else {
+    document.querySelector('meta[name=theme-color]').setAttribute('content', themeNoticeColor);
+  }
+
+
+  /**
+   * Check for internet
+   */
+
+  var lastUpdated = document.querySelector('.summary__date');
+  var lastUpdate = new Date();
+
+  function timeSince(date) {
+    var seconds = Math.floor((new Date() - date) / 1000);
+
+    var interval = Math.floor(seconds / 31536000);
+
+    if (interval > 1) {
+      return interval + ' years';
+    }
+    interval = Math.floor(seconds / 2592000);
+    if (interval > 1) {
+      return interval + ' months';
+    }
+    interval = Math.floor(seconds / 86400);
+    if (interval > 1) {
+      return interval + 'd';
+    }
+    interval = Math.floor(seconds / 3600);
+    if (interval > 1) {
+      return interval + 'h';
+    }
+    interval = Math.floor(seconds / 60);
+    if (interval > 1) {
+      return interval + 'min';
+    }
+    return Math.floor(seconds) + 's';
+  }
+  var aDay = 24*60*60*1000;
+
+  // Show second by second updates
+  window.setInterval(function() {
+    lastUpdated.innerHTML = 'Last checked ' + timeSince(lastUpdate) + ' ago';
+  }, 1000);
+</script>

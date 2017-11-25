@@ -1,71 +1,127 @@
 # cState
 
-[![Discord](https://img.shields.io/badge/discord-join%20chat-7289DA.svg?style=flat-square)](http://discord.io/choraleapp)  [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)  [![Twitter](https://img.shields.io/twitter/follow/choraleapp.svg?style=social&label=Follow)](https://twitter.com/polargalaxymc)
+[![GitHub last commit](https://img.shields.io/github/last-commit/mistermantas/cstate.svg?style=flat-square)](https://github.com/mistermantas/cstate/commits/master)
+[![GitHub repo size in bytes](https://img.shields.io/github/repo-size/mistermantas/cstate.svg?style=flat-square)](https://github.com/mistermantas/cstate/tree/master/)
+[![Discord](https://img.shields.io/badge/discord-join%20chat-7289DA.svg?style=flat-square)](http://discord.io/choraleapp)  [![Twitter](https://img.shields.io/twitter/follow/mistermantas.svg?style=social&label=Follow)](https://twitter.com/mistermantas)
 
-> Blazing fast status page with excellent browser support. Built with Hugo. Work in progress, may have bugs and incomplete features.
+> The fastest and most efficient status page on the market, beating even paid solutions. cState has outstanding browser support (IE8+) and can easily be managed with GitHub Pages or Netlify. Ready for production.
 
-Is [statuspage.io](https://www.statuspage.io/) too expensive? Do you need an open source alternative for your project that is supported on archaic browsers like IE8 and never stops beating? cState is here to help.
+[**See real-world example**](https://status.rabbitnode.com)
 
-[Live demo](https://status.choraleapp.com)
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/mistermantas/cstate)
-
-## Table of Contents
+## Contents
 
 + [Features](#features)
-+ [Installation](#installation)
-  + On Netlify
-  + GitHub Pages
++ [Install](#install)
++ [FAQ](#faq)
 + [Contribute](#contribute)
 + [License](#license)
 
 ## Features
 
-+ Built with [Hugo](https://gohugo.io), on a sturdy foundation
-+ Works everywhere: all modern browsers, even IE8 and later
-+ You can subscribe to web notifications for status updates
-+ Simple, focused, and robust design
-+ Easy to edit and deploy
++ Built with [Hugo](https://gohugo.io), a hyperfast Golang generator
++ Works not just on mobile browsers, but also on archaic browsers like Internet Explorer 8
++ Comes with a simple, focused, and extremely light design
++ Edit your status page just from the config file
++ Comes pre-equipped with Netlify CMS for quick updates
++ Easy to edit and deploy on Netlify or GitHub Pages
 
-## Installation
+## Install
 
-### On Netlify
+We encourage you to use [Netlify](https://www.netlify.com) for cState. The build command is `hugo` and your site is compiled to `public`.
 
-1. [Deploy to Netlify](https://app.netlify.com/start/deploy?repository=https://github.com/mistermantas/cstate).
-2. Upload your favicon and logo to `/static/` and edit `config.yml`.
+For this tutorial, it is assumed that you have Hugo and Git installed (check with `hugo version` & `git --version`).
 
-### Everywhere Else
+**This does not seem to work in one go on PowerShell, so enter each command individually.**
 
+```bash
+# !. First off, we initialize the Git repository
+git init;
 
+# 2. Then this creates all the necessary directories
+mkdir -p content/issues themes static;
 
-## Creating Incident
+# 3. We get the config file
+curl -o config.yml https://cdn.rawgit.com/mistermantas/cstate/4bc81871/config-example.yml;
 
-Once in the project root directory, you can create a new post from the command line like this:
+# 4. Download cState
+cd themes; git submodule add https://github.com/mistermantas/cstate;
 
+# 5. Last off, start the server locally
+hugo serve
 ```
-hugo new incident/dns-killed-us.md
+
+And that is it; you have set up cState locally.
+
+Now is a good time to make cState look the way you want it to, so upload a favicon (and logo) to `/static/`. Edit `config.yml` to fit your needs. And so on, and so forth.
+
+**Do not change any files in the `themes` directory or its subdirectories. Everything is handled automatically by Git.**
+
+To make the status page public, you will need to connect to a remote GitHub repository much like this:
+
+```bash
+# Create a remote origin like this (if you have not already)
+git remote add origin https://github.com/username/example.git
+
+# Add all the files
+git add -A
+
+# Then a message based on your changes
+git commit -m "Testing out cState"
+
+# All done
+git push -u origin master
 ```
 
-Essentially, just go into `content/incident` and add a new file. This will be an incident. The file name will indicate the URL of the incident. So, for example, if you create `dns-killed-us.md`, the URL will lead to `status.example.com/incident/dns-killed-us`.
+For an example of a working status page, see [rabbitnode/status](https://github.com/rabbitnode/status).
 
-Then, go into `incident/dns-killed-us.md` and follow this format:
+## FAQ
+
+### Where do issues go? What is the frontmatter, how do I define metadata for issues?
+
+Create a file in `content/issues`. The name of the file will be the slug (what shows up in the URL bar). For example, this is what `i-am-an-issue.md` should look like:
 
 ```md
 ---
-Title: Catastrophic DNS failure
-Description: After moving from one server to another, DNS just kinda gave us the middle finger. Ugh.
-Date: 2017-04-04T15:58:32
+Title: Give your issue a good title
+Description: This description is here merely for metadata purposes and may show up in search results. It may be used as a summary.
+Date: 2017-02-30 14:30
+Resolved: true
+Severity: down
+Affected:
+  - Client Area
 Section: post
 ---
 
-##### Post-mortem
-
-On Monday, Amazon gave up on us.
+Content goes here.
 ```
+
+Time to break that down.
+
+`Title`: This is the one of the most important parts of an incident. *(required)*  
+`Description`: This description is here merely for metadata purposes and may show up in search results. It may be used as a summary.  
+`Date`: An ISO-8601 formatted date. Does not include time zone. *(required)*  
+`Resolved`: Whether issue should affect overall status. Either `true` or `false`. *(boolean, required)*  
+`Severity`: If an issue is not resolved, it will have an applied severity. There are 3 levels of severity: `notice`, `disrupted`, and `down`. If there are multiple issues, the status page will take the appearance of the more drastic issue (such as `disrupted` instead of `notice`). *(required)*  
+`Affected`. Add the items that were present in the config file which should alter the status of each individual system (component). *(array, required)*  
+`Section`. This must be `issue`, so that Hugo treats it as one. *(required)*  
+
+### Is there an admin panel or some easy way to change the state of each issue?
+
+If you use [Netlify](https://www.netlify.com), you can expect to see Netlify CMS integration very soon. Otherwise, you could fall back to [prose.io](http://prose.io) or something similiar.
+
+### How do I make this work on GitHub Pages?
+
+Compile locally, commit changes, and push them out. We do recommend using [Netlify](https://www.netlify.com), however.
+
+### My question was not answered!
+
+This part of the documentation still needs to finished. [Questions](https://github.com/mistermantas/cstate/issues) are more than welcome and you should get a pretty fast response as well.
 
 ## Contribute
 
-Feel free to open an issue or make a pull request, those should get answered pretty quickly on GitHub.
++ Glance over the [Code of Conduct](/CODE_OF_CONDUCT.md).
++ Before submitting a pull request, create an issue to [discuss the implications of your proposal](https://github.com/mistermantas/cstate/issues).
++ Write consistent, simple, and readable code. You can [join the Chorale Discord](http://discord.io/choraleapp) to discuss in `#cstate`.
 
 ## License
 

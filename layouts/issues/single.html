@@ -1,0 +1,17 @@
+{{ partial "meta" . }}
+
+{{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
+{{ $active := where $incidents "Params.resolved" "=" false }}
+
+{{ $isNotice := where $active "Params.severity" "=" "notice" }}
+{{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}
+{{ $isDown := where $active "Params.severity" "=" "down" }}
+
+  <body class="status-{{ if $isDown }}down{{ else }}{{ if $isDisrupted}}disrupted{{ else }}{{ if $isNotice }}notice{{ else }}ok{{ end }}{{ end }}{{ end }}">
+    {{ partial "header-mini" . }}
+
+    <div class="contain">
+      {{ .Render "issue" }}
+    </div>
+
+{{ partial "footer" . }}

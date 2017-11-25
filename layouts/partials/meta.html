@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.LanguageCode }}" class="nojs">
+<html lang="{{ .Site.LanguageCode }}" class="no-js">
   <head>
     <!-- Basics -->
     <meta charset="utf-8">
@@ -9,13 +9,22 @@
     <meta name="description" content="{{ if .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
     <title>{{ .Site.Title }}</title>
     <link rel="canonical" href="{{ .Permalink }}">
-    <meta name="theme-color" content="#000000">
+    {{ .Hugo.Generator }}
+    <meta name="theme-color" content="#{{ .Site.Params.ok }}">
+    <script>
+    var themeOkColor = '#{{ .Site.Params.ok }}';
+    var themeNoticeColor = '#{{ .Site.Params.notice }}';
+    var themeDisruptedColor = '#{{ .Site.Params.disrupted }}';
+    var themeDownColor = '#{{ .Site.Params.down }}';
+    </script>
     <!-- Sources -->
     <style>
     /**
      * Color palette
      *
+     * Default:
      * white: #fff;
+     * whitesmoke: #f5f5f5;
      * forestgreen: #228B22;
      * crimson: #DC143C;
      * darkorange: #FF8C00;
@@ -27,29 +36,49 @@
       margin: 0;
       background: #fff;
       color: #444;
-      font: 16px sans-serif;
+      font: 100%/1.5 BlinkMacSystemFont, -apple-system, 'San Francisco Text', Helvetica, Arial, sans-serif;
+      box-sizing: border-box;
+    }
+
+    *, *:before, *:after {
+      box-sizing: inherit;
+    }
+
+    hr {
+      border: 0;
+      border-bottom: 1px solid #dedede;
+      margin: 24px 0;
     }
 
     a {
       text-decoration: none;
-      border-bottom: 0.2px dotted currentColor;
+      color: #000;
+      border-bottom: 1px dotted currentColor;
     }
 
-    a:hover { border-bottom-style: solid; }
+    a.no-underline { border-bottom: 0; }
 
-    h1, h2, h4 {
+    a:hover { border-bottom-style: solid; }
+    a:active { position: relative; top: 2px; }
+
+    h2 { font-size: 26px; }
+    h3 { font-size: 20px; }
+    h4 { font-size: 18px; }
+
+    h2, h4 {
       font-weight: normal;
       color: #000;
     }
 
     h3 {
-      margin-bottom: 0;
+      margin: 0;
       color: #000;
     }
 
-    h4 {
-      margin-top: 0;
-      color: #999;
+    .date {
+      margin-bottom: 0;
+      color: #666;
+      font-variant: small-caps;
     }
 
     .faded {
@@ -58,12 +87,17 @@
 
     .header {
       padding: 16px;
+    }
+
+    .header a {
       color: #fff;
+      font-size: 24px;
+      font-variant: small-caps;
     }
 
     img {
-      height: 16px;
-      padding: 4px;
+      width: 100%;
+      height: auto;
     }
 
     .contain {
@@ -72,96 +106,79 @@
       padding: 16px;
     }
 
-    .summary {
-      border: 2px solid #fff;
+    .contain--more {
+      max-width: 480px;
     }
 
-    .summary .tldr {
+    .center { text-align: center; }
+    .padding { padding: 12px; }
+
+    .summary {
       padding: 16px;
       color: #fff;
     }
 
+    .summary__date {
+      display: block;
+      cursor: pointer;
+    }
+
+    .summary__date:hover {
+      color: #{{ .Site.Params.faded }};
+    }
+
+    .summary__date:hover:after {
+      content: ' ⟳ ';
+      color: #fff;
+    }
+
     .components {
-      border: 2px solid #ccc;
+      border: 2px solid #{{ .Site.Params.border }};
       border-bottom: 0;
     }
 
     .component {
       color: #000;
       padding: 16px;
-      border-bottom: 2px solid #ccc;
+      border-bottom: 2px solid #{{ .Site.Params.border }};
     }
 
-    .ping.testing {
-      color: #dcdcdc;
-      font-style: italic;
-    }
-
-    .ping.done {
-      color: #aaa;
-    }
-
-    .error {
-      color: #DC143C;
-    }
-
-    /* .component:before {
-      content: '[+]';
-      opacity: 0.4;
-      cursor: pointer;
-    } */
-
-    .close {
-      float: right;
-    }
-
-    .subscribe, .status {
-      display: block;
-    }
-
-    .subscribe {
-      margin: 8px 0;
-    }
-
-    button, .close {
-      cursor: pointer;
-    }
-
-    .subscriber-box.active {
-      display: block;
-    }
-
-    .subscriber-box {
-      display: none;
-      background: #fff;
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      z-index: 1;
-      overflow-y: scroll;
-    }
-
-    .subscriber-box--header {
-      color: #000;
-      border-bottom: 1px solid #aaa;
-    }
+    .ok { color: #{{ .Site.Params.ok }}; }
+    .error { color: #{{ .Site.Params.down }}; }
 
     .footer {
-      padding: 64px;
-      background: #F0F0F0;
-      text-align: center;
+      margin-top: 64px;
+      padding: 20px 0;
+      background: #f5f5f5;
     }
 
     .copyright {
       display: block;
       font-variant: small-caps;
-      text-align: center;
     }
 
     .copyright a, a.logo {
       border-bottom: 0;
+    }
+
+    .logo img {
+      height: auto;
+      width: 100%;
+    }
+
+    .logo--small img {
+      height: 32px;
+      width: auto;
+    }
+
+    .article h3 a { border: 0; }
+
+    .marker {
+      text-transform: uppercase;
+      font-size: smaller;
+      padding: 2px 8px;
+      padding-right: 4px;
+      border: 2px solid #{{ .Site.Params.border }};
     }
 
 
@@ -169,36 +186,35 @@
      * Specific to the status
      */
 
-    .header.ok, .tldr.ok { background: #228B22; }
-    .header.disrupted, .tldr.disrupted { background: #FF8C00; }
-    .header.down, .tldr.down { background: #DC143C; }
-    .header.notice, .tldr.notice { background: #708090; }
+    .status-ok .summary, .status-ok .header { background: #{{ .Site.Params.ok }}; }
+    .status-disrupted .summary, .status-disrupted .header { background: #{{ .Site.Params.disrupted }}; }
+    .status-down .summary, .status-down .header { background: #{{ .Site.Params.down }}; }
+    .status-notice .summary, .status-notice .header { background: #{{ .Site.Params.notice }}; }
 
-    .summary.ok { border-color: #228B22; }
-    .summary.disrupted { border-color: #FF8C00; }
-    .summary.down { border-color: #DC143C; }
-    .summary.notice { border-color: #708090; }
-
+    .marker-ok { background: #{{ .Site.Params.ok }}; }
+    .marker-disrupted { background: #{{ .Site.Params.disrupted }}; }
+    .marker-down { background: #{{ .Site.Params.down }}; }
+    .marker-notice { background: #{{ .Site.Params.notice }}; }
 
 
     /**
      * Dynamically show individual component statuses
      */
 
-    .component:after { float: right; }
-    .component[data-status="ok"]:after { content: "Operational"; color: #228B22; }
-    .component[data-status="disrupted"]:after { content: "Disrupted"; color: #FF8C00; }
-    .component[data-status="down"]:after { content: "Down"; color: #DC143C; }
-    .component[data-status="notice"]:after { content: "Maintenance"; color: #708090; }
+    .component-status { float: right; }
+    .component[data-status="ok"] .component-status { color: #{{ .Site.Params.ok }};; }
+    .component[data-status="disrupted"] .component-status { color: #{{ .Site.Params.disrupted }};; }
+    .component[data-status="down"] .component-status { color: #{{ .Site.Params.down }};; }
+    .component[data-status="notice"] .component-status { color: #{{ .Site.Params.notice }};; }
 
     /**
-     * Extend to desktops
+     * Responsiveness
      */
 
-    @media (min-width: 560px) {
-      .status, .subscribe {
+    @media (min-width: 640px) {
+      .summary__date {
         float: right;
-        display: inline-block;
+        display: inline;
       }
     }
     </style>
