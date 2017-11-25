@@ -42,13 +42,13 @@ git init;
 mkdir -p content/issues, themes, static;
 
 # 3. We get the config file
-curl -o config.yml https://cdn.rawgit.com/mistermantas/cstate/4bc81871/config-example.yml;
+curl -o config.yml https://cdn.rawgit.com/mistermantas/cstate/master/config-example.yml;
 
 # 4. Download cState
 cd themes; git submodule add https://github.com/mistermantas/cstate;
 
 # 5. Last off, start the server locally
-hugo serve
+cd ../; hugo serve;
 ```
 
 And that is it; you have set up cState locally.
