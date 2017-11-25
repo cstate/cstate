@@ -72,8 +72,12 @@
     <div class="contain">
       <h2 class="center">Incident history</h2>
 
-      {{ range first 10 .Data.Pages }}
-        {{ .Render "issue" }}
+      {{ if not .Data.Pages }}
+        <p class="center">Looks like we do not have any incidents logged.</p>
+      {{ else }}
+        {{ range first 10 .Data.Pages }}
+          {{ .Render "issue" }}
+        {{ end }}
       {{ end }}
     </div>
 
