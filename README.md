@@ -34,11 +34,12 @@ For this tutorial, it is assumed that you have Hugo and Git installed (check wit
 **This does not seem to work in one go on PowerShell, so enter each command individually.**
 
 ```bash
-# !. First off, we initialize the Git repository
+# 1. First off, we initialize the Git repository
+# !: If you already have one, skip this step
 git init;
 
 # 2. Then this creates all the necessary directories
-mkdir -p content/issues themes static;
+mkdir -p content/issues, themes, static;
 
 # 3. We get the config file
 curl -o config.yml https://cdn.rawgit.com/mistermantas/cstate/4bc81871/config-example.yml;
