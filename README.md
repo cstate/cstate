@@ -27,7 +27,13 @@
 
 ## Install
 
-We encourage you to use [Netlify](https://www.netlify.com) for cState. The build command is `hugo` and your site is compiled to `public`.
+We encourage you to use [Netlify](https://www.netlify.com) for cState. These are the following options you need to change in deploy settings:
+
++ Build command: **hugo**
++ Publish directory: **public**
++ Add one build enviroment variable
+  + Key: **HUGO_VERSION**
+  + Value: **0.31**
 
 For this tutorial, it is assumed that you have Hugo and Git installed (check with `hugo version` & `git --version`).
 
@@ -38,7 +44,9 @@ For this tutorial, it is assumed that you have Hugo and Git installed (check wit
 # !: If you already have one, skip this step
 git init;
 
+# !: THIS ONLY WORKS ON BASH, USE THE 2ND COMMAND FOR POWERSHELL
 # 2. Then this creates all the necessary directories
+mkdir -p content/issues themes static;
 mkdir -p content/issues, themes, static;
 
 # 3. We get the config file
@@ -55,7 +63,7 @@ And that is it; you have set up cState locally.
 
 Now is a good time to make cState look the way you want it to, so upload a favicon (and logo) to `/static/`. Edit `config.yml` to fit your needs. And so on, and so forth.
 
-**Do not change any files in the `themes` directory or its subdirectories. Everything is handled automatically by Git.**
+**Do not change any files in the `themes` directory or its subdirectories. Everything is handled automatically by Git. If the content or static directories are empty, create at least one file in them (such as `gitkeep.txt`) to make sure Git picks them up.**
 
 To make the status page public, you will need to connect to a remote GitHub repository much like this:
 
@@ -74,6 +82,22 @@ git push -u origin master
 ```
 
 For an example of a working status page, see [rabbitnode/status](https://github.com/rabbitnode/status).
+
+## Updating
+
+From your root directory, enter these 2 commands:
+
+```bash
+# 1. Fetch submodules
+git submodule update --init --recursive;
+
+# 2. Now pull the changes
+git submodule foreach git pull origin master  
+```
+
+You may also need to update the build enviroment variable **HUGO_VERSION** if you are using Netlify to [the latest equivelant](https://github.com/gohugoio/hugo/releases).
+
+You can [read more on git-scm.com](https://git-scm.com/book/en/v2/Git-Tools-Submodules) about submodules.
 
 ## FAQ
 
