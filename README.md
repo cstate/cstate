@@ -6,7 +6,7 @@
 
 > The fastest and most efficient status page on the market, beating even paid solutions. cState has outstanding browser support (IE8+) and can easily be managed with GitHub Pages or Netlify. Ready for production.
 
-[**See real-world example**](https://status.rabbitnode.com)
+[**See real-world example**](https://rabbitnodestatus.netlify.com/)
 
 ## Contents
 
