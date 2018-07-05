@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>cState Admin</title>
-  <link rel="stylesheet" href="https://unpkg.com/netlify-cms@^0.7.0/dist/cms.css" />
+  <title>{{ .Site.Title }} | cState Admin</title>
+  <link rel="stylesheet" href="https://unpkg.com/netlify-cms@~1.1/dist/cms.css" />
 </head>
 <body>
   <!--
@@ -15,6 +15,8 @@
   /admin/ directory.
   -->
 
-  <script src="https://unpkg.com/netlify-cms@^0.7.0/dist/cms.js"></script>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script src="https://unpkg.com/netlify-cms@~1.9/dist/cms.js"></script>
+
 </body>
 </html>

@@ -1,0 +1,65 @@
+{{ partial "meta" . }}
+
+{{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
+{{ $active := where $incidents "Params.resolved" "=" false }}
+
+{{ $isNotice := where $active "Params.severity" "=" "notice" }}
+{{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}
+{{ $isDown := where $active "Params.severity" "=" "down" }}
+
+  <body class="uptime status-{{ if $isDown }}down{{ else }}{{ if $isDisrupted}}disrupted{{ else }}{{ if $isNotice }}notice{{ else }}ok{{ end }}{{ end }}{{ end }} {{ if not .Site.Params.alwaysKeepBrandColor }}change-header-color{{ end }}">
+    {{ partial "header" . }}
+
+    <div class="padding"></div>
+
+    <div class="tabs">
+      <div class="contain tabs--inner">
+        <a href="/" class="tab tab--other">
+          Incidents
+        </a>
+        <a href="/stats" class="tab tab--current">
+          Uptime
+        </a>
+      </div>
+    </div>
+
+    {{ if not $active }}
+    <div class="contain">
+      <!-- still counting ALL the things -->
+      {{ $inactive := where $incidents "Params.resolved" "=" true }}
+
+      {{ range $inactive }}
+        {{ $t := (time .Params.ResolvedWhen) }}
+        {{ $timeDiff := (sub $t.Unix .Date.Unix) }}
+        {{ $diffInMin := (div $timeDiff 60) }}
+
+        {{ $.Scratch.Add "rackedUpDowntime" $timeDiff }}
+      {{ end }}
+      {{ $scratchValue := $.Scratch.Get "rackedUpDowntime" }}
+      <div class="stat">
+        {{ if gt $scratchValue 3600 }}
+          {{ $minutesForCalc := (mod (div $scratchValue 60) 60) }}
+
+          {{ div (sub (div $scratchValue 60) $minutesForCalc) 60 }}h
+          {{ $minutesForCalc }}m
+        {{ else }}
+          {{ $secsForCalc := (mod $scratchValue 60) }}
+
+          {{ div (sub $scratchValue $secsForCalc) 60 }}m
+          {{ $secsForCalc }}s
+        {{ end }} of downtime so far
+        <hr>
+      </div>
+      <p>
+        There have been {{ len $incidents }} incidents in total so far.
+        In total, this added up to {{ $scratchValue }}s (or {{ div $scratchValue 60 }} min) of downtime. Please note that the uptime  statistics only counts resolved incidents, ongoing incidents are not included in these calculations.
+      </p>
+    </div>
+    {{ else }}
+    <div class="contain">
+      <p>Uptime stats are not available during an outage. Sorry!</p>
+    </div>
+    {{ end }}
+
+{{ partial "js" . }}
+{{ partial "footer" . }}

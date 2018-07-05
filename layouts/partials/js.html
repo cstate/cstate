@@ -60,3 +60,6 @@
     lastUpdated.innerHTML = 'Last checked ' + timeSince(lastUpdate) + ' ago';
   }, 1000);
 </script>
+{{ with .Site.Params.customJS }}
+<script type="text/javascript" src="{{ . }}"></script>
+{{ end }}

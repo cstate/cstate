@@ -6,24 +6,38 @@
 {{ $isDown := where $active "Params.severity" "=" "down" }}
 
 <div class="article">
-  <span class="marker">
-    {{ .Params.severity }}
-  </span>
-  &nbsp;
-  <small class="date">
-    {{ .Date.Format "January 02, 2006 at 3:04 PM" }}
-  </small>
-  &nbsp;
   {{ if .Params.Resolved }}
-    <span class="ok">✓</span>
+    <span class="ok">✓ Resolved after
+
+      {{ $t := (time .Params.ResolvedWhen) }}
+      {{ $timeDiff := (sub $t.Unix .Date.Unix) }}
+      {{ $diffInMin := (div $timeDiff 60) }}
+
+      {{ if gt $timeDiff 3600 }}
+        {{ $minutesForCalc := (mod $diffInMin 60) }}
+
+        {{ div (sub $diffInMin $minutesForCalc) 60 }}h
+        {{ $minutesForCalc }}m of downtime
+      {{ else }}
+        {{ $secsForCalc := (mod $timeDiff 60) }}
+
+        {{ div (sub $timeDiff $secsForCalc) 60 }}m
+        <!-- {{ $secsForCalc }}s --> of downtime
+      {{ end }}
+    </span>
+  {{ else }}
+    <span class="error">Ongoing, services {{ .Params.severity }}</span>
   {{ end }}
-
-
   <h3>
     <a href="{{ .Permalink }}">{{ .Title }}</a>
   </h3>
+
+  <small class="date">
+    {{ .Date.Format "January 02, 2006 at 3:04 PM" }}
+  </small>
 
   <hr>
 
   {{ .Content }}
 </div>
+<div class="padding"></div>

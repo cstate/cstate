@@ -6,12 +6,13 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Data -->
-    <meta name="description" content="{{ if .Description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
-    <title>{{ .Site.Title }}</title>
+    <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Summary }}{{ end }}">
+    <title>{{ if eq .Title .Site.Title }}{{ .Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
     <link rel="canonical" href="{{ .Permalink }}">
     {{ .Hugo.Generator }}
     <meta name="theme-color" content="#{{ .Site.Params.ok }}">
     <script>
+    var themeBrandColor = '#{{ .Site.Params.brand }}';
     var themeOkColor = '#{{ .Site.Params.ok }}';
     var themeNoticeColor = '#{{ .Site.Params.notice }}';
     var themeDisruptedColor = '#{{ .Site.Params.disrupted }}';
@@ -22,7 +23,7 @@
     /**
      * Color palette
      *
-     * Default:
+     * Defaults:
      * white: #fff;
      * whitesmoke: #f5f5f5;
      * forestgreen: #228B22;
@@ -36,7 +37,7 @@
       margin: 0;
       background: #fff;
       color: #444;
-      font: 100%/1.5 BlinkMacSystemFont, -apple-system, 'San Francisco Text', Helvetica, Arial, sans-serif;
+      font: 100%/1.5 BlinkMacSystemFont, -apple-system, "San Francisco Text", "Roboto", "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";;
       box-sizing: border-box;
     }
 
@@ -46,7 +47,7 @@
 
     hr {
       border: 0;
-      border-bottom: 1px solid #dedede;
+      border-bottom: 1px solid #ccc;
       margin: 24px 0;
     }
 
@@ -64,6 +65,8 @@
     h2 { font-size: 26px; }
     h3 { font-size: 20px; }
     h4 { font-size: 18px; }
+
+    .stat { font-size: 18px; }
 
     h2, h4 {
       font-weight: normal;
@@ -86,16 +89,21 @@
     }
 
     .header {
-      padding: 16px;
+      padding: 8px 0;
+      background: #{{ .Site.Params.brand }};
     }
 
     .header a {
       color: #fff;
-      font-size: 24px;
+      font-size: 14px;
       font-variant: small-caps;
     }
 
+    .header--large { padding: 16px; }
+    .header--large a { font-size: 20px; }
+
     img {
+      border: 0;
       width: 100%;
       height: auto;
     }
@@ -147,8 +155,7 @@
     .error { color: #{{ .Site.Params.down }}; }
 
     .footer {
-      margin-top: 64px;
-      padding: 20px 0;
+      margin-top: 20px;
       background: #f5f5f5;
     }
 
@@ -162,39 +169,68 @@
     }
 
     .logo img {
-      height: auto;
-      width: 100%;
-    }
-
-    .logo--small img {
-      height: 32px;
+      height: 128px;
       width: auto;
     }
 
-    .article h3 a { border: 0; }
-
-    .marker {
-      text-transform: uppercase;
-      font-size: smaller;
-      padding: 2px 8px;
-      padding-right: 4px;
-      border: 2px solid #{{ .Site.Params.border }};
+    .logo--small img {
+      height: 64px;
+      width: auto;
     }
+
+    .tabs { border-bottom: 1px solid #ccc; }
+    .tabs--inner { padding: 0 16px; margin: 0 auto; }
+    a.tab { display: inline-table; }
+    .tab--current {
+      border: 1px solid #ccc;
+      border-bottom-color: #fff;
+      padding: 12px 18px;
+      position: relative;
+      top: 1px;
+    }
+
+    .tab--other {
+      border: 0;
+      padding: 12px 18px;
+      position: relative;
+      top: 1px;
+      color: #aaa;
+    }
+    .tab--other:hover { color: #000; }
+
+    .article {
+      padding-bottom: 20px;
+    }
+
+    .article h3 { line-height: 1.25; }
+    .article h3 a { border: 0; }
+    .article h3 a:hover { border-bottom: 1px solid currentColor; }
 
 
     /**
      * Specific to the status
      */
 
-    .status-ok .summary, .status-ok .header { background: #{{ .Site.Params.ok }}; }
-    .status-disrupted .summary, .status-disrupted .header { background: #{{ .Site.Params.disrupted }}; }
-    .status-down .summary, .status-down .header { background: #{{ .Site.Params.down }}; }
-    .status-notice .summary, .status-notice .header { background: #{{ .Site.Params.notice }}; }
+    .status-ok .summary { background: #{{ .Site.Params.ok }}; }
+    .status-disrupted .summary, .change-header-color.status-disrupted .header { background: #{{ .Site.Params.disrupted }}; }
+    .status-down .summary, .change-header-color.status-down .header { background: #{{ .Site.Params.down }}; }
+    .status-notice .summary, .change-header-color.status-notice .header { background: #{{ .Site.Params.notice }}; }
 
-    .marker-ok { background: #{{ .Site.Params.ok }}; }
-    .marker-disrupted { background: #{{ .Site.Params.disrupted }}; }
-    .marker-down { background: #{{ .Site.Params.down }}; }
-    .marker-notice { background: #{{ .Site.Params.notice }}; }
+    .announcement-box .padding {
+      padding: 16px;
+      border-bottom: 1px solid currentColor;
+    }
+
+    .status-disrupted .announcement-box .padding { border-bottom-color: #{{ .Site.Params.disrupted }}; }
+    .status-down .announcement-box .padding { border-bottom-color: #{{ .Site.Params.down }}; }
+    .status-notice .announcement-box .padding { border-bottom-color: #{{ .Site.Params.notice }}; }
+
+    .status-ok .announcement-box { border: 2px solid #{{ .Site.Params.ok }}; }
+    .status-disrupted .announcement-box { border: 2px solid #{{ .Site.Params.disrupted }}; }
+    .status-down .announcement-box { border: 2px solid #{{ .Site.Params.down }}; }
+    .status-notice .announcement-box { border: 2px solid #{{ .Site.Params.notice }}; }
+
+    .status .announcement-box { border-bottom-width: 1px; }
 
 
     /**
@@ -218,4 +254,7 @@
       }
     }
     </style>
+    {{ with .Site.Params.customCSS }}
+    <link href="{{ . }}" rel="stylesheet">
+    {{ end }}
   </head>

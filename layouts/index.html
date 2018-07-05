@@ -1,4 +1,5 @@
 {{ partial "meta" . }}
+
 {{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
 {{ $active := where $incidents "Params.resolved" "=" false }}
 
@@ -6,18 +7,8 @@
 {{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}
 {{ $isDown := where $active "Params.severity" "=" "down" }}
 
-  <body class="status-{{ if $isDown }}down{{ else }}{{ if $isDisrupted}}disrupted{{ else }}{{ if $isNotice }}notice{{ else }}ok{{ end }}{{ end }}{{ end }}">
-    <div class="header">
-      <div class="contain contain--more center">
-        <a href="/" class="logo">
-          {{ if .Site.Params.useLogo }}
-            <h1><img src="{{ .Site.Params.logo }}" alt="{{ .Site.Title }}"></h1>
-              {{ else }}
-            <h1>{{ .Site.Title }}</h1>
-          {{ end }}
-        </a>
-      </div>
-    </div>
+  <body class="status status-{{ if $isDown }}down{{ else }}{{ if $isDisrupted}}disrupted{{ else }}{{ if $isNotice }}notice{{ else }}ok{{ end }}{{ end }}{{ end }} {{ if not .Site.Params.alwaysKeepBrandColor }}change-header-color{{ end }}">
+    {{ partial "header" . }}
 
     <!-- Main -->
     <div class="contain">
@@ -32,7 +23,7 @@
           {{ if $isDown }}
             Experiencing major issues
           {{ else }}
-          {{ if $isDisrupted}}
+          {{ if $isDisrupted }}
             Experiencing disruptions
           {{ else }}
           {{ if $isNotice }}
@@ -42,47 +33,80 @@
           {{ end }}{{ end }}{{ end }}
         </strong>
 
-        <span class="status summary__date" onclick="location.reload()"></span>
-      </div>
+          <span class="status summary__date" onclick="location.reload()"></span>
+        </div>
 
-      {{ range $active }}
-      <div class="padding"></div>
-        <small class="date">{{ .Date.Format "January 02, 2006 at 3:04 PM" }}</small><br>
-        <strong class="faded">{{ .Title }}</strong>
-        {{ .Content }}
-      <div class="padding"></div>
-      {{ else }}{{ end }}
+      {{ if $active }}
+      <div class="announcement-box">
+        {{ range $active }}
+          <div class="padding">
+            <p><strong>{{ .Title }}</strong></p>
+            {{ .Content }}
+          </div>
+        {{ else }}{{ end }}
+      </div>
+      {{ end }}
+
 
       <!-- Individual info -->
-      {{ if not $active }}
       <div class="padding"></div>
       <div class="components">
         {{ $systems := .Site.Params.systems }}
         {{ range $index, $systems }}
-          <div class="component" data-status="ok">
+          {{ $activeComponentIssues := where $active "Params.affected" "intersect" (slice .) }}
+
+          {{ $thisIsNotice := where $activeComponentIssues "Params.severity" "=" "notice" }}
+          {{ $thisIsDisrupted := where $activeComponentIssues "Params.severity" "=" "disrupted" }}
+          {{ $thisIsDown := where $activeComponentIssues "Params.severity" "=" "down" }}
+
+          <div class="component" data-status="{{ if $thisIsDown }}down{{ else }}{{ if $thisIsDisrupted }}disrupted{{ else }}{{ if $thisIsNotice }}notice{{ else }}ok{{ end }}{{ end }}{{ end }}">
+            {{ $this := . }}
             {{ . }}
-            <span class="component-status">Operational</span>
+            <span class="component-status">
+              {{ if $thisIsDown }}
+                Down
+              {{ else }}
+              {{ if $thisIsDisrupted }}
+                Disrupted
+              {{ else }}
+              {{ if $thisIsNotice }}
+                Maintenance
+              {{ else }}
+                Operational
+              {{ end }}{{ end }}{{ end }}
+            </span>
           </div>
         {{ end }}
       </div>
-      {{ end }}
 
     <!-- End main -->
-  </div><div class="padding"></div><hr>
+  </div>
 
-    <div class="contain">
-      <h2 class="center">Incident history</h2>
 
-      {{ if not .Data.Pages }}
-        <p class="center">Looks like we do not have any incidents logged.</p>
-      {{ else }}
-        {{ range first 10 .Data.Pages }}
-          {{ .Render "issue" }}
-        {{ end }}
-      {{ end }}
+  <div class="tabs">
+    <div class="contain tabs--inner">
+      <a href="#incidents" class="tab tab--current">
+        Incidents
+      </a>
+      <a href="/stats" class="tab tab--other">
+        Uptime
+      </a>
     </div>
+  </div>
 
-    {{ partial "js" . }}
-    {{ partial "footer" . }}
+
+  <div class="contain">
+    <div class="padding"></div>
+    {{ if not .Data.Pages }}
+      <p class="center">Looks like we do not have any incidents logged.</p>
+    {{ else }}
+      {{ range .Data.Pages }}
+        {{ .Render "issue" }}
+      {{ end }}
+    {{ end }}
+  </div>
+
+  {{ partial "js" . }}
+  {{ partial "footer" . }}
   </body>
 </html>

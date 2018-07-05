@@ -1,6 +1,6 @@
 # Code of Conduct
 
-> TL;DR is to be a good, sensible person. It does not matter who you are.
+> TL;DR is to be a good, sensible person. It does not matter who you are, this rule applies to _everybody_.
 
 This community as a whole, much like others, is made up of a mixture of professionals and volunteers from all over the world, working on every aspect of the project at hand. Diversity can be a strength, but it can also lead to communication issues and unhappiness. To that end, we have a few ground rules that we ask people to adhere to. This code applies to all spaces managed by the project creators equally.
 

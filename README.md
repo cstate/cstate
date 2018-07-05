@@ -1,17 +1,20 @@
 # cState
 
-[![GitHub last commit](https://img.shields.io/github/last-commit/mistermantas/cstate.svg?style=flat-square)](https://github.com/mistermantas/cstate/commits/master)
-[![GitHub repo size in bytes](https://img.shields.io/github/repo-size/mistermantas/cstate.svg?style=flat-square)](https://github.com/mistermantas/cstate/tree/master/)
-[![Discord](https://img.shields.io/badge/discord-join%20chat-7289DA.svg?style=flat-square)](http://discord.io/choraleapp)  [![Twitter](https://img.shields.io/twitter/follow/mistermantas.svg?style=social&label=Follow)](https://twitter.com/mistermantas)
+[![GitHub release](https://img.shields.io/github/release/mistermantas/cstate.svg?style=flat-square)](https://github.com/mistermantas/cstate/releases) [![GitHub last commit](https://img.shields.io/github/last-commit/mistermantas/cstate.svg?style=flat-square)](https://github.com/mistermantas/cstate/commits/master) [![GitHub repo size in bytes](https://img.shields.io/github/repo-size/mistermantas/cstate.svg?style=flat-square)](https://github.com/mistermantas/cstate/tree/master/) [![Gitter](https://img.shields.io/badge/chat-gitter-ed1965.svg?style=flat-square)](https://gitter.im/cState/Lobby) [![Twitter](https://img.shields.io/twitter/follow/mistermantas.svg?style=social&label=Follow)](https://twitter.com/mistermantas)
 
-> The fastest and most efficient status page on the market, beating even paid solutions. cState has outstanding browser support (IE8+) and can easily be managed with GitHub Pages or Netlify. Ready for production.
+> Über fast, backwards compatible (IE8+), tiny, and simple status page built with Hugo. Compatible with Netlify & GitHub Pages.
 
-[**See real-world example**](https://rabbitnodestatus.netlify.com/)
+*This release is a developer preview.*
+
+[**Live demo**](https://cstate.netlify.com)
 
 ## Contents
 
 + [Features](#features)
-+ [Install](#install)
++ Getting started
+  + [Production](#production)
+  + [Development](#development)
+  + [Updating](#updating)
 + [FAQ](#faq)
 + [Contribute](#contribute)
 + [License](#license)
@@ -19,124 +22,120 @@
 ## Features
 
 + Built with [Hugo](https://gohugo.io), a hyperfast Golang generator
-+ Works not just on mobile browsers, but also on archaic browsers like Internet Explorer 8
++ Works not just on mobile, but also on the archaic Internet Explorer 8
 + Comes with a simple, focused, and extremely light design
-+ Edit your status page just from the config file
-+ Comes pre-equipped with Netlify CMS for quick updates
++ Edit your status page from a simple config file
++ Comes pre-equipped with Netlify CMS for quick admin updates
 + Easy to edit and deploy on Netlify or GitHub Pages
++ Secure, ready for HTTPS, thanks to [JAMstack](https://jamstack.org/)
 
-## Install
+## Getting started
+
+For this tutorial, it is assumed that you have Hugo and Git installed (check with `hugo version` & `git --version`).
+
+#### Production (with Netlify)
 
 We encourage you to use [Netlify](https://www.netlify.com) for cState. These are the following options you need to change in deploy settings:
 
 + Build command: **hugo**
 + Publish directory: **public**
-+ Add one build enviroment variable
++ Add one build environment variable
   + Key: **HUGO_VERSION**
   + Value: **0.31**
 
-For this tutorial, it is assumed that you have Hugo and Git installed (check with `hugo version` & `git --version`).
-
-**This does not seem to work in one go on PowerShell, so enter each command individually.**
-
-```bash
-# 1. First off, we initialize the Git repository
-# !: If you already have one, skip this step
-git init;
-
-# !: THIS ONLY WORKS ON BASH, USE THE 2ND COMMAND FOR POWERSHELL
-# 2. Then this creates all the necessary directories
-mkdir -p content/issues themes static;
-mkdir -p content/issues, themes, static;
-
-# 3. We get the config file
-curl -o config.yml https://cdn.rawgit.com/mistermantas/cstate/master/config-example.yml;
-
-# 4. Download cState
-cd themes; git submodule add https://github.com/mistermantas/cstate;
-
-# 5. Last off, start the server locally
-cd ../; hugo serve;
-```
-
-And that is it; you have set up cState locally.
-
-Now is a good time to make cState look the way you want it to, so upload a favicon (and logo) to `/static/`. Edit `config.yml` to fit your needs. And so on, and so forth.
-
-**Do not change any files in the `themes` directory or its subdirectories. Everything is handled automatically by Git. If the content or static directories are empty, create at least one file in them (such as `gitkeep.txt`) to make sure Git picks them up.**
-
-To make the status page public, you will need to connect to a remote GitHub repository much like this:
+1. Download the contents of the `exampleSite` directory in this repository. This will be your site guts, which will hold the content and configuration for the status page.
+2. Create a `themes` folder and navigate to it on the command line.
 
 ```bash
-# Create a remote origin like this (if you have not already)
-git remote add origin https://github.com/username/example.git
-
-# Add all the files
-git add -A
-
-# Then a message based on your changes
-git commit -m "Testing out cState"
-
-# All done
-git push -u origin master
+mkdir themes; cd themes;
 ```
 
-For an example of a working status page, see [rabbitnode/status](https://github.com/rabbitnode/status).
+3. Now simply add a Git submodule pointing to this repository, like so:
+
+```bash
+git submodule add https://github.com/mistermantas/cstate
+```
+
+4. Set up cState for your liking. It is now ready to be deployed
+
+#### Development
+
+1. Clone this repository in the command line:
+
+```bash
+git clone https://github.com/mistermantas/cstate.git
+```
+
+2. Go to the `exampleSite` folder, like so:
+
+```bash
+cd cstate-master/exampleSite
+```
+
+3. Uncomment this line in `config.yml`:
+
+```yml
+# themesDir: ../..
+```
+
+3. Then try out the site! A link to it will be shown on screen.
+
+```bash
+hugo serve
+```
+
+The main directory is the theme itself (the cState guts, basically) and the `exampleSite` folder houses all content. Use this local setup to experiment before deploying to production!
+
+If you would like to commit/make a PR, make sure that `themesDir` is a comment before trying to merge upstream.
 
 ## Updating
 
-From your root directory, enter these 2 commands:
+Assuming the production install instructions were followed, keep cState updated by having an up to date Git submodule in the `themes` folder. containing this repository. Your content will stay separate, as to avoid any conflicts.
 
 ```bash
-# 1. Fetch submodules
-git submodule update --init --recursive;
-
-# 2. Now pull the changes
-git submodule foreach git pull origin master  
+git submodule update
 ```
-
-You may also need to update the build enviroment variable **HUGO_VERSION** if you are using Netlify to [the latest equivelant](https://github.com/gohugoio/hugo/releases).
-
-You can [read more on git-scm.com](https://git-scm.com/book/en/v2/Git-Tools-Submodules) about submodules.
 
 ## FAQ
 
 ### Where do issues go? What is the frontmatter, how do I define metadata for issues?
 
-Create a file in `content/issues`. The name of the file will be the slug (what shows up in the URL bar). For example, this is what `i-am-an-issue.md` should look like:
+Create a file in `content/issues`. The name of the file will be the slug (what shows up in the URL bar). For example, this is what `major-outage-east-us.md` should look like:
 
 ```md
 ---
-Title: Give your issue a good title
-Description: This description is here merely for metadata purposes and may show up in search results. It may be used as a summary.
-Date: 2017-02-30 14:30
+Title: Major outage in East US
+Date: 2017-02-30 14:30:00
 Resolved: true
+ResolvedWhen: 2017-02-30 16:00:00
 Severity: down
 Affected:
-  - Client Area
+  - API
 Section: post
 ---
 
-Content goes here.
+*Monitoring* - After hitting the ole reboot button Example Chat App is now recovering. We're going to continue to monitor as everyone reconnects. {{< track "2018-04-13 16:50:00" >}}
+
+*Investigating* - We're aware of users experiencing unavailable guilds and issues when attempting to connect. We're currently investigating. {{< track "2018-04-13 15:54:00" >}}
 ```
 
 Time to break that down.
 
 `Title`: This is the one of the most important parts of an incident. *(required)*  
-`Description`: This description is here merely for metadata purposes and may show up in search results. It may be used as a summary.  
-`Date`: An ISO-8601 formatted date. Does not include time zone. *(required)*  
+`Date`: An ISO-8601 formatted date. Does not include time zone. This is when you first discovered the issue. *(required)*  
 `Resolved`: Whether issue should affect overall status. Either `true` or `false`. *(boolean, required)*  
+`ResolvedWhen`: An ISO-8601 formatted date. Does not include time zone. This is when downtime stopped. You may set the time that downtime ended without completely resolving the issue (thus leaving time for monitoring).  
 `Severity`: If an issue is not resolved, it will have an applied severity. There are 3 levels of severity: `notice`, `disrupted`, and `down`. If there are multiple issues, the status page will take the appearance of the more drastic issue (such as `disrupted` instead of `notice`). *(required)*  
 `Affected`. Add the items that were present in the config file which should alter the status of each individual system (component). *(array, required)*  
 `Section`. This must be `issue`, so that Hugo treats it as one. *(required)*  
 
 ### Is there an admin panel or some easy way to change the state of each issue?
 
-If you use [Netlify](https://www.netlify.com), you can expect to see Netlify CMS integration very soon. Otherwise, you could fall back to [prose.io](http://prose.io) or something similiar.
+If you use [Netlify](https://www.netlify.com), you can expect to see Netlify CMS integration very soon. Otherwise, you could fall back to [prose.io](http://prose.io) or something similar.
 
 ### How do I make this work on GitHub Pages?
 
-Compile locally, commit changes, and push them out. We do recommend using [Netlify](https://www.netlify.com), however.
+Compile locally (using production instructions), commit changes, and push them out. Using [Netlify](https://www.netlify.com) is recommended as it simplifies the process.
 
 ### My question was not answered!
 
@@ -146,8 +145,9 @@ This part of the documentation still needs to finished. [Questions](https://gith
 
 + Glance over the [Code of Conduct](/CODE_OF_CONDUCT.md).
 + Before submitting a pull request, create an issue to [discuss the implications of your proposal](https://github.com/mistermantas/cstate/issues).
-+ Write consistent, simple, and readable code. You can [join the Chorale Discord](http://discord.io/choraleapp) to discuss in `#cstate`.
++ Write consistent, simple, readable code and precise documentation.
++ [Join the Gitter chat](http://discord.io/choraleapp) for help or discussion.
 
 ## License
 
-MIT © Mantas Vilčinskas
+[MIT](https://github.com/mistermantas/cstate/blob/master/LICENSE.md) © Mantas Vilčinskas
