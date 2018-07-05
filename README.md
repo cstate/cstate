@@ -1,5 +1,7 @@
 # cState
 
+![Screnshot](https://raw.githubusercontent.com/mistermantas/cstate/master/images/screenshot.png)
+
 [![GitHub release](https://img.shields.io/github/release/mistermantas/cstate.svg?style=flat-square)](https://github.com/mistermantas/cstate/releases) [![GitHub last commit](https://img.shields.io/github/last-commit/mistermantas/cstate.svg?style=flat-square)](https://github.com/mistermantas/cstate/commits/master) [![GitHub repo size in bytes](https://img.shields.io/github/repo-size/mistermantas/cstate.svg?style=flat-square)](https://github.com/mistermantas/cstate/tree/master/) [![Gitter](https://img.shields.io/badge/chat-gitter-ed1965.svg?style=flat-square)](https://gitter.im/cState/Lobby) [![Twitter](https://img.shields.io/twitter/follow/mistermantas.svg?style=social&label=Follow)](https://twitter.com/mistermantas)
 
 > Über fast, backwards compatible (IE8+), tiny, and simple status page built with Hugo. Compatible with Netlify & GitHub Pages.

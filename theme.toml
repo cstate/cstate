@@ -1,7 +1,7 @@
 name = "cstate"
 license = "MIT"
 licenselink = "https://github.com/mistermantas/cstate/blob/master/LICENSE.md"
-description = "The best static, free, and open source status page on the market."
+description = "Über fast, backwards compatible (IE8+), tiny, and simple status page built with Hugo. Compatible with Netlify & GitHub Pages."
 homepage = "https://github.com/mistermantas/cstate"
 tags = ['hugo', 'netlify', 'status', 'statuspage', 'fast', 'light', 'ie8', 'ie9', 'ie10', 'ie11', 'github', 'github-pages', 'gh-pages', 'serverside', 'serverless', 'no-javascript', 'github-page', 'netlify-cms', 'gh-pages']
 min_version = "0.28"
