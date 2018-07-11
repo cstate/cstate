@@ -11,7 +11,15 @@
     {{ partial "header" . }}
 
     <div class="contain">
+      <a href="{{ .Site.BaseURL }}">← Go back</a>
+    </div>
+
+    <div class="contain">
       {{ .Render "issue" }}
     </div>
 
-{{ partial "footer" . }}
+
+    {{ partial "js" . }}
+    {{ partial "footer" . }}
+  </body>
+</html>

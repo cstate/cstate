@@ -36,6 +36,7 @@
         {{ $.Scratch.Add "rackedUpDowntime" $timeDiff }}
       {{ end }}
       {{ $scratchValue := $.Scratch.Get "rackedUpDowntime" }}
+      <noscript>
       <div class="stat">
         {{ if gt $scratchValue 3600 }}
           {{ $minutesForCalc := (mod (div $scratchValue 60) 60) }}
@@ -50,6 +51,26 @@
         {{ end }} of downtime so far
         <hr>
       </div>
+      </noscript>
+      <script>
+      function roundUp(rnum, rlength) {
+        var newnumber = Math.round(rnum * Math.pow(10, rlength)) / Math.pow(10, rlength);
+        return newnumber;
+      }
+
+      var x = (  ((2419200 - {{ $scratchValue }}) / 2419200) * 100  );
+
+      document.write(
+        '<div class="stat">' + roundUp(x, 2) + '% uptime' + '<hr></div>';
+      );
+
+      /*
+      7 week - 604800
+      30 days - 2419200
+      60 days - 4838400
+      90 days - 7257600
+      */
+      </script>
       <p>
         There have been {{ len $incidents }} incidents in total so far.
         In total, this added up to {{ $scratchValue }}s (or {{ div $scratchValue 60 }} min) of downtime. Please note that the uptime  statistics only counts resolved incidents, ongoing incidents are not included in these calculations.

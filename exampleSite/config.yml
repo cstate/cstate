@@ -37,7 +37,7 @@
 
 # What is your status page called?
 # Shows up in the browser bar and meta tags
-title: Example Chat App Status
+title: Example Status
 
 # What language is this page in?
 # Only alters the html[lang] attribute
@@ -58,52 +58,71 @@ baseURL: /
 # +------------------------------------------------------+ #
 ############################################################
 
-# Should posts, which have a publish date
-# from the future, be built? Useful for
-# sharing upcoming maintenance, etc.
-#
-# We recommend to keep this at `true`.
-# BOOLEAN; `true`, `false`
-buildFuture: true
-
 params:
   # These are your systems. Change them to
   # change the amount of components.
+  #
+  # For help, see the wiki:
+  # https://github.com/mistermantas/cstate/wiki/Customization
   systems:
-    #-
-    #  name: Client Area
-    #  codename: panel
-    #-
-    #  name: Minecraft
-    #  codename: mc
-    #-
-    #  name: Web Hosting
-    #  codename: web
-    - Gateway
-    - API
-    - Media Proxy
+    -
+      name: Gateway
+    -
+      name: API
+      description: The guts of the application.
+    -
+      name: Media Proxy
+      description: This is the service responsible for serving images, audio, and video. It is reliant on Fastly.
+  #   partial: custom/metrics
 
   # What header design should we use?
+  #
   # Default: true
   # BOOLEAN; `true`, `false`
   useLargeHeaderDesign: false
 
   # Should we show the logo or the title
   # of the status page?
-  useLogo: false
+  #
+  # Default: false
+  # BOOLEAN; `true`, `false`
+  useLogo: true
 
   # Where is the logo located, if one is
   # present at all?
   #
-  # Recommended: png or jpg for best
-  # browser support!
-  # logo: /logo.png
+  # Recommended: png is best used for
+  # images like logos.
+  #
+  # Recommended: png, bmp, jpg, or gif
+  # for best browser support!
+  logo: /logo.png
 
   # This is the description that is shown
   # in the footer and meta tags.
+  #
+  # Default: We continuously monitor the status of our services and if there are any interruptions, a note will be posted here.
   description: We continuously monitor the status of our services and if there are any interruptions, a note will be posted here.
 
-  # Cplors throughout cState
+  # Tabs on homepage
+  # Uncomment to enable.
+  #
+  # Format:
+  # customTabs:
+  #  -
+  #    name: Name
+  #    link: https://example.com
+
+  # Uptime statistics tab
+  #
+  # Shows link to /stats
+  # (uptime stats)
+  #
+  # Default: true
+  # BOOLEAN; `true`, `false`
+  showUptime: true
+
+  # Colors throughout cState
   #
   # Defaults:
   #
@@ -117,8 +136,6 @@ params:
   disrupted: FF8C00
   down: DC143C
   notice: 708090
-  border: dfdfdf
-  faded: ccc
 
   # If the status page shows that
   # there are disruptions or outages
@@ -131,37 +148,20 @@ params:
   # BOOLEAN; `true`, `false`
   alwaysKeepBrandColor: true
 
-############################################################
-# +------------------------------------------------------+ #
-# |                    Developer                         | #
-# +------------------------------------------------------+ #
-############################################################
-
-  # Custom CSS file
-  # If you want to add any
-  # custom styling, you may
-  # link to one file with all
-  # your modifications here.
+  # Google Analytics tracking code
   #
-  # This has *intentionally*
-  # been left uncommented,
-  # as it is not an advanced
-  # feature for developers.
+  # By default, cState does not use
+  # Google Analytics. If you choose
+  # to use it, you may change the
+  # placeholder code below to your
+  # own and thereby enable the
+  # tracking service.
   #
-  # customCSS: /custom.css
-
-  # Custom JavaScript file
-  # If you want to add any
-  # custom scripting, you may
-  # link to one file with all
-  # your modifications here.
+  # To disable the analytics, change
+  # the value to the default:
   #
-  # This has *intentionally*
-  # been left uncommented,
-  # as it is not an advanced
-  # feature for developers.
-  #
-  # customJS: /custom.js
+  # Default: UA-00000000-1
+  googleAnalytics: UA-00000000-1
 
 ############################################################
 # +------------------------------------------------------+ #
@@ -169,13 +169,21 @@ params:
 # +------------------------------------------------------+ #
 ############################################################
 
+# Should posts, which have a publish date
+# from the future, be built? Useful for
+# sharing upcoming maintenance, etc.
+#
+# We recommend to keep this at `true`.
+# BOOLEAN; `true`, `false`
+buildFuture: true
+
 # These options affect the core of cState.
 # Please do not change them if you do not
 # know what you are doing.
-theme: cstate
+theme: cstate-dev
 
 # If you are developing locally and want
 # to contribute to the cState Git repo,
 # please uncomment this option but do not
 # forget to re-comment it when
-# themesDir: ../..
+themesDir: ../..

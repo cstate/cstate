@@ -18,48 +18,150 @@
   } else {
     document.querySelector('meta[name=theme-color]').setAttribute('content', themeNoticeColor);
   }
+</script>
 
-
+<!--
+<script>
   /**
    * Check for internet
    */
 
-  var lastUpdated = document.querySelector('.summary__date');
-  var lastUpdate = new Date();
-
-  function timeSince(date) {
-    var seconds = Math.floor((new Date() - date) / 1000);
-
-    var interval = Math.floor(seconds / 31536000);
-
-    if (interval > 1) {
-      return interval + ' years';
-    }
-    interval = Math.floor(seconds / 2592000);
-    if (interval > 1) {
-      return interval + ' months';
-    }
-    interval = Math.floor(seconds / 86400);
-    if (interval > 1) {
-      return interval + 'd';
-    }
-    interval = Math.floor(seconds / 3600);
-    if (interval > 1) {
-      return interval + 'h';
-    }
-    interval = Math.floor(seconds / 60);
-    if (interval > 1) {
-      return interval + 'min';
-    }
-    return Math.floor(seconds) + 's';
+  function hasClass(element, className) {
+    return (' ' + element.className + ' ').indexOf(' ' + className+ ' ') > -1;
   }
-  var aDay = 24*60*60*1000;
+
+  if (hasClass(document.querySelector('body'), 'status-homepage')) {
+    var lastUpdated = document.querySelector('.summary__date');
+    var lastUpdate = new Date();
+
+    function timeSince(date) {
+      var seconds = Math.floor((new Date() - date) / 1000);
+
+      var interval = Math.floor(seconds / 31536000);
+
+      if (interval > 1) {
+        return interval + ' years';
+      }
+      interval = Math.floor(seconds / 2592000);
+      if (interval > 1) {
+        return interval + ' months';
+      }
+      interval = Math.floor(seconds / 86400);
+      if (interval > 1) {
+        return interval + 'd';
+      }
+      interval = Math.floor(seconds / 3600);
+      if (interval > 1) {
+        return interval + 'h';
+      }
+      interval = Math.floor(seconds / 60);
+      if (interval > 1) {
+        return interval + ' min';
+      }
+      return Math.floor(seconds) + 's';
+    }
+    var aDay = 24*60*60*1000;
+  }
+
+  function checkCurrentStatus() {
+    // Check for each status
+    if (hasClass(document.querySelector('body'), 'status-ok')) {
+      window.currentState = 'Operational';
+    }
+    if (hasClass(document.querySelector('body'), 'status-disrupted')) {
+      window.currentState = 'Disrupted';
+    }
+    if (hasClass(document.querySelector('body'), 'status-down')) {
+      window.currentState = 'Down';
+    }
+    if (hasClass(document.querySelector('body'), 'status-notice')) {
+      window.currentState = 'Maintenance';
+    }
+  }
+  checkCurrentStatus();
+
+  // Set for first time use
+  if (typeof(Storage) !== 'undefined') {
+    window.sessionStorage.setItem('priorState', currentState);
+  }
 
   // Show second by second updates
   window.setInterval(function() {
-    lastUpdated.innerHTML = 'Last checked ' + timeSince(lastUpdate) + ' ago';
+    if (hasClass(document.querySelector('body'), 'status-homepage')) {
+      lastUpdated.innerHTML = 'Last checked ' + timeSince(lastUpdate) + ' ago';
+    }
+
+    checkCurrentStatus();
+
+    if (typeof(Storage) !== "undefined") {
+      if (window.sessionStorage.getItem('priorState') !== currentState) {
+        displayNotification('Status changed from ' + window.sessionStorage.getItem('priorState') + ' to ' + currentState);
+      }
+
+      window.sessionStorage.setItem('priorState', currentState);
+    } else {
+      console.log('UNSUPPORTED - SMART NOTIFICATIONS');
+    }
   }, 1000);
+
+
+  /**
+   * Modern browser shiz
+   */
+
+  if (navigator.serviceWorker) {
+    console.log('Service Worker and Push is supported');
+
+    navigator.serviceWorker.register('sw.js')
+    .then(function(swReg) {
+      console.log('Service Worker is registered', swReg);
+
+      swRegistration = swReg;
+    })
+    .catch(function(error) {
+      console.error('Service Worker Error', error);
+    });
+  } else {
+    console.log('Push messaging is not supported');
+  }
+
+
+  Notification.requestPermission(function(status) {
+    console.log('Notification permission status:', status);
+  });
+
+
+  function displayNotification(title, body) {
+    if (Notification.permission == 'granted') {
+      navigator.serviceWorker.getRegistration().then(function(reg) {
+        var options = {
+          body: body,
+          icon: '/favicon.png',
+          vibrate: [100, 50, 100],
+          data: {
+            dateOfArrival: Date.now(),
+            primaryKey: 1
+          },
+          actions: [
+            {action: 'view', title: 'View incident'},
+            {action: 'close', title: 'Dismiss'},
+          ]
+        };
+        reg.showNotification(title, options);
+      });
+    }
+  }
 </script>
-{{ with .Site.Params.customJS }}
-<script type="text/javascript" src="{{ . }}"></script>
+-->
+
+{{ if ne .Site.Params.googleAnalytics "UA-00000000-1" }}
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script type="text/javascript" defer src="https://www.googletagmanager.com/gtag/js?id=UA-109775664-1"></script>
+  <script type="text/javascript" defer>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', '{{ .Site.Params.googleAnalytics }}');
+  </script>
 {{ end }}

@@ -1,0 +1,14 @@
+[build]
+    command = "hugo"
+    publish = "public"
+    functions = "functions"
+
+[build.environment]
+    HUGO_VERSION = "0.41"
+
+[context.production.environment]
+    HUGO_ENV = "production"
+    NODE_ENV = "production"
+
+[context.deploy-preview]
+    command = "hugo"

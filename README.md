@@ -1,14 +1,17 @@
-# cState
 
-![Screnshot](https://raw.githubusercontent.com/mistermantas/cstate/master/images/screenshot.png)
+<p style="text-align:center">
+
+![cState](https://raw.githubusercontent.com/mistermantas/cstate/master/images/highlight.png)
 
 [![GitHub release](https://img.shields.io/github/release/mistermantas/cstate.svg?style=flat-square)](https://github.com/mistermantas/cstate/releases) [![GitHub last commit](https://img.shields.io/github/last-commit/mistermantas/cstate.svg?style=flat-square)](https://github.com/mistermantas/cstate/commits/master) [![GitHub repo size in bytes](https://img.shields.io/github/repo-size/mistermantas/cstate.svg?style=flat-square)](https://github.com/mistermantas/cstate/tree/master/) [![Gitter](https://img.shields.io/badge/chat-gitter-ed1965.svg?style=flat-square)](https://gitter.im/cState/Lobby) [![Twitter](https://img.shields.io/twitter/follow/mistermantas.svg?style=social&label=Follow)](https://twitter.com/mistermantas)
+
+</p>
 
 > Über fast, backwards compatible (IE8+), tiny, and simple status page built with Hugo. Compatible with Netlify & GitHub Pages.
 
 *This release is a developer preview.*
 
-[**Live demo**](https://cstate.netlify.com)
+[**Live demo**](https://themes.gohugo.io/theme/cstate/)
 
 ## Contents
 
@@ -130,18 +133,6 @@ Time to break that down.
 `Severity`: If an issue is not resolved, it will have an applied severity. There are 3 levels of severity: `notice`, `disrupted`, and `down`. If there are multiple issues, the status page will take the appearance of the more drastic issue (such as `disrupted` instead of `notice`). *(required)*  
 `Affected`. Add the items that were present in the config file which should alter the status of each individual system (component). *(array, required)*  
 `Section`. This must be `issue`, so that Hugo treats it as one. *(required)*  
-
-### Is there an admin panel or some easy way to change the state of each issue?
-
-If you use [Netlify](https://www.netlify.com), you can expect to see Netlify CMS integration very soon. Otherwise, you could fall back to [prose.io](http://prose.io) or something similar.
-
-### How do I make this work on GitHub Pages?
-
-Compile locally (using production instructions), commit changes, and push them out. Using [Netlify](https://www.netlify.com) is recommended as it simplifies the process.
-
-### My question was not answered!
-
-This part of the documentation still needs to finished. [Questions](https://github.com/mistermantas/cstate/issues) are more than welcome and you should get a pretty fast response as well.
 
 ## Contribute
 

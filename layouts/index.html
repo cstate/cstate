@@ -7,7 +7,7 @@
 {{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}
 {{ $isDown := where $active "Params.severity" "=" "down" }}
 
-  <body class="status status-{{ if $isDown }}down{{ else }}{{ if $isDisrupted}}disrupted{{ else }}{{ if $isNotice }}notice{{ else }}ok{{ end }}{{ end }}{{ end }} {{ if not .Site.Params.alwaysKeepBrandColor }}change-header-color{{ end }}">
+  <body class="status-homepage status-{{ if $isDown }}down{{ else }}{{ if $isDisrupted}}disrupted{{ else }}{{ if $isNotice }}notice{{ else }}ok{{ end }}{{ end }}{{ end }} {{ if not .Site.Params.alwaysKeepBrandColor }}change-header-color{{ end }}">
     {{ partial "header" . }}
 
     <!-- Main -->
@@ -33,15 +33,16 @@
           {{ end }}{{ end }}{{ end }}
         </strong>
 
-          <span class="status summary__date" onclick="location.reload()"></span>
-        </div>
+        <span class="summary__date" onclick="location.reload()"></span>
+      </div>
 
       {{ if $active }}
       <div class="announcement-box">
         {{ range $active }}
           <div class="padding">
             <p><strong>{{ .Title }}</strong></p>
-            {{ .Content }}
+            {{ .Content | safeHTML | truncate 500 "…" }}
+            <p><a href="{{ .Permalink }}">Continue reading</a></p>
           </div>
         {{ else }}{{ end }}
       </div>
@@ -53,15 +54,26 @@
       <div class="components">
         {{ $systems := .Site.Params.systems }}
         {{ range $index, $systems }}
-          {{ $activeComponentIssues := where $active "Params.affected" "intersect" (slice .) }}
+          {{ $activeComponentIssues := where $active "Params.affected" "intersect" (slice .name) }}
 
           {{ $thisIsNotice := where $activeComponentIssues "Params.severity" "=" "notice" }}
           {{ $thisIsDisrupted := where $activeComponentIssues "Params.severity" "=" "disrupted" }}
           {{ $thisIsDown := where $activeComponentIssues "Params.severity" "=" "down" }}
 
           <div class="component" data-status="{{ if $thisIsDown }}down{{ else }}{{ if $thisIsDisrupted }}disrupted{{ else }}{{ if $thisIsNotice }}notice{{ else }}ok{{ end }}{{ end }}{{ end }}">
-            {{ $this := . }}
-            {{ . }}
+            {{ $this := .name }}
+            {{ .name }}
+
+            {{ with .description }}
+              <span class="description">
+                &nbsp; <span class="faded">(?)</span>
+
+                <span class="description__text">
+                  {{ . }}
+                </span>
+              </span>
+            {{ end }}
+
             <span class="component-status">
               {{ if $thisIsDown }}
                 Down
@@ -75,6 +87,12 @@
                 Operational
               {{ end }}{{ end }}{{ end }}
             </span>
+
+            {{ with .partial }}
+            <div>
+              {{ partial . . }}
+            </div>
+            {{ end }}
           </div>
         {{ end }}
       </div>
@@ -88,9 +106,17 @@
       <a href="#incidents" class="tab tab--current">
         Incidents
       </a>
+      {{ if .Site.Params.showUptime }}
       <a href="/stats" class="tab tab--other">
         Uptime
       </a>
+      {{ end }}
+
+      {{ range .Site.Params.customTabs }}
+       <a href="{{ .link }}" class="tab tab--other">
+         {{ .name }}
+       </a>
+     {{ end }}
     </div>
   </div>
 
