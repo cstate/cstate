@@ -1,11 +1,6 @@
+<p align="center"><img src="https://raw.githubusercontent.com/mistermantas/cstate/master/images/highlight.png" alt="cState"></p>
 
-<p style="text-align:center">
-
-![cState](https://raw.githubusercontent.com/mistermantas/cstate/master/images/highlight.png)
-
-[![GitHub release](https://img.shields.io/github/release/mistermantas/cstate.svg?style=flat-square)](https://github.com/mistermantas/cstate/releases) [![GitHub last commit](https://img.shields.io/github/last-commit/mistermantas/cstate.svg?style=flat-square)](https://github.com/mistermantas/cstate/commits/master) [![GitHub repo size in bytes](https://img.shields.io/github/repo-size/mistermantas/cstate.svg?style=flat-square)](https://github.com/mistermantas/cstate/tree/master/) [![Gitter](https://img.shields.io/badge/chat-gitter-ed1965.svg?style=flat-square)](https://gitter.im/cState/Lobby) [![Twitter](https://img.shields.io/twitter/follow/mistermantas.svg?style=social&label=Follow)](https://twitter.com/mistermantas)
-
-</p>
+<p align="center"><a href="https://github.com/mistermantas/cstate/releases"><img src="https://img.shields.io/github/release/mistermantas/cstate/all.svg?style=flat-square" alt="GitHub release" /></a> <a href="https://github.com/mistermantas/cstate/commits/master"><img src="https://img.shields.io/github/last-commit/mistermantas/cstate.svg?style=flat-square" alt="GitHub last commit" /></a> <a href="https://github.com/mistermantas/cstate/tree/master/"><img src="https://img.shields.io/github/repo-size/mistermantas/cstate.svg?style=flat-square" alt="GitHub repo size in bytes" /></a> <a href="https://gitter.im/cState/Lobby"><img src="https://img.shields.io/badge/chat-gitter-ed1965.svg?style=flat-square" alt="Gitter" /></a> <a href="https://twitter.com/mistermantas"><img src="https://img.shields.io/twitter/follow/mistermantas.svg?style=social&amp;label=Follow" alt="Twitter" /></a></p>
 
 > Über fast, backwards compatible (IE8+), tiny, and simple status page built with Hugo. Compatible with Netlify & GitHub Pages.
 
