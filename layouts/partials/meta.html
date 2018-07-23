@@ -45,6 +45,8 @@
       box-sizing: inherit;
     }
 
+    ::selection { background: #B4D5FF; }
+
     hr {
       border: 0;
       border-bottom: 1px solid #ccc;
@@ -280,5 +282,7 @@
       }
     }
     </style>
-
+    {{ if .Site.Params.enableCustomHTML }}
+      {{ partial "custom/meta" . }}
+    {{ end }}
   </head>

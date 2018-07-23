@@ -1,3 +1,6 @@
+{{ if .Site.Params.enableCustomHTML }}
+  {{ partial "custom/above-header" . }}
+{{ end }}
 
 {{ if .Site.Params.useLargeHeaderDesign }}
 <div class="header header--large">
@@ -23,4 +26,8 @@
     </a>
   </div>
 </div>
+{{ end }}
+
+{{ if .Site.Params.enableCustomHTML }}
+  {{ partial "custom/below-header" . }}
 {{ end }}

@@ -1,4 +1,3 @@
-
 <p style="text-align:center">
 
 ![cState](https://raw.githubusercontent.com/mistermantas/cstate/master/images/highlight.png)
@@ -7,11 +6,11 @@
 
 </p>
 
-> Über fast, backwards compatible (IE8+), tiny, and simple status page built with Hugo. Compatible with Netlify & GitHub Pages.
+> Über fast, backwards compatible (IE8+), tiny, and simple status page built with Hugo. Completely free with Netlify & GitHub Pages.
 
-*This release is a developer preview.*
+[**Want an example? Click here to see a live demo!**](https://cstate-example.netlify.com)
 
-[**Live demo**](https://themes.gohugo.io/theme/cstate/)
+*Looking for contributors! See Contribute section:*
 
 ## Contents
 
@@ -23,6 +22,8 @@
 + [FAQ](#faq)
 + [Contribute](#contribute)
 + [License](#license)
+
+***
 
 ## Features
 
@@ -38,7 +39,7 @@
 
 For this tutorial, it is assumed that you have Hugo and Git installed (check with `hugo version` & `git --version`).
 
-#### Production (with Netlify)
+#### Production
 
 We encourage you to use [Netlify](https://www.netlify.com) for cState. These are the following options you need to change in deploy settings:
 
@@ -46,7 +47,9 @@ We encourage you to use [Netlify](https://www.netlify.com) for cState. These are
 + Publish directory: **public**
 + Add one build environment variable
   + Key: **HUGO_VERSION**
-  + Value: **0.31**
+  + Value: **0.41**
+
+***
 
 1. Download the contents of the `exampleSite` directory in this repository. This will be your site guts, which will hold the content and configuration for the status page.
 2. Create a `themes` folder and navigate to it on the command line.
@@ -61,7 +64,7 @@ mkdir themes; cd themes;
 git submodule add https://github.com/mistermantas/cstate
 ```
 
-4. Set up cState for your liking. It is now ready to be deployed
+4. Set up cState for your liking. It is now ready to be used in production.
 
 #### Development
 
@@ -80,10 +83,16 @@ cd cstate-master/exampleSite
 3. Uncomment this line in `config.yml`:
 
 ```yml
-# themesDir: ../..
+themesDir: ../..
 ```
 
-3. Then try out the site! A link to it will be shown on screen.
+4. Make sure that the folder name is the same as the `theme` value:d
+
+```yml
+theme: cstate-master
+```
+
+5. Then try out the site! A link to it will be shown on screen.
 
 ```bash
 hugo serve
@@ -119,9 +128,9 @@ Affected:
 Section: post
 ---
 
-*Monitoring* - After hitting the ole reboot button Example Chat App is now recovering. We're going to continue to monitor as everyone reconnects. {{< track "2018-04-13 16:50:00" >}}
+*Monitoring* - After hitting the ole reboot button Example Chat App is now recovering. We’re going to continue to monitor as everyone reconnects. {{< track "2018-04-13 16:50:00" >}}
 
-*Investigating* - We're aware of users experiencing unavailable guilds and issues when attempting to connect. We're currently investigating. {{< track "2018-04-13 15:54:00" >}}
+*Investigating* - We’re aware of users experiencing unavailable guilds and issues when attempting to connect. We're currently investigating. {{< track "2018-04-13 15:54:00" >}}
 ```
 
 Time to break that down.
@@ -136,10 +145,13 @@ Time to break that down.
 
 ## Contribute
 
+cState needs help to grow, not only would it benefit from stuff like unit tests, but also get influenced by fresh ideas to grow even further.
+
 + Glance over the [Code of Conduct](/CODE_OF_CONDUCT.md).
 + Before submitting a pull request, create an issue to [discuss the implications of your proposal](https://github.com/mistermantas/cstate/issues).
 + Write consistent, simple, readable code and precise documentation.
 + [Join the Gitter chat](http://discord.io/choraleapp) for help or discussion.
++ You may also the creator’s [mnts Discord](https://discord.gg/EvQZdhT).
 
 ## License
 

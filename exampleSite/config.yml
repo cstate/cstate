@@ -6,6 +6,13 @@
 
 # Welcome to the cState configuration file!
 #
+# This is the configuration file for v2-rc1.
+# If you are using an earlier version, or one
+# in the future, such as v3, you may see errors
+# pop up when deploying a cState website.
+#
+# Now, onto the fun part.
+#
 # Hugo is used for building the status page,
 # so this file can be used to change how
 # your status page should behave or look.
@@ -37,7 +44,7 @@
 
 # What is your status page called?
 # Shows up in the browser bar and meta tags
-title: Example Status
+title: cState Status
 
 # What language is this page in?
 # Only alters the html[lang] attribute
@@ -72,7 +79,7 @@ params:
       description: The guts of the application.
     -
       name: Media Proxy
-      description: This is the service responsible for serving images, audio, and video. It is reliant on Fastly.
+      description: This is the service responsible for serving images, audio, and video. It is reliant on our CDN.
   #   partial: custom/metrics
 
   # What header design should we use?
@@ -180,10 +187,18 @@ buildFuture: true
 # These options affect the core of cState.
 # Please do not change them if you do not
 # know what you are doing.
-theme: cstate-dev
+theme: cstate-master
 
 # If you are developing locally and want
 # to contribute to the cState Git repo,
 # please uncomment this option but do not
 # forget to re-comment it when
 themesDir: ../..
+
+# This option tells cState what version
+# your config file is using.
+#
+# Never ever remove this, nor change it,
+# if you have not updated to any other
+# version.
+version: 2

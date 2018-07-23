@@ -97,6 +97,9 @@
         {{ end }}
       </div>
 
+    {{ if .Site.Params.enableCustomHTML }}
+      {{ partial "custom/homepage-summary" . }}
+    {{ end }}
     <!-- End main -->
   </div>
 

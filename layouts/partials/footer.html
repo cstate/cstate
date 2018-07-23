@@ -1,3 +1,6 @@
+{{ if .Site.Params.enableCustomHTML }}
+  {{ partial "custom/above-footer" . }}
+{{ end }}
 
 <div class="footer">
   <div class="contain">
@@ -8,6 +11,10 @@
     <p>{{ .Site.Params.description }}</p>
 
     <!-- Please keep this one around to help cState grow <3 -->
-    <small class="copyright faded">Powered by <a href="https://github.com/mistermantas/cstate">cState</a></small>
+    <small class="copyright faded">Powered by <a href="https://github.com/mistermantas/cstate">cState <b>v2.0-rc1</b></a></small>
   </div>
 </div>
+
+{{ if .Site.Params.enableCustomHTML }}
+  {{ partial "custom/below-footer" . }}
+{{ end }}
