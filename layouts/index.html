@@ -48,9 +48,16 @@
       </div>
       {{ end }}
 
+      {{ if .Site.Params.autoRefresh }}
+      <div class="faded right">
+        <small><em>We auto-refresh every 5 minutes</em></small>
+      </div>
+      <div class="padding-s"></div>
+      {{ else }}
+      <div class="padding"></div>
+      {{ end }}
 
       <!-- Individual info -->
-      <div class="padding"></div>
       <div class="components">
         {{ $systems := .Site.Params.systems }}
         {{ range $index, $systems }}
@@ -103,17 +110,12 @@
     <!-- End main -->
   </div>
 
-
+  {{ if .Site.Params.customTabs }}
   <div class="tabs">
     <div class="contain tabs--inner">
-      <a href="#incidents" class="tab tab--current">
+      <a href="/#incidents" class="tab tab--current">
         Incidents
       </a>
-      {{ if .Site.Params.showUptime }}
-      <a href="/stats" class="tab tab--other">
-        Uptime
-      </a>
-      {{ end }}
 
       {{ range .Site.Params.customTabs }}
        <a href="{{ .link }}" class="tab tab--other">
@@ -122,18 +124,69 @@
      {{ end }}
     </div>
   </div>
-
-
+  {{ else }}
   <div class="contain">
+    <h2 class="center">Incident history</h2>
+    <hr>
+  </div>
+  {{ end }}
+
+
+  <div class="contain" id="incidents">
     <div class="padding"></div>
-    {{ if not .Data.Pages }}
-      <p class="center">Looks like we do not have any incidents logged.</p>
+    {{ if not $incidents }}
+      <div class="padding"></div>
+      <h3>Is it the calm before the storm?</h3>
+      <p>This status page has no logged incidents. This may be because the status page owner (or owners) have recently set up their status page, have had no downtime, or have not logged any downtime.</p>
+      <div class="padding"></div>
     {{ else }}
-      {{ range .Data.Pages }}
+      {{ $paginator := .Paginate $incidents .Site.Params.incidentPostsPerPage }}
+      {{ range $paginator.Pages }}
         {{ .Render "issue" }}
+      {{ end }}
+
+      <!-- If there are more than 2 pages, show pagination -->
+      {{ if gt $paginator.TotalPages 1 }}
+        <hr>
+
+        <div class="center">
+          {{ if $paginator.HasPrev }}
+            <a href="{{ $paginator.Prev.URL }}#incidents">
+              ⭠ &nbsp;
+              Previuos
+            </a>
+          {{ else }}
+            <span class="faded">
+              ⭠ &nbsp;
+              Previuos
+            </span>
+          {{ end }}
+
+
+          &nbsp; &nbsp;
+          {{ $paginator.PageNumber }}
+          /
+          {{ $paginator.TotalPages }}
+          &nbsp; &nbsp;
+
+
+          {{ if $paginator.HasNext }}
+            <a href="{{ $paginator.Next.URL }}#incidents">
+              Next &nbsp;
+              ⭢
+            </a>
+          {{ else }}
+            <span class="faded">
+              Next &nbsp;
+              ⭢
+            </span>
+          {{ end }}
+        </div>
       {{ end }}
     {{ end }}
   </div>
+
+
 
   {{ partial "js" . }}
   {{ partial "footer" . }}

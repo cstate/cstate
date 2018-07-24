@@ -1,10 +1,12 @@
-<p align="center"><img src="https://raw.githubusercontent.com/mistermantas/cstate/master/images/highlight.png" alt="cState"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/cstate/cstate/master/images/highlight.png" alt="cState"></p>
 
-<p align="center"><a href="https://github.com/mistermantas/cstate/releases"><img src="https://img.shields.io/github/release/mistermantas/cstate/all.svg?style=flat-square" alt="GitHub release" /></a> <a href="https://github.com/mistermantas/cstate/commits/master"><img src="https://img.shields.io/github/last-commit/mistermantas/cstate.svg?style=flat-square" alt="GitHub last commit" /></a> <a href="https://github.com/mistermantas/cstate/tree/master/"><img src="https://img.shields.io/github/repo-size/mistermantas/cstate.svg?style=flat-square" alt="GitHub repo size in bytes" /></a> <a href="https://gitter.im/cState/Lobby"><img src="https://img.shields.io/badge/chat-gitter-ed1965.svg?style=flat-square" alt="Gitter" /></a> <a href="https://twitter.com/mistermantas"><img src="https://img.shields.io/twitter/follow/mistermantas.svg?style=social&amp;label=Follow" alt="Twitter" /></a></p>
+<p align="center"><a href="https://github.com/cstate/cstate/releases"><img src="https://img.shields.io/github/release/cstate/cstate/all.svg?style=flat-square" alt="GitHub release" /></a> <a href="https://github.com/cstate/cstate/commits/master"><img src="https://img.shields.io/github/last-commit/cstate/cstate.svg?style=flat-square" alt="GitHub last commit" /></a> <a href="https://github.com/cstate/cstate/tree/master/"><img src="https://img.shields.io/github/repo-size/cstate/cstate.svg?style=flat-square" alt="GitHub repo size in bytes" /></a> <a href="https://gitter.im/cState/Lobby"><img src="https://img.shields.io/badge/chat-gitter-ed1965.svg?style=flat-square" alt="Gitter" /></a> <a href="https://twitter.com/cstate"><img src="https://img.shields.io/twitter/follow/mistermantas.svg?style=social&amp;label=Follow" alt="Twitter" /></a> <a href="https://github.com/matiassingers/awesome-readme#readme"><img src="https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg" alt="Awesome README" /></a></p>
 
 > Über fast, backwards compatible (IE8+), tiny, and simple status page built with Hugo. Completely free with Netlify & GitHub Pages.
 
 [**Want an example? Click here to see a live demo!**](https://cstate-example.netlify.com)
+
+[You can also see what an example cState project’s source code.](https://github.com/cstate/example)
 
 *Looking for contributors! See Contribute section:*
 
@@ -30,6 +32,7 @@
 + Comes pre-equipped with Netlify CMS for quick admin updates
 + Easy to edit and deploy on Netlify or GitHub Pages
 + Secure, ready for HTTPS, thanks to [JAMstack](https://jamstack.org/)
++ Extensive documentation on the [wiki](https://github.com/cstate/cstate/wiki)
 
 ## Getting started
 
@@ -57,7 +60,7 @@ mkdir themes; cd themes;
 3. Now simply add a Git submodule pointing to this repository, like so:
 
 ```bash
-git submodule add https://github.com/mistermantas/cstate
+git submodule add https://github.com/cstate/cstate
 ```
 
 4. Set up cState for your liking. It is now ready to be used in production.
@@ -67,7 +70,7 @@ git submodule add https://github.com/mistermantas/cstate
 1. Clone this repository in the command line:
 
 ```bash
-git clone https://github.com/mistermantas/cstate.git
+git clone https://github.com/cstate/cstate.git
 ```
 
 2. Go to the `exampleSite` folder, like so:
@@ -139,16 +142,20 @@ Time to break that down.
 `Affected`. Add the items that were present in the config file which should alter the status of each individual system (component). *(array, required)*  
 `Section`. This must be `issue`, so that Hugo treats it as one. *(required)*  
 
+### I have more questions!
+
+Check out [the wiki](https://github.com/cstate/cstate/wiki).
+
 ## Contribute
 
 cState needs help to grow, not only would it benefit from stuff like unit tests, but also get influenced by fresh ideas to grow even further.
 
 + Glance over the [Code of Conduct](/CODE_OF_CONDUCT.md).
-+ Before submitting a pull request, create an issue to [discuss the implications of your proposal](https://github.com/mistermantas/cstate/issues).
++ Before submitting a pull request, create an issue to [discuss the implications of your proposal](https://github.com/cstate/cstate/issues).
 + Write consistent, simple, readable code and precise documentation.
 + [Join the Gitter chat](http://discord.io/choraleapp) for help or discussion.
 + You may also the creator’s [mnts Discord](https://discord.gg/EvQZdhT).
 
 ## License
 
-[MIT](https://github.com/mistermantas/cstate/blob/master/LICENSE.md) © Mantas Vilčinskas
+[MIT](https://github.com/cstate/cstate/blob/master/LICENSE.md) © Mantas Vilčinskas

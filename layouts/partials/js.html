@@ -3,7 +3,7 @@
    * Dev toolset
    */
 
-  console.log('Welcome to cState! https://github.com/mistermantas/cstate');
+  console.log('Welcome to cState v2.0! https://github.com/cstate/cstate');
   document.querySelector('html').className = 'js';
 
 
@@ -11,20 +11,15 @@
    * Make theme color pretty
    */
 
-  if (document.body.className === 'status-down') {
-    document.querySelector('meta[name=theme-color]').setAttribute('content', themeDownColor);
-  } else if (document.body.className === 'status-disrupted') {
-    document.querySelector('meta[name=theme-color]').setAttribute('content', themeDisruptedColor);
-  } else {
-    document.querySelector('meta[name=theme-color]').setAttribute('content', themeNoticeColor);
+  if (document.body.className === 'change-header-color') {
+    if (document.body.className === 'status-down') {
+      document.querySelector('meta[name=theme-color]').setAttribute('content', themeDownColor);
+    } else if (document.body.className === 'status-disrupted') {
+      document.querySelector('meta[name=theme-color]').setAttribute('content', themeDisruptedColor);
+    } else {
+      document.querySelector('meta[name=theme-color]').setAttribute('content', themeNoticeColor);
+    }
   }
-</script>
-
-<!--
-<script>
-  /**
-   * Check for internet
-   */
 
   function hasClass(element, className) {
     return (' ' + element.className + ' ').indexOf(' ' + className+ ' ') > -1;
@@ -32,6 +27,8 @@
 
   if (hasClass(document.querySelector('body'), 'status-homepage')) {
     var lastUpdated = document.querySelector('.summary__date');
+    lastUpdated.innerHTML = 'Last checked just now';
+
     var lastUpdate = new Date();
 
     function timeSince(date) {
@@ -63,96 +60,19 @@
     var aDay = 24*60*60*1000;
   }
 
-  function checkCurrentStatus() {
-    // Check for each status
-    if (hasClass(document.querySelector('body'), 'status-ok')) {
-      window.currentState = 'Operational';
-    }
-    if (hasClass(document.querySelector('body'), 'status-disrupted')) {
-      window.currentState = 'Disrupted';
-    }
-    if (hasClass(document.querySelector('body'), 'status-down')) {
-      window.currentState = 'Down';
-    }
-    if (hasClass(document.querySelector('body'), 'status-notice')) {
-      window.currentState = 'Maintenance';
-    }
-  }
-  checkCurrentStatus();
-
-  // Set for first time use
-  if (typeof(Storage) !== 'undefined') {
-    window.sessionStorage.setItem('priorState', currentState);
-  }
-
-  // Show second by second updates
   window.setInterval(function() {
     if (hasClass(document.querySelector('body'), 'status-homepage')) {
       lastUpdated.innerHTML = 'Last checked ' + timeSince(lastUpdate) + ' ago';
-    }
 
-    checkCurrentStatus();
-
-    if (typeof(Storage) !== "undefined") {
-      if (window.sessionStorage.getItem('priorState') !== currentState) {
-        displayNotification('Status changed from ' + window.sessionStorage.getItem('priorState') + ' to ' + currentState);
+      var lastUpdateTime = new Date() - lastUpdate;
+      // Refresh every 4m 30s
+      if (lastUpdateTime > 290000) {
+        location.reload;
       }
-
-      window.sessionStorage.setItem('priorState', currentState);
-    } else {
-      console.log('UNSUPPORTED - SMART NOTIFICATIONS');
     }
-  }, 1000);
-
-
-  /**
-   * Modern browser shiz
-   */
-
-  if (navigator.serviceWorker) {
-    console.log('Service Worker and Push is supported');
-
-    navigator.serviceWorker.register('sw.js')
-    .then(function(swReg) {
-      console.log('Service Worker is registered', swReg);
-
-      swRegistration = swReg;
-    })
-    .catch(function(error) {
-      console.error('Service Worker Error', error);
-    });
-  } else {
-    console.log('Push messaging is not supported');
-  }
-
-
-  Notification.requestPermission(function(status) {
-    console.log('Notification permission status:', status);
-  });
-
-
-  function displayNotification(title, body) {
-    if (Notification.permission == 'granted') {
-      navigator.serviceWorker.getRegistration().then(function(reg) {
-        var options = {
-          body: body,
-          icon: '/favicon.png',
-          vibrate: [100, 50, 100],
-          data: {
-            dateOfArrival: Date.now(),
-            primaryKey: 1
-          },
-          actions: [
-            {action: 'view', title: 'View incident'},
-            {action: 'close', title: 'Dismiss'},
-          ]
-        };
-        reg.showNotification(title, options);
-      });
-    }
-  }
+  }, 5000)
 </script>
--->
+
 
 {{ if ne .Site.Params.googleAnalytics "UA-00000000-1" }}
   <!-- Global site tag (gtag.js) - Google Analytics -->

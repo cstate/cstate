@@ -10,7 +10,7 @@
     <title>{{ if eq .Title .Site.Title }}{{ .Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
     <link rel="canonical" href="{{ .Permalink }}">
     {{ .Hugo.Generator }}
-    <meta name="theme-color" content="#{{ .Site.Params.ok }}">
+    <meta name="theme-color" content="#{{ .Site.Params.brand }}">
     <script>
     var themeBrandColor = '#{{ .Site.Params.brand }}';
     var themeOkColor = '#{{ .Site.Params.ok }}';
@@ -68,7 +68,8 @@
     h3 { font-size: 20px; }
     h4 { font-size: 18px; }
 
-    .stat { font-size: 18px; }
+    .headline { font-size: 20px; }
+    .bold { color: #000; }
 
     h2, h4 {
       font-weight: normal;
@@ -121,6 +122,8 @@
     }
 
     .center { text-align: center; }
+    .right { text-align: right; }
+    .padding-s { padding: 6px; }
     .padding { padding: 12px; }
 
     .summary {

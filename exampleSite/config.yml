@@ -6,7 +6,7 @@
 
 # Welcome to the cState configuration file!
 #
-# This is the configuration file for v2-rc1.
+# This is the configuration file for v2.0!
 # If you are using an earlier version, or one
 # in the future, such as v3, you may see errors
 # pop up when deploying a cState website.
@@ -44,11 +44,15 @@
 
 # What is your status page called?
 # Shows up in the browser bar and meta tags
-title: cState Status
+title: Eggsample App Status
 
-# What language is this page in?
+# What language is this site using?
 # Only alters the html[lang] attribute
-languageCode: en-US
+#
+# ISO 639-1 defines abbreviations.
+# See:  https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+# Also: https://www.w3schools.com/tags/ref_language_codes.asp
+languageCode: en
 
 # What is the hostname or path to the root?
 # Where is the site hosted?
@@ -80,7 +84,6 @@ params:
     -
       name: Media Proxy
       description: This is the service responsible for serving images, audio, and video. It is reliant on our CDN.
-  #   partial: custom/metrics
 
   # What header design should we use?
   #
@@ -120,14 +123,22 @@ params:
   #    name: Name
   #    link: https://example.com
 
-  # Uptime statistics tab
+  # Auto refresh the page
+  # every ~5 min
   #
-  # Shows link to /stats
-  # (uptime stats)
+  # This does nothing but
+  # refresh the page; it
+  # does not send alerts!
   #
   # Default: true
   # BOOLEAN; `true`, `false`
-  showUptime: true
+  autoRefresh: true
+
+  # Incident posts shown
+  # in one page
+  #
+  # NUMERIC; Default: `10`
+  incidentPostsPerPage: 10
 
   # Colors throughout cState
   #
@@ -187,13 +198,13 @@ buildFuture: true
 # These options affect the core of cState.
 # Please do not change them if you do not
 # know what you are doing.
-theme: cstate-master
+theme: cstate
 
 # If you are developing locally and want
 # to contribute to the cState Git repo,
 # please uncomment this option but do not
-# forget to re-comment it when
-themesDir: ../..
+# forget to re-comment it when commiting.
+# themesDir: ../..
 
 # This option tells cState what version
 # your config file is using.
