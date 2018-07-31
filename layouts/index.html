@@ -139,6 +139,8 @@
       <h3>Is it the calm before the storm?</h3>
       <p>This status page has no logged incidents. This may be because the status page owner (or owners) have recently set up their status page, have had no downtime, or have not logged any downtime.</p>
       <div class="padding"></div>
+      <div class="padding"></div>
+      <div class="padding"></div>
     {{ else }}
       {{ $paginator := .Paginate $incidents .Site.Params.incidentPostsPerPage }}
       {{ range $paginator.Pages }}
