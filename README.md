@@ -105,9 +105,13 @@ If you would like to commit/make a PR, make sure that `themesDir` is a comment b
 
 Assuming the production install instructions were followed, keep cState updated by having an up to date Git submodule in the `themes` folder. containing this repository. Your content will stay separate, as to avoid any conflicts.
 
+Do this from root:
+
 ```bash
-git submodule update
+git submodule foreach git pull origin master
 ```
+
+More info on [Stack Overflow](https://stackoverflow.com/a/5828396).
 
 ## FAQ
 
