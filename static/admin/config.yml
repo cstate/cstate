@@ -13,8 +13,8 @@ backend:
   name: git-gateway
 media_folder: "static/img"
 public_folder: "/img"
-  # Do not change this!
-  collections:
+# Do not change this!
+collections:
     # Used in routes, e.g., /admin/collections/blog
   - name: "issue"
     # Used in the UI
