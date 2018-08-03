@@ -30,6 +30,12 @@ collections:
       - {label: "Start date & time (your time)", name: "Date", widget: "datetime"}
       - {label: "Mark as resolved", name: "Resolved", widget: "boolean", required: false}
       - {label: "End date & time (your time)", name: "ResolvedWhen", widget: "datetime", required: false}
+      - label: "Affected systems (use exact name)"
+        name: "Affected"
+        widget: "list"
+        required: false
+        fields:
+          - {label: "System", widget: "string"}
       - label: "Severity"
         name: "Severity"
         widget: "select"
@@ -37,11 +43,7 @@ collections:
           - { label: "High (Down)", value: "down" }
           - { label: "Medium (Disrupted)", value: "disrupted" }
           - { label: "Low (Announcement)", value: "notice" }
-      - label: "Affected systems (use exact name)"
-        name: "Affected"
-        widget: "list"
-        allow_add: true
-        required: false
-        fields:
-          - {label: "System", name: "string", widget: "string"}
-      - {label: "Sequence of events", name: "body", widget: "markdown", default: "We are investigating a potential issue that might affect the uptime of one our of services."}
+      - label: "Markdown body (sequence of events, description, post-mortem)"
+        name: "body"
+        widget: "markdown"
+        default: "*Investigating* - We are investigating a potential issue that might affect the uptime of one our of services. We are sorry for any inconvenience this may cause you. This incident post will be updated once we have more information."
