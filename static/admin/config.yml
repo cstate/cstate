@@ -44,17 +44,6 @@ collections:
         widget: "list"
         allow_add: true
         required: false
-      - {label: "Sequence of events", name: "body", widget: "markdown", default: "We are investigating a potential issue that might affect the uptime of one our of services."}
-  - name: "settings"
-    label: "Settings"
-    delete: false
-    editor:
-      preview: false
-    files:
-      - name: "config"
-        label: "Site Configuration"
-        file: "config.yml"
-        description: "Here you can visually edit the settings of your cState instance."
         fields:
-          - {label: "Site title", name: "title", widget: "string"}
-          - {label: "Should posts, which have a publish date from the future, be built? Useful for sharing upcoming maintenance, etc.", name: buildFuture, default: true, widget: boolean}
+          - {label: "String", name: "string", widget: "string"}
+      - {label: "Sequence of events", name: "body", widget: "markdown", default: "We are investigating a potential issue that might affect the uptime of one our of services."}
