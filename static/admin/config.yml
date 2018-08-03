@@ -25,9 +25,7 @@ collections:
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
-      # Hidden
       - {label: "Mark as incident", name: "Section", widget: "hidden", default: "issue"}
-      # Very basic
       - {label: "Title", name: "Title", widget: "string"}
       - {label: "Start date & time (your time)", name: "Date", widget: "datetime"}
       - {label: "Mark as resolved", name: "Resolved", widget: "boolean", required: false}
@@ -45,5 +43,5 @@ collections:
         allow_add: true
         required: false
         fields:
-          - {label: "String", name: "string", widget: "string"}
+          - {label: "System", name: "string", widget: "string"}
       - {label: "Sequence of events", name: "body", widget: "markdown", default: "We are investigating a potential issue that might affect the uptime of one our of services."}
