@@ -14,36 +14,47 @@ backend:
 media_folder: "static/img"
 public_folder: "/img"
 display_url: /
+
 # Do not change this!
 collections:
-    # Used in routes, e.g., /admin/collections/blog
   - name: "issue"
-    # Used in the UI
-    label: "Incident"
-    # The path to the folder where the documents are stored
+    label: "Incidents"
+    label_singular: "Incident"
+    description: "Welcome to the cState admin panel! Here you can create new incidents or manage existing ones. Go ahead and give it a shot."
     folder: "content/issues"
-    # Allow users to create new documents in this collection
     create: true
-    # Filename template, e.g., YYYY-MM-DD-title.md
-    slug: "{{slug}}"
-    # The fields for each document, usually in front matter
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       # Hidden
       - {label: "Mark as incident", name: "Section", widget: "hidden", default: "issue"}
       # Very basic
       - {label: "Title", name: "Title", widget: "string"}
-      - {label: "Start date & time", name: "Date", widget: "datetime"}
-      - {label: "Mark as resolved", name: "Resolved", widget: "boolean"}
-      - {label: "End date & time", name: "ResolvedWhen", widget: "datetime", required: false}
+      - {label: "Start date & time (your time)", name: "Date", widget: "datetime"}
+      - {label: "Mark as resolved", name: "Resolved", widget: "boolean", required: false}
+      - {label: "End date & time (your time)", name: "ResolvedWhen", widget: "datetime", required: false}
       - label: "Severity"
         name: "Severity"
         widget: "select"
         options:
           - { label: "High (Down)", value: "down" }
           - { label: "Medium (Disrupted)", value: "disrupted" }
-          - { label: "Low (Maintenance)", value: "notice" }
+          - { label: "Low (Announcement)", value: "notice" }
       - label: "Affected systems (use exact name)"
         name: "Affected"
         widget: "list"
+        allow_add: true
         required: false
       - {label: "Sequence of events", name: "body", widget: "markdown", default: "We are investigating a potential issue that might affect the uptime of one our of services."}
+  - name: "settings"
+    label: "Settings"
+    delete: false
+    editor:
+      preview: false
+    files:
+      - name: "config"
+        label: "Site Configuration"
+        file: "config.yml"
+        description: "Here you can visually edit the settings of your cState instance."
+        fields:
+          - {label: "Site title", name: "title", widget: "string"}
+          - {label: "Should posts, which have a publish date from the future, be built? Useful for sharing upcoming maintenance, etc.", name: buildFuture, default: true, widget: boolean}

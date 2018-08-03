@@ -99,7 +99,7 @@ Do this from root:
 git submodule foreach git pull origin master
 ```
 
-More info on [Stack Overflow](https://stackoverflow.com/a/5828396).
+More info about updating on [Stack Overflow](https://stackoverflow.com/a/5828396). You may also run into unexpected behavior with cloning, [see this thread](https://stackoverflow.com/questions/3796927/how-to-git-clone-including-submodules).
 
 ## FAQ
 

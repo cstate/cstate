@@ -26,7 +26,7 @@
       {{ end }}
     </span>
   {{ else }}
-    <span class="error">Ongoing, services {{ .Params.severity }}</span>
+    <em>Ongoing, services {{ if eq .Params.severity "notice" }}on notice{{ else }}{{ .Params.severity }}{{ end }}</em>
   {{ end }}
   <h3>
     <a href="{{ .Permalink }}">{{ .Title }}</a>
