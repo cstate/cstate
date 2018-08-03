@@ -73,28 +73,16 @@ git submodule add https://github.com/cstate/cstate
 git clone https://github.com/cstate/cstate.git
 ```
 
-2. Go to the `exampleSite` folder, like so:
+2. Navigate to the theme directory:
 
 ```bash
-cd cstate-master/exampleSite
+cd cstate-master
 ```
 
-3. Uncomment this line in `config.yml`:
-
-```yml
-themesDir: ../..
-```
-
-4. Make sure that the folder name is the same as the `theme` value:d
-
-```yml
-theme: cstate-master
-```
-
-5. Then try out the site! A link to it will be shown on screen.
+3. Launch the development setup much like this:
 
 ```bash
-hugo serve
+hugo serve --baseUrl=/ --theme=cstate-master --themesDir=../..
 ```
 
 The main directory is the theme itself (the cState guts, basically) and the `exampleSite` folder houses all content. Use this local setup to experiment before deploying to production!
@@ -115,7 +103,13 @@ More info on [Stack Overflow](https://stackoverflow.com/a/5828396).
 
 ## FAQ
 
-### Where do issues go? What is the frontmatter, how do I define metadata for issues?
+### Where do issues go?
+
+#### Using an admin panel (Netlify CMS)
+
+This takes a little more effort to set up but pays off in the long run — [see the wiki](https://github.com/cstate/cstate/wiki) for up to date information.
+
+#### Doing it from the Git repository
 
 Create a file in `content/issues`. The name of the file will be the slug (what shows up in the URL bar). For example, this is what `major-outage-east-us.md` should look like:
 

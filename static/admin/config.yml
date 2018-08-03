@@ -13,28 +13,37 @@ backend:
   name: git-gateway
 media_folder: "static/img"
 public_folder: "/img"
+display_url: /
 # Do not change this!
 collections:
     # Used in routes, e.g., /admin/collections/blog
   - name: "issue"
     # Used in the UI
-    label: "Issues"
+    label: "Incident"
     # The path to the folder where the documents are stored
     folder: "content/issues"
     # Allow users to create new documents in this collection
     create: true
     # Filename template, e.g., YYYY-MM-DD-title.md
-    slug: "{{slug}}.md"
+    slug: "{{slug}}"
     # The fields for each document, usually in front matter
     fields:
-      - {label: "Section", name: "Section", widget: "hidden", default: "issue"}
-
-      - {label: "What is this issue about?", name: "Title", widget: "string"}
-      - {label: "When did this issue begin?", name: "Date", widget: "datetime"}
-
-      - {label: "Has it now been fully resolved?", name: "Resolved", widget: "boolean"}
-      - {label: "When did downtime end (if it did)?", name: "ResolvedWhen", widget: "date"}
-
-      - {label: "What is the severity?", name: "Severity", widget: "string", options: ['disrupted', 'down', 'notice']}
-      - {label: "What is affected? Example: ['API', 'Media Proxy']", name: "Affected", widget: "string"}
-      - {label: "Write any relevant notes here.", name: "body", widget: "markdown"}
+      # Hidden
+      - {label: "Mark as incident", name: "Section", widget: "hidden", default: "issue"}
+      # Very basic
+      - {label: "Title", name: "Title", widget: "string"}
+      - {label: "Start date & time", name: "Date", widget: "datetime"}
+      - {label: "Mark as resolved", name: "Resolved", widget: "boolean"}
+      - {label: "End date & time", name: "ResolvedWhen", widget: "datetime", required: false}
+      - label: "Severity"
+        name: "Severity"
+        widget: "select"
+        options:
+          - { label: "High (Down)", value: "down" }
+          - { label: "Medium (Disrupted)", value: "disrupted" }
+          - { label: "Low (Maintenance)", value: "notice" }
+      - label: "Affected systems (use exact name)"
+        name: "Affected"
+        widget: "list"
+        required: false
+      - {label: "Sequence of events", name: "body", widget: "markdown", default: "We are investigating a potential issue that might affect the uptime of one our of services."}

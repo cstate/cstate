@@ -64,9 +64,8 @@
     if (hasClass(document.querySelector('body'), 'status-homepage')) {
       lastUpdated.innerHTML = 'Last checked ' + timeSince(lastUpdate) + ' ago';
 
-      var lastUpdateTime = new Date() - lastUpdate;
-      // Refresh every 4m 30s
-      if (lastUpdateTime > 290000) {
+      // Refresh almost every 5m
+      if (lastUpdate > 290000) {
         location.reload;
       }
     }
