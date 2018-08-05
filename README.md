@@ -1,6 +1,6 @@
 <p align="center"><img src="https://raw.githubusercontent.com/cstate/cstate/master/images/highlight.png" alt="cState"></p>
 
-<p align="center"><a href="https://github.com/cstate/cstate/releases"><img src="https://img.shields.io/github/release/cstate/cstate/all.svg?style=flat-square" alt="GitHub release" /></a> <a href="https://github.com/cstate/cstate/commits/master"><img src="https://img.shields.io/github/last-commit/cstate/cstate.svg?style=flat-square" alt="GitHub last commit" /></a> <a href="https://github.com/cstate/cstate/tree/master/"><img src="https://img.shields.io/github/repo-size/cstate/cstate.svg?style=flat-square" alt="GitHub repo size in bytes" /></a> <a href="https://gitter.im/cState/Lobby"><img src="https://img.shields.io/badge/chat-gitter-ed1965.svg?style=flat-square" alt="Gitter" /></a> <a href="https://twitter.com/cstate"><img src="https://img.shields.io/twitter/follow/mistermantas.svg?style=social&amp;label=Follow" alt="Twitter" /></a> <a href="https://github.com/matiassingers/awesome-readme#readme"><img src="https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg" alt="Awesome README" /></a></p>
+<p align="center"><a href="https://github.com/cstate/cstate/releases"><img src="https://img.shields.io/github/release/cstate/cstate/all.svg?style=flat-square" alt="GitHub release" /></a> <a href="https://github.com/cstate/cstate/commits/master"><img src="https://img.shields.io/github/last-commit/cstate/cstate.svg?style=flat-square" alt="GitHub last commit" /></a> <a href="https://github.com/cstate/cstate/tree/master/"><img src="https://img.shields.io/github/repo-size/cstate/cstate.svg?style=flat-square" alt="GitHub repo size in bytes" /></a> <a href="https://discord.gg/EvQZdhT"><img src="https://img.shields.io/badge/discord-support-7289DA.svg?logo=discord&style=flat-square" alt="Discord Chat" /></a> <a href="https://twitter.com/cstate"><img src="https://img.shields.io/twitter/follow/mistermantas.svg?style=social&amp;label=Follow" alt="Twitter" /></a> <a href="https://github.com/matiassingers/awesome-readme#readme"><img src="https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg" alt="Awesome README" /></a></p>
 
 > Über fast, backwards compatible (IE8+), tiny, and simple status page built with Hugo. Completely free with Netlify & GitHub Pages.
 
@@ -151,8 +151,7 @@ cState needs help to grow, not only would it benefit from stuff like unit tests,
 + Glance over the [Code of Conduct](/CODE_OF_CONDUCT.md).
 + Before submitting a pull request, create an issue to [discuss the implications of your proposal](https://github.com/cstate/cstate/issues).
 + Write consistent, simple, readable code and precise documentation.
-+ [Join the Gitter chat](http://discord.io/choraleapp) for help or discussion.
-+ You may also the creator’s [mnts Discord](https://discord.gg/EvQZdhT).
++ You may also the mnts [Discord chat](https://discord.gg/EvQZdhT) for support.
 
 ## License
 
