@@ -121,14 +121,14 @@ Create a file in `content/issues`. The name of the file will be the slug (what s
 
 ```md
 ---
-Title: Major outage in East US
-Date: 2017-02-30 14:30:00
-Resolved: true
-ResolvedWhen: 2017-02-30 16:00:00
-Severity: down
-Affected:
+title: Major outage in East US
+date: 2017-02-30 14:30:00
+desolved: true
+resolvedWhen: 2017-02-30 16:00:00
+severity: down
+affected:
   - API
-Section: post
+section: issue
 ---
 
 *Monitoring* - After hitting the ole reboot button Example Chat App is now recovering. We’re going to continue to monitor as everyone reconnects. {{< track "2018-04-13 16:50:00" >}}
@@ -138,13 +138,13 @@ Section: post
 
 Time to break that down.
 
-`Title`: This is the one of the most important parts of an incident. *(required)*  
-`Date`: An ISO-8601 formatted date. Does not include time zone. This is when you first discovered the issue. *(required)*  
-`Resolved`: Whether issue should affect overall status. Either `true` or `false`. *(boolean, required)*  
-`ResolvedWhen`: An ISO-8601 formatted date. Does not include time zone. This is when downtime stopped. You may set the time that downtime ended without completely resolving the issue (thus leaving time for monitoring).  
-`Severity`: If an issue is not resolved, it will have an applied severity. There are 3 levels of severity: `notice`, `disrupted`, and `down`. If there are multiple issues, the status page will take the appearance of the more drastic issue (such as `disrupted` instead of `notice`). *(required)*  
-`Affected`. Add the items that were present in the config file which should alter the status of each individual system (component). *(array, required)*  
-`Section`. This must be `issue`, so that Hugo treats it as one. *(required)*  
+`title`: This is the one of the most important parts of an incident. *(required)*  
+`date`: An ISO-8601 formatted date. Does not include time zone. This is when you first discovered the issue. *(required)*  
+`resolved`: Whether issue should affect overall status. Either `true` or `false`. *(boolean, required)*  
+`resolvedWhen`: An ISO-8601 formatted date. Does not include time zone. This is when downtime stopped. You may set the time that downtime ended without completely resolving the issue (thus leaving time for monitoring).  
+`severity`: If an issue is not resolved, it will have an applied severity. There are 3 levels of severity: `notice`, `disrupted`, and `down`. If there are multiple issues, the status page will take the appearance of the more drastic issue (such as `disrupted` instead of `notice`). *(required)*  
+`affected`. Add the items that were present in the config file which should alter the status of each individual system (component). *(array, required)*  
+`section`. This must be `issue`, so that Hugo treats it as one. *(required)*  
 
 ### I have more questions!
 
