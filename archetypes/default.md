@@ -1,10 +1,10 @@
 ---
-Title:
-Date:
-Resolved:
-ResolvedWhen:
+title:
+date:
+resolved:
+resolvedWhen:
 # down, disrupted, notice
-Severity:
-Affected:
-Section: issue
+severity:
+affected:
+section: issue
 ---
