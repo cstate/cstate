@@ -26,7 +26,7 @@ collections:
     slug: "{{slug}}"
     fields:
       - {label: "Mark as incident", name: "Section", widget: "hidden", default: "issue"}
-      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Title", name: "Title", widget: "string"}
       - {label: "Start date & time (your time)", name: "Date", widget: "datetime"}
       - {label: "Mark as resolved", name: "Resolved", widget: "boolean", required: false}
       - {label: "End date & time (your time)", name: "ResolvedWhen", widget: "datetime", required: false}
