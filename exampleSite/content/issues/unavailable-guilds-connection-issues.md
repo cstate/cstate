@@ -1,13 +1,13 @@
 ---
-Title: Unavailable Guilds & Connection Issues
-Date: 2018-04-13 15:54:00
-Resolved: true
-ResolvedWhen: 2018-04-13 17:30:00
+title: Unavailable Guilds & Connection Issues
+date: 2018-04-13 15:54:00
+resolved: true
+resolvedWhen: 2018-04-13 17:30:00
 # down, disrupted, notice
-Severity: down
-Affected:
+severity: down
+affected:
   - API
-Section: issue
+section: issue
 ---
 
 *Post-mortem*
