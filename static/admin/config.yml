@@ -27,6 +27,7 @@ collections:
     fields:
       - {label: "Mark as incident", name: "Section", widget: "hidden", default: "issue"}
       - {label: "Title", name: "Title", widget: "string"}
+      - {label: "Slug/Path URL — Please note this doesn't change once you create the issue because of the default Netlify CMS behavior", name: "path", widget: "string"}
       - {label: "Start date & time (your time)", name: "Date", widget: "datetime"}
       - {label: "Mark as resolved", name: "Resolved", widget: "boolean", required: false}
       - {label: "End date & time (your time)", name: "ResolvedWhen", widget: "datetime", required: false}
