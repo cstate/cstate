@@ -23,10 +23,10 @@ collections:
     description: "Welcome to the cState admin panel! Here you can create new incidents or manage existing ones. Go ahead and give it a shot."
     folder: "content/issues"
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    slug: "{{slug}}"
     fields:
       - {label: "Mark as incident", name: "Section", widget: "hidden", default: "issue"}
-      - {label: "Title", name: "Title", widget: "string"}
+      - {label: "Title", name: "title", widget: "string"}
       - {label: "Start date & time (your time)", name: "Date", widget: "datetime"}
       - {label: "Mark as resolved", name: "Resolved", widget: "boolean", required: false}
       - {label: "End date & time (your time)", name: "ResolvedWhen", widget: "datetime", required: false}
