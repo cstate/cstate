@@ -1,13 +1,13 @@
 ---
-Title: US East Connection Issues
-Date: 2018-05-25 04:13:00
-Resolved: true
-ResolvedWhen: 2018-05-25 04:40:00
+title: US East Connection Issues
+date: 2018-05-25 04:13:00
+resolved: true
+resolvedWhen: 2018-05-25 04:40:00
 # down, disrupted, notice
-Severity: disrupted
-Affected:
+severity: disrupted
+affected:
   - API
-Section: issue
+section: issue
 ---
 
 *Resolved* -
