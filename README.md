@@ -93,13 +93,19 @@ If you would like to commit/make a PR, make sure that `themesDir` is a comment b
 
 Assuming the production install instructions were followed, keep cState updated by having an up to date Git submodule in the `themes` folder. containing this repository. Your content will stay separate, as to avoid any conflicts.
 
-Do this from root:
+If you already have a Git repository set up with a filled up `themes/cstate` folder, then all you need to do is this:
 
 ```bash
 git submodule foreach git pull origin master
 ```
 
-More info about updating on [Stack Overflow](https://stackoverflow.com/a/5828396). You may also run into unexpected behavior with cloning, [see this thread](https://stackoverflow.com/questions/3796927/how-to-git-clone-including-submodules).
+If you have previously used Netlfiy CMS or have made other changes without using the command line, the easiest thing to do is just clone it in a new place, change it how you want to, push those changes, and then you can safely remove the Git folder. So, do this:
+
+```bash
+git clone --recursive <your repo link goes here> && git submodule foreach git pull origin master && git push origin master
+```
+
+More info about submodules on [updating](https://stackoverflow.com/a/5828396) & [cloning](https://stackoverflow.com/questions/3796927/how-to-git-clone-including-submodules).
 
 ## FAQ
 
