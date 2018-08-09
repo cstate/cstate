@@ -1,0 +1,66 @@
+# English language file for cState
+# Version 3.0-dev1
+
+##
+## INDEX.HTML
+##
+
+# No JS warning
+noScriptingIntro: Uh oh! It looks like you have disabled JavaScript. Please
+noScriptingLink: enable scripting
+noScriptingOutro: to enhance your experience on this website.
+
+# Summary status message
+isDown: Experiencing major issues
+isDisrupted: Experiencing disruptions
+isNotice: Please read announcement
+isOk: All systems operational
+
+thisIsDown: Down
+thisIsDisrupted: Disrupted
+thisIsNotice: Maintenance
+thisIsOk: Operational
+
+lastChecked: Last checked
+justNow: just now # "Last checked" + "just now"
+someTimeAgo: ago
+
+# Example usage: `5` + `years`
+# Final result: 'Last checked 5 years ago'
+# Number goes before string
+# Use short variants until months
+yearsAgo: years
+monthsAgo: months
+daysAgo: d
+hoursAgo: h
+minsAgo: min
+secondsAgo: s
+
+autoRefreshNotice: We will try to refresh every 5 min
+
+# Incidents
+incidents: Incidents
+incidentHistory: Incident history
+
+resolvedAfter: Resolved after # + 19 min
+ofDowntime: of downtime
+
+downtimeOngoing: Ongoing, services
+onNotice: on notice
+
+
+calmBeforeTheStorm: Is it the calm before the storm?
+noIncidentsDesc: This status page has no logged incidents. This may be because the status page owner (or owners) have recently set up their status page, have had no downtime, or have not logged any downtime.
+
+continueReading: Continue reading
+
+prev: Previous
+next: Next
+
+##
+## OTHER
+##
+
+goBack: Go back
+backToTop: Back to top
+poweredBy: Powered By

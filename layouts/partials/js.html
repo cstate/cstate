@@ -1,9 +1,10 @@
+{{ $lang := index .Site.Data.lang .Site.LanguageCode }}
 <script type="text/javascript">
   /**
    * Dev toolset
    */
 
-  console.log('You are using cState v2.0-rc4: https://github.com/cstate');
+  console.log('You are using cState {{ .Site.Params.version }}: https://github.com/cstate');
   document.querySelector('html').className = 'js';
 
 
@@ -27,7 +28,7 @@
 
   if (hasClass(document.querySelector('body'), 'status-homepage')) {
     var lastUpdated = document.querySelector('.summary__date');
-    lastUpdated.innerHTML = 'Last checked just now';
+    lastUpdated.innerHTML = '{{ $lang.lastChecked }} {{ $lang.justNow }}';
 
     var lastUpdate = new Date();
 
@@ -37,32 +38,32 @@
       var interval = Math.floor(seconds / 31536000);
 
       if (interval > 1) {
-        return interval + ' years';
+        return interval + ' {{ $lang.yearsAgo }}';
       }
       interval = Math.floor(seconds / 2592000);
       if (interval > 1) {
-        return interval + ' months';
+        return interval + ' {{ $lang.monthsAgo }}';
       }
       interval = Math.floor(seconds / 86400);
       if (interval > 1) {
-        return interval + 'd';
+        return interval + '{{ $lang.daysAgo }}';
       }
       interval = Math.floor(seconds / 3600);
       if (interval > 1) {
-        return interval + 'h';
+        return interval + '{{ $lang.hoursAgo }}';
       }
       interval = Math.floor(seconds / 60);
       if (interval > 1) {
-        return interval + ' min';
+        return interval + ' {{ $lang.minsAgo }}';
       }
-      return Math.floor(seconds) + 's';
+      return Math.floor(seconds) + '{{ $lang.secondsAgo }}';
     }
     var aDay = 24*60*60*1000;
   }
 
   window.setInterval(function() {
     if (hasClass(document.querySelector('body'), 'status-homepage')) {
-      lastUpdated.innerHTML = 'Last checked ' + timeSince(lastUpdate) + ' ago';
+      lastUpdated.innerHTML = '{{ $lang.lastChecked }} ' + timeSince(lastUpdate) + ' {{ $lang.someTimeAgo }}';
 
       // Refresh almost every 5m
       if (lastUpdate > 290000) {

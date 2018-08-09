@@ -1,10 +1,11 @@
 {{ partial "meta" . }}
+{{ $lang := index .Site.Data.lang .Site.LanguageCode }}
 
-  <body>
+  <body class="default single">
     <div class="contain">
-      <a href="{{ .Site.BaseURL }}">← Go back</a>
+      <a href="{{ .Site.BaseURL }}">← {{ $lang.goBack }}</a>
       <hr>
-      {{ .Render "post" }}
+      {{ .Render "issue" }}
     </div>
 
 

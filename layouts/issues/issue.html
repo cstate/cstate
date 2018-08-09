@@ -5,9 +5,11 @@
 {{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}
 {{ $isDown := where $active "Params.severity" "=" "down" }}
 
+{{ $lang := index .Site.Data.lang .Site.LanguageCode }}
+
 <div class="article">
   {{ if .Params.Resolved }}
-    <span class="ok">✓ Resolved after
+    <span class="ok">✓ {{ $lang.resolvedAfter }}
 
       {{ $t := (time .Params.ResolvedWhen) }}
       {{ $timeDiff := (sub $t.Unix .Date.Unix) }}
@@ -17,23 +19,27 @@
         {{ $minutesForCalc := (mod $diffInMin 60) }}
 
         {{ div (sub $diffInMin $minutesForCalc) 60 }}h
-        {{ $minutesForCalc }}m of downtime
+        {{ $minutesForCalc }}m {{ $lang.ofDowntime }}
       {{ else }}
         {{ $secsForCalc := (mod $timeDiff 60) }}
 
         {{ div (sub $timeDiff $secsForCalc) 60 }}m
-        <!-- {{ $secsForCalc }}s --> of downtime
+        <!-- {{ $secsForCalc }}s --> {{ $lang.ofDowntime }}
       {{ end }}
     </span>
   {{ else }}
-    <em>Ongoing, services {{ if eq .Params.severity "notice" }}on notice{{ else }}{{ .Params.severity }}{{ end }}</em>
+    <em>{{ $lang.downtimeOngoing }} {{ if eq .Params.severity "notice" }}{{ $lang.onNotice }}{{ end }}{{ if eq .Params.severity "disrupted" }}{{ lower $lang.thisIsDisrupted }}{{ end }}{{ if eq .Params.severity "down" }}{{ lower $lang.thisIsDown }}{{ end }}</em>
   {{ end }}
   <h3>
     <a href="{{ .Permalink }}">{{ .Title }}</a>
   </h3>
 
   <small class="date">
-    {{ .Date.Format "January 02, 2006 at 3:04 PM" }}
+    {{ if .Site.Params.dateFormat }}
+      {{ .Date.Format .Site.Params.dateFormat }}
+    {{ else }}
+      {{ .Date.Format "January 02, 2006 at 3:04 PM" }}
+    {{ end }}
   </small>
 
   <hr>

@@ -156,6 +156,7 @@ cState needs help to grow, not only would it benefit from stuff like unit tests,
 
 + Glance over the [Code of Conduct](/CODE_OF_CONDUCT.md).
 + Before submitting a pull request, create an issue to [discuss the implications of your proposal](https://github.com/cstate/cstate/issues).
++ Or if you are a translator — [see this](https://github.com/cstate/cstate/wiki/Translations#add-your-translations).
 + Write consistent, simple, readable code and precise documentation.
 + You may also the mnts [Discord chat](https://discord.gg/EvQZdhT) for support.
 
