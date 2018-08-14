@@ -200,12 +200,6 @@ buildFuture: true
 # know what you are doing.
 theme: cstate
 
-# If you are developing locally and want
-# to contribute to the cState Git repo,
-# please uncomment this option but do not
-# forget to re-comment it when commiting.
-# themesDir: ../..
-
 # This option tells cState what version
 # your config file is using.
 #
