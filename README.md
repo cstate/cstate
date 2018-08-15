@@ -48,7 +48,17 @@ We encourage you to use [Netlify](https://www.netlify.com) for cState. These are
   + Key: **HUGO_VERSION**
   + Value: **0.41**
 
+**The easy way**
+
+You can simply click this button to get started:
+
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/cstate/example)
+
+This sets up cState with its default settings from the cstate/example repo.
+
 ***
+
+If you want to do this from any branch in this repository, follow the manual instructions:
 
 1. Download the contents of the `exampleSite` directory in this repository. This will be your site guts, which will hold the content and configuration for the status page.
 2. Create a `themes` folder and navigate to it on the command line.
