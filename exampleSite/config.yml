@@ -34,7 +34,7 @@
 #    or double quotation marks.
 #
 # If you have problems, create an issue on GitHub:
-# https://github.com/mistermantas/cstate/issues
+# https://github.com/cstate/cstate/issues
 
 ############################################################
 # +------------------------------------------------------+ #
@@ -74,7 +74,7 @@ params:
   # change the amount of components.
   #
   # For help, see the wiki:
-  # https://github.com/mistermantas/cstate/wiki/Customization
+  # https://github.com/cstate/cstate/wiki/Customization
   systems:
     -
       name: Gateway
