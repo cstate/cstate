@@ -45,3 +45,46 @@ collections:
         name: "body"
         widget: "markdown"
         default: "*Investigating* - We are investigating a potential issue that might affect the uptime of one our of services. We are sorry for any inconvenience this may cause you. This incident post will be updated once we have more information."
+  - name: "settings"
+    label: "Settings"
+    description: "⚠ Please be warned that by editing settings from Netlify CMS you are _overwriting_ what you have in the original Git repository, meaning any comments left will be deleted."
+    delete: false # Prevent users from deleting documents in this collection
+    editor:
+      preview: false
+    files:
+      - name: "general"
+        label: "Configuration"
+        file: "config.yml"
+        fields:
+          - label: 'This options affects the core of cState. It defines the theme directory. Do not change it if you do not know what you are doing.'
+            name: 'theme'
+            widget: 'hidden'
+            default: 'cstate'
+          - {label: "What is your status page called? — Shows up in the browser bar and meta tags", name: "title", widget: "string"}
+          - {label: "Should posts, which have a publish date from the future, be built? Useful for sharing upcoming maintenance, etc.", name: "buildFuture", widget: "boolean", default: true, required: false}
+          - label: 'What language should the site use?'
+            name: 'languageCode'
+            widget: 'select'
+            default: 'en'
+            options:
+              - { label: 'English (Default)', value: 'en' }
+              - { label: 'Lithuanian', value: 'lt' }
+          - {label: "What is the hostname or path to the root? Where is the site hosted? Slash enables relative links.", name: "baseURL", widget: "string", default: "/"}
+          - label: "Params"
+            name: "params"
+            widget: "object"
+            fields:
+              - label: "Footer links"
+                name: "footer"
+                widget: "list"
+                fields:
+                - {label: "Name", name: "name", widget: string}
+                - {label: "URL", name: "url", widget: string}
+          - label: "Taxonomies (values must be identical to label)"
+            name: taxonomies
+            widget: "object"
+            required: false
+            fields:
+              - {label: "categories", name: "category", widget: "string", default: "categories"}
+              - {label: "author", name: "author", widget: "string", default: "author"}
+              - {label: "tags", name: "tag", widget: "string", default: "tags"}
