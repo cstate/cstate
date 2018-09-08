@@ -48,7 +48,17 @@ We encourage you to use [Netlify](https://www.netlify.com) for cState. These are
   + Key: **HUGO_VERSION**
   + Value: **0.41**
 
+**The easy way**
+
+You can simply click this button to get started:
+
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/cstate/example)
+
+This sets up cState with its default settings from the cstate/example repo.
+
 ***
+
+If you want to do this from any branch in this repository, follow the manual instructions:
 
 1. Download the contents of the `exampleSite` directory in this repository. This will be your site guts, which will hold the content and configuration for the status page.
 2. Create a `themes` folder and navigate to it on the command line.
@@ -158,7 +168,7 @@ cState needs help to grow, not only would it benefit from stuff like unit tests,
 + Before submitting a pull request, create an issue to [discuss the implications of your proposal](https://github.com/cstate/cstate/issues).
 + Or if you are a translator — [see this](https://github.com/cstate/cstate/wiki/Translations#add-your-translations).
 + Write consistent, simple, readable code and precise documentation.
-+ You may also the mnts [Discord chat](https://discord.gg/EvQZdhT) for support.
++ You may also use the mnts [Discord chat](https://discord.gg/EvQZdhT) for support.
 
 ## License
 

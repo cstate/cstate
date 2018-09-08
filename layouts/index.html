@@ -62,7 +62,7 @@
       <!-- Individual info -->
       <div class="components">
         {{ $systems := .Site.Params.systems }}
-        {{ range $index, $systems }}
+        {{ range $systems }}
           {{ $activeComponentIssues := where $active "Params.affected" "intersect" (slice .name) }}
 
           {{ $thisIsNotice := where $activeComponentIssues "Params.severity" "=" "notice" }}
