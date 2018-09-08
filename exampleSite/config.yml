@@ -221,3 +221,8 @@ params:
 # Please do not change them if you do not
 # know what you are doing.
 theme: cstate
+
+preserveTaxonomyNames: true
+
+taxonomies:
+  affected: affected

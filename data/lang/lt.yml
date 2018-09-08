@@ -63,3 +63,6 @@ next: Kitas
 goBack: Eiti atgal
 backToTop: Eiti į viršų
 poweredBy: Ši svetainė sukurta su
+
+notFound: Čia nieko nėra.
+notFoundText: Tai gali būti mūsų problema — galbūt puslapis, kurį bandote peržiūrėti, buvo kitur perkeltas arba buvo ištrintas. Taip pat yra galimybė, jog puslapis yra tuščias (pvz. jeigu vienas komponentas mūsų sistemoje nėra turėjęs problemų, nėra ko rodyti). Rekomenduoje dar kartą patikrinti, ar nuoroda, kurią naudojate, nėra neteisinga.

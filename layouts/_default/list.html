@@ -1,0 +1,90 @@
+{{ partial "meta" . }}
+{{ $lang := index .Site.Data.lang .Site.LanguageCode }}
+{{ $title := .Title }}
+
+  <body class="default list">
+    <header>
+      <div class="contain">
+        <a href="{{ .Site.BaseURL }}">← {{ $lang.goBack }}</a>
+
+        <h1 class="bold">{{ $title }}</h1>
+
+        {{ range .Site.Params.systems }}
+          {{ if eq .name $title }}
+            {{ with .description }}
+              <p class="bold">{{ . }}</p>
+            {{ end }}
+          {{ end }}
+        {{ end }}
+        <hr>
+      </div>
+    </header>
+
+    <div class="contain">
+      {{ $incidents := .Pages }}
+    </div>
+
+
+
+
+
+    <div class="contain" id="incidents">
+      <div class="padding"></div>
+      {{ if not $incidents }}
+        <div class="padding"></div>
+        <h3>{{ $lang.calmBeforeTheStorm }}</h3>
+        <p>{{ $lang.noIncidentsDesc }}</p>
+        <div class="padding"></div>
+        <div class="padding"></div>
+        <div class="padding"></div>
+      {{ else }}
+        {{ $paginator := .Paginate $incidents .Site.Params.incidentPostsPerPage }}
+        {{ range $paginator.Pages }}
+          {{ .Render "issue" }}
+        {{ end }}
+
+        <!-- If there are more than 2 pages, show pagination -->
+        {{ if gt $paginator.TotalPages 1 }}
+          <hr>
+
+          <div class="center">
+            {{ if $paginator.HasPrev }}
+              <a href="{{ $paginator.Prev.URL }}#incidents">
+                ⭠ &nbsp;
+                {{ $lang.prev }}
+              </a>
+            {{ else }}
+              <span class="faded">
+                ⭠ &nbsp;
+                {{ $lang.prev }}
+              </span>
+            {{ end }}
+
+
+            &nbsp; &nbsp;
+            {{ $paginator.PageNumber }}
+            /
+            {{ $paginator.TotalPages }}
+            &nbsp; &nbsp;
+
+
+            {{ if $paginator.HasNext }}
+              <a href="{{ $paginator.Next.URL }}#incidents">
+                {{ $lang.next }} &nbsp;
+                ⭢
+              </a>
+            {{ else }}
+              <span class="faded">
+                {{ $lang.next }} &nbsp;
+                ⭢
+              </span>
+            {{ end }}
+          </div>
+        {{ end }}
+      {{ end }}
+    </div>
+
+    {{ partial "js" . }}
+    {{ partial "footer" . }}
+  </body>
+</html>

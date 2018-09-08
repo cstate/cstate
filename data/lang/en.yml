@@ -64,3 +64,6 @@ next: Next
 goBack: Go back
 backToTop: Back to top
 poweredBy: Powered By
+
+notFound: There is nothing here.
+notFoundText: This could be a problem on our part. Perhaps we moved a certain resource and now it is gone. It is also possible that the resource you are trying to view is empty (for example, if a system has never been down, we have nothing to show). But do you also mind to double check the link?

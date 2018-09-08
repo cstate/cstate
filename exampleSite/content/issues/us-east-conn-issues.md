@@ -7,6 +7,7 @@ resolvedWhen: 2018-05-25 04:40:00
 severity: disrupted
 affected:
   - API
+  - Media Proxy
 section: issue
 ---
 

@@ -70,8 +70,9 @@
           {{ $thisIsDown := where $activeComponentIssues "Params.severity" "=" "down" }}
 
           <div class="component" data-status="{{ if $thisIsDown }}down{{ else }}{{ if $thisIsDisrupted }}disrupted{{ else }}{{ if $thisIsNotice }}notice{{ else }}ok{{ end }}{{ end }}{{ end }}">
-            {{ $this := .name }}
-            {{ .name }}
+            <a href="/affected/{{ .name | urlize }}" class="no-underline">
+              {{ .name }}
+            </a>
 
             {{ with .description }}
               <span class="description">

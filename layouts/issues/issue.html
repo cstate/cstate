@@ -42,6 +42,12 @@
     {{ end }}
   </small>
 
+  <p><small>
+    {{ range .Params.Affected }}
+      <a href="/affected/{{ . | urlize }}" class="tag no-underline">{{ . }}</a>
+    {{ end }}
+  </small></p>
+
   <hr>
 
   {{ .Content }}
