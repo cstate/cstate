@@ -78,7 +78,7 @@ languageCode: en
 # than English! When tested with Lithuanian,
 # it would add unnecesary placeholders to
 # values that were intentionally empty.
-defaultContentLanguage: lt
+defaultContentLanguage: en
 
 # What is the hostname or path to the root?
 # Where is the site hosted?
@@ -222,6 +222,14 @@ params:
 theme: cstate
 
 preserveTaxonomyNames: true
+
+#mediaTypes:
+#  application/json:
+#    suffixes: 'json'
+
+#outputs:
+#  api:
+#    - json
 
 taxonomies:
   affected: affected

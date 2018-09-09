@@ -67,10 +67,19 @@ collections:
             hint: 'Should posts, which have a publish date from the future, be built? Useful for sharing upcoming maintenance, etc.'
             required: false
             default: true
-          - label: 'Site language'
-            hint: 'Use the ISO 639-1 defined abbreviations. Examples: en, lt, de. Fully explained here: https://github.com/cstate/cstate/wiki/Translations#available-translations'
+          - label: 'Site display language'
+            hint: 'Docs: https://github.com/cstate/cstate/wiki/Translations#available-translations'
+            name: 'defaultContentLanguage'
+            widget: 'select'
+            default: 'en'
+            options:
+            - { label: "🇺🇸 English (default)", value: "en" }
+            - { label: "🇱🇹 Lithuanian (official)", value: "lt" }
+          - label: 'Site language in code for html[lang]'
+            hint: 'Use the ISO 639-1 defined abbreviations. Examples: en, lt, de. Fully explained here: https://github.com/mistermantas/cstate/wiki/Customization#changing-site-language'
             name: 'languageCode'
             widget: 'string'
+            default: 'en'
           - label: 'Base URL / Hostname'
             name: 'baseURL'
             widget: 'string'
