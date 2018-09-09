@@ -17,10 +17,10 @@ display_url: /
 
 # Do not change this!
 collections:
-  - name: "issue"
+  - name: "incidents"
     label: "Incidents"
     label_singular: "Incident"
-    description: "Welcome to the cState admin panel! Here you can create new incidents or manage existing ones. Go ahead and give it a shot."
+    description: "📚 Welcome to the cState admin panel! Here you can create new incidents or manage existing ones. Go ahead and give it a shot."
     folder: "content/issues"
     create: true
     slug: "{{slug}}"
@@ -47,44 +47,155 @@ collections:
         default: "*Investigating* - We are investigating a potential issue that might affect the uptime of one our of services. We are sorry for any inconvenience this may cause you. This incident post will be updated once we have more information."
   - name: "settings"
     label: "Settings"
-    description: "⚠ Please be warned that by editing settings from Netlify CMS you are _overwriting_ what you have in the original Git repository, meaning any comments left will be deleted."
+    description: "⚠ Please be warned that by editing settings from Netlify CMS you are _OVERWRITING_ what you have in the original Git repository, meaning any comments left will be deleted."
     delete: false # Prevent users from deleting documents in this collection
     editor:
       preview: false
     files:
       - name: "general"
-        label: "Configuration"
+        label: "Configuration File"
         file: "config.yml"
         fields:
-          - label: 'This options affects the core of cState. It defines the theme directory. Do not change it if you do not know what you are doing.'
-            name: 'theme'
-            widget: 'hidden'
-            default: 'cstate'
-          - {label: "What is your status page called? — Shows up in the browser bar and meta tags", name: "title", widget: "string"}
-          - {label: "Should posts, which have a publish date from the future, be built? Useful for sharing upcoming maintenance, etc.", name: "buildFuture", widget: "boolean", default: true, required: false}
-          - label: 'What language should the site use?'
+          # MAIN
+          - label: 'Site title'
+            hint: 'What is your status page called? Shows up in the browser bar and meta.'
+            name: 'title'
+            widget: 'string'
+          - label: 'Build future posts'
+            name: 'buildFuture'
+            widget: 'boolean'
+            hint: 'Should posts, which have a publish date from the future, be built? Useful for sharing upcoming maintenance, etc.'
+            required: false
+            default: true
+          - label: 'Site language'
+            hint: 'Use the ISO 639-1 defined abbreviations. Examples: en, lt, de. Fully explained here: https://github.com/cstate/cstate/wiki/Translations#available-translations'
             name: 'languageCode'
-            widget: 'select'
-            default: 'en'
-            options:
-              - { label: 'English (Default)', value: 'en' }
-              - { label: 'Lithuanian', value: 'lt' }
-          - {label: "What is the hostname or path to the root? Where is the site hosted? Slash enables relative links.", name: "baseURL", widget: "string", default: "/"}
+            widget: 'string'
+          - label: 'Base URL / Hostname'
+            name: 'baseURL'
+            widget: 'string'
+            hint: 'Where is the site hosted? What is the hostname or path to the root? Slash forces relative links but may not work in all setups.'
+            default: '/'
+          # PARAMS
           - label: "Params"
             name: "params"
             widget: "object"
             fields:
-              - label: "Footer links"
-                name: "footer"
+              # Components
+              - label: "System components"
+                name: "systems"
                 widget: "list"
+                allow_add: true
                 fields:
                 - {label: "Name", name: "name", widget: string}
-                - {label: "URL", name: "url", widget: string}
-          - label: "Taxonomies (values must be identical to label)"
+                - {label: "Description", name: "description", widget: string, required: false}
+                - {label: "Partial", hint: "Custom HTML feature: https://github.com/cstate/cstate/wiki/Customization#custom-html", name: "partial", widget: string, required: false}
+              # Components
+              - label: "Tabs"
+                hint: 'You can add extra tabs below the main homepage summary, for example, to external sites, monitoring services, as shown in the example below. Try Uptime Robot!'
+                name: "tabs"
+                widget: "list"
+                allow_add: true
+                fields:
+                - {label: "Name", name: "name", widget: string}
+                - {label: "Link", name: "link", widget: string}
+              # Dates
+              - label: 'Long date format'
+                name: 'dateFormat'
+                widget: 'string'
+                hint: 'Default: January 02, 2006 at 3:04 PM. Hugo formatting docs: https://gohugo.io/functions/format/#hugo-date-and-time-templating-reference'
+                default: 'January 02, 2006 at 3:04 PM'
+              - label: 'Short date format'
+                name: 'shortDateFormat'
+                widget: 'string'
+                hint: 'Default: 15:04 — Jan 2. Hugo formatting docs: https://gohugo.io/functions/format/#hugo-date-and-time-templating-reference'
+                default: '15:04 — Jan 2'
+              # Design toggles
+              - label: 'Use large header design'
+                name: 'useLargeHeaderDesign'
+                widget: 'boolean'
+                hint: 'What header design should we use? https://github.com/cstate/cstate/wiki/Customization#changing-header'
+                required: false
+                default: false
+              - label: 'Show logo'
+                name: 'useLogo'
+                widget: 'boolean'
+                required: false
+                default: true
+              - label: 'Logo image'
+                hint: 'Upload your logo here. If the logo option is switched off, this will not show.'
+                name: 'logo'
+                widget: 'image'
+              # Description
+              - label: 'Site description'
+                hint: 'This is the description that is shown on the footer and meta tags.'
+                name: 'description'
+                widget: 'text'
+                default: 'We continuously monitor the status of our services and if there are any interruptions, a note will be posted here.'
+              # Refresh
+              - label: 'Auto refresh status'
+                name: 'autoRefresh'
+                widget: 'boolean'
+                hint: 'This does nothing but refresh the page around every 5 minutes; it does not send alerts! May also have issues on some browsers.'
+                required: false
+                default: true
+              # Incidents per page
+              - label: 'Incident posts shown in one page'
+                name: 'incidentPostsPerPage'
+                widget: 'number'
+                valueType: 'int'
+                min: 1
+                max: 100
+                default: 10
+              # Brand color
+              - label: 'Header: always keep brand color the same'
+                name: 'alwaysKeepBrandColor'
+                hint: 'You may choose whether the brand color should stay unchanged once there are disruptions or outages on the header.'
+                widget: 'boolean'
+                default: true
+              # Colors
+              - label: 'Site HEX color: Brand'
+                hint: 'Should not have # mark. Default: 181818'
+                name: 'brand'
+                widget: 'string'
+                default: '181818'
+              - label: 'Site HEX color: Operational / OK'
+                hint: 'Should not have # mark. Default: 228B22'
+                name: 'ok'
+                widget: 'string'
+                default: '228B22'
+              - label: 'Site HEX color: Disrupted'
+                hint: 'Should not have # mark. Default: FF8C00'
+                name: 'disrupted'
+                widget: 'string'
+                default: 'FF8C00'
+              - label: 'Site HEX color: Down / Offline / Major'
+                hint: 'Should not have # mark. Default: DC143C'
+                name: 'down'
+                widget: 'string'
+                default: 'DC143C'
+              - label: 'Site HEX color: Notice'
+                hint: 'Should not have # mark. Default: 708090'
+                name: 'notice'
+                widget: 'string'
+                default: '708090'
+              # Google Analytics
+              - label: 'Google Analytics tracking code'
+                hint: 'By default, cState does not use Google Analytics. If you choose to use it, you may change the placeholder code below to your own and thereby enable the tracking service. If you set the value back to UA-00000000-1, the code will once again be removed.'
+                name: 'googleAnalytics'
+                widget: 'string'
+                default: 'UA-00000000-1'
+          # REQUIRED BUT HIDDEN
+          - label: 'theme'
+            name: 'theme'
+            widget: 'hidden'
+            default: 'cstate'
+          - label: 'preserveTaxonomyNames'
+            name: 'preserveTaxonomyNames'
+            widget: 'hidden'
+            default: 'true'
+          - label: "taxonomies"
             name: taxonomies
-            widget: "object"
-            required: false
+            widget: "hidden"
             fields:
-              - {label: "categories", name: "category", widget: "string", default: "categories"}
-              - {label: "author", name: "author", widget: "string", default: "author"}
-              - {label: "tags", name: "tag", widget: "string", default: "tags"}
+              - {label: "affected", name: "affected", widget: "hidden", default: "affected"}

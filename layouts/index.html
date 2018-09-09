@@ -7,15 +7,13 @@
 {{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}
 {{ $isDown := where $active "Params.severity" "=" "down" }}
 
-{{ $lang := index .Site.Data.lang .Site.LanguageCode }}
-
   <body class="status-homepage status-{{ if $isDown }}down{{ else }}{{ if $isDisrupted}}disrupted{{ else }}{{ if $isNotice }}notice{{ else }}ok{{ end }}{{ end }}{{ end }} {{ if not .Site.Params.alwaysKeepBrandColor }}change-header-color{{ end }}">
     {{ partial "header" . }}
 
     <!-- Main -->
     <div class="contain">
       <noscript>
-        <p class="error">{{ $lang.noScriptingIntro }} <a href="//enable-javascript.com">{{ $lang.noScriptingLink }}</a> {{ $lang.noScriptingOutro }}</p>
+        <p class="error">{{ T "noScriptingIntro" }} <a href="//enable-javascript.com">{{ T "noScriptingLink" }}</a> {{ T "noScriptingOutro" }}</p>
         <div class="padding"></div>
       </noscript>
 
@@ -23,15 +21,15 @@
       <div class="summary">
         <strong>
           {{ if $isDown }}
-            {{ $lang.isDown }}
+            {{ T "isDown" }}
           {{ else }}
           {{ if $isDisrupted }}
-            {{ $lang.isDisrupted }}
+            {{ T "isDisrupted" }}
           {{ else }}
           {{ if $isNotice }}
-            {{ $lang.isNotice }}
+            {{ T "isNotice" }}
           {{ else }}
-            {{ $lang.isOk }}
+            {{ T "isOk" }}
           {{ end }}{{ end }}{{ end }}
         </strong>
 
@@ -44,7 +42,7 @@
           <div class="padding">
             <p><strong>{{ .Title }}</strong></p>
             {{ .Content | safeHTML | truncate 500 "…" }}
-            <p><a href="{{ .Permalink }}">{{ $lang.continueReading }}</a></p>
+            <p><a href="{{ .Permalink }}">{{ T "continueReading" }}</a></p>
           </div>
         {{ else }}{{ end }}
       </div>
@@ -52,7 +50,7 @@
 
       {{ if .Site.Params.autoRefresh }}
       <div class="faded right">
-        <small><em>{{ $lang.autoRefreshNotice }}</em></small>
+        <small><em>{{ T "autoRefreshNotice" }}</em></small>
       </div>
       <div class="padding-s"></div>
       {{ else }}
@@ -86,15 +84,15 @@
 
             <span class="component-status">
               {{ if $thisIsDown }}
-                {{ $lang.thisIsDown }}
+                {{ T "thisIsDown" }}
               {{ else }}
               {{ if $thisIsDisrupted }}
-                {{ $lang.thisIsDisrupted }}
+                {{ T "thisIsDisrupted" }}
               {{ else }}
               {{ if $thisIsNotice }}
-                {{ $lang.thisIsNotice }}
+                {{ T "thisIsNotice" }}
               {{ else }}
-                {{ $lang.thisIsOk }}
+                {{ T "thisIsOk" }}
               {{ end }}{{ end }}{{ end }}
             </span>
 
@@ -117,7 +115,7 @@
   <div class="tabs">
     <div class="contain tabs--inner">
       <a href="/#incidents" class="tab tab--current">
-        {{ $lang.incidents }}
+        {{ T "incidents" }}
       </a>
 
       {{ range .Site.Params.customTabs }}
@@ -129,7 +127,7 @@
   </div>
   {{ else }}
   <div class="contain">
-    <h2 class="center">{{ $lang.incidentHistory }}</h2>
+    <h2 class="center">{{ T "incidentHistory" }}</h2>
     <hr>
   </div>
   {{ end }}
@@ -139,8 +137,8 @@
     <div class="padding"></div>
     {{ if not $incidents }}
       <div class="padding"></div>
-      <h3>{{ $lang.calmBeforeTheStorm }}</h3>
-      <p>{{ $lang.noIncidentsDesc }}</p>
+      <h3>{{ T "calmBeforeTheStorm" }}</h3>
+      <p>{{ T "noIncidentsDesc" }}</p>
       <div class="padding"></div>
       <div class="padding"></div>
       <div class="padding"></div>
@@ -158,12 +156,12 @@
           {{ if $paginator.HasPrev }}
             <a href="{{ $paginator.Prev.URL }}#incidents">
               ⭠ &nbsp;
-              {{ $lang.prev }}
+              {{ T "prev" }}
             </a>
           {{ else }}
             <span class="faded">
               ⭠ &nbsp;
-              {{ $lang.prev }}
+              {{ T "prev" }}
             </span>
           {{ end }}
 
@@ -177,12 +175,12 @@
 
           {{ if $paginator.HasNext }}
             <a href="{{ $paginator.Next.URL }}#incidents">
-              {{ $lang.next }} &nbsp;
+              {{ T "next" }} &nbsp;
               ⭢
             </a>
           {{ else }}
             <span class="faded">
-              {{ $lang.next }} &nbsp;
+              {{ T "next" }} &nbsp;
               ⭢
             </span>
           {{ end }}

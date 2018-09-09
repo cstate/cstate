@@ -7,13 +7,11 @@
 {{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}
 {{ $isDown := where $active "Params.severity" "=" "down" }}
 
-{{ $lang := index .Site.Data.lang .Site.LanguageCode }}
-
   <body class="status-{{ if $isDown }}down{{ else }}{{ if $isDisrupted}}disrupted{{ else }}{{ if $isNotice }}notice{{ else }}ok{{ end }}{{ end }}{{ end }}">
     {{ partial "header" . }}
 
     <div class="contain">
-      <a href="{{ .Site.BaseURL }}">← {{ $lang.goBack }}</a>
+      <a href="{{ .Site.BaseURL }}">← {{ T "goBack" }}</a>
     </div>
 
     <div class="contain">

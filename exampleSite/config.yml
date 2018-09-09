@@ -53,21 +53,32 @@ title: Eggsample App Status
 # BOOLEAN; `true`, `false`
 buildFuture: true
 
-# What language should the site use?
+# What language do you want to use for the
+# html[lang] definition?
+#
+# Does not change language of site
+# itself.
 #
 # Default: `en`
 # ISO 639-1 defines abbreviations.
 #
-# Warning!
-# If you set this to a lanauge that
-# does not have a translations file,
-# no text will be shown by cState.
-# See docs for info:
-#
-#
 # See:  https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
 # Also: https://www.w3schools.com/tags/ref_language_codes.asp
 languageCode: en
+
+# What translation file should cState use?
+# You can also define whether missing
+# translations should get placeholders.
+#
+# For defaultContentLanguage—
+# Default: `en`
+#
+# For enableMissingTranslationPlaceholders—
+# do not set it to true for languages other
+# than English! When tested with Lithuanian,
+# it would add unnecesary placeholders to
+# values that were intentionally empty.
+defaultContentLanguage: lt
 
 # What is the hostname or path to the root?
 # Where is the site hosted?
@@ -91,13 +102,10 @@ params:
   # For help, see the wiki:
   # https://github.com/cstate/cstate/wiki/Customization
   systems:
-    -
-      name: Gateway
-    -
-      name: API
+    - name: Gateway
+    - name: API
       description: The guts of the application.
-    -
-      name: Media Proxy
+    - name: Media Proxy
       description: This is the service responsible for serving images, audio, and video. It is reliant on our CDN.
 
   # What date format to use?
@@ -136,7 +144,7 @@ params:
   logo: /logo.png
 
   # This is the description that is shown
-  # in the footer and meta tags.
+  # on the footer and meta tags.
   #
   # Default: We continuously monitor the status of our services and if there are any interruptions, a note will be posted here.
   description: We continuously monitor the status of our services and if there are any interruptions, a note will be posted here.
@@ -207,15 +215,6 @@ params:
   #
   # Default: UA-00000000-1
   googleAnalytics: UA-00000000-1
-
-  # This option tells cState what version
-  # your config file is using.
-  #
-  # Warning!
-  # Never ever remove this, nor change it,
-  # if you have not updated to any other
-  # version.
-  version: 3.0-dev1
 
 # These options affect the core of cState.
 # Please do not change them if you do not

@@ -1,5 +1,3 @@
-{{ $lang := index .Site.Data.lang .Site.LanguageCode }}
-
 {{ if .Site.Params.enableCustomHTML }}
   {{ partial "custom/above-footer" . }}
 {{ end }}
@@ -7,13 +5,13 @@
 <div class="footer">
   <div class="contain">
     <p><strong>{{ now.Year }} &copy; {{ .Site.Title }}</strong>
-       &nbsp; • &nbsp; <a href="#">{{ $lang.backToTop }}</a>
+       &nbsp; • &nbsp; <a href="#">{{ T "backToTop" }}</a>
     </p>
 
     <p>{{ .Site.Params.description }}</p>
 
     <!-- Please keep this one around to help cState grow <3 -->
-    <small class="copyright faded">{{ $lang.poweredBy }} <a href="https://github.com/cstate/cstate">cState {{ .Site.Params.version }}</a></small>
+    <small class="copyright faded">{{ T "poweredBy" }} <a href="https://github.com/cstate/cstate">cState</a></small>
   </div>
 </div>
 

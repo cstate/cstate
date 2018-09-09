@@ -7,14 +7,12 @@
 {{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}
 {{ $isDown := where $active "Params.severity" "=" "down" }}
 
-{{ $lang := index .Site.Data.lang .Site.LanguageCode }}
-
   <body class="status-homepage status-{{ if $isDown }}down{{ else }}{{ if $isDisrupted}}disrupted{{ else }}{{ if $isNotice }}notice{{ else }}ok{{ end }}{{ end }}{{ end }} {{ if not .Site.Params.alwaysKeepBrandColor }}change-header-color{{ end }}">
     {{ partial "header" . }}
 
     <div class="contain center">
-      <h1 class="bold">{{ $lang.notFound }}</h1>
-      <p>{{ $lang.notFoundText }}</p>
+      <h1 class="bold">{{ T "notFound" }}</h1>
+      <p>{{ T "notFoundText" }}</p>
     </div>
 
     {{ partial "js" . }}

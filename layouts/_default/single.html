@@ -1,13 +1,10 @@
 {{ partial "meta" . }}
-{{ $lang := index .Site.Data.lang .Site.LanguageCode }}
-
   <body class="default single">
     <div class="contain">
-      <a href="{{ .Site.BaseURL }}">← {{ $lang.goBack }}</a>
+      <a href="{{ .Site.BaseURL }}">← {{ T "goBack" }}</a>
       <hr>
       {{ .Content }}
     </div>
-
 
     {{ partial "js" . }}
     {{ partial "footer" . }}

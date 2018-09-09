@@ -1,11 +1,10 @@
 {{ partial "meta" . }}
-{{ $lang := index .Site.Data.lang .Site.LanguageCode }}
 {{ $title := .Title }}
 
   <body class="default list">
     <header>
       <div class="contain">
-        <a href="{{ .Site.BaseURL }}">← {{ $lang.goBack }}</a>
+        <a href="{{ .Site.BaseURL }}">← {{ T "goBack" }}</a>
 
         <h1 class="bold">{{ $title }}</h1>
 
@@ -32,8 +31,8 @@
       <div class="padding"></div>
       {{ if not $incidents }}
         <div class="padding"></div>
-        <h3>{{ $lang.calmBeforeTheStorm }}</h3>
-        <p>{{ $lang.noIncidentsDesc }}</p>
+        <h3>{{ T "calmBeforeTheStorm" }}</h3>
+        <p>{{ T "noIncidentsDesc" }}</p>
         <div class="padding"></div>
         <div class="padding"></div>
         <div class="padding"></div>
@@ -51,12 +50,12 @@
             {{ if $paginator.HasPrev }}
               <a href="{{ $paginator.Prev.URL }}#incidents">
                 ⭠ &nbsp;
-                {{ $lang.prev }}
+                {{ T "prev" }}
               </a>
             {{ else }}
               <span class="faded">
                 ⭠ &nbsp;
-                {{ $lang.prev }}
+                {{ T "prev" }}
               </span>
             {{ end }}
 
@@ -70,12 +69,12 @@
 
             {{ if $paginator.HasNext }}
               <a href="{{ $paginator.Next.URL }}#incidents">
-                {{ $lang.next }} &nbsp;
+                {{ T "next" }} &nbsp;
                 ⭢
               </a>
             {{ else }}
               <span class="faded">
-                {{ $lang.next }} &nbsp;
+                {{ T "next" }} &nbsp;
                 ⭢
               </span>
             {{ end }}

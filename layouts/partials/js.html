@@ -1,10 +1,9 @@
-{{ $lang := index .Site.Data.lang .Site.LanguageCode }}
 <script type="text/javascript">
   /**
    * Dev toolset
    */
 
-  console.log('You are using cState {{ .Site.Params.version }}: https://github.com/cstate');
+  console.log('You are using cState: https://github.com/cstate');
   document.querySelector('html').className = 'js';
 
 
@@ -28,7 +27,7 @@
 
   if (hasClass(document.querySelector('body'), 'status-homepage')) {
     var lastUpdated = document.querySelector('.summary__date');
-    lastUpdated.innerHTML = '{{ $lang.lastChecked }} {{ $lang.justNow }}';
+    lastUpdated.innerHTML = '{{ T "lastChecked" }} {{ T "justNow" }}';
 
     var lastUpdate = new Date();
 
@@ -38,32 +37,32 @@
       var interval = Math.floor(seconds / 31536000);
 
       if (interval > 1) {
-        return interval + ' {{ $lang.yearsAgo }}';
+        return interval + ' {{ T "yearsAgo" }}';
       }
       interval = Math.floor(seconds / 2592000);
       if (interval > 1) {
-        return interval + ' {{ $lang.monthsAgo }}';
+        return interval + ' {{ T "monthsAgo" }}';
       }
       interval = Math.floor(seconds / 86400);
       if (interval > 1) {
-        return interval + '{{ $lang.daysAgo }}';
+        return interval + '{{ T "daysAgo" }}';
       }
       interval = Math.floor(seconds / 3600);
       if (interval > 1) {
-        return interval + '{{ $lang.hoursAgo }}';
+        return interval + '{{ T "hoursAgo" }}';
       }
       interval = Math.floor(seconds / 60);
       if (interval > 1) {
-        return interval + ' {{ $lang.minsAgo }}';
+        return interval + ' {{ T "minsAgo" }}';
       }
-      return Math.floor(seconds) + '{{ $lang.secondsAgo }}';
+      return Math.floor(seconds) + '{{ T "secondsAgo" }}';
     }
     var aDay = 24*60*60*1000;
   }
 
   window.setInterval(function() {
     if (hasClass(document.querySelector('body'), 'status-homepage')) {
-      lastUpdated.innerHTML = '{{ $lang.lastChecked }} ' + timeSince(lastUpdate) + ' {{ $lang.someTimeAgo }}';
+      lastUpdated.innerHTML = '{{ T "lastChecked" }} ' + timeSince(lastUpdate) + ' {{ T "someTimeAgo" }}';
 
       // Refresh almost every 5m
       if (lastUpdate > 290000) {
