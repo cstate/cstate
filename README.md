@@ -133,7 +133,7 @@ Create a file in `content/issues`. The name of the file will be the slug (what s
 ---
 title: Major outage in East US
 date: 2017-02-30 14:30:00
-desolved: true
+resolved: true
 resolvedWhen: 2017-02-30 16:00:00
 severity: down
 affected:
