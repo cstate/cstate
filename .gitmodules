@@ -1,0 +1,3 @@
+[submodule "exampleSite/themes/cstate"]
+	path = exampleSite/themes/cstate
+	url = https://github.com/cstate/cstate

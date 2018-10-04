@@ -7,23 +7,28 @@
 
 <div class="article">
   {{ if .Params.Resolved }}
-    <span class="ok">✓ Resolved after
+    <span class="ok">
 
       {{ $t := (time .Params.ResolvedWhen) }}
       {{ $timeDiff := (sub $t.Unix .Date.Unix) }}
       {{ $diffInMin := (div $timeDiff 60) }}
 
-      {{ if gt $timeDiff 3600 }}
-        {{ $minutesForCalc := (mod $diffInMin 60) }}
+	  {{ if lt $timeDiff 60 }}
+			✓ Resolved
+	  {{ else }}
+      		✓ Resolved after
+      		{{ if gt $timeDiff 3600 }}
+				{{ $minutesForCalc := (mod $diffInMin 60) }}
 
-        {{ div (sub $diffInMin $minutesForCalc) 60 }}h
-        {{ $minutesForCalc }}m of downtime
-      {{ else }}
-        {{ $secsForCalc := (mod $timeDiff 60) }}
+        		{{ div (sub $diffInMin $minutesForCalc) 60 }}h
+        		{{ $minutesForCalc }}m of downtime
+      		{{ else }}
+        		{{ $secsForCalc := (mod $timeDiff 60) }}
 
-        {{ div (sub $timeDiff $secsForCalc) 60 }}m
-        <!-- {{ $secsForCalc }}s --> of downtime
-      {{ end }}
+			{{ div (sub $timeDiff $secsForCalc) 60 }}m
+			<!-- {{ $secsForCalc }}s --> of downtime
+		  {{ end }}
+	  {{ end }}
     </span>
   {{ else }}
     <em>Ongoing, services {{ if eq .Params.severity "notice" }}on notice{{ else }}{{ .Params.severity }}{{ end }}</em>
