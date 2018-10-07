@@ -73,7 +73,8 @@
 - id: incidentHistory
   translation: Incident history
 
-
+- id: resolved
+  translation: Resolved # if it's less than a min
 - id: resolvedAfter
   translation: Resolved after # + 19 min
 - id: ofDowntime
