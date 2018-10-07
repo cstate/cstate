@@ -73,7 +73,8 @@
 - id: incidentHistory
   translation: Incidentų išrašai
 
-
+- id: resolved
+  translation: Išspręsta problema
 - id: resolvedAfter
   translation: Išspręsta problema po # + 19 min
 # - id: ofDowntime
