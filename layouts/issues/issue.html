@@ -7,23 +7,31 @@
 
 <div class="article">
   {{ if .Params.Resolved }}
-    <span class="ok">✓ {{ T "resolvedAfter" }}
+    <span class="ok">
+    
+    {{ $t := (time .Params.ResolvedWhen) }}
+    {{ $timeDiff := (sub $t.Unix .Date.Unix) }}
+    {{ $diffInMin := (div $timeDiff 60) }}
 
-      {{ $t := (time .Params.ResolvedWhen) }}
-      {{ $timeDiff := (sub $t.Unix .Date.Unix) }}
-      {{ $diffInMin := (div $timeDiff 60) }}
+    <!-- Marker -->
+    {{ if lt $timeDiff 60 }}
+      ✓ {{ T "resolved" }}
+    {{ else }}
 
-      {{ if gt $timeDiff 3600 }}
-        {{ $minutesForCalc := (mod $diffInMin 60) }}
+  		✓ {{ T "resolvedAfter" }}
+  		{{ if gt $timeDiff 3600 }}
+				{{ $minutesForCalc := (mod $diffInMin 60) }}
 
-        {{ div (sub $diffInMin $minutesForCalc) 60 }}h
-        {{ $minutesForCalc }}m {{ T "ofDowntime" }}
-      {{ else }}
-        {{ $secsForCalc := (mod $timeDiff 60) }}
+    		{{ div (sub $diffInMin $minutesForCalc) 60 }}h
+    		{{ $minutesForCalc }}m {{ T "ofDowntime" }}
+  		{{ else }}
+    		{{ $secsForCalc := (mod $timeDiff 60) }}
 
-        {{ div (sub $timeDiff $secsForCalc) 60 }}m
-        <!-- {{ $secsForCalc }}s --> {{ T "ofDowntime" }}
-      {{ end }}
+  			{{ div (sub $timeDiff $secsForCalc) 60 }}m
+  			<!-- {{ $secsForCalc }}s --> {{ T "ofDowntime" }}
+	    {{ end }}
+      
+    {{ end }}
     </span>
   {{ else }}
     <em>{{ T "downtimeOngoing" }}</em>
@@ -47,7 +55,6 @@
   </small></p>
 
   <hr>
-
   {{ .Content }}
 </div>
 <div class="padding"></div>
