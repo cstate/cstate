@@ -3,7 +3,7 @@
    * Dev toolset
    */
 
-  console.log('You are using cState v2.0.1: https://github.com/cstate/cstate');
+  console.log('You are using cState: https://github.com/cstate');
   document.querySelector('html').className = 'js';
 
 
@@ -27,7 +27,7 @@
 
   if (hasClass(document.querySelector('body'), 'status-homepage')) {
     var lastUpdated = document.querySelector('.summary__date');
-    lastUpdated.innerHTML = 'Last checked just now';
+    lastUpdated.innerHTML = '{{ T "lastChecked" }} {{ T "justNow" }}';
 
     var lastUpdate = new Date();
 
@@ -37,32 +37,32 @@
       var interval = Math.floor(seconds / 31536000);
 
       if (interval > 1) {
-        return interval + ' years';
+        return interval + ' {{ T "yearsAgo" }}';
       }
       interval = Math.floor(seconds / 2592000);
       if (interval > 1) {
-        return interval + ' months';
+        return interval + ' {{ T "monthsAgo" }}';
       }
       interval = Math.floor(seconds / 86400);
       if (interval > 1) {
-        return interval + 'd';
+        return interval + '{{ T "daysAgo" }}';
       }
       interval = Math.floor(seconds / 3600);
       if (interval > 1) {
-        return interval + 'h';
+        return interval + '{{ T "hoursAgo" }}';
       }
       interval = Math.floor(seconds / 60);
       if (interval > 1) {
-        return interval + ' min';
+        return interval + ' {{ T "minsAgo" }}';
       }
-      return Math.floor(seconds) + 's';
+      return Math.floor(seconds) + '{{ T "secondsAgo" }}';
     }
     var aDay = 24*60*60*1000;
   }
 
   window.setInterval(function() {
     if (hasClass(document.querySelector('body'), 'status-homepage')) {
-      lastUpdated.innerHTML = 'Last checked ' + timeSince(lastUpdate) + ' ago';
+      lastUpdated.innerHTML = '{{ T "lastChecked" }} ' + timeSince(lastUpdate) + ' {{ T "someTimeAgo" }}';
 
       // Refresh almost every 5m
       if (lastUpdate > 290000) {

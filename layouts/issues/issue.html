@@ -15,34 +15,44 @@
 
     <!-- Marker -->
     {{ if lt $timeDiff 60 }}
-      ✓ Resolved
+      ✓ {{ T "resolved" }}
     {{ else }}
 
-  		✓ Resolved after
+  		✓ {{ T "resolvedAfter" }}
   		{{ if gt $timeDiff 3600 }}
 				{{ $minutesForCalc := (mod $diffInMin 60) }}
 
     		{{ div (sub $diffInMin $minutesForCalc) 60 }}h
-    		{{ $minutesForCalc }}m of downtime
+    		{{ $minutesForCalc }}m {{ T "ofDowntime" }}
   		{{ else }}
     		{{ $secsForCalc := (mod $timeDiff 60) }}
 
   			{{ div (sub $timeDiff $secsForCalc) 60 }}m
-  			<!-- {{ $secsForCalc }}s --> of downtime
+  			<!-- {{ $secsForCalc }}s --> {{ T "ofDowntime" }}
 	    {{ end }}
       
     {{ end }}
     </span>
   {{ else }}
-    <em>Ongoing, services {{ if eq .Params.severity "notice" }}on notice{{ else }}{{ .Params.severity }}{{ end }}</em>
+    <em>{{ T "downtimeOngoing" }}</em>
   {{ end }}
   <h3>
     <a href="{{ .Permalink }}">{{ .Title }}</a>
   </h3>
 
   <small class="date">
-    {{ .Date.Format "January 02, 2006 at 3:04 PM" }}
+    {{ if .Site.Params.dateFormat }}
+      {{ .Date.Format .Site.Params.dateFormat }}
+    {{ else }}
+      {{ .Date.Format "January 02, 2006 at 3:04 PM" }}
+    {{ end }}
   </small>
+
+  <p><small>
+    {{ range .Params.Affected }}
+      <a href="/affected/{{ . | urlize }}" class="tag no-underline">{{ . }}</a>
+    {{ end }}
+  </small></p>
 
   <hr>
   {{ .Content }}

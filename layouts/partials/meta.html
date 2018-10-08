@@ -9,6 +9,9 @@
     <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Summary }}{{ end }}">
     <title>{{ if eq .Title .Site.Title }}{{ .Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
     <link rel="canonical" href="{{ .Permalink }}">
+    {{ range .AlternativeOutputFormats -}}
+    {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+    {{ end -}}
     {{ .Hugo.Generator }}
     <meta name="theme-color" content="#{{ .Site.Params.brand }}">
     <script>
@@ -37,7 +40,7 @@
       margin: 0;
       background: #fff;
       color: #444;
-      font: 100%/1.5 BlinkMacSystemFont, -apple-system, "San Francisco Text", "Roboto", "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";;
+      font: 100%/1.5 BlinkMacSystemFont, -apple-system, "San Francisco Text", "Roboto", "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
       box-sizing: border-box;
     }
 
@@ -58,6 +61,8 @@
     }
 
     a.no-underline { border-bottom: 0; }
+
+
 
     a:hover { border-bottom-style: solid; }
     a:active { position: relative; top: 2px; }
@@ -85,9 +90,17 @@
       font-variant: small-caps;
     }
 
-    .faded {
-      color: #999;
+    .tag {
+      display: inline-block;
+      padding: 4px 8px;
+      margin-right: 4px;
+      margin-bottom: 2px;
+      background: #eee;
     }
+
+    .tag:hover { background: #ddd; }
+
+    .faded { color: #999; }
 
     .header {
       padding: 8px 0;

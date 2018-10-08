@@ -8,8 +8,6 @@
 
 [You can also see what an example cState project’s source code.](https://github.com/cstate/example)
 
-*Looking for contributors! See Contribute section:*
-
 ## Contents
 
 + [Features](#features)
@@ -86,13 +84,13 @@ git clone https://github.com/cstate/cstate.git
 2. Navigate to the theme directory:
 
 ```bash
-cd cstate-master
+cd cstate/exampleSite
 ```
 
 3. Launch the development setup much like this:
 
 ```bash
-hugo serve --baseUrl=/ --theme=cstate-master --themesDir=../..
+hugo serve --baseUrl=http://localhost/ --theme=cstate --themesDir=../.. --verbose
 ```
 
 The main directory is the theme itself (the cState guts, basically) and the `exampleSite` folder houses all content. Use this local setup to experiment before deploying to production!
@@ -166,6 +164,7 @@ cState needs help to grow, not only would it benefit from stuff like unit tests,
 
 + Glance over the [Code of Conduct](/CODE_OF_CONDUCT.md).
 + Before submitting a pull request, create an issue to [discuss the implications of your proposal](https://github.com/cstate/cstate/issues).
++ Or if you are a translator — [see this](https://github.com/cstate/cstate/wiki/Translations#add-your-translations).
 + Write consistent, simple, readable code and precise documentation.
 + You may also use the mnts [Discord chat](https://discord.gg/EvQZdhT) for support.
 

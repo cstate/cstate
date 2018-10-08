@@ -5,13 +5,13 @@
 <div class="footer">
   <div class="contain">
     <p><strong>{{ now.Year }} &copy; {{ .Site.Title }}</strong>
-       &nbsp; • &nbsp; <a href="#">Back to top</a>
+       &nbsp; • &nbsp; <a href="#">{{ T "backToTop" }}</a>
     </p>
 
     <p>{{ .Site.Params.description }}</p>
 
     <!-- Please keep this one around to help cState grow <3 -->
-    <small class="copyright faded">Powered by <a href="https://github.com/cstate/cstate">cState v2.0.1</a></small>
+    <small class="copyright faded">{{ T "poweredBy" }} <a href="https://github.com/cstate/cstate">cState</a></small>
   </div>
 </div>
 

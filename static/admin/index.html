@@ -14,8 +14,76 @@
     /admin/ directory.
     -->
 
-    <script>console.log('You are using cState v2.0: https://github.com/cstate/cstate')</script>
+    <script>console.log('You are using cState. The version can be looked at from the console on the homepage or incidents view.+ https://github.com/cstate')</script>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
+
+    <script>
+      var PostPreview = createClass({
+        render: function() {
+          var entry = this.props.entry;
+          var image = entry.getIn(['data', 'image']);
+          var bg = image && this.props.getAsset(image);
+          return h('div', {},
+            h('h3', {}, entry.getIn(['data', 'title'])),
+            h('div', {},
+              h('small', {}, "Began on " + entry.getIn(['data', 'date']))
+            ),
+            h('div', {"className": "text"}, this.props.widgetFor('body'))
+          );
+        }
+      });
+      const previewStyles = `
+        html,
+        body {
+          padding: 0;
+          color: #444;
+          background: #fff;
+          font: 100%/1.5 BlinkMacSystemFont, -apple-system, "San Francisco Text", "Roboto", "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        }
+        h3 {
+          line-height: 1.25;
+          margin: 0;
+          color: #000;
+          font-weight: bold;
+          font-size: 20px;
+        }
+        small {
+          margin-bottom: 12px;
+          color: #666;
+          font-variant: small-caps;
+        }
+        img {
+          max-width: 100%;
+        }
+        .text {
+          padding-top: 12px;
+          border-top: 1px solid #ccc;
+        }
+      `;
+      CMS.registerPreviewTemplate("posts", PostPreview);
+      CMS.registerPreviewStyle(previewStyles, { raw: true });
+
+      // Pass the name of a registered control to reuse with a new widget preview.
+      CMS.registerEditorComponent({
+        id: "youtube",
+        label: "Youtube",
+        fields: [{name: 'id', label: 'Youtube Video ID'}],
+        pattern: /^{{<\s?youtube (\S+)\s?>}}/,
+        fromBlock: function(match) {
+          return {
+            id: match[1]
+          };
+        },
+        toBlock: function(obj) {
+          return '{{< youtube ' + obj.id + ' >}}';
+        },
+        toPreview: function(obj) {
+          return (
+            '<img src="http://img.youtube.com/vi/' + obj.id + '/maxresdefault.jpg" alt="Youtube Video"/>'
+          );
+        }
+      });
+    </script>
   </body>
 </html>
