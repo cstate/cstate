@@ -6,6 +6,15 @@
   <div class="contain">
     <p><strong>{{ now.Year }} &copy; {{ .Site.Title }}</strong>
        &nbsp; • &nbsp; <a href="#">{{ T "backToTop" }}</a>
+       {{ with $.Site.Home.OutputFormats.Get "rss" -}}
+       &nbsp; • &nbsp; {{ printf `<a href="%s">%s</a>` .Permalink (T "rssFeed") | safeHTML }}
+       {{end -}}
+       {{ if not .IsHome -}}
+       {{ with .OutputFormats.Get "rss" -}}
+         &nbsp; • &nbsp; {{ printf `<a href="%s">%s</a>` .Permalink (T "rssFeed") | safeHTML }}
+         ({{with $.Title}}{{.}}{{end}})
+       {{ end -}}
+       {{ end -}}
     </p>
 
     <p>{{ .Site.Params.description }}</p>
