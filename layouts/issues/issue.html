@@ -6,39 +6,9 @@
 {{ $isDown := where $active "Params.severity" "=" "down" }}
 
 <div class="article">
-  {{ if .Params.Resolved }}
-    <span class="ok">
-    
-    {{ $t := (time .Params.ResolvedWhen) }}
-    {{ $timeDiff := (sub $t.Unix .Date.Unix) }}
-    {{ $diffInMin := (div $timeDiff 60) }}
-
-    <!-- Marker -->
-    {{ if lt $timeDiff 60 }}
-      ✓ {{ T "resolved" }}
-    {{ else }}
-
-  		✓ {{ T "resolvedAfter" }}
-  		{{ if gt $timeDiff 3600 }}
-				{{ $minutesForCalc := (mod $diffInMin 60) }}
-
-    		{{ div (sub $diffInMin $minutesForCalc) 60 }}h
-    		{{ $minutesForCalc }}m {{ T "ofDowntime" }}
-  		{{ else }}
-    		{{ $secsForCalc := (mod $timeDiff 60) }}
-
-  			{{ div (sub $timeDiff $secsForCalc) 60 }}m
-  			<!-- {{ $secsForCalc }}s --> {{ T "ofDowntime" }}
-	    {{ end }}
-      
-    {{ end }}
-    </span>
-  {{ else }}
-    <em>{{ T "downtimeOngoing" }}</em>
-  {{ end }}
-  <h3>
-    <a href="{{ .Permalink }}">{{ .Title }}</a>
-  </h3>
+  <h1 class="clean">
+    {{ .Title }}
+  </h1>
 
   <small class="date">
     {{ if .Site.Params.dateFormat }}
@@ -53,6 +23,43 @@
       <a href="/affected/{{ . | urlize }}" class="tag no-underline">{{ . }}</a>
     {{ end }}
   </small></p>
+
+  {{ if .Params.Resolved }}
+  {{ $t := (time .Params.ResolvedWhen) }}
+  {{ $timeDiff := (sub $t.Unix .Date.Unix) }}
+  {{ $diffInMin := (div $timeDiff 60) }}
+
+  <strong>
+  <!-- Marker -->
+  {{ if lt $timeDiff 60 }}
+  <div class="faded">
+    {{ T "resolved" }} {{ T "inUnderAMinute" }}.
+  </div>
+  {{ else }}
+    {{ if gt $timeDiff 3600 }}
+      <div class="warning">
+        {{ T "resolvedAfter" }}
+
+        {{ $minutesForCalc := (mod $diffInMin 60) }}
+
+        {{ div (sub $diffInMin $minutesForCalc) 60 }}h
+        {{ $minutesForCalc }}m {{ T "ofDowntime" }}.
+      </div>
+    {{ else }}
+      <div class="ok">
+        {{ T "resolvedAfter" }}
+
+        {{ $secsForCalc := (mod $timeDiff 60) }}
+
+        {{ div (sub $timeDiff $secsForCalc) 60 }}m
+        <!-- {{ $secsForCalc }}s --> {{ T "ofDowntime" }}.
+      </div>
+    {{ end }}
+  </strong>
+  {{ end }}
+  {{ else }}
+    <strong class="error">{{ T "downtimeOngoing" }}.</strong>
+  {{ end }}
 
   <hr>
   {{ .Content }}

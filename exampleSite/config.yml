@@ -181,12 +181,12 @@ params:
   #
   # brand: #181818
   # ok: 228B22
-  # warning: DC143C
-  # down: FF8C00
+  # warning: EE7600
+  # down: DC143C
   # notice: 708090
   brand: 181818
   ok: 228B22
-  disrupted: FF8C00
+  disrupted: EE7600
   down: DC143C
   notice: 708090
 

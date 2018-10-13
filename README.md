@@ -8,7 +8,7 @@
 
 [You can also see what an example cState project’s source code.](https://github.com/cstate/example)
 
-## Contents
+## Contents ⁉
 
 + [Features](#features)
 + Getting started
@@ -21,20 +21,24 @@
 
 ***
 
-## Features
+## Features 😎
 
 + Built with [Hugo](https://gohugo.io), a hyperfast Golang generator
 + Works not just on mobile, but also on the archaic Internet Explorer 8
 + Comes with a simple, focused, and extremely light design
++ Makes you accountable, showcasing how long it took for an issue to be resolved
++ Great for data manipulation and viewing — has RSS, tag-like system feeds
 + Edit your status page from a simple config file
 + Comes pre-equipped with Netlify CMS for quick admin updates
-+ Easy to edit and deploy on Netlify or GitHub Pages
++ Easy to edit and deploy on Netlify for absolutely free
 + Secure, ready for HTTPS, thanks to [JAMstack](https://jamstack.org/)
 + Extensive documentation on the [wiki](https://github.com/cstate/cstate/wiki)
 
-## Getting started
+## Getting started 💻
 
 For this tutorial, it is assumed that you have Hugo and Git installed (check with `hugo version` & `git --version`).
+
+> A minimum version of `0.48` is required for Hugo, starting with v3.
 
 #### Production
 
@@ -44,7 +48,7 @@ We encourage you to use [Netlify](https://www.netlify.com) for cState. These are
 + Publish directory: **public**
 + Add one build environment variable
   + Key: **HUGO_VERSION**
-  + Value: **0.41**
+  + Value: **0.48**
 
 **The easy way**
 
@@ -97,7 +101,7 @@ The main directory is the theme itself (the cState guts, basically) and the `exa
 
 If you would like to commit/make a PR, make sure that `themesDir` is a comment before trying to merge upstream.
 
-## Updating
+## Updating 🎉
 
 Assuming the production install instructions were followed, keep cState updated by having an up to date Git submodule in the `themes` folder. containing this repository. Your content will stay separate, as to avoid any conflicts.
 
@@ -115,7 +119,7 @@ git clone --recursive <your repo link goes here> && git submodule foreach git pu
 
 More info about submodules on [updating](https://stackoverflow.com/a/5828396) & [cloning](https://stackoverflow.com/questions/3796927/how-to-git-clone-including-submodules).
 
-## FAQ
+## FAQ 🤔
 
 ### Where do issues go?
 
@@ -158,7 +162,7 @@ Time to break that down.
 
 Check out [the wiki](https://github.com/cstate/cstate/wiki).
 
-## Contribute
+## Contribute 💥
 
 cState needs help to grow, not only would it benefit from stuff like unit tests, but also get influenced by fresh ideas to grow even further.
 
@@ -168,6 +172,8 @@ cState needs help to grow, not only would it benefit from stuff like unit tests,
 + Write consistent, simple, readable code and precise documentation.
 + You may also use the mnts [Discord chat](https://discord.gg/EvQZdhT) for support.
 
-## License
+## License ✍
 
 [MIT](https://github.com/cstate/cstate/blob/master/LICENSE.md) © Mantas Vilčinskas
+
+Thanks to all the [contributors](https://github.com/cstate/cstate/graphs/contributors)!

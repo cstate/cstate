@@ -5,8 +5,9 @@
     <header>
       <div class="contain">
         <a href="{{ .Site.BaseURL }}">← {{ T "goBack" }}</a>
+        <div class="padding"></div>
 
-        <h1 class="bold">{{ $title }}</h1>
+        <h1 class="bold clean">{{ $title }}</h1>
 
         {{ range .Site.Params.systems }}
           {{ if eq .name $title }}
@@ -15,20 +16,13 @@
             {{ end }}
           {{ end }}
         {{ end }}
-        <hr>
+        <div class="padding"></div>
+        <hr class="clean">
       </div>
+      {{ $incidents := .Pages }}
     </header>
 
-    <div class="contain">
-      {{ $incidents := .Pages }}
-    </div>
-
-
-
-
-
-    <div class="contain" id="incidents">
-      <div class="padding"></div>
+    <div class="contain contain--more" id="incidents">
       {{ if not $incidents }}
         <div class="padding"></div>
         <h3>{{ T "calmBeforeTheStorm" }}</h3>
@@ -39,7 +33,7 @@
       {{ else }}
         {{ $paginator := .Paginate $incidents .Site.Params.incidentPostsPerPage }}
         {{ range $paginator.Pages }}
-          {{ .Render "issue" }}
+          {{ .Render "small" }}
         {{ end }}
 
         <!-- If there are more than 2 pages, show pagination -->
@@ -81,6 +75,7 @@
           </div>
         {{ end }}
       {{ end }}
+      <div class="padding"></div>
     </div>
 
     {{ partial "js" . }}

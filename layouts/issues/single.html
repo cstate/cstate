@@ -7,9 +7,7 @@
 {{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}
 {{ $isDown := where $active "Params.severity" "=" "down" }}
 
-  <body class="status-{{ if $isDown }}down{{ else }}{{ if $isDisrupted}}disrupted{{ else }}{{ if $isNotice }}notice{{ else }}ok{{ end }}{{ end }}{{ end }}">
-    {{ partial "header" . }}
-
+  <body class="issues single">
     <div class="contain">
       <a href="{{ .Site.BaseURL }}">← {{ T "goBack" }}</a>
     </div>
