@@ -58,15 +58,23 @@
         </span>
       </div>
     {{ else }}
-      <div class="ok">
+      <div class="ok tooltip">
         <strong>
-        {{ T "resolvedAfter" }}
+          {{ T "resolvedAfter" }}
 
-        {{ $secsForCalc := (mod $timeDiff 60) }}
+          {{ $secsForCalc := (mod $timeDiff 60) }}
 
-        {{ div (sub $timeDiff $secsForCalc) 60 }}m
-        <!-- {{ $secsForCalc }}s --> {{ T "ofDowntime" }}.
+          {{ div (sub $timeDiff $secsForCalc) 60 }}m
+          {{ T "ofDowntime" }}.
         </strong>
+
+        <span class="tooltip__text">
+          {{ if .Site.Params.dateFormat }}
+            {{ .Date.Format .Site.Params.dateFormat }}
+          {{ else }}
+            {{ .Date.Format "January 2, 2006 at 3:04 PM" }}
+          {{ end }}
+        </span>
       </div>
     {{ end }}
   {{ end }}
