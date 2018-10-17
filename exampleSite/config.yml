@@ -43,7 +43,7 @@
 
 # What is your status page called?
 # Shows up in the browser bar and meta tags
-title: Eggsample App Status
+title: Eggsample Status
 
 # Should posts, which have a publish date
 # from the future, be built? Useful for
@@ -115,7 +115,7 @@ params:
   #
   # Technical: GOLANG/HUGO .Date.Format & dateFormat
   #
-  # dateFormat Default: "January 02, 2006 at 3:04 PM"
+  # dateFormat Default: "January 2, 2006 at 3:04 PM"
   # shortDateFormat Default: "15:04 — Jan 2"
   dateFormat: January 2, 2006 at 3:04 PM
   shortDateFormat: 15:04 — Jan 2
@@ -222,14 +222,6 @@ params:
 theme: cstate
 
 preserveTaxonomyNames: true
-
-#mediaTypes:
-#  application/json:
-#    suffixes: 'json'
-
-#outputs:
-#  api:
-#    - json
 
 taxonomies:
   affected: affected

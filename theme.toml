@@ -1,7 +1,7 @@
 name = "cState"
 license = "MIT"
 licenselink = "https://github.com/cstate/cstate/blob/master/LICENSE.md"
-description = "Über fast, backwards compatible (IE8+), tiny, and simple status page built with Hugo. Compatible with Netlify & GitHub Pages."
+description = "Über fast, backwards compatible (IE8+), tiny, and simple status page. Compatible with Netlify & GitHub Pages."
 homepage = "https://github.com/cstate/cstate"
 tags = ['hugo', 'netlify', 'status', 'statuspage', 'fast', 'light', 'ie8', 'ie9', 'ie10', 'ie11', 'github', 'github-pages', 'gh-pages', 'serverside', 'serverless', 'no-javascript', 'github-page', 'netlify-cms', 'gh-pages', 'responsive', 'minimal', 'google analytics', 'clean', 'minimalist', 'light', 'product', 'technical', 'widgets', 'products', 'mobile', 'onepage', 'singlepage', 'single page', 'spa']
 min_version = "0.48"

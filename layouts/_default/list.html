@@ -4,10 +4,11 @@
   <body class="default list">
     <header>
       <div class="contain">
-        <a href="{{ .Site.BaseURL }}">← {{ T "goBack" }}</a>
+        <a href="{{ .Site.BaseURL }}">← {{ T "goBack" }} <em>{{ .Site.Title }}</em></a>
+        <div class="padding"></div>
         <div class="padding"></div>
 
-        <h1 class="bold clean">{{ $title }}</h1>
+        <h1 class="clean">{{ $title }}</h1>
 
         {{ range .Site.Params.systems }}
           {{ if eq .name $title }}
@@ -16,6 +17,9 @@
             {{ end }}
           {{ end }}
         {{ end }}
+
+        <small class="faded">{{ len .Pages }} {{ T "entries" }}, {{ T "newestToOldest" }}</small>
+
         <div class="padding"></div>
         <hr class="clean">
       </div>

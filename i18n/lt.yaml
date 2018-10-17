@@ -102,7 +102,7 @@
 ##
 
 - id: goBack
-  translation: Eiti atgal
+  translation: Eiti atgal į
 - id: backToTop
   translation: Eiti į viršų
 - id: poweredBy
@@ -112,3 +112,20 @@
   translation: Čia nieko nėra.
 - id: notFoundText
   translation: Tai gali būti mūsų problema — galbūt puslapis, kurį bandote peržiūrėti, buvo kitur perkeltas arba buvo ištrintas. Taip pat yra galimybė, jog puslapis yra tuščias (pvz. jeigu vienas komponentas mūsų sistemoje nėra turėjęs problemų, nėra ko rodyti). Rekomenduoje dar kartą patikrinti, ar nuoroda, kurią naudojate, nėra neteisinga.
+
+- id: rss
+  translation: Gaukite atnaujinimus naudojant RSS
+- id: toAllUpdates
+  translation: visi atnaujinimai
+- id: or
+  translation: arba
+- id: onlyThisFeed
+  translation: tik šio srauto
+
+##
+## v3
+##
+- id: entries
+  translation: įrašai
+- id: newestToOldest
+  translation: naujiausi rodomi pirmi

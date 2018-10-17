@@ -14,7 +14,7 @@
     {{ if .Site.Params.dateFormat }}
       {{ .Date.Format .Site.Params.dateFormat }}
     {{ else }}
-      {{ .Date.Format "January 02, 2006 at 3:04 PM" }}
+      {{ .Date.Format "January 2, 2006 at 3:04 PM" }}
     {{ end }}
   </small>
 
@@ -29,36 +29,49 @@
   {{ $timeDiff := (sub $t.Unix .Date.Unix) }}
   {{ $diffInMin := (div $timeDiff 60) }}
 
-  <strong>
+
   <!-- Marker -->
   {{ if lt $timeDiff 60 }}
   <div class="faded">
+    <strong>
     {{ T "resolved" }} {{ T "inUnderAMinute" }}.
+    </strong>
   </div>
   {{ else }}
     {{ if gt $timeDiff 3600 }}
-      <div class="warning">
-        {{ T "resolvedAfter" }}
+      <div class="warning tooltip">
+        <strong>
+          {{ T "resolvedAfter" }}
 
-        {{ $minutesForCalc := (mod $diffInMin 60) }}
+          {{ $minutesForCalc := (mod $diffInMin 60) }}
 
-        {{ div (sub $diffInMin $minutesForCalc) 60 }}h
-        {{ $minutesForCalc }}m {{ T "ofDowntime" }}.
+          {{ div (sub $diffInMin $minutesForCalc) 60 }}h
+          {{ $minutesForCalc }}m {{ T "ofDowntime" }}.
+        </strong>
+
+        <span class="tooltip__text">
+          {{ if .Site.Params.dateFormat }}
+            {{ .Date.Format .Site.Params.dateFormat }}
+          {{ else }}
+            {{ .Date.Format "January 2, 2006 at 3:04 PM" }}
+          {{ end }}
+        </span>
       </div>
     {{ else }}
       <div class="ok">
+        <strong>
         {{ T "resolvedAfter" }}
 
         {{ $secsForCalc := (mod $timeDiff 60) }}
 
         {{ div (sub $timeDiff $secsForCalc) 60 }}m
         <!-- {{ $secsForCalc }}s --> {{ T "ofDowntime" }}.
+        </strong>
       </div>
     {{ end }}
-  </strong>
   {{ end }}
   {{ else }}
-    <strong class="error">{{ T "downtimeOngoing" }}.</strong>
+    <strong class="error">{{ T "downtimeOngoing" }}</strong>
   {{ end }}
 
   <hr>

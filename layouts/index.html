@@ -40,7 +40,7 @@
       <div class="announcement-box">
         {{ range $active }}
           <div class="padding">
-            <p><strong>{{ .Title }}</strong></p>
+            <p><strong class="bold">{{ .Title }}</strong></p>
             {{ .Content | safeHTML | truncate 500 "…" }}
             <p><a href="{{ .Permalink }}">{{ T "continueReading" }}</a></p>
           </div>
@@ -73,10 +73,10 @@
             </a>
 
             {{ with .description }}
-              <span class="description">
+              <span class="tooltip tooltip--small">
                 &nbsp; <span class="faded">(?)</span>
 
-                <span class="description__text">
+                <span class="tooltip__text">
                   {{ . }}
                 </span>
               </span>

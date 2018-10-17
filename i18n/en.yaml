@@ -83,7 +83,7 @@
   translation: of downtime
 
 - id: downtimeOngoing
-  translation: Issue ongoing
+  translation: Unresolved!
 
 
 - id: calmBeforeTheStorm
@@ -104,7 +104,7 @@
 ##
 
 - id: goBack
-  translation: Go back
+  translation: Go back to
 - id: backToTop
   translation: Back to top
 - id: poweredBy
@@ -117,3 +117,17 @@
 
 - id: rss
   translation: Subscribe via RSS
+- id: toAllUpdates
+  translation: to all updates
+- id: or
+  translation: or
+- id: onlyThisFeed
+  translation: only this feed
+
+##
+## v3
+##
+- id: entries
+  translation: entries
+- id: newestToOldest
+  translation: newest to oldest

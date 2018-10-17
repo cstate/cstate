@@ -3,9 +3,8 @@
    * Dev toolset
    */
 
-  console.log('You are using cState: https://github.com/cstate');
-  document.querySelector('html').className = 'js';
-
+  console.log('cState v3.0-dev2 :: https://github.com/cstate');
+  document.getElementsByTagName('html')[0].className = 'js';
 
   /**
    * Make theme color pretty
@@ -20,6 +19,18 @@
       document.querySelector('meta[name=theme-color]').setAttribute('content', themeNoticeColor);
     }
   }
+
+  /**
+   * Admin redirect
+   */
+
+  if (window.location.hash.match('access_token')) {
+    document.location.pathname = '/admin';
+  }
+
+  /**
+   * Timer
+   */
 
   function hasClass(element, className) {
     return (' ' + element.className + ' ').indexOf(' ' + className+ ' ') > -1;

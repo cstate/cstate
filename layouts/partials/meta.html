@@ -7,12 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Data -->
     <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Summary }}{{ end }}">
-    <title>{{ if eq .Title .Site.Title }}{{ .Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+    <title>{{ if eq  .Title  .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{.}} — {{ end }}{{ .Site.Title }}{{ end }}</title>
     <link rel="canonical" href="{{ .Permalink }}">
     {{ range .AlternativeOutputFormats -}}
     {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
     {{ end -}}
-    {{ .Hugo.Generator }}
+    <meta name="generator" content="cState v3.0-dev2">
     <meta name="theme-color" content="#{{ .Site.Params.brand }}">
     <script>
     var themeBrandColor = '#{{ .Site.Params.brand }}';
@@ -66,7 +66,10 @@
       margin: 24px 0;
     }
 
-    h1 { font-size: 40px; line-height: 1.25; }
+    h1 {
+      font-size: 40px;
+      line-height: 1;
+    }
     h2 { font-size: 26px; }
     h3 { font-size: 20px; }
     h4 { font-size: 18px; }
@@ -74,6 +77,7 @@
     h1, h2, h4 {
       font-weight: normal;
       color: #000;
+      font-family: "Segoe UI", BlinkMacSystemFont, -apple-system, "San Francisco Text", "Roboto", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     }
 
     h3 {
@@ -123,7 +127,8 @@
      */
 
     .date {
-      margin-bottom: 0;
+      display: block;
+      margin-top: 12px;
       color: #666;
       font-variant: small-caps;
     }
@@ -218,14 +223,14 @@
        border-bottom: 2px solid #ddd;
      }
 
-    .description { cursor: pointer; position: relative; }
-    .description__text { display: none; }
-    .description:hover .description__text,
-    .description:active .description__text  {
+    .tooltip { cursor: pointer; position: relative; }
+    .tooltip__text { display: none; }
+    .tooltip:hover .tooltip__text,
+    .tooltip:active .tooltip__text  {
       display: block;
       position: absolute;
       top: 0;
-      left: 32px;
+      left: 24px;
       background: #181818;
       color: #fff;
       z-index: 50;
@@ -233,13 +238,13 @@
       border: 2px solid #242424;
       font-size: 14px;
       color: #ccc;
-      width: 1000%;
+      width: 320px;
       height: auto;
     }
 
     @media (max-width: 640px) {
-      .description:hover .description__text,
-      .description:active .description__text {
+      .tooltip:hover .tooltip__text,
+      .tooltip:active .tooltip__text {
         width: 50vw;
       }
     }
@@ -274,9 +279,9 @@
      * Articles
      */
 
-    .issue { padding: 14px 24px; }
-    .issue:hover { background: #efefef; }
-    .issue:active { background: #ddd; }
+    .issue { display: block; padding: 14px 24px; }
+    .issue:hover { background: #f5f5f5; }
+    .issue:active { background: #eee; }
 
     .issue h3 { line-height: 1.25; }
 

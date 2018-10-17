@@ -1,37 +1,45 @@
-<p align="center"><img src="https://raw.githubusercontent.com/cstate/cstate/master/images/highlight.png" alt="cState"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/cstate/cstate/master/images/highlight.svg" alt="Example of what cState looks like"></p>
 
-<p align="center"><a href="https://github.com/cstate/cstate/releases"><img src="https://img.shields.io/github/release/cstate/cstate/all.svg?style=flat-square" alt="GitHub release" /></a> <a href="https://github.com/cstate/cstate/commits/master"><img src="https://img.shields.io/github/last-commit/cstate/cstate.svg?style=flat-square" alt="GitHub last commit" /></a> <a href="https://github.com/cstate/cstate/tree/master/"><img src="https://img.shields.io/github/repo-size/cstate/cstate.svg?style=flat-square" alt="GitHub repo size in bytes" /></a> <a href="https://discord.gg/EvQZdhT"><img src="https://img.shields.io/badge/discord-support-7289DA.svg?logo=discord&style=flat-square" alt="Discord Chat" /></a> <a href="https://twitter.com/cstate"><img src="https://img.shields.io/twitter/follow/mistermantas.svg?style=social&amp;label=Follow" alt="Twitter" /></a> <a href="https://github.com/matiassingers/awesome-readme#readme"><img src="https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg" alt="Awesome README" /></a></p>
+<p align="center"><a href="https://github.com/cstate/cstate/releases"><img src="https://img.shields.io/github/release/cstate/cstate/all.svg?style=flat-square" alt="GitHub release" /></a> <a href="https://github.com/cstate/cstate/commits/master"><img src="https://img.shields.io/github/last-commit/cstate/cstate.svg?style=flat-square" alt="GitHub last commit" /></a> <a href="https://github.com/cstate/cstate/tree/master/"><img src="https://img.shields.io/github/repo-size/cstate/cstate.svg?style=flat-square" alt="GitHub repo size in bytes" /></a> <a href="https://discord.gg/EvQZdhT"><img src="https://img.shields.io/badge/discord-support-7289DA.svg?logo=discord&style=flat-square" alt="Discord Chat" /></a> <a href="https://twitter.com/cstate"><img src="https://img.shields.io/twitter/follow/mistermantas.svg?style=social&amp;label=Follow" alt="Twitter" /></a> <a href="https://github.com/ivbeg/awesome-status-pages"><img src="https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg" alt="Awesome status page" /></a></p>
 
-> Über fast, backwards compatible (IE8+), tiny, and simple status page built with Hugo. Completely free with Netlify & GitHub Pages.
+> Über fast, backwards compatible (IE8+), tiny, and simple status page built with Hugo. Completely _free_ with Netlify & GitHub Pages.
 
-[**Want an example? Click here to see a live demo!**](https://cstate-example.netlify.com)
+[**🎯 Want an example? Click here to see a live demo!**](https://cstate-example.netlify.com)
 
-[You can also see what an example cState project’s source code.](https://github.com/cstate/example)
+[👩‍💻 You can also see what an example cState project’s source code.](https://github.com/cstate/example)
 
 ## Contents ⁉
 
-+ [Features](#features)
++ [Features](#features-)
 + Getting started
-  + [Production](#production)
-  + [Development](#development)
-+ [Updating](#updating)
-+ [FAQ](#faq)
-+ [Contribute](#contribute)
-+ [License](#license)
+  + [Production](#production-)
+  + [Development](#development-)
++ [Updating](#updating-)
++ [FAQ](#faq-)
++ [Contribute](#contribute-)
++ [License](#license-)
 
 ***
 
 ## Features 😎
 
-+ Built with [Hugo](https://gohugo.io), a hyperfast Golang generator
-+ Works not just on mobile, but also on the archaic Internet Explorer 8
+**Designed with care**
+
 + Comes with a simple, focused, and extremely light design
++ Works not just on mobile, but also on the archaic Internet Explorer 8
 + Makes you accountable, showcasing how long it took for an issue to be resolved
 + Great for data manipulation and viewing — has RSS, tag-like system feeds
+
+**Fast, reliable, and free**
+
++ Built with [Hugo](https://gohugo.io), a hyperfast Golang generator
++ Secure, ready for HTTPS, thanks to [JAMstack](https://jamstack.org/)
++ Easy to edit and deploy on Netlify for _absolutely free_
+
+**Easy to setup, manage, use**
+
 + Edit your status page from a simple config file
 + Comes pre-equipped with Netlify CMS for quick admin updates
-+ Easy to edit and deploy on Netlify for absolutely free
-+ Secure, ready for HTTPS, thanks to [JAMstack](https://jamstack.org/)
 + Extensive documentation on the [wiki](https://github.com/cstate/cstate/wiki)
 
 ## Getting started 💻
@@ -129,7 +137,7 @@ This takes a little more effort to set up but pays off in the long run — [see 
 
 #### Doing it from the Git repository
 
-Create a file in `content/issues`. The name of the file will be the slug (what shows up in the URL bar). For example, this is what `major-outage-east-us.md` should look like:
+Create a file in `content/issues`. The name of the file will be the slug (what shows up in the URL bar). For example, this is what `2017-02-30-major-outage-east-us.md` should look like:
 
 ```md
 ---
@@ -164,16 +172,16 @@ Check out [the wiki](https://github.com/cstate/cstate/wiki).
 
 ## Contribute 💥
 
-cState needs help to grow, not only would it benefit from stuff like unit tests, but also get influenced by fresh ideas to grow even further.
+> Want to become a maintainer? Hit me up! [@mistermantas](https://twitter.com/mistermantas)
 
 + Glance over the [Code of Conduct](/CODE_OF_CONDUCT.md).
 + Before submitting a pull request, create an issue to [discuss the implications of your proposal](https://github.com/cstate/cstate/issues).
 + Or if you are a translator — [see this](https://github.com/cstate/cstate/wiki/Translations#add-your-translations).
 + Write consistent, simple, readable code and precise documentation.
-+ You may also use the mnts [Discord chat](https://discord.gg/EvQZdhT) for support.
++ Version numbers should be added in JS partial & meta generator tags!
 
 ## License ✍
 
-[MIT](https://github.com/cstate/cstate/blob/master/LICENSE.md) © Mantas Vilčinskas
+[MIT](https://github.com/cstate/cstate/blob/master/LICENSE.md) © [Mantas Vilčinskas](https://github.com/mistermantas)
 
 Thanks to all the [contributors](https://github.com/cstate/cstate/graphs/contributors)!
