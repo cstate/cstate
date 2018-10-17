@@ -51,9 +51,9 @@
 
         <span class="tooltip__text">
           {{ if .Site.Params.dateFormat }}
-            {{ .Date.Format .Site.Params.dateFormat }}
+            {{ dateFormat .Site.Params.dateFormat .Params.resolvedWhen }}
           {{ else }}
-            {{ .Date.Format "January 2, 2006 at 3:04 PM" }}
+            {{ dateFormat "January 2, 2006 at 3:04 PM" .Params.resolvedWhen }}
           {{ end }}
         </span>
       </div>
@@ -70,9 +70,9 @@
 
         <span class="tooltip__text">
           {{ if .Site.Params.dateFormat }}
-            {{ .Date.Format .Site.Params.dateFormat }}
+            {{ dateFormat .Site.Params.dateFormat .Params.resolvedWhen }}
           {{ else }}
-            {{ .Date.Format "January 2, 2006 at 3:04 PM" }}
+            {{ dateFormat "January 2, 2006 at 3:04 PM" .Params.resolvedWhen }}
           {{ end }}
         </span>
       </div>
