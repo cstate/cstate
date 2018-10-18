@@ -12,7 +12,7 @@
     {{ range .AlternativeOutputFormats -}}
     {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
     {{ end -}}
-    <meta name="generator" content="cState v3.0-dev2">
+    <meta name="generator" content="cState v3.0-beta1">
     <meta name="theme-color" content="#{{ .Site.Params.brand }}">
     <script>
     var themeBrandColor = '#{{ .Site.Params.brand }}';
