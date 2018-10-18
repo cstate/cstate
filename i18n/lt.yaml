@@ -74,11 +74,13 @@
   translation: Incidentų išrašai
 
 - id: resolved
-  translation: Išspręsta problema
+  translation: Išspręsta problema # if it's less than a min
+- id: inUnderAMinute
+  translation: minutės # continuing the last string
 - id: resolvedAfter
-  translation: Išspręsta problema po # + 19 min
-# - id: ofDowntime
-#   translation: # not used
+  translation: Išspręsta problema po # + 19 min # not used
+#- id: ofDowntime
+#  translation: of downtime
 
 - id: downtimeOngoing
   translation: Dar sprendžiama problema
