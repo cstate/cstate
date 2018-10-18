@@ -17,73 +17,81 @@
     <script>console.log('You are using cState. The version can be looked at from the console on the homepage or incidents view.+ https://github.com/cstate')</script>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
-
     <script>
-      var PostPreview = createClass({
+      var IssuePreview = createClass({
         render: function() {
           var entry = this.props.entry;
-          var image = entry.getIn(['data', 'image']);
-          var bg = image && this.props.getAsset(image);
+
+          var layoutPostDate = entry.getIn(['data', 'date']);
+          var layoutPostDateEnd = entry.getIn(['data', 'resolvedWhen']);
+          const layoutDaysInEnglish = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+          var resultOfStateProps = {"class": "warning"};
+          var resultOfState = 'This incident has not yet been resolved.';
+
+          if (entry.getIn(['data', 'resolved']) === true) {
+            var resultOfStateProps = {"class": "green"};
+            var resultOfState = 'This incident has been resolved.';
+          }
+
+          if (layoutPostDateEnd.getYear() === layoutPostDate.getYear()) {
+            if (layoutPostDateEnd.getHours() === layoutPostDate.getHours()) {
+              if (layoutPostDateEnd.getMinutes() === layoutPostDate.getMinutes()) {
+                var resultOfStateProps = {"class": "red"};
+                var resultOfState = 'It looks like you haven\'t defined when this incident was resolved. Please double-check.';
+              }
+            }
+          }
+
           return h('div', {},
-            h('h3', {}, entry.getIn(['data', 'title'])),
+            h('h1', {}, entry.getIn(['data', 'title'])),
             h('div', {},
-              h('small', {}, "Began on " + entry.getIn(['data', 'date']))
+              h('small', {}, layoutDaysInEnglish[layoutPostDate.getMonth()]  + ' ' + layoutPostDate.getDate() +  ', ' + layoutPostDate.getFullYear() + ' at ' + layoutPostDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) )
+            ),
+            h('p', {},
+              h('strong', resultOfStateProps, resultOfState)
             ),
             h('div', {"className": "text"}, this.props.widgetFor('body'))
           );
         }
       });
+      CMS.registerPreviewTemplate("issues", IssuePreview, { raw: true });
+
       const previewStyles = `
         html,
         body {
-          padding: 0;
+          padding: 16px;
           color: #444;
           background: #fff;
           font: 100%/1.5 BlinkMacSystemFont, -apple-system, "San Francisco Text", "Roboto", "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
         }
-        h3 {
-          line-height: 1.25;
+
+        h1 {
+          line-height: 1;
           margin: 0;
           color: #000;
-          font-weight: bold;
-          font-size: 20px;
+          font-weight: normal;
+          font-size: 40px;
+          font-family: "Segoe UI", BlinkMacSystemFont, -apple-system, "San Francisco Text", "Roboto", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
         }
+
         small {
-          margin-bottom: 12px;
+          margin-top: 12px;
           color: #666;
           font-variant: small-caps;
+          display: block;
         }
-        img {
-          max-width: 100%;
-        }
+
         .text {
           padding-top: 12px;
           border-top: 1px solid #ccc;
         }
-      `;
-      CMS.registerPreviewTemplate("posts", PostPreview);
-      CMS.registerPreviewStyle(previewStyles, { raw: true });
 
-      // Pass the name of a registered control to reuse with a new widget preview.
-      CMS.registerEditorComponent({
-        id: "youtube",
-        label: "Youtube",
-        fields: [{name: 'id', label: 'Youtube Video ID'}],
-        pattern: /^{{<\s?youtube (\S+)\s?>}}/,
-        fromBlock: function(match) {
-          return {
-            id: match[1]
-          };
-        },
-        toBlock: function(obj) {
-          return '{{< youtube ' + obj.id + ' >}}';
-        },
-        toPreview: function(obj) {
-          return (
-            '<img src="http://img.youtube.com/vi/' + obj.id + '/maxresdefault.jpg" alt="Youtube Video"/>'
-          );
-        }
-      });
+        .green { color: #228B22; }
+        .red { color: #DC143C; }
+        .warning { color: #EE7600; }
+      `;
+      CMS.registerPreviewStyle(previewStyles, { raw: true });
     </script>
   </body>
 </html>

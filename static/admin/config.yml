@@ -17,13 +17,13 @@ display_url: /
 
 # Do not change this!
 collections:
-  - name: "incidents"
+  - name: "issues"
     label: "Incidents"
     label_singular: "Incident"
     description: "📚 Welcome to the cState admin panel! Here you can create new incidents or manage existing ones. Go ahead and give it a shot."
     folder: "content/issues"
     create: true
-    slug: "{{slug}}"
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - {label: "Mark as incident", name: "section", widget: "hidden", default: "issue"}
       - {label: "Title", name: "title", widget: "string"}
@@ -31,7 +31,7 @@ collections:
       - {label: "Mark as resolved", name: "resolved", widget: "boolean", required: false}
       - {label: "End date & time (your time)", name: "resolvedWhen", widget: "datetime", required: false}
       - label: "Affected systems (use exact name, separated by commas)"
-        name: "Affected"
+        name: "affected"
         widget: "list"
         required: false
       - label: "Severity"
@@ -47,13 +47,13 @@ collections:
         default: "*Investigating* - We are investigating a potential issue that might affect the uptime of one our of services. We are sorry for any inconvenience this may cause you. This incident post will be updated once we have more information."
   - name: "settings"
     label: "Settings"
-    description: "⚠ Please be warned that by editing settings from Netlify CMS you are _OVERWRITING_ what you have in the original Git repository, meaning any comments left will be deleted."
+    description: "⚠ Please be warned that by editing settings from Netlify CMS you are _OVERWRITING_ what you have in the original Git repository, meaning any CURRENT SETTINGS OR COMMENTS left will be deleted."
     delete: false # Prevent users from deleting documents in this collection
     editor:
       preview: false
     files:
       - name: "general"
-        label: "Configuration File"
+        label: "⚙ Configuration File"
         file: "config.yml"
         fields:
           # MAIN
@@ -112,8 +112,8 @@ collections:
               - label: 'Long date format'
                 name: 'dateFormat'
                 widget: 'string'
-                hint: 'Default: January 02, 2006 at 3:04 PM. Hugo formatting docs: https://gohugo.io/functions/format/#hugo-date-and-time-templating-reference'
-                default: 'January 02, 2006 at 3:04 PM'
+                hint: 'Default: January 2, 2006 at 3:04 PM. Hugo formatting docs: https://gohugo.io/functions/format/#hugo-date-and-time-templating-reference'
+                default: 'January 2, 2006 at 3:04 PM'
               - label: 'Short date format'
                 name: 'shortDateFormat'
                 widget: 'string'

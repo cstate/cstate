@@ -1,0 +1,76 @@
+{{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
+{{ $active := where $incidents "Params.resolved" "=" false }}
+
+{{ $isNotice := where $active "Params.severity" "=" "notice" }}
+{{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}
+{{ $isDown := where $active "Params.severity" "=" "down" }}
+
+<a href="{{ .Permalink }}" class="issue no-underline">
+  {{ if .Params.Resolved }}
+    <small class="date float-right">
+      {{ if .Site.Params.dateFormat }}
+        {{ .Date.Format .Site.Params.dateFormat }}
+      {{ else }}
+        {{ .Date.Format "January 2, 2006 at 3:04 PM" }}
+      {{ end }}
+    </small>
+
+    <h3>
+      {{ .Title }}
+    </h3>
+
+    {{ $t := (time .Params.ResolvedWhen) }}
+    {{ $timeDiff := (sub $t.Unix .Date.Unix) }}
+    {{ $diffInMin := (div $timeDiff 60) }}
+
+    <!-- Marker -->
+    {{ if lt $timeDiff 60 }}
+    <div class="faded">
+      {{ T "resolved" }} {{ T "inUnderAMinute" }}
+    </div>
+    {{ else }}
+      {{ if gt $timeDiff 3600 }}
+        <div class="warning">
+          {{ T "resolvedAfter" }}
+
+          {{ $minutesForCalc := (mod $diffInMin 60) }}
+
+          {{ div (sub $diffInMin $minutesForCalc) 60 }}h
+          {{ $minutesForCalc }}m {{ T "ofDowntime" }}
+        </div>
+      {{ else }}
+        <div class="ok">
+          {{ T "resolvedAfter" }}
+
+          {{ $secsForCalc := (mod $timeDiff 60) }}
+
+          {{ div (sub $timeDiff $secsForCalc) 60 }}m
+          <!-- {{ $secsForCalc }}s --> {{ T "ofDowntime" }}
+        </div>
+      {{ end }}
+    {{ end }}
+
+
+  {{ else }}
+
+  <small class="date float-right">
+    {{ if .Site.Params.dateFormat }}
+      {{ .Date.Format .Site.Params.dateFormat }}
+    {{ else }}
+      {{ .Date.Format "January 2, 2006 at 3:04 PM" }}
+    {{ end }}
+  </small>
+
+  <h3>
+    {{ .Title }}
+  </h3>
+
+  {{ $t := (time .Params.ResolvedWhen) }}
+  {{ $timeDiff := (sub $t.Unix .Date.Unix) }}
+  {{ $diffInMin := (div $timeDiff 60) }}
+
+  <!-- Marker -->
+  <div class="error">{{ T "downtimeOngoing" }}</div>
+
+  {{ end }}
+</a>

@@ -33,14 +33,14 @@
           {{ end }}{{ end }}{{ end }}
         </strong>
 
-        <span class="summary__date" onclick="location.reload()"></span>
+        <span class="summary__date float-right" onclick="location.reload()"></span>
       </div>
 
       {{ if $active }}
       <div class="announcement-box">
         {{ range $active }}
           <div class="padding">
-            <p><strong>{{ .Title }}</strong></p>
+            <p><strong class="bold">{{ .Title }}</strong></p>
             {{ .Content | safeHTML | truncate 500 "…" }}
             <p><a href="{{ .Permalink }}">{{ T "continueReading" }}</a></p>
           </div>
@@ -73,10 +73,10 @@
             </a>
 
             {{ with .description }}
-              <span class="description">
+              <span class="tooltip tooltip--small">
                 &nbsp; <span class="faded">(?)</span>
 
-                <span class="description__text">
+                <span class="tooltip__text">
                   {{ . }}
                 </span>
               </span>
@@ -126,15 +126,14 @@
     </div>
   </div>
   {{ else }}
-  <div class="contain">
+  <div class="contain contain--more">
     <h2 class="center">{{ T "incidentHistory" }}</h2>
-    <hr>
+    <hr class="clean">
   </div>
   {{ end }}
 
 
-  <div class="contain" id="incidents">
-    <div class="padding"></div>
+  <div class="contain contain--more" id="incidents">
     {{ if not $incidents }}
       <div class="padding"></div>
       <h3>{{ T "calmBeforeTheStorm" }}</h3>
@@ -145,7 +144,7 @@
     {{ else }}
       {{ $paginator := .Paginate $incidents .Site.Params.incidentPostsPerPage }}
       {{ range $paginator.Pages }}
-        {{ .Render "issue" }}
+        {{ .Render "small" }}
       {{ end }}
 
       <!-- If there are more than 2 pages, show pagination -->
@@ -187,6 +186,7 @@
         </div>
       {{ end }}
     {{ end }}
+    <div class="padding"></div>
   </div>
 
 

@@ -2,8 +2,8 @@
 title: US East Connection Issues
 date: 2018-05-25 04:13:00
 resolved: true
-resolvedWhen: 2018-05-25 04:40:00
-# down, disrupted, notice
+resolvedWhen: 2018-05-25 04:13:59
+# Possible severity levels: down, disrupted, notice
 severity: disrupted
 affected:
   - API
