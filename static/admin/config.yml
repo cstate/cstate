@@ -102,7 +102,7 @@ collections:
               # Components
               - label: "Tabs"
                 hint: 'You can add extra tabs below the main homepage summary, for example, to external sites, monitoring services, as shown in the example below. Try Uptime Robot!'
-                name: "tabs"
+                name: "customTabs"
                 widget: "list"
                 allow_add: true
                 fields:
