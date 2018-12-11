@@ -83,11 +83,14 @@ defaultContentLanguage: en
 # What is the hostname or path to the root?
 # Where is the site hosted?
 #
-# Slash enables relative links.
+# 💥 cState & Hugo don’t support / in
+# production use. It will break RSS
+# feeds and breaks permalinks since
+# version 3. If you are just testing,
+# localhost should automatically work.
 #
-# Default: /
 # Example: https://status.example.com/
-baseURL: /
+baseURL: https://status.example.com
 
 ############################################################
 # +------------------------------------------------------+ #

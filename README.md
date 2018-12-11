@@ -11,9 +11,9 @@
 ## Contents ⁉
 
 + [Features](#features-)
-+ Getting started
-  + [Production](#production-)
-  + [Development](#development-)
++ [Getting started](#getting-started-)
+  + [Production](#production)
+  + [Development](#development)
 + [Updating](#updating-)
 + [FAQ](#faq-)
 + [Contribute](#contribute-)
