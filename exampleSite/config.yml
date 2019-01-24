@@ -6,9 +6,8 @@
 
 # Welcome to the cState configuration file!
 #
-# This is the configuration file for v2.0!
 # If you are using an earlier version, or one
-# in the future, such as v3, you may see errors
+# in the future, such as v8.0 you may see errors
 # pop up when deploying a cState website.
 #
 # Now, onto the fun part.
@@ -44,24 +43,54 @@
 
 # What is your status page called?
 # Shows up in the browser bar and meta tags
-title: Eggsample App Status
+title: Eggsample Status
 
-# What language is this site using?
-# Only alters the html[lang] attribute
+# Should posts, which have a publish date
+# from the future, be built? Useful for
+# sharing upcoming maintenance, etc.
 #
+# We recommend to keep this at `true`.
+# BOOLEAN; `true`, `false`
+buildFuture: true
+
+# What language do you want to use for the
+# html[lang] definition?
+#
+# Does not change language of site
+# itself.
+#
+# Default: `en`
 # ISO 639-1 defines abbreviations.
+#
 # See:  https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
 # Also: https://www.w3schools.com/tags/ref_language_codes.asp
 languageCode: en
 
+# What translation file should cState use?
+# You can also define whether missing
+# translations should get placeholders.
+#
+# For defaultContentLanguage—
+# Default: `en`
+#
+# For enableMissingTranslationPlaceholders—
+# do not set it to true for languages other
+# than English! When tested with Lithuanian,
+# it would add unnecesary placeholders to
+# values that were intentionally empty.
+defaultContentLanguage: en
+
 # What is the hostname or path to the root?
 # Where is the site hosted?
 #
-# Slash enables relative links.
+# 💥 cState & Hugo don’t support / in
+# production use. It will break RSS
+# feeds and breaks permalinks since
+# version 3. If you are just testing,
+# localhost should automatically work.
 #
-# Default: /
 # Example: https://status.example.com/
-baseURL: /
+baseURL: https://status.example.com
 
 ############################################################
 # +------------------------------------------------------+ #
@@ -76,14 +105,23 @@ params:
   # For help, see the wiki:
   # https://github.com/cstate/cstate/wiki/Customization
   systems:
-    -
-      name: Gateway
-    -
-      name: API
+    - name: Gateway
+    - name: API
       description: The guts of the application.
-    -
-      name: Media Proxy
+    - name: Media Proxy
       description: This is the service responsible for serving images, audio, and video. It is reliant on our CDN.
+
+  # What date format to use?
+  #
+  # Hugo formatting docs:
+  # https://gohugo.io/functions/format/#hugo-date-and-time-templating-reference
+  #
+  # Technical: GOLANG/HUGO .Date.Format & dateFormat
+  #
+  # dateFormat Default: "January 2, 2006 at 3:04 PM"
+  # shortDateFormat Default: "15:04 — Jan 2"
+  dateFormat: January 2, 2006 at 3:04 PM
+  shortDateFormat: 15:04 — Jan 2
 
   # What header design should we use?
   #
@@ -109,7 +147,7 @@ params:
   logo: /logo.png
 
   # This is the description that is shown
-  # in the footer and meta tags.
+  # on the footer and meta tags.
   #
   # Default: We continuously monitor the status of our services and if there are any interruptions, a note will be posted here.
   description: We continuously monitor the status of our services and if there are any interruptions, a note will be posted here.
@@ -146,12 +184,12 @@ params:
   #
   # brand: #181818
   # ok: 228B22
-  # warning: DC143C
-  # down: FF8C00
+  # warning: EE7600
+  # down: DC143C
   # notice: 708090
   brand: 181818
   ok: 228B22
-  disrupted: FF8C00
+  disrupted: EE7600
   down: DC143C
   notice: 708090
 
@@ -181,29 +219,12 @@ params:
   # Default: UA-00000000-1
   googleAnalytics: UA-00000000-1
 
-############################################################
-# +------------------------------------------------------+ #
-# |                 For developers                       | #
-# +------------------------------------------------------+ #
-############################################################
-
-# Should posts, which have a publish date
-# from the future, be built? Useful for
-# sharing upcoming maintenance, etc.
-#
-# We recommend to keep this at `true`.
-# BOOLEAN; `true`, `false`
-buildFuture: true
-
 # These options affect the core of cState.
 # Please do not change them if you do not
 # know what you are doing.
 theme: cstate
 
-# This option tells cState what version
-# your config file is using.
-#
-# Never ever remove this, nor change it,
-# if you have not updated to any other
-# version.
-version: 2
+preserveTaxonomyNames: true
+
+taxonomies:
+  affected: affected

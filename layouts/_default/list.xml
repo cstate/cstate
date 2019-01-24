@@ -1,0 +1,30 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <link rel="alternate" type="text/html" href="{{ .Site.BaseURL }}"/>
+    <title>{{ if eq  .Title  .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{.}} on {{ end }}{{ .Site.Title }}{{ end }}</title>
+    <link>{{ .Permalink }}</link>
+    <description>{{ T "incidentHistory" }}</description>
+    <generator>github.com/cstate</generator>
+    {{ with .Site.LanguageCode }}<language>{{.}}</language>{{end}}
+    {{ if not .Date.IsZero }}
+    <lastBuildDate>{{ .Date.Format "2006-01-02T15:04:05-07:00" | safeHTML }}</lastBuildDate>
+    <updated>{{ .Date.Format "2006-01-02T15:04:05-07:00" | safeHTML }}</updated>
+    {{ end }}
+    {{ with .Site.Copyright }}
+    <copyright>{{.}}</copyright>{{end}}
+    {{ with .OutputFormats.Get "RSS" }}
+      {{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}
+    {{ end }}
+    {{ range .Pages }}
+      <item>
+        <title>{{ if .Params.resolved }}[{{ T "resolved" }}] {{ end }}{{ .Title }}</title>
+        <link>{{ .Permalink }}</link>
+        <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
+        <guid>{{ .Permalink }}</guid>
+        <category>{{ .Params.resolvedWhen }}</category>
+        <description>{{ .Summary | html }}</description>
+        <content type="html">{{ .Content | html }}</content>
+      </item>
+    {{ end }}
+  </channel>
+</rss>

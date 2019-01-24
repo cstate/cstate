@@ -1,0 +1,133 @@
+# English language file for cState
+# Version 3.0
+
+- id: languageCode
+  translation: en
+- id: languageName
+  translation: English
+- id: languageNameShort
+  translation: ENG
+
+##
+## INDEX.HTML
+##
+
+# Summary status message
+- id: isDown
+  translation: Experiencing major issues
+- id: isDisrupted
+  translation: Experiencing disruptions
+- id: isNotice
+  translation: Please read announcement
+- id: isOk
+  translation: All systems operational
+
+# No JS warning
+- id: noScriptingIntro
+  translation: Uh oh! It looks like you have disabled JavaScript. Please
+- id: noScriptingLink
+  translation: enable scripting
+- id: noScriptingOutro
+  translation: to enhance your experience on this website.
+
+- id: thisIsDown
+  translation: Down
+- id: thisIsDisrupted
+  translation: Disrupted
+- id: thisIsNotice
+  translation: Maintenance
+- id: thisIsOk
+  translation: Operational
+
+# "Last checked" + "just now"
+- id: lastChecked
+  translation: Last checked
+- id: justNow
+  translation: just now
+- id: someTimeAgo
+  translation: ago
+
+# Example usage: `5` + `years`
+# Final result: 'Last checked 5 years ago'
+# Number goes before string
+# Use short variants until months
+- id: yearsAgo
+  translation: years
+- id: monthsAgo
+  translation: months
+- id: daysAgo
+  translation: d
+- id: hoursAgo
+  translation: h
+- id: minsAgo
+  translation: min
+- id: secondsAgo
+  translation: s
+
+- id: autoRefreshNotice
+  translation: We will try to refresh every 5 min
+
+# Incidents
+- id: incidents
+  translation: Incidents
+- id: incidentHistory
+  translation: Incident history
+
+- id: resolved
+  translation: Resolved # if it's less than a min
+- id: inUnderAMinute
+  translation: in under a minute # continuing the last string
+- id: resolvedAfter
+  translation: Resolved after # + 19 min
+- id: ofDowntime
+  translation: of downtime
+
+- id: downtimeOngoing
+  translation: Unresolved!
+
+
+- id: calmBeforeTheStorm
+  translation: Is it the calm before the storm?
+- id: noIncidentsDesc
+  translation: This status page has no logged incidents. This may be because the status page owner (or owners) have recently set up their status page, have had no downtime, or have not logged any downtime.
+
+
+- id: continueReading
+  translation: Continue reading
+- id: prev
+  translation: Previous
+- id: next
+  translation: Next
+
+##
+## OTHER
+##
+
+- id: goBack
+  translation: Go back to
+- id: backToTop
+  translation: Back to top
+- id: poweredBy
+  translation: Powered by
+
+- id: notFound
+  translation: There is nothing here.
+- id: notFoundText
+  translation: This could be a problem on our part. Perhaps we moved a certain resource and now it is gone. It is also possible that the resource you are trying to view is empty (for example, if a system has never been down, we have nothing to show). But do you also mind to double check the link?
+
+- id: rss
+  translation: Subscribe via RSS
+- id: toAllUpdates
+  translation: to all updates
+- id: or
+  translation: or
+- id: onlyThisFeed
+  translation: only this feed
+
+##
+## v3
+##
+- id: entries
+  translation: entries
+- id: newestToOldest
+  translation: newest to oldest

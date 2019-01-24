@@ -1,12 +1,10 @@
 {{ partial "meta" . }}
-
-  <body>
+  <body class="default single">
     <div class="contain">
-      <a href="{{ .Site.BaseURL }}">← Go back</a>
+      <a href="{{ .Site.BaseURL }}">← {{ T "goBack" }} <em>{{ .Site.Title }}<em></a>
       <hr>
-      {{ .Render "post" }}
+      {{ .Content }}
     </div>
-
 
     {{ partial "js" . }}
     {{ partial "footer" . }}

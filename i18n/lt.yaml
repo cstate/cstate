@@ -1,0 +1,133 @@
+# Lithuanian language file for cState
+# Version 3.0
+
+- id: languageCode
+  translation: en
+- id: languageName
+  translation: Lithuanian
+- id: languageNameShort
+  translation: LIT
+
+##
+## INDEX.HTML
+##
+
+# Summary status message
+- id: isDown
+  translation: Yra rasti sistemų sutrikimai
+- id: isDisrupted
+  translation: Kai kurios sistemos nestabilios
+- id: isNotice
+  translation: Prašome perskaityti pranešimą
+- id: isOk
+  translation: Visos sistemos veikiai
+
+# No JS warning
+- id: noScriptingIntro
+  translation: O ne! Jūsų interneto naršyklė neturi įjungto JavaScript. Tam, kad galėtume peržiūrėti daugumą šiuolaikinių interneto svetainių, reikia turėti įdiegtą JavaScript. Rekomenduoje
+- id: noScriptingLink
+  translation: peržiūrėti šias instrukcijas,
+- id: noScriptingOutro
+  translation: jei norite išnaudoti visas šios svetainės funkcijas.
+
+- id: thisIsDown
+  translation: Neveikia
+- id: thisIsDisrupted
+  translation: Yra trukdžių
+- id: thisIsNotice
+  translation: Remontuojama
+- id: thisIsOk
+  translation: Veikia
+
+# "Last checked" + "just now"
+- id: lastChecked
+  translation: Paskutinį kartą atnaujinta prieš
+- id: justNow
+  translation: <5s
+# - id: someTimeAgo
+#   translation: # not used
+
+# Example usage: `5` + `years`
+# Final result: 'Last checked 5 years ago'
+# Number goes before string
+# Use short variants until months
+- id: yearsAgo
+  translation: met.
+- id: monthsAgo
+  translation: mėn.
+- id: daysAgo
+  translation: d
+- id: hoursAgo
+  translation: val.
+- id: minsAgo
+  translation: min.
+- id: secondsAgo
+  translation: s
+
+- id: autoRefreshNotice
+  translation: Bandome automatiškai atnaujinti informaciją kas 5 min.
+
+# Incidents
+- id: incidents
+  translation: Incidentai
+- id: incidentHistory
+  translation: Incidentų išrašai
+
+- id: resolved
+  translation: Išspręsta problema # if it's less than a min
+- id: inUnderAMinute
+  translation: minutės # continuing the last string
+- id: resolvedAfter
+  translation: Išspręsta problema po # + 19 min # not used
+#- id: ofDowntime
+#  translation: of downtime
+
+- id: downtimeOngoing
+  translation: Dar sprendžiama problema
+
+
+- id: calmBeforeTheStorm
+  translation: Kol kas nėra jokių incidentų.
+- id: noIncidentsDesc
+  translation: Šiame puslapyje nėra užregistruotų incidentų. Gali būti todėl, kad puslapio savininkas (arba savininkai) neseniai sukūrė šią svetainę, neturėjo incidentų šiame laiko tarpe arba neužregistravo incidentų sistemoje.
+
+
+- id: continueReading
+  translation: Skaityti toliau
+- id: prev
+  translation: Ankstesnis
+- id: next
+  translation: Kitas
+
+##
+## OTHER
+##
+
+- id: goBack
+  translation: Eiti atgal į
+- id: backToTop
+  translation: Eiti į viršų
+- id: poweredBy
+  translation: Ši svetainė sukurta su
+
+- id: notFound
+  translation: Čia nieko nėra.
+- id: notFoundText
+  translation: Tai gali būti mūsų problema — galbūt puslapis, kurį bandote peržiūrėti, buvo kitur perkeltas arba buvo ištrintas. Taip pat yra galimybė, jog puslapis yra tuščias (pvz. jeigu vienas komponentas mūsų sistemoje nėra turėjęs problemų, nėra ko rodyti). Rekomenduoje dar kartą patikrinti, ar nuoroda, kurią naudojate, nėra neteisinga.
+
+- id: rss
+  translation: Gaukite atnaujinimus naudojant RSS
+- id: toAllUpdates
+  translation: visi atnaujinimai
+- id: or
+  translation: arba
+- id: onlyThisFeed
+  translation: tik šio srauto
+
+##
+## v3
+##
+- id: entries
+  translation: įrašai
+- id: newestToOldest
+  translation: naujiausi rodomi pirmi

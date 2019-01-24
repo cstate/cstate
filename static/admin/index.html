@@ -14,8 +14,84 @@
     /admin/ directory.
     -->
 
-    <script>console.log('You are using cState v2.0: https://github.com/cstate/cstate')</script>
+    <script>console.log('You are using cState. The version can be looked at from the console on the homepage or incidents view.+ https://github.com/cstate')</script>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
+    <script>
+      var IssuePreview = createClass({
+        render: function() {
+          var entry = this.props.entry;
+
+          var layoutPostDate = entry.getIn(['data', 'date']);
+          var layoutPostDateEnd = entry.getIn(['data', 'resolvedWhen']);
+          const layoutDaysInEnglish = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+          var resultOfStateProps = {"class": "warning"};
+          var resultOfState = 'This incident has not yet been resolved.';
+
+          if (entry.getIn(['data', 'resolved']) === true) {
+            var resultOfStateProps = {"class": "green"};
+            var resultOfState = 'This incident has been resolved.';
+          }
+
+          if (layoutPostDateEnd.getYear() === layoutPostDate.getYear()) {
+            if (layoutPostDateEnd.getHours() === layoutPostDate.getHours()) {
+              if (layoutPostDateEnd.getMinutes() === layoutPostDate.getMinutes()) {
+                var resultOfStateProps = {"class": "red"};
+                var resultOfState = 'It looks like you haven\'t defined when this incident was resolved. Please double-check.';
+              }
+            }
+          }
+
+          return h('div', {},
+            h('h1', {}, entry.getIn(['data', 'title'])),
+            h('div', {},
+              h('small', {}, layoutDaysInEnglish[layoutPostDate.getMonth()]  + ' ' + layoutPostDate.getDate() +  ', ' + layoutPostDate.getFullYear() + ' at ' + layoutPostDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) )
+            ),
+            h('p', {},
+              h('strong', resultOfStateProps, resultOfState)
+            ),
+            h('div', {"className": "text"}, this.props.widgetFor('body'))
+          );
+        }
+      });
+      CMS.registerPreviewTemplate("issues", IssuePreview, { raw: true });
+
+      const previewStyles = `
+        html,
+        body {
+          padding: 16px;
+          color: #444;
+          background: #fff;
+          font: 100%/1.5 BlinkMacSystemFont, -apple-system, "San Francisco Text", "Roboto", "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        }
+
+        h1 {
+          line-height: 1;
+          margin: 0;
+          color: #000;
+          font-weight: normal;
+          font-size: 40px;
+          font-family: "Segoe UI", BlinkMacSystemFont, -apple-system, "San Francisco Text", "Roboto", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        }
+
+        small {
+          margin-top: 12px;
+          color: #666;
+          font-variant: small-caps;
+          display: block;
+        }
+
+        .text {
+          padding-top: 12px;
+          border-top: 1px solid #ccc;
+        }
+
+        .green { color: #228B22; }
+        .red { color: #DC143C; }
+        .warning { color: #EE7600; }
+      `;
+      CMS.registerPreviewStyle(previewStyles, { raw: true });
+    </script>
   </body>
 </html>

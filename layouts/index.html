@@ -13,7 +13,7 @@
     <!-- Main -->
     <div class="contain">
       <noscript>
-        <p class="error">Uh oh! It looks like you have disabled JavaScript. Please <a href="//enable-javascript.com">enable scripting</a> to enhance your experience on this website.</p>
+        <p class="error">{{ T "noScriptingIntro" }} <a href="//enable-javascript.com">{{ T "noScriptingLink" }}</a> {{ T "noScriptingOutro" }}</p>
         <div class="padding"></div>
       </noscript>
 
@@ -21,28 +21,28 @@
       <div class="summary">
         <strong>
           {{ if $isDown }}
-            Experiencing major issues
+            {{ T "isDown" }}
           {{ else }}
           {{ if $isDisrupted }}
-            Experiencing disruptions
+            {{ T "isDisrupted" }}
           {{ else }}
           {{ if $isNotice }}
-            Please read announcement
+            {{ T "isNotice" }}
           {{ else }}
-            All systems operational
+            {{ T "isOk" }}
           {{ end }}{{ end }}{{ end }}
         </strong>
 
-        <span class="summary__date" onclick="location.reload()"></span>
+        <span class="summary__date float-right" onclick="location.reload()"></span>
       </div>
 
       {{ if $active }}
       <div class="announcement-box">
         {{ range $active }}
           <div class="padding">
-            <p><strong>{{ .Title }}</strong></p>
+            <p><strong class="bold">{{ .Title }}</strong></p>
             {{ .Content | safeHTML | truncate 500 "…" }}
-            <p><a href="{{ .Permalink }}">Continue reading</a></p>
+            <p><a href="{{ .Permalink }}">{{ T "continueReading" }}</a></p>
           </div>
         {{ else }}{{ end }}
       </div>
@@ -50,7 +50,7 @@
 
       {{ if .Site.Params.autoRefresh }}
       <div class="faded right">
-        <small><em>We will try to refresh every 5 minutes</em></small>
+        <small><em>{{ T "autoRefreshNotice" }}</em></small>
       </div>
       <div class="padding-s"></div>
       {{ else }}
@@ -68,14 +68,15 @@
           {{ $thisIsDown := where $activeComponentIssues "Params.severity" "=" "down" }}
 
           <div class="component" data-status="{{ if $thisIsDown }}down{{ else }}{{ if $thisIsDisrupted }}disrupted{{ else }}{{ if $thisIsNotice }}notice{{ else }}ok{{ end }}{{ end }}{{ end }}">
-            {{ $this := .name }}
-            {{ .name }}
+            <a href="/affected/{{ .name | urlize }}" class="no-underline">
+              {{ .name }}
+            </a>
 
             {{ with .description }}
-              <span class="description">
+              <span class="tooltip tooltip--small">
                 &nbsp; <span class="faded">(?)</span>
 
-                <span class="description__text">
+                <span class="tooltip__text">
                   {{ . }}
                 </span>
               </span>
@@ -83,15 +84,15 @@
 
             <span class="component-status">
               {{ if $thisIsDown }}
-                Down
+                {{ T "thisIsDown" }}
               {{ else }}
               {{ if $thisIsDisrupted }}
-                Disrupted
+                {{ T "thisIsDisrupted" }}
               {{ else }}
               {{ if $thisIsNotice }}
-                Maintenance
+                {{ T "thisIsNotice" }}
               {{ else }}
-                Operational
+                {{ T "thisIsOk" }}
               {{ end }}{{ end }}{{ end }}
             </span>
 
@@ -114,7 +115,7 @@
   <div class="tabs">
     <div class="contain tabs--inner">
       <a href="/#incidents" class="tab tab--current">
-        Incidents
+        {{ T "incidents" }}
       </a>
 
       {{ range .Site.Params.customTabs }}
@@ -125,26 +126,25 @@
     </div>
   </div>
   {{ else }}
-  <div class="contain">
-    <h2 class="center">Incident history</h2>
-    <hr>
+  <div class="contain contain--more">
+    <h2 class="center">{{ T "incidentHistory" }}</h2>
+    <hr class="clean">
   </div>
   {{ end }}
 
 
-  <div class="contain" id="incidents">
-    <div class="padding"></div>
+  <div class="contain contain--more" id="incidents">
     {{ if not $incidents }}
       <div class="padding"></div>
-      <h3>Is it the calm before the storm?</h3>
-      <p>This status page has no logged incidents. This may be because the status page owner (or owners) have recently set up their status page, have had no downtime, or have not logged any downtime.</p>
+      <h3>{{ T "calmBeforeTheStorm" }}</h3>
+      <p>{{ T "noIncidentsDesc" }}</p>
       <div class="padding"></div>
       <div class="padding"></div>
       <div class="padding"></div>
     {{ else }}
       {{ $paginator := .Paginate $incidents .Site.Params.incidentPostsPerPage }}
       {{ range $paginator.Pages }}
-        {{ .Render "issue" }}
+        {{ .Render "small" }}
       {{ end }}
 
       <!-- If there are more than 2 pages, show pagination -->
@@ -155,12 +155,12 @@
           {{ if $paginator.HasPrev }}
             <a href="{{ $paginator.Prev.URL }}#incidents">
               ⭠ &nbsp;
-              Previuos
+              {{ T "prev" }}
             </a>
           {{ else }}
             <span class="faded">
               ⭠ &nbsp;
-              Previuos
+              {{ T "prev" }}
             </span>
           {{ end }}
 
@@ -174,18 +174,19 @@
 
           {{ if $paginator.HasNext }}
             <a href="{{ $paginator.Next.URL }}#incidents">
-              Next &nbsp;
+              {{ T "next" }} &nbsp;
               ⭢
             </a>
           {{ else }}
             <span class="faded">
-              Next &nbsp;
+              {{ T "next" }} &nbsp;
               ⭢
             </span>
           {{ end }}
         </div>
       {{ end }}
     {{ end }}
+    <div class="padding"></div>
   </div>
 
 
