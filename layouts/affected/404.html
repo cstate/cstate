@@ -1,0 +1,21 @@
+{{ partial "meta" . }}
+
+{{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
+{{ $active := where $incidents "Params.resolved" "=" false }}
+
+{{ $isNotice := where $active "Params.severity" "=" "notice" }}
+{{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}
+{{ $isDown := where $active "Params.severity" "=" "down" }}
+
+  <body class="status-homepage status-{{ if $isDown }}down{{ else }}{{ if $isDisrupted}}disrupted{{ else }}{{ if $isNotice }}notice{{ else }}ok{{ end }}{{ end }}{{ end }} {{ if not .Site.Params.alwaysKeepBrandColor }}change-header-color{{ end }}">
+    {{ partial "header" . }}
+
+    <div class="contain center">
+      <h1 class="bold">{{ T "notFoundAffected" }}</h1>
+      <p>{{ T "notFoundText" }}</p>
+    </div>
+
+    {{ partial "js" . }}
+    {{ partial "footer" . }}
+  </body>
+</html>

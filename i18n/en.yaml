@@ -113,7 +113,7 @@
 - id: notFound
   translation: There is nothing here.
 - id: notFoundText
-  translation: This could be a problem on our part. Perhaps we moved a certain resource and now it is gone. It is also possible that the resource you are trying to view is empty (for example, if a system has never been down, we have nothing to show). But do you also mind to double check the link?
+  translation: This could be a problem on our part. Perhaps we moved a certain resource and now it is gone. It is also possible that the resource you are trying to view is empty. But do you also mind to double check the link?
 
 - id: rss
   translation: Subscribe via RSS
@@ -131,3 +131,12 @@
   translation: entries
 - id: newestToOldest
   translation: newest to oldest
+
+##
+## v4
+##
+##
+## v4
+##
+- id: notFoundAffected
+  translation: It looks like this system either does not exist or has never had any recorded downtime.

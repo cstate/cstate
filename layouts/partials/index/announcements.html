@@ -1,0 +1,14 @@
+{{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
+{{ $active := where $incidents "Params.resolved" "=" false }}
+
+{{ if $active }}
+  <div class="announcement-box">
+    {{ range $active }}
+      <div class="padding">
+        <p><strong class="bold">{{ .Title }}</strong></p>
+        {{ .Content | safeHTML | truncate 500 "…" }}
+        <p><a href="{{ .Permalink }}">{{ T "continueReading" }}</a></p>
+      </div>
+    {{ else }}{{ end }}
+  </div>
+{{ end }}

@@ -113,7 +113,7 @@
 - id: notFound
   translation: Čia nieko nėra.
 - id: notFoundText
-  translation: Tai gali būti mūsų problema — galbūt puslapis, kurį bandote peržiūrėti, buvo kitur perkeltas arba buvo ištrintas. Taip pat yra galimybė, jog puslapis yra tuščias (pvz. jeigu vienas komponentas mūsų sistemoje nėra turėjęs problemų, nėra ko rodyti). Rekomenduoje dar kartą patikrinti, ar nuoroda, kurią naudojate, nėra neteisinga.
+  translation: Tai gali būti mūsų problema — galbūt puslapis, kurį bandote peržiūrėti, buvo kitur perkeltas arba buvo ištrintas. Rekomenduoje dar kartą patikrinti, ar nuoroda, kurią naudojate, nėra neteisinga.
 
 - id: rss
   translation: Gaukite atnaujinimus naudojant RSS
@@ -131,3 +131,9 @@
   translation: įrašai
 - id: newestToOldest
   translation: naujiausi rodomi pirmi
+
+##
+## v4
+##
+- id: notFoundAffected
+  translation: Ši sistema neturi nė vieno įrašo. Arba neegzistuoja, arba nė vieną kartą nebuvo sutrukdyta jos veikla.
