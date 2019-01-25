@@ -83,14 +83,14 @@ defaultContentLanguage: en
 # What is the hostname or path to the root?
 # Where is the site hosted?
 #
-# 💥 cState & Hugo don’t support / in
+# 💥 cState & Hugo don’t support '/' in
 # production use. It will break RSS
 # feeds and breaks permalinks since
 # version 3. If you are just testing,
 # localhost should automatically work.
 #
 # Example: https://status.example.com/
-baseURL: https://status.example.com
+baseURL: https://cstate.mnts.lt
 
 ############################################################
 # +------------------------------------------------------+ #

@@ -6,13 +6,13 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Data -->
-    <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Summary }}{{ end }}">
-    <title>{{ if eq  .Title  .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{.}} — {{ end }}{{ .Site.Title }}{{ end }}</title>
+    <meta name="description" content="{{ with .Summary }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+    <title>{{ if eq  .Title  .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{.}} | {{ end }}{{ .Site.Title }}{{ end }}</title>
     <link rel="canonical" href="{{ .Permalink }}">
     {{ range .AlternativeOutputFormats -}}
     {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
     {{ end -}}
-    <meta name="generator" content="cState v3.0.0 - Stable 2019-01-24">
+    <meta name="generator" content="cState v3.1.0 - dev">
     <meta name="theme-color" content="#{{ .Site.Params.brand }}">
     <script>
     var themeBrandColor = '#{{ .Site.Params.brand }}';
@@ -100,8 +100,8 @@
     .headline { font-size: 20px; }
 
     .bold { color: #000; }
-    .hinted { color: #777; }
-    .faded { color: #999; }
+    .hinted { color: #737373; }
+    .faded { color: #737373; }
 
     .clean { margin: 0; }
 
@@ -299,14 +299,12 @@
       padding: 16px;
     }
 
-    .status-ok .announcement-box { border: 2px solid #{{ .Site.Params.ok }}; }
     .status-disrupted .announcement-box { border: 2px solid #{{ .Site.Params.disrupted }}; }
     .status-down .announcement-box { border: 2px solid #{{ .Site.Params.down }}; }
     .status-notice .announcement-box { border: 2px solid #{{ .Site.Params.notice }}; }
-
-
-    .status-ok .status-homepage .announcement-box { border-bottom-width: 1px; }
-
+    .status-disrupted .announcement-box,
+    .status-down .announcement-box,
+    .status-notice .announcement-box { border-top: 0; }
 
     /**
      * Dynamically show individual component statuses
