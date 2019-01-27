@@ -2,13 +2,23 @@
 {{ $active := where $incidents "Params.resolved" "=" false }}
 
 {{ if $active }}
-  <div class="announcement-box">
+  <div class="announcement-box" style="border-bottom: 0">
     {{ range $active }}
       <div class="padding">
-        <p><strong class="bold">{{ .Title }}</strong></p>
+        <p>
+          <a href="{{ .Permalink }}"><strong class="bold">{{ .Title }} →</strong></a>
+        </p>
+
+        <p><small>
+          {{ range .Params.Affected }}
+            <a href="/affected/{{ . | urlize }}" class="tag no-underline">{{ . }}</a>
+          {{ end }}
+        </small></p>
+
         {{ .Content | safeHTML | truncate 500 "…" }}
-        <p><a href="{{ .Permalink }}">{{ T "continueReading" }}</a></p>
+        <p></p>
       </div>
-    {{ else }}{{ end }}
+      <hr class="clean announcement-box">
+    {{ end }}
   </div>
 {{ end }}

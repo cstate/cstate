@@ -4,7 +4,7 @@ date: 2018-06-13 15:54:00
 resolved: false
 resolvedWhen: 2018-06-13 17:30:00
 # Possible severity levels: down, disrupted, notice
-severity: notice
+severity: disrupted
 affected:
   - API
 section: issue

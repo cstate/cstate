@@ -31,13 +31,13 @@
 
         <span class="component-status">
           {{ if $thisIsDown }}
-            {{ T "thisIsDown" }}
+            <b>{{ T "thisIsDown" }}</b>
           {{ else }}
           {{ if $thisIsDisrupted }}
-            {{ T "thisIsDisrupted" }}
+            <b>{{ T "thisIsDisrupted" }}</b>
           {{ else }}
           {{ if $thisIsNotice }}
-            {{ T "thisIsNotice" }}
+            <b>{{ T "thisIsNotice" }}</b>
           {{ else }}
             {{ T "thisIsOk" }}
           {{ end }}{{ end }}{{ end }}

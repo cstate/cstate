@@ -182,16 +182,16 @@ params:
   #
   # Defaults:
   #
-  # brand: #181818
-  # ok: 228B22
-  # warning: EE7600
-  # down: DC143C
-  # notice: 708090
-  brand: 181818
-  ok: 228B22
-  disrupted: EE7600
-  down: DC143C
-  notice: 708090
+  # brand: 080d11
+  # ok: 008000 // EXCEPT IT'S BROKEN LOL
+  # warning: d33c0d
+  # down: e60000
+  # notice: 3a5978
+  brand: 080d11
+  ok: 118000
+  disrupted: d33c0d
+  down: e60000
+  notice: 3a5978
 
   # If the status page shows that
   # there are disruptions or outages
