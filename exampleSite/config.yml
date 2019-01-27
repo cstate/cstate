@@ -182,16 +182,16 @@ params:
   #
   # Defaults:
   #
-  # brand: 080d11
-  # ok: 008000 // EXCEPT IT'S BROKEN LOL
-  # warning: d33c0d
-  # down: e60000
-  # notice: 3a5978
-  brand: 080d11
-  ok: 118000
-  disrupted: d33c0d
-  down: e60000
-  notice: 3a5978
+  # brand: "0a0c0f"
+  # ok: "008000"
+  # disrupted: "cc4400"
+  # down: "e60000"
+  # notice: "24478f"
+  brand: "0a0c0f"
+  ok: "008000"
+  disrupted: "cc4400"
+  down: "e60000"
+  notice: "24478f"
 
   # If the status page shows that
   # there are disruptions or outages
