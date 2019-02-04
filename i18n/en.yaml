@@ -135,8 +135,5 @@
 ##
 ## v4
 ##
-##
-## v4
-##
 - id: notFoundAffected
   translation: It looks like this system either does not exist or has never had any recorded downtime.
