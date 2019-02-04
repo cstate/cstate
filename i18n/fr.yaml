@@ -113,7 +113,7 @@
 - id: notFound
   translation: Il n'y a rien ici.
 - id: notFoundText
-  translation: Cela pourrait être un problème de notre part. Peut-être avons-nous déplacé une certaine ressource et maintenant elle a disparu. Il est également possible que la ressource que vous essayez de visualiser soit vide (par exemple, si un système n'a jamais été en panne, nous n'avons rien à afficher). Mais cela vous dérange-t-il aussi de vérifier le lien ?
+  translation: Cela pourrait être un problème de notre part. Peut-être avons-nous déplacé une certaine ressource et maintenant elle a disparu. Il est également possible que la ressource que vous essayez de visualiser soit vide. Mais cela vous dérange-t-il aussi de vérifier le lien ?
 
 - id: rss
   translation: S'abonner via RSS
@@ -131,3 +131,9 @@
   translation: rubriques
 - id: newestToOldest
   translation: du plus récent au plus ancien
+  
+##
+## v4
+##
+- id: notFoundAffected
+  translation: Il semble que ce système n'existe pas ou qu'il n'a jamais eu de temps d'arrêt enregistré.
