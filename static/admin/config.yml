@@ -75,6 +75,7 @@ collections:
             options:
             - { label: "🇺🇸 English (default)", value: "en" }
             - { label: "🇱🇹 Lithuanian (official)", value: "lt" }
+            - { label: "🇫🇷 French", value: "fr" }
           - label: 'Site language in code for html[lang]'
             hint: 'Use the ISO 639-1 defined abbreviations. Examples: en, lt, de. Fully explained here: https://github.com/mistermantas/cstate/wiki/Customization#changing-site-language'
             name: 'languageCode'
