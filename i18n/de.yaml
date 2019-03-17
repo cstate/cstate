@@ -1,0 +1,131 @@
+# German language file for cState
+# Version 3.0
+
+- id: languageCode
+  translation: de
+- id: languageName
+  translation: German
+- id: languageNameShort
+  translation: DE
+
+##
+## INDEX.HTML
+##
+
+# Summary status message
+- id: isDown
+  translation: Wir verzeichnen einen Ausfall
+- id: isDisrupted
+  translation: Wir verzeichnen eine Störung
+- id: isNotice
+  translation: Bitte lies die Ankündigungen
+- id: isOk
+  translation: Alle Systeme funktionsbereit
+
+# No JS warning
+- id: noScriptingIntro
+  translation: Uh oh! Es sieht aus, als wäre JavaScript bei Dir deaktiviert. Bitte
+- id: noScriptingLink
+  translation: aktiviere die Einstellung, die verhinderdert, dass Skripte laufen.
+- id: noScriptingOutro
+  translation: um Dein Erlebnis auf dieser Website zu verbessern.
+
+- id: thisIsDown
+  translation: Ausfall
+- id: thisIsDisrupted
+  translation: Störung
+- id: thisIsNotice
+  translation: Wartung
+- id: thisIsOk
+  translation: Funktionsbereit
+
+# "Last checked" + "just now"
+- id: lastChecked
+  translation: Zuletzt aktualisiert
+- id: justNow
+  translation: gerade eben
+- id: someTimeAgo
+  translation: her
+
+# Example usage: `5` + `years`
+# Final result: 'Last checked 5 years ago'
+# Number goes before string
+# Use short variants until months
+- id: yearsAgo
+  translation: Jahre
+- id: monthsAgo
+  translation: Monate
+- id: daysAgo
+  translation: t
+- id: hoursAgo
+  translation: h
+- id: minsAgo
+  translation: min
+- id: secondsAgo
+  translation: s
+
+- id: autoRefreshNotice
+  translation: Wir versuchen die Daten alle fünf Minuten zu aktualisieren.
+
+# Incidents
+- id: incidents
+  translation: Vorfälle
+- id: incidentHistory
+  translation: Vorfalls Historie
+
+- id: resolved
+  translation: Gelöst # if it's less than a min
+- id: inUnderAMinute
+  translation: in unter einer Minute # continuing the last string
+- id: resolvedAfter
+  translation: Gelöst nach # + 19 min
+- id: ofDowntime
+  translation: Ausfallzeit
+
+- id: downtimeOngoing
+  translation: Ungelöst!
+
+- id: calmBeforeTheStorm
+  translation: Is dies die Ruhe vor dem Sturm?
+- id: noIncidentsDesc
+  translation: Es liegen keine Vorfälle vor. Eventuell hat der Besitzer (oder die Besitzer) noch keine Vorfälle verzeichnet.
+
+- id: continueReading
+  translation: Weiterlesen
+- id: prev
+  translation: Nächste
+- id: next
+  translation: Vorherige
+
+##
+## OTHER
+##
+
+- id: goBack
+  translation: Zurück zu
+- id: backToTop
+  translation: Nach oben
+- id: poweredBy
+  translation: Powered by
+
+- id: notFound
+  translation: Keine Daten vorhanden.
+- id: notFoundText
+  translation: #
+
+- id: rss
+  translation: RSS abonnieren
+- id: toAllUpdates
+  translation: alle Updates
+- id: or
+  translation: or
+- id: onlyThisFeed
+  translation: nur diesen Feed
+
+##
+## v3
+##
+- id: entries
+  translation: Einträge
+- id: newestToOldest
+  translation: von alt nach neu
