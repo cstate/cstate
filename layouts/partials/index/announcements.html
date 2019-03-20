@@ -1,0 +1,24 @@
+{{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
+{{ $active := where $incidents "Params.resolved" "=" false }}
+
+{{ if $active }}
+  <div class="announcement-box" style="border-bottom: 0">
+    {{ range $active }}
+      <div class="padding">
+        <p>
+          <a href="{{ .Permalink }}"><strong class="bold">{{ .Title }} →</strong></a>
+        </p>
+
+        <p><small>
+          {{ range .Params.Affected }}
+            <a href="/affected/{{ . | urlize }}" class="tag no-underline">{{ . }}</a>
+          {{ end }}
+        </small></p>
+
+        {{ .Content | safeHTML | truncate 500 "…" }}
+        <p></p>
+      </div>
+      <hr class="clean announcement-box">
+    {{ end }}
+  </div>
+{{ end }}

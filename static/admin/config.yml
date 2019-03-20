@@ -75,9 +75,11 @@ collections:
             options:
             - { label: "🇺🇸 English (default)", value: "en" }
             - { label: "🇱🇹 Lithuanian (official)", value: "lt" }
-            - { label: "🇹🇷 Turkish (community)", value: "tr" }
+            - { label: "🇹🇷 Turkish", value: "tr" }
+            - { label: "🇩🇪 Deutsch", value: "de" }
+            - { label: "🇫🇷 French", value: "fr" }
           - label: 'Site language in code for html[lang]'
-            hint: 'Use the ISO 639-1 defined abbreviations. Examples: en, lt, de, tr. Fully explained here: https://github.com/mistermantas/cstate/wiki/Customization#changing-site-language'
+            hint: 'Use the ISO 639-1 defined abbreviations. Examples: en, lt, de. Fully explained here: https://github.com/cstate/cstate/wiki/Customization#changing-site-language'
             name: 'languageCode'
             widget: 'string'
             default: 'en'
