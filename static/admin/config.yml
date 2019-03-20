@@ -75,6 +75,7 @@ collections:
             options:
             - { label: "🇺🇸 English (default)", value: "en" }
             - { label: "🇱🇹 Lithuanian (official)", value: "lt" }
+            - { label: "🇹🇷 Turkish", value: "tr" }
             - { label: "🇩🇪 Deutsch", value: "de" }
             - { label: "🇫🇷 French", value: "fr" }
           - label: 'Site language in code for html[lang]'
