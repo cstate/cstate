@@ -1,0 +1,53 @@
+{{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
+{{ $active := where $incidents "Params.resolved" "=" false }}
+
+{{ $isNotice := where $active "Params.severity" "=" "notice" }}
+{{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}
+{{ $isDown := where $active "Params.severity" "=" "down" }}
+
+<div class="components">
+    {{ $systems := .Site.Params.systems }}
+    {{ range $systems }}
+      {{ $activeComponentIssues := where $active "Params.affected" "intersect" (slice .name) }}
+
+      {{ $thisIsNotice := where $activeComponentIssues "Params.severity" "=" "notice" }}
+      {{ $thisIsDisrupted := where $activeComponentIssues "Params.severity" "=" "disrupted" }}
+      {{ $thisIsDown := where $activeComponentIssues "Params.severity" "=" "down" }}
+
+      <div class="component" data-status="{{ if $thisIsDown }}down{{ else }}{{ if $thisIsDisrupted }}disrupted{{ else }}{{ if $thisIsNotice }}notice{{ else }}ok{{ end }}{{ end }}{{ end }}">
+        <a href="/affected/{{ .name | urlize }}" class="no-underline">
+          {{ .name }}
+        </a>
+
+        {{ with .description }}
+          <span class="tooltip tooltip--small">
+            &nbsp; <span class="faded">(?)</span>
+
+            <span class="tooltip__text">
+              {{ . }}
+            </span>
+          </span>
+        {{ end }}
+
+        <span class="component-status">
+          {{ if $thisIsDown }}
+            <b>{{ T "thisIsDown" }}</b>
+          {{ else }}
+          {{ if $thisIsDisrupted }}
+            <b>{{ T "thisIsDisrupted" }}</b>
+          {{ else }}
+          {{ if $thisIsNotice }}
+            <b>{{ T "thisIsNotice" }}</b>
+          {{ else }}
+            {{ T "thisIsOk" }}
+          {{ end }}{{ end }}{{ end }}
+        </span>
+
+        {{ with .partial }}
+        <div>
+          {{ partial . . }}
+        </div>
+        {{ end }}
+      </div>
+    {{ end }}
+  </div>

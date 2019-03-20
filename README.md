@@ -122,7 +122,7 @@ git submodule foreach git pull origin master
 If you have previously used Netlfiy CMS or have made other changes without using the command line, the easiest thing to do is just clone it in a new place, change it how you want to, push those changes, and then you can safely remove the Git folder. So, do this:
 
 ```bash
-git clone --recursive <your repo link goes here> && git submodule foreach git pull origin master && git push origin master
+git clone --recursive <your repo link goes here> && git submodule foreach git pull origin master
 ```
 
 More info about submodules on [updating](https://stackoverflow.com/a/5828396) & [cloning](https://stackoverflow.com/questions/3796927/how-to-git-clone-including-submodules).

@@ -1,0 +1,20 @@
+{{ if .Site.Params.customTabs }}
+  <div class="tabs">
+    <div class="contain tabs--inner">
+      <a href="/#incidents" class="tab tab--current">
+        {{ T "incidents" }}
+      </a>
+
+      {{ range .Site.Params.customTabs }}
+        <a href="{{ .link }}" class="tab tab--other">
+          {{ .name }}
+        </a>
+      {{ end }}
+    </div>
+  </div>
+{{ else }}
+  <div class="contain contain--more">
+    <h2 class="center">{{ T "incidentHistory" }}</h2>
+    <hr class="clean">
+  </div>
+{{ end }}

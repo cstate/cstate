@@ -12,184 +12,35 @@
 
     <!-- Main -->
     <div class="contain">
-      <noscript>
-        <p class="error">{{ T "noScriptingIntro" }} <a href="//enable-javascript.com">{{ T "noScriptingLink" }}</a> {{ T "noScriptingOutro" }}</p>
-        <div class="padding"></div>
-      </noscript>
+      <!-- Enable JavaScript banner -->
+      {{ partial "index/noscript" . }}
 
-      <!-- Main info -->
-      <div class="summary">
-        <strong>
-          {{ if $isDown }}
-            {{ T "isDown" }}
-          {{ else }}
-          {{ if $isDisrupted }}
-            {{ T "isDisrupted" }}
-          {{ else }}
-          {{ if $isNotice }}
-            {{ T "isNotice" }}
-          {{ else }}
-            {{ T "isOk" }}
-          {{ end }}{{ end }}{{ end }}
-        </strong>
+      <!-- "All systems operational" (or not) banner -->
+      {{ partial "index/summary" . }}
 
-        <span class="summary__date float-right" onclick="location.reload()"></span>
-      </div>
+      <!-- Announcement box (title and short summary) -->
+      {{ partial "index/announcements" . }}
 
-      {{ if $active }}
-      <div class="announcement-box">
-        {{ range $active }}
-          <div class="padding">
-            <p><strong class="bold">{{ .Title }}</strong></p>
-            {{ .Content | safeHTML | truncate 500 "…" }}
-            <p><a href="{{ .Permalink }}">{{ T "continueReading" }}</a></p>
-          </div>
-        {{ else }}{{ end }}
-      </div>
+      <!-- Auto refresh -->
+      {{ partial "index/autorefresh" . }}
+
+      <!-- Individual component info -->
+      {{ partial "index/components" . }}
+
+      {{ if .Site.Params.enableCustomHTML }}
+        {{ partial "custom/homepage-summary" . }}
       {{ end }}
-
-      {{ if .Site.Params.autoRefresh }}
-      <div class="faded right">
-        <small><em>{{ T "autoRefreshNotice" }}</em></small>
-      </div>
-      <div class="padding-s"></div>
-      {{ else }}
-      <div class="padding"></div>
-      {{ end }}
-
-      <!-- Individual info -->
-      <div class="components">
-        {{ $systems := .Site.Params.systems }}
-        {{ range $systems }}
-          {{ $activeComponentIssues := where $active "Params.affected" "intersect" (slice .name) }}
-
-          {{ $thisIsNotice := where $activeComponentIssues "Params.severity" "=" "notice" }}
-          {{ $thisIsDisrupted := where $activeComponentIssues "Params.severity" "=" "disrupted" }}
-          {{ $thisIsDown := where $activeComponentIssues "Params.severity" "=" "down" }}
-
-          <div class="component" data-status="{{ if $thisIsDown }}down{{ else }}{{ if $thisIsDisrupted }}disrupted{{ else }}{{ if $thisIsNotice }}notice{{ else }}ok{{ end }}{{ end }}{{ end }}">
-            <a href="/affected/{{ .name | urlize }}" class="no-underline">
-              {{ .name }}
-            </a>
-
-            {{ with .description }}
-              <span class="tooltip tooltip--small">
-                &nbsp; <span class="faded">(?)</span>
-
-                <span class="tooltip__text">
-                  {{ . }}
-                </span>
-              </span>
-            {{ end }}
-
-            <span class="component-status">
-              {{ if $thisIsDown }}
-                {{ T "thisIsDown" }}
-              {{ else }}
-              {{ if $thisIsDisrupted }}
-                {{ T "thisIsDisrupted" }}
-              {{ else }}
-              {{ if $thisIsNotice }}
-                {{ T "thisIsNotice" }}
-              {{ else }}
-                {{ T "thisIsOk" }}
-              {{ end }}{{ end }}{{ end }}
-            </span>
-
-            {{ with .partial }}
-            <div>
-              {{ partial . . }}
-            </div>
-            {{ end }}
-          </div>
-        {{ end }}
-      </div>
-
-    {{ if .Site.Params.enableCustomHTML }}
-      {{ partial "custom/homepage-summary" . }}
-    {{ end }}
-    <!-- End main -->
-  </div>
-
-  {{ if .Site.Params.customTabs }}
-  <div class="tabs">
-    <div class="contain tabs--inner">
-      <a href="/#incidents" class="tab tab--current">
-        {{ T "incidents" }}
-      </a>
-
-      {{ range .Site.Params.customTabs }}
-       <a href="{{ .link }}" class="tab tab--other">
-         {{ .name }}
-       </a>
-     {{ end }}
+      <!-- End main -->
     </div>
-  </div>
-  {{ else }}
-  <div class="contain contain--more">
-    <h2 class="center">{{ T "incidentHistory" }}</h2>
-    <hr class="clean">
-  </div>
-  {{ end }}
 
+  <!-- Custom tabs -->
+  {{ partial "index/tabs" . }}
 
+  <!-- All incidents + pagination -->
   <div class="contain contain--more" id="incidents">
-    {{ if not $incidents }}
-      <div class="padding"></div>
-      <h3>{{ T "calmBeforeTheStorm" }}</h3>
-      <p>{{ T "noIncidentsDesc" }}</p>
-      <div class="padding"></div>
-      <div class="padding"></div>
-      <div class="padding"></div>
-    {{ else }}
-      {{ $paginator := .Paginate $incidents .Site.Params.incidentPostsPerPage }}
-      {{ range $paginator.Pages }}
-        {{ .Render "small" }}
-      {{ end }}
-
-      <!-- If there are more than 2 pages, show pagination -->
-      {{ if gt $paginator.TotalPages 1 }}
-        <hr>
-
-        <div class="center">
-          {{ if $paginator.HasPrev }}
-            <a href="{{ $paginator.Prev.URL }}#incidents">
-              ⭠ &nbsp;
-              {{ T "prev" }}
-            </a>
-          {{ else }}
-            <span class="faded">
-              ⭠ &nbsp;
-              {{ T "prev" }}
-            </span>
-          {{ end }}
-
-
-          &nbsp; &nbsp;
-          {{ $paginator.PageNumber }}
-          /
-          {{ $paginator.TotalPages }}
-          &nbsp; &nbsp;
-
-
-          {{ if $paginator.HasNext }}
-            <a href="{{ $paginator.Next.URL }}#incidents">
-              {{ T "next" }} &nbsp;
-              ⭢
-            </a>
-          {{ else }}
-            <span class="faded">
-              {{ T "next" }} &nbsp;
-              ⭢
-            </span>
-          {{ end }}
-        </div>
-      {{ end }}
-    {{ end }}
+    {{ partial "index/incidents" . }}
     <div class="padding"></div>
   </div>
-
-
 
   {{ partial "js" . }}
   {{ partial "footer" . }}
