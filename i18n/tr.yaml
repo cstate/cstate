@@ -78,7 +78,7 @@
 - id: inUnderAMinute
   translation: bir dakikadan kısa bir süre içinde # continuing the last string
 - id: resolvedAfter
-  translation: Çözümlendi # + 19 min
+  translation: "Çözümlendi:" # + 19 min
 - id: ofDowntime
   translation: süren arıza sonrasında
 
