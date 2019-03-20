@@ -28,7 +28,7 @@ collections:
       - {label: "Mark as incident", name: "section", widget: "hidden", default: "issue"}
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Start date & time (your time)", name: "date", widget: "datetime"}
-      - {label: "Mark as resolved", name: "resolved", widget: "boolean", required: false}
+      - {label: "Mark as resolved", name: "resolved", widget: "boolean", required: false, default: false}
       - {label: "End date & time (your time)", name: "resolvedWhen", widget: "datetime", required: false}
       - label: "Affected systems (use exact name, separated by commas)"
         name: "affected"
