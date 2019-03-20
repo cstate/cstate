@@ -45,6 +45,19 @@ collections:
         name: "body"
         widget: "markdown"
         default: "*Investigating* - We are investigating a potential issue that might affect the uptime of one our of services. We are sorry for any inconvenience this may cause you. This incident post will be updated once we have more information."
+  - name: "pages"
+    label: "Pages"
+    label_singular: "Page"
+    description: "📜 Create and manage pages (not connected or related to issues). Good for things like about pages, SLAs, ways of contact, and so forth."
+    folder: "content/pages"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Description for SEO and social media", name: "description", widget: "string", required: false}
+      - label: "Markdown (or HTML) body"
+        name: "body"
+        widget: "markdown"
   - name: "settings"
     label: "Settings"
     description: "⚠ Please be warned that by editing settings from Netlify CMS you are _OVERWRITING_ what you have in the original Git repository, meaning any CURRENT SETTINGS OR COMMENTS left will be deleted."
