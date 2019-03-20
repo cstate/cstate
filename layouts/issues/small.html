@@ -65,10 +65,6 @@
     {{ .Title }}
   </h3>
 
-  {{ $t := (time .Params.ResolvedWhen) }}
-  {{ $timeDiff := (sub $t.Unix .Date.Unix) }}
-  {{ $diffInMin := (div $timeDiff 60) }}
-
   <!-- Marker -->
   <div class="error">{{ T "downtimeOngoing" }}</div>
 
