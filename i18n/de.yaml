@@ -108,6 +108,10 @@
 - id: poweredBy
   translation: Powered by
 
+- id: notFound
+  translation: Nichts vorhanden.
+- id: notFoundText
+  translation: Dies könnte ein Problem von unserer Seite sein. Eventuell solltest du nochmal die URL überprüfen.
 
 - id: rss
   translation: RSS abonnieren
