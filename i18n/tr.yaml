@@ -1,0 +1,132 @@
+# Turkish language file for cState
+# Version 3.0
+
+- id: languageCode
+  translation: tr
+- id: languageName
+  translation: Türkçe
+- id: languageNameShort
+  translation: TUR
+
+##
+## INDEX.HTML
+##
+
+# Summary status message
+- id: isDown
+  translation: Majör problemler yaşanıyor
+- id: isDisrupted
+  translation: Kesintiler yaşanıyor
+- id: isNotice
+  translation: Lütfen duyuruyu okuyun
+- id: isOk
+  translation: Tüm sistemler işlevsel durumda
+
+# No JS warning
+- id: noScriptingIntro
+  translation: Bir saniye! Görünüşe göre JavaScript devre dışı. Lütfen
+- id: noScriptingLink
+  translation: JavaScript desteğini etkinleştirin
+- id: noScriptingOutro
+  translation: ki bu İnternet sitesini sorunsuzca görüntüleyebilesiniz.
+
+- id: thisIsDown
+  translation: Çökmüş
+- id: thisIsDisrupted
+  translation: Aksıyor
+- id: thisIsNotice
+  translation: Bakımda
+- id: thisIsOk
+  translation: İşlevsel
+
+# "Last checked" + "just now"
+- id: lastChecked
+  translation: Son kontrol
+- id: justNow
+  translation: az önce
+- id: someTimeAgo
+  translation: önce
+
+# Example usage: `5` + `years`
+# Final result: 'Last checked 5 years ago'
+# Number goes before string
+# Use short variants until months
+- id: yearsAgo
+  translation: yıl
+- id: monthsAgo
+  translation: ay
+- id: daysAgo
+  translation: gün
+- id: hoursAgo
+  translation: saat
+- id: minsAgo
+  translation: dakika
+- id: secondsAgo
+  translation: saniye
+
+- id: autoRefreshNotice
+  translation: Her 5 dakikada bir güncellenecektir
+
+# Incidents
+- id: incidents
+  translation: Olaylar
+- id: incidentHistory
+  translation: Olay geçmişi
+
+- id: resolved
+  translation: Çözümlendi # if it's less than a min
+- id: inUnderAMinute
+  translation: bir dakikadan kısa bir süre içinde # continuing the last string
+- id: resolvedAfter
+  translation: "Çözümlendi:" # + 19 min
+- id: ofDowntime
+  translation: süren arıza sonrasında
+
+- id: downtimeOngoing
+  translation: Çözümlenmedi!
+
+
+- id: calmBeforeTheStorm
+  translation: Bu fırtına öncesi sessizlik mi?
+- id: noIncidentsDesc
+  translation: Kaydedilmiş bir olaya rastlayamadık. Bunun sebebi, sitenin yeni kurulmuş olması, kesinti yaşanmamış olması ya da bu kesintilerin kaydedilmemesi olabilir.
+
+- id: continueReading
+  translation: Okumaya devam et
+- id: prev
+  translation: Önceki
+- id: next
+  translation: Sıradaki
+
+##
+## OTHER
+##
+
+- id: goBack
+  translation: Geri git
+- id: backToTop
+  translation: Yukarıya dön
+- id: poweredBy
+  translation: Powered by
+
+- id: notFound
+  translation: Burada bir şey yok.
+- id: notFoundText
+  translation: Belki de aradığınız şeyi başka bir yere taşımışızdır. O şey hiç bulunmamış da olabilir. İki defa dene belki işe yarar?
+
+- id: rss
+  translation: RSS beslemesine abone ol
+- id: toAllUpdates
+  translation: bütün güncellemelere
+- id: or
+  translation: ya da
+- id: onlyThisFeed
+  translation: sadece bu beslemeye
+
+##
+## v3
+##
+- id: entries
+  translation: girdiler
+- id: newestToOldest
+  translation: en yeniden en eskiye

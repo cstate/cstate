@@ -27,14 +27,14 @@ collections:
     fields:
       - {label: "Mark as incident", name: "section", widget: "hidden", default: "issue"}
       - {label: "Title", name: "title", widget: "string"}
-      - {label: "Start date & time (your time)", name: "date", widget: "datetime"}
-      - {label: "Mark as resolved", name: "resolved", widget: "boolean", required: false, default: false}
-      - {label: "End date & time (your time)", name: "resolvedWhen", widget: "datetime", required: false}
-      - label: "Affected systems (use exact name, separated by commas)"
+      - {label: "Start date & time (your time) ⌚", name: "date", widget: "datetime"}
+      - {label: "Mark as resolved ✔", name: "resolved", widget: "boolean", required: false, default: false}
+      - {label: "End date & time (your time) ⌛", name: "resolvedWhen", widget: "datetime", required: false}
+      - label: "Affected systems (use exact name, separated by commas) 🧐"
         name: "affected"
         widget: "list"
         required: false
-      - label: "Severity"
+      - label: "Severity ⚠"
         name: "severity"
         widget: "select"
         options:
@@ -45,6 +45,19 @@ collections:
         name: "body"
         widget: "markdown"
         default: "*Investigating* - We are investigating a potential issue that might affect the uptime of one our of services. We are sorry for any inconvenience this may cause you. This incident post will be updated once we have more information."
+  - name: "pages"
+    label: "Pages"
+    label_singular: "Page"
+    description: "📜 Create and manage pages (not connected or related to issues). Good for things like about pages, SLAs, ways of contact, and so forth."
+    folder: "content/pages"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Description for SEO and social media", name: "description", widget: "string", required: false}
+      - label: "Markdown (or HTML) body"
+        name: "body"
+        widget: "markdown"
   - name: "settings"
     label: "Settings"
     description: "⚠ Please be warned that by editing settings from Netlify CMS you are _OVERWRITING_ what you have in the original Git repository, meaning any CURRENT SETTINGS OR COMMENTS left will be deleted."
@@ -75,8 +88,11 @@ collections:
             options:
             - { label: "🇺🇸 English (default)", value: "en" }
             - { label: "🇱🇹 Lithuanian (official)", value: "lt" }
+            - { label: "🇹🇷 Turkish", value: "tr" }
+            - { label: "🇩🇪 Deutsch", value: "de" }
+            - { label: "🇫🇷 French", value: "fr" }
           - label: 'Site language in code for html[lang]'
-            hint: 'Use the ISO 639-1 defined abbreviations. Examples: en, lt, de. Fully explained here: https://github.com/mistermantas/cstate/wiki/Customization#changing-site-language'
+            hint: 'Use the ISO 639-1 defined abbreviations. Examples: en, lt, de. Fully explained here: https://github.com/cstate/cstate/wiki/Customization#changing-site-language'
             name: 'languageCode'
             widget: 'string'
             default: 'en'

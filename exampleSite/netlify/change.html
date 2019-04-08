@@ -1,0 +1,5 @@
+<h2>[cState Admin] <br> An email change has been requested.</h2>
+
+<p>Follow this link to confirm the update of your email from <strong>{{ .Email }}</strong> to <strong>{{ .NewEmail }}</strong>:</p>
+
+<p><a href="{{ .SiteURL }}/admin/#email_change_token={{ .Token }}">Make it <em>{{ .NewEmail }}</em></a></p>

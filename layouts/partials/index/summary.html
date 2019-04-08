@@ -1,0 +1,24 @@
+{{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
+{{ $active := where $incidents "Params.resolved" "=" false }}
+
+{{ $isNotice := where $active "Params.severity" "=" "notice" }}
+{{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}
+{{ $isDown := where $active "Params.severity" "=" "down" }}
+
+<div class="summary">
+  <strong>
+    {{ if $isDown }}
+      {{ T "isDown" }}
+    {{ else }}
+    {{ if $isDisrupted }}
+      {{ T "isDisrupted" }}
+    {{ else }}
+    {{ if $isNotice }}
+      {{ T "isNotice" }}
+    {{ else }}
+      {{ T "isOk" }}
+    {{ end }}{{ end }}{{ end }}
+  </strong>
+
+  <span class="summary__date float-right" onclick="location.reload()"></span>
+</div>

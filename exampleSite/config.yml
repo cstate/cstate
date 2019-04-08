@@ -83,14 +83,14 @@ defaultContentLanguage: en
 # What is the hostname or path to the root?
 # Where is the site hosted?
 #
-# 💥 cState & Hugo don’t support / in
+# 💥 cState & Hugo don’t support '/' in
 # production use. It will break RSS
 # feeds and breaks permalinks since
 # version 3. If you are just testing,
 # localhost should automatically work.
 #
 # Example: https://status.example.com/
-baseURL: https://status.example.com
+baseURL: https://cstate.mnts.lt
 
 ############################################################
 # +------------------------------------------------------+ #
@@ -179,19 +179,20 @@ params:
   incidentPostsPerPage: 10
 
   # Colors throughout cState
+  # HEX codes without the #
   #
   # Defaults:
   #
-  # brand: #181818
-  # ok: 228B22
-  # warning: EE7600
-  # down: DC143C
-  # notice: 708090
-  brand: 181818
-  ok: 228B22
-  disrupted: EE7600
-  down: DC143C
-  notice: 708090
+  # brand: "0a0c0f"
+  # ok: "008000"
+  # disrupted: "cc4400"
+  # down: "e60000"
+  # notice: "24478f"
+  brand: "0a0c0f"
+  ok: "008000"
+  disrupted: "cc4400"
+  down: "e60000"
+  notice: "24478f"
 
   # If the status page shows that
   # there are disruptions or outages
