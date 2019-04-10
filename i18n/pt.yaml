@@ -1,0 +1,139 @@
+# Portuguese language file for cState
+# Version 3.0
+
+- id: languageCode
+  translation: pt
+- id: languageName
+  translation: Portuguese
+- id: languageNameShort
+  translation: POR
+
+##
+## INDEX.HTML
+##
+
+# Summary status message
+- id: isDown
+  translation: Sofrendo problemas sérios
+- id: isDisrupted
+  translation: Sofrendo disrupções
+- id: isNotice
+  translation: Por favor, leia nosso comunicado
+- id: isOk
+  translation: Todos os sistemas operando
+
+# No JS warning
+- id: noScriptingIntro
+  translation: Ah não! Parece que você disabilitou o Javascript. Por favor
+- id: noScriptingLink
+  translation: habilite o Javascript
+- id: noScriptingOutro
+  translation: para melhorar sua experiência nesse site.
+
+- id: thisIsDown
+  translation: Fora do Ar
+- id: thisIsDisrupted
+  translation: Quebrado
+- id: thisIsNotice
+  translation: Manutenção
+- id: thisIsOk
+  translation: Operacional
+
+# "Last checked" + "just now"
+- id: lastChecked
+  translation: Checado pela última vez
+- id: justNow
+  translation: agora mesmo
+- id: someTimeAgo
+  translation: atrás
+
+# Example usage: `5` + `years`
+# Final result: 'Last checked 5 years ago'
+# Number goes before string
+# Use short variants until months
+- id: yearsAgo
+  translation: a
+- id: monthsAgo
+  translation: m
+- id: daysAgo
+  translation: d
+- id: hoursAgo
+  translation: h
+- id: minsAgo
+  translation: min
+- id: secondsAgo
+  translation: s
+
+- id: autoRefreshNotice
+  translation: Nós vamos tentar atualizar a cada 5 minutos
+
+# Incidents
+- id: incidents
+  translation: Incidentes
+- id: incidentHistory
+  translation: Histórico de Incidentes
+
+- id: resolved
+  translation: Resolvido # if it's less than a min
+- id: inUnderAMinute
+  translation: em menos de um minuto # continuing the last string
+- id: resolvedAfter
+  translation: Resolvido após # + 19 min
+- id: ofDowntime
+  translation: de tempo fora do ar
+
+- id: downtimeOngoing
+  translation: Ainda não resolvido!
+
+
+- id: calmBeforeTheStorm
+  translation: Está calmo demais para ser verdade?
+- id: noIncidentsDesc
+  translation: Essa página não registrou incidentes. Isso pode ser pois os administradores desta página de status a configuraram recentemente, ou até mesmo pois os serviços realmente ainda não ficaram fora do ar.
+
+
+- id: continueReading
+  translation: Continuar lendo
+- id: prev
+  translation: Anterior
+- id: next
+  translation: Próximo
+
+##
+## OTHER
+##
+
+- id: goBack
+  translation: Voltar para
+- id: backToTop
+  translation: Voltar para o topo
+- id: poweredBy
+  translation: Empoderado por
+
+- id: notFound
+  translation: Não tem nada aqui.
+- id: notFoundText
+  translation: Isso pode ser um problema da nossa parte. Talves nós movemos certo recurso e agora ele desapareceu. Também é possível que o recurso que esteja tentando acessar esteja vazio. Pedimos apena que cheque o link novamente, por gentiliza?
+
+- id: rss
+  translation: Inscreva-se via RSS
+- id: toAllUpdates
+  translation: a todas as atualizações
+- id: or
+  translation: ou
+- id: onlyThisFeed
+  translation: somente essa fonte
+
+##
+## v3
+##
+- id: entries
+  translation: entradas
+- id: newestToOldest
+  translation: da mais nova para a mais velha
+
+##
+## v4
+##
+- id: notFoundAffected
+  translation: Parece que esse sistema não existe, ou não reportou nenhum incidente.
