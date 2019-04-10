@@ -113,7 +113,7 @@
 - id: notFound
   translation: Não tem nada aqui.
 - id: notFoundText
-  translation: Isso pode ser um problema da nossa parte. Talves nós movemos certo recurso e agora ele desapareceu. Também é possível que o recurso que esteja tentando acessar esteja vazio. Pedimos apena que cheque o link novamente, por gentiliza?
+  translation: Isso pode ser um problema da nossa parte. Talves nós movemos certo recurso e agora ele desapareceu. Também é possível que o recurso que esteja tentando acessar esteja vazio. Pedimos apenas que cheque o link novamente, por gentileza?
 
 - id: rss
   translation: Inscreva-se via RSS
@@ -122,7 +122,7 @@
 - id: or
   translation: ou
 - id: onlyThisFeed
-  translation: somente essa fonte
+  translation: somente a essa fonte
 
 ##
 ## v3
@@ -136,4 +136,4 @@
 ## v4
 ##
 - id: notFoundAffected
-  translation: Parece que esse sistema não existe, ou não reportou nenhum incidente.
+  translation: Parece que esse sistema não existe, ou ainda não reportou nenhum incidente.
