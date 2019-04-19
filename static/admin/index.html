@@ -24,7 +24,6 @@
 
           var layoutPostDate = entry.getIn(['data', 'date']);
           var layoutPostDateEnd = entry.getIn(['data', 'resolvedWhen']);
-          const layoutDaysInEnglish = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
           var resultOfStateProps = {"class": "warning"};
           var resultOfState = 'This incident has not yet been resolved.';
@@ -34,20 +33,9 @@
             var resultOfState = 'This incident has been resolved.';
           }
 
-          if (layoutPostDateEnd.getFullYear() === layoutPostDate.getFullYear()) {
-            if (layoutPostDateEnd.getHours() === layoutPostDate.getHours()) {
-              if (layoutPostDateEnd.getMinutes() === layoutPostDate.getMinutes()) {
-                var resultOfStateProps = {"class": "red"};
-                var resultOfState = 'It looks like you haven\'t defined when this incident was resolved. Please double-check.';
-              }
-            }
-          }
 
           return h('div', {},
             h('h1', {}, entry.getIn(['data', 'title'])),
-            h('div', {},
-              h('small', {}, layoutDaysInEnglish[layoutPostDate.getMonth()]  + ' ' + layoutPostDate.getDate() +  ', ' + layoutPostDate.getFullYear() + ' at ' + layoutPostDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) )
-            ),
             h('p', {},
               h('strong', resultOfStateProps, resultOfState)
             ),
