@@ -5,49 +5,82 @@
 {{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}
 {{ $isDown := where $active "Params.severity" "=" "down" }}
 
-<div class="components">
-    {{ $systems := .Site.Params.systems }}
-    {{ range $systems }}
-      {{ $activeComponentIssues := where $active "Params.affected" "intersect" (slice .name) }}
+<!-- Individual info -->
+<div class="categories">
+  {{ $systems := .Site.Params.systems }}
+  {{ $categories := .Site.Params.categories }}
 
-      {{ $thisIsNotice := where $activeComponentIssues "Params.severity" "=" "notice" }}
-      {{ $thisIsDisrupted := where $activeComponentIssues "Params.severity" "=" "disrupted" }}
-      {{ $thisIsDown := where $activeComponentIssues "Params.severity" "=" "down" }}
+  {{ range $categories }}
+    <div class="category">
+      {{ if not .untitled }}
+      <div class="bold" style="margin: 12px 0">
+      {{ if .closed }}⯈{{ else }}⯆{{ end }}
 
-      <div class="component" data-status="{{ if $thisIsDown }}down{{ else }}{{ if $thisIsDisrupted }}disrupted{{ else }}{{ if $thisIsNotice }}notice{{ else }}ok{{ end }}{{ end }}{{ end }}">
-        <a href="/affected/{{ .name | urlize }}" class="no-underline">
-          {{ .name }}
-        </a>
+      <b>{{ .name }}</b>
+      
+      {{ with .description }}
+        <span class="tooltip tooltip--small">
+          &nbsp; <span class="faded">(?)</span>
 
-        {{ with .description }}
-          <span class="tooltip tooltip--small">
-            &nbsp; <span class="faded">(?)</span>
-
-            <span class="tooltip__text">
-              {{ . }}
-            </span>
+          <span class="tooltip__text">
+            {{ . }}
           </span>
-        {{ end }}
-
-        <span class="component-status">
-          {{ if $thisIsDown }}
-            <b>{{ T "thisIsDown" }}</b>
-          {{ else }}
-          {{ if $thisIsDisrupted }}
-            <b>{{ T "thisIsDisrupted" }}</b>
-          {{ else }}
-          {{ if $thisIsNotice }}
-            <b>{{ T "thisIsNotice" }}</b>
-          {{ else }}
-            {{ T "thisIsOk" }}
-          {{ end }}{{ end }}{{ end }}
         </span>
+      {{ end }}
 
-        {{ with .partial }}
-        <div>
-          {{ partial . . }}
-        </div>
-        {{ end }}
       </div>
-    {{ end }}
-  </div>
+      {{ else }}
+      <div class="padding"></div>
+      {{ end }}
+
+      {{ $categorySystems := where $systems "category" "=" .name }}
+
+      <div class="components">
+      {{ range $categorySystems }}
+        {{ $activeComponentIssues := where $active "Params.affected" "intersect" (slice .name) }}
+
+        {{ $thisIsNotice := where $activeComponentIssues "Params.severity" "=" "notice" }}
+        {{ $thisIsDisrupted := where $activeComponentIssues "Params.severity" "=" "disrupted" }}
+        {{ $thisIsDown := where $activeComponentIssues "Params.severity" "=" "down" }}
+
+        <div class="component" data-status="{{ if $thisIsDown }}down{{ else }}{{ if $thisIsDisrupted }}disrupted{{ else }}{{ if $thisIsNotice }}notice{{ else }}ok{{ end }}{{ end }}{{ end }}">
+          <a href="/affected/{{ .name | urlize }}" class="no-underline">
+            {{ .name }}
+          </a>
+
+          {{ with .description }}
+            <span class="tooltip tooltip--small">
+              &nbsp; <span class="faded">(?)</span>
+
+              <span class="tooltip__text">
+                {{ . }}
+              </span>
+            </span>
+          {{ end }}
+
+          <span class="component-status">
+            {{ if $thisIsDown }}
+              {{ T "thisIsDown" }}
+            {{ else }}
+            {{ if $thisIsDisrupted }}
+              {{ T "thisIsDisrupted" }}
+            {{ else }}
+            {{ if $thisIsNotice }}
+              {{ T "thisIsNotice" }}
+            {{ else }}
+              {{ T "thisIsOk" }}
+            {{ end }}{{ end }}{{ end }}
+          </span>
+
+          {{ with .partial }}
+          <div>
+            {{ partial . . }}
+          </div>
+          {{ end }}
+        </div>
+      {{ end }}
+      </div>
+    </div>
+  {{ end }}
+
+</div>

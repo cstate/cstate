@@ -99,6 +99,8 @@ baseURL: https://cstate.mnts.lt
 ############################################################
 
 params:
+  enableCategories: false
+
   # These are your systems. Change them to
   # change the amount of components.
   #
@@ -106,10 +108,21 @@ params:
   # https://github.com/cstate/cstate/wiki/Customization
   systems:
     - name: Gateway
+      category: North Coast
     - name: API
       description: The guts of the application.
+      category: Uncategorized
     - name: Media Proxy
       description: This is the service responsible for serving images, audio, and video. It is reliant on our CDN.
+      category: Uncategorized
+
+  categories:
+    - name: North Coast
+      description: The worst one. Or the best one.
+      closed: true      
+    - name: Uncategorized
+      untitled: true
+    
 
   # What date format to use?
   #
