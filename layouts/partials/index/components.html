@@ -13,8 +13,10 @@
   {{ range $categories }}
     <div class="category">
       {{ if not .untitled }}
-      <div class="bold" style="margin: 12px 0">
-      {{ if .closed }}⯈{{ else }}⯆{{ end }}
+      <div class="bold padding clicky category__head" onclick="document.querySelector('#{{ .name | urlize }}').classList.toggle('hidden'); document.querySelector('#{{ .name | urlize }}-toggle').classList.toggle('hidden')">
+        <span class="hide-without-js" id="{{ .name | urlize }}-toggle">
+          {{ if .closed }}⯈{{ else }}⯆{{ end }}
+        </span>
 
       <b>{{ .name }}</b>
       
@@ -35,7 +37,7 @@
 
       {{ $categorySystems := where $systems "category" "=" .name }}
 
-      <div class="components">
+      <div class="components {{ if .closed }}hidden{{ end }}" id="{{ .name | urlize }}">
       {{ range $categorySystems }}
         {{ $activeComponentIssues := where $active "Params.affected" "intersect" (slice .name) }}
 

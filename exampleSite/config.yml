@@ -109,6 +109,8 @@ params:
   systems:
     - name: Gateway
       category: North Coast
+    - name: Backup Gateway
+      category: East Coast
     - name: API
       description: The guts of the application.
       category: Uncategorized
@@ -119,9 +121,11 @@ params:
   categories:
     - name: North Coast
       description: The worst one. Or the best one.
-      closed: true      
+      closed: true
+    - name: East Coast      
     - name: Uncategorized
       untitled: true
+    
     
 
   # What date format to use?

@@ -20,6 +20,8 @@
     var themeNoticeColor = '#{{ .Site.Params.notice }}';
     var themeDisruptedColor = '#{{ .Site.Params.disrupted }}';
     var themeDownColor = '#{{ .Site.Params.down }}';
+
+
     </script>
     <!-- Sources -->
     <style>
@@ -110,6 +112,21 @@
     .padding-s { padding: 6px; }
     .padding { padding: 12px; }
 
+    .clicky { cursor: pointer; }
+    .hidden { display: none; }
+    
+
+
+    /**
+     * Categories
+     */
+
+
+    .hide-without-js { display: none; }
+    .js span.hide-without-js { display: inline; }
+    .js div.hide-without-js { display: block; }
+
+
     /**
      * UI elements
      */
@@ -180,11 +197,6 @@
     .summary {
       padding: 16px;
       color: #fff;
-    }
-
-    .summary__date {
-      display: block;
-      cursor: pointer;
     }
 
     .summary__date:hover {
@@ -268,8 +280,8 @@
      */
 
     .issue { display: block; padding: 14px 24px; }
-    .issue:hover { background: #f5f5f5; }
-    .issue:active { background: #eee; }
+    .issue:hover, .category__head:hover { background: #f5f5f5; }
+    .issue:active, .category__head:active { background: #eee; }
 
     .issue h3 { line-height: 1.25; }
 
