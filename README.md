@@ -76,6 +76,11 @@ If you want to do this from any branch in this repository, follow the manual ins
 ```bash
 mkdir themes; cd themes;
 ```
+2. Start Git on this folder: 
+
+```bash
+git init
+```
 
 3. Now simply add a Git submodule pointing to this repository, like so:
 
