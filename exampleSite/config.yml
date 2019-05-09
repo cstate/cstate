@@ -83,7 +83,7 @@ defaultContentLanguage: en
 # What is the hostname or path to the root?
 # Where is the site hosted?
 #
-# 💥 cState & Hugo don’t support '/' in
+# ❗ cState & Hugo don’t support '/' in
 # production use. It will break RSS
 # feeds and breaks permalinks since
 # version 3. If you are just testing,
@@ -99,7 +99,34 @@ baseURL: https://cstate.mnts.lt
 ############################################################
 
 params:
-  enableCategories: false
+  # Before setting up your systems, you need
+  # to first define at least one category.
+  #
+  # Categories are shown in the order that
+  # you define in this config file.
+  #
+  # Categories can have a:
+  # - name
+  # - description
+  # - closed boolean `closed: true`
+  #   That would collapse the category upon first load
+  #   and the user can expand by clicking on the category
+  #   (Requires JavaScript.)
+  # - untitled boolean `untitled: true`
+  #   This would complerely hide the name of the category.
+  #   This is useful, if you do not want to use categories
+  #   because you need to set an 'Uncategorized' category.
+  #   Or it can be used alongside other categories.
+  #
+  # For help, see the wiki:
+  # https://github.com/cstate/cstate/wiki/Customization
+  categories:
+    - name: North Coast
+      description: The main servers are located here.
+      closed: true
+    - name: East Coast      
+    - name: Uncategorized
+      untitled: true
 
   # These are your systems. Change them to
   # change the amount of components.
@@ -117,16 +144,6 @@ params:
     - name: Media Proxy
       description: This is the service responsible for serving images, audio, and video. It is reliant on our CDN.
       category: Uncategorized
-
-  categories:
-    - name: North Coast
-      description: The worst one. Or the best one.
-      closed: true
-    - name: East Coast      
-    - name: Uncategorized
-      untitled: true
-    
-    
 
   # What date format to use?
   #

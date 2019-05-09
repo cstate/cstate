@@ -111,17 +111,20 @@
     .right { text-align: right; }
     .padding-s { padding: 6px; }
     .padding { padding: 12px; }
-
     .clicky { cursor: pointer; }
-    .hidden { display: none; }
-    
 
 
     /**
      * Categories
      */
 
+    /* Categories themselves */
+    .js .category--open .category__closed-marker { display: none; }
+    .js .category--closed .components { display: none; }
+    .js .category--closed .category__open-marker { display: none; }
 
+    /* Markers */
+    .js .hidden-with-js { display: none; }
     .hide-without-js { display: none; }
     .js span.hide-without-js { display: inline; }
     .js div.hide-without-js { display: block; }

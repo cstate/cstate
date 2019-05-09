@@ -11,14 +11,17 @@
   {{ $categories := .Site.Params.categories }}
 
   {{ range $categories }}
-    <div class="category">
+    <div class="category {{ if .closed }}category--closed{{ else }}category--open{{ end }}" id="{{ .name | urlize }}">
       {{ if not .untitled }}
-      <div class="bold padding clicky category__head" onclick="document.querySelector('#{{ .name | urlize }}').classList.toggle('hidden'); document.querySelector('#{{ .name | urlize }}-toggle').classList.toggle('hidden')">
-        <span class="hide-without-js" id="{{ .name | urlize }}-toggle">
-          {{ if .closed }}⯈{{ else }}⯆{{ end }}
+      <div class="bold padding clicky category__head" onclick="this.parentNode.classList.toggle('category--closed'); this.parentNode.classList.toggle('category--open')">
+        <span class="hide-without-js">
+          <span class="category__closed-marker">⯈</span>
+          <span class="category__open-marker">⯆</span>
         </span>
 
-      <b>{{ .name }}</b>
+      <b>
+        {{ .name }}
+      </b>
       
       {{ with .description }}
         <span class="tooltip tooltip--small">
@@ -37,7 +40,7 @@
 
       {{ $categorySystems := where $systems "category" "=" .name }}
 
-      <div class="components {{ if .closed }}hidden{{ end }}" id="{{ .name | urlize }}">
+      <div class="components">
       {{ range $categorySystems }}
         {{ $activeComponentIssues := where $active "Params.affected" "intersect" (slice .name) }}
 
