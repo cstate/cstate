@@ -8,6 +8,7 @@ severity: down
 affected:
   - API
   - Media Proxy
+  - Gateway
 section: issue
 ---
 

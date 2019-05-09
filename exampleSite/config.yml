@@ -263,3 +263,16 @@ preserveTaxonomyNames: true
 
 taxonomies:
   affected: affected
+
+outputs:
+  page:
+    - html
+    - json
+  section:
+    - html
+    - json
+    - rss
+  home:
+    - html
+    - json
+    - rss

@@ -1,0 +1,14 @@
+
+{
+  "section": "{{ .Section }}",
+  "title": "{{ .Title }}",
+  "created_at": "{{ .Date }}",
+  "severity": "{{ .Params.severity }}",
+  "resolved": "{{ .Params.resolved }}",
+  "resolved_at": "{{ .Params.resolvedWhen }}",
+  "affected": [{{ range $i, $e := .Params.Affected }}{{ if $i }}, {{ end }}'{{ . }}'{{ end }}],
+
+  "body": {{ jsonify .Content }},
+
+  "filename": "{{ .File.LogicalName }}"
+}
