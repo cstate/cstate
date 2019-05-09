@@ -17,6 +17,7 @@
 + [Updating](#updating-)
 + [FAQ](#faq-)
 + [Contribute](#contribute-)
+* [Donate](#donate-)
 + [License](#license-)
 
 ***
@@ -75,6 +76,11 @@ If you want to do this from any branch in this repository, follow the manual ins
 
 ```bash
 mkdir themes; cd themes;
+```
+2. Start Git on this folder: 
+
+```bash
+git init
 ```
 
 3. Now simply add a Git submodule pointing to this repository, like so:
@@ -169,6 +175,15 @@ Time to break that down.
 ### I have more questions!
 
 Check out [the wiki](https://github.com/cstate/cstate/wiki).
+
+## Donate ❤️
+
+cState is only a hobby project of @mistermantas, but it’s a prideful one.
+
+Support the developer and ensure the future of the project by donating for a cuppa tea, some ice cream, or if you are feeling generous — a large size pizza.
+
+* [PayPal](https://paypal.me/AlbinaV}
+* or you can make a bank transfer. For info, [get in touch](https://mnts.lt)
 
 ## Contribute 💥
 
