@@ -10,10 +10,20 @@
   {{ $systems := .Site.Params.systems }}
   {{ $categories := .Site.Params.categories }}
 
+  <script>
+  function toggleCategoryHead(el) {
+    if (el.parentNode.className == 'category category--open') {
+      el.parentNode.className = 'category category--closed';
+    } else {
+      el.parentNode.className = 'category category--open';
+    }
+  }
+  </script>
+
   {{ range $categories }}
     <div class="category {{ if .closed }}category--closed{{ else }}category--open{{ end }}" id="{{ .name | urlize }}">
       {{ if not .untitled }}
-      <div class="bold padding clicky category__head" onclick="this.parentNode.classList.toggle('category--closed'); this.parentNode.classList.toggle('category--open')">
+      <div class="bold padding clicky category__head" onclick="toggleCategoryHead(this)">
         <span class="hide-without-js">
           <span class="category__closed-marker">⯈</span>
           <span class="category__open-marker">⯆</span>
