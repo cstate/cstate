@@ -21,6 +21,17 @@
       <!-- Announcement box (title and short summary) -->
       {{ partial "index/announcements" . }}
 
+
+      {{ with .Site.GetPage "section" "post" }}
+      {{ range .Data.Pages.GroupByDate "2018" }}
+      Archives Title and {{ .Key }} markup here
+      {{ range .Pages }}
+      The rest of your markup goes here
+      {{ end }}
+      {{ end }}
+      {{ end }}
+
+
       <!-- Auto refresh -->
       {{ partial "index/autorefresh" . }}
 
