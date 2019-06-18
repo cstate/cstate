@@ -1,0 +1,9 @@
+{{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
+
+{{ range ((where .Site.RegularPages "Params.section" "issue").GroupByDate "2006") }}
+  <p class="center" id="{{ .Key }}"><a href="#{{ .Key }}" class="no-underline"><strong>{{ .Key }}</strong></a></p>
+  
+  {{ range .Pages }}
+    {{ .Render "small" }}
+  {{ end }}
+{{ end }}
