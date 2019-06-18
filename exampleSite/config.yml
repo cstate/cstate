@@ -163,6 +163,15 @@ params:
   # BOOLEAN; `true`, `false`
   useLargeHeaderDesign: false
 
+  # Should incident history be separated
+  # yearly, in an archive view?
+  #
+  # Note: This WILL disable pagination.
+  #
+  # Default: true
+  # BOOLEAN; `true`, `false`
+  enableYearlyIncidentHistory: false
+
   # Should we show the logo or the title
   # of the status page?
   #
