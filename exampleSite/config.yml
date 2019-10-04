@@ -170,7 +170,7 @@ params:
   #
   # Default: true
   # BOOLEAN; `true`, `false`
-  enableYearlyIncidentHistory: false
+  enableYearlyIncidentHistory: true
 
   # Should we show the logo or the title
   # of the status page?
