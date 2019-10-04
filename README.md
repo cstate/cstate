@@ -57,7 +57,7 @@ We encourage you to use [Netlify](https://www.netlify.com) for cState. These are
 + Publish directory: **public**
 + Add one build environment variable
   + Key: **HUGO_VERSION**
-  + Value: **0.48**
+  + Value: **0.48** (or later)
 
 **The easy way**
 
@@ -96,7 +96,7 @@ git submodule add https://github.com/cstate/cstate
 1. Clone this repository in the command line:
 
 ```bash
-git clone https://github.com/cstate/cstate.git
+git clone --recurisve https://github.com/cstate/cstate.git
 ```
 
 2. Navigate to the theme directory:
