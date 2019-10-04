@@ -29,6 +29,7 @@ collections:
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Start date & time (your time) ⌚", name: "date", widget: "datetime"}
       - {label: "Mark as resolved ✔", name: "resolved", widget: "boolean", required: false, default: false}
+      - {label: "Mark as informational ℹ", name: "informational", widget: "boolean", required: false, default: false}
       - {label: "End date & time (your time) ⌛", name: "resolvedWhen", widget: "datetime", required: false}
       - label: "Affected systems (use exact name, separated by commas) 🧐"
         name: "affected"
@@ -38,9 +39,9 @@ collections:
         name: "severity"
         widget: "select"
         options:
-          - { label: "High (Down)", value: "down" }
-          - { label: "Medium (Disrupted)", value: "disrupted" }
-          - { label: "Low (Announcement)", value: "notice" }
+          - { label: "High (Down) ◼ ", value: "down" }
+          - { label: "Medium (Disrupted) ▲", value: "disrupted" }
+          - { label: "Low (Announcement) ◆", value: "notice" }
       - label: "Markdown body (sequence of events, description, post-mortem)"
         name: "body"
         widget: "markdown"
