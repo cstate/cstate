@@ -86,11 +86,6 @@
   window.setInterval(function() {
     if (hasClass(document.querySelector('body'), 'status-homepage')) {
       lastUpdated.innerHTML = '{{ T "lastChecked" }} ' + timeSince(lastUpdate) + ' {{ T "someTimeAgo" }}';
-
-      // Refresh almost every 5m
-      if (lastUpdate > 290000) {
-        location.reload;
-      }
     }
   }, 5000)
 </script>
