@@ -170,7 +170,7 @@ params:
   #
   # Default: true
   # BOOLEAN; `true`, `false`
-  autoRefresh: true
+  autoRefresh: false
 
   # Incident posts shown
   # in one page
