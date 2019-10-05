@@ -164,13 +164,13 @@ params:
   useLargeHeaderDesign: false
 
   # Should incident history be separated
-  # yearly, in an archive view?
+  # like in an archive view?
   #
   # Note: This WILL disable pagination.
   #
-  # Default: true
-  # BOOLEAN; `true`, `false`
-  enableYearlyIncidentHistory: true
+  # Default: `yearly`
+  # STRING; `monthly`, `yearly`, `none`
+  incidentHistoryFormat: "yearly"
 
   # Should we show the logo or the title
   # of the status page?

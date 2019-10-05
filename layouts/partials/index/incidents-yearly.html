@@ -1,9 +1,12 @@
 {{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
 
-{{ range ((where .Site.RegularPages "Params.section" "issue").GroupByDate "2006") }}
-  <p class="center" id="{{ .Key }}"><a href="#{{ .Key }}" class="no-underline"><strong>{{ .Key }}</strong>
+
+{{ range ($incidents.GroupByDate "2006") }}
+  <div class="padding"></div>
+  <hr>
+  <p class="center" id="archive-{{ .Key }}"><a href="#archive-{{ .Key }}" class="no-underline"><strong>{{ .Key }}</strong>
     <span class="faded">({{ len .Pages }})</span>
-  </a></p>
+  </a></p><hr>
   
   {{ range .Pages }}
     {{ .Render "small" }}

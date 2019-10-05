@@ -1,0 +1,29 @@
+{{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
+
+
+
+{{ range ($incidents.GroupByDate "1") }}
+  <div class="padding"></div>
+  <hr>
+  <p class="center" id="archive-{{ range first 1 .Pages }}{{ .Date.Format "2006" }}{{ end }}-{{ .Key }}"><a href="#archive-{{ range first 1 .Pages }}{{ .Date.Format "2006" }}{{ end }}-{{ .Key }}" class="no-underline">
+    <b>
+      <!-- Hugo requires a '0' in the month
+      which is why this check exists -->
+      {{ if gt .Key 9 }}
+        {{ $month := printf "2006-%s-02" .Key }}
+        {{ $monthDate := $month | time }}
+        {{ $monthDate.Format "January" }}
+      {{ else }}
+        {{ $month := printf "2006-0%s-02" .Key }}
+        {{ $monthDate := $month | time }}
+        {{ $monthDate.Format "January" }}
+      {{ end }}
+      {{ range first 1 .Pages }}{{ .Date.Format "2006" }}{{ end }}
+    </b><small class="faded">({{ len .Pages }})</small>
+  </a></p>
+  <hr>
+
+  {{ range .Pages }}
+    {{ .Render "small" }}
+  {{ end }}
+{{ end }}

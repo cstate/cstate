@@ -5,10 +5,9 @@
   "created_at": "{{ .Date }}",
   "severity": "{{ .Params.severity }}",
   "resolved": "{{ .Params.resolved }}",
+  "informational": "{{ .Params.informational }}",
   "resolved_at": "{{ .Params.resolvedWhen }}",
-  "affected": [{{ range $i, $e := .Params.Affected }}{{ if $i }}, {{ end }}'{{ . }}'{{ end }}],
-
-  "body": {{ jsonify .Content }},
-
-  "filename": "{{ .File.LogicalName }}"
+  "affected": [{{ range $i, $e := .Params.Affected }}{{ if $i }}, {{ end }}"{{ . }}"{{ end }}],
+  "filename": "{{ .File.LogicalName }}",
+  "body": {{ jsonify .Content }}
 }

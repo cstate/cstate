@@ -1,0 +1,39 @@
+{
+  "version": "4.0",
+  "title": "{{ .Site.Title }}",
+  "languageCodeHTML": "{{ .Site.LanguageCode }}",
+  "languageCode": "{{ T "languageCode" }}",
+  "languageCode": "{{ T "languageCode" }}", 
+  "baseURL": "{{ .Site.BaseURL }}", 
+  "description": "{{ .Site.Params.Description }}",
+  "logo": "{{ .Site.Params.logo | absURL }}",
+  "categories": [
+    {{ range $i, $e := .Site.Params.categories }}{{ if $i }},{{ end }}
+      {
+        "name": "{{ .name }}",{{ if .description }}
+        "description": "{{ .description }}",{{ end }}
+        "hideTitle": "{{ .untitled }}",
+        "closedByDefault": "{{ .closed }}"
+      }
+    {{ end }}
+  ],
+  "systems": [
+    {{ range $i, $e := .Site.Params.systems }}{{ if $i }},{{ end }}
+      {
+        "name": "{{ .name }}",{{ if .description }}
+        "description": "{{ .description }}",{{ end }}
+        "category": "{{ .category }}",
+        "hideTitle": "{{ .untitled }}",
+        "closedByDefault": "{{ .closed }}"
+      }
+    {{ end }}
+  ],
+
+  "colorBrand": "{{ .Site.Params.Brand }}",
+  "colorOk": "{{ .Site.Params.Ok }}",
+  "colorDisrupted": "{{ .Site.Params.Disrupted }}",
+  "colorDown": "{{ .Site.Params.Down }}",
+  "colorNotice": "{{ .Site.Params.Notice }}",
+  "alwaysKeepBrandColor": "{{ .Site.Params.alwaysKeepBrandColor }}",
+  "googleAnalytics": "{{ .Site.Params.googleAnalytics }}"
+}
