@@ -1,9 +1,15 @@
+{{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
+{{ $active := where $incidents "Params.resolved" "=" false }}
+{{ $isNotice := where $active "Params.severity" "=" "notice" }}
+{{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}
+{{ $isDown := where $active "Params.severity" "=" "down" }}
 {
-  "version": "4.0",
+  "is": "index",
+  "cStateVersion": "4.0",
+  "apiVersion": "1.0",
   "title": "{{ .Site.Title }}",
   "languageCodeHTML": "{{ .Site.LanguageCode }}",
   "languageCode": "{{ T "languageCode" }}",
-  "languageCode": "{{ T "languageCode" }}", 
   "baseURL": "{{ .Site.BaseURL }}", 
   "description": "{{ .Site.Params.Description }}",
   "logo": "{{ .Site.Params.logo | absURL }}",
@@ -12,8 +18,8 @@
       {
         "name": "{{ .name }}",{{ if .description }}
         "description": "{{ .description }}",{{ end }}
-        "hideTitle": "{{ .untitled }}",
-        "closedByDefault": "{{ .closed }}"
+        "hideTitle": {{ if .untitled }}true{{ else }}false{{ end }},
+        "closedByDefault": {{ if .closed }}true{{ else }}false{{ end }}
       }
     {{ end }}
   ],
@@ -22,18 +28,32 @@
       {
         "name": "{{ .name }}",{{ if .description }}
         "description": "{{ .description }}",{{ end }}
-        "category": "{{ .category }}",
-        "hideTitle": "{{ .untitled }}",
-        "closedByDefault": "{{ .closed }}"
+        "category": "{{ .category }}"
       }
     {{ end }}
   ],
 
+  
+  "buildDate": "{{ now.Format "2006-01-02" }}",
+  "buildTime": "{{ now.Format "15:04" }}",
+  "buildTimezone": "{{ now.Format "MST" }}",
+  "summaryStatus":{{ if $isDown }}
+    "down",
+  {{ else }}
+  {{ if $isDisrupted }}
+    "disrupted",
+  {{ else }}
+  {{ if $isNotice }}
+    "notice",
+  {{ else }}
+    "ok",
+  {{ end }}{{ end }}{{ end }}
   "colorBrand": "{{ .Site.Params.Brand }}",
   "colorOk": "{{ .Site.Params.Ok }}",
   "colorDisrupted": "{{ .Site.Params.Disrupted }}",
   "colorDown": "{{ .Site.Params.Down }}",
   "colorNotice": "{{ .Site.Params.Notice }}",
   "alwaysKeepBrandColor": "{{ .Site.Params.alwaysKeepBrandColor }}",
+
   "googleAnalytics": "{{ .Site.Params.googleAnalytics }}"
 }

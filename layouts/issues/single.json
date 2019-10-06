@@ -1,12 +1,12 @@
-
 {
-  "section": "{{ .Section }}",
+  "is": "issue",
   "title": "{{ .Title }}",
-  "created_at": "{{ .Date }}",
+  "createdAt": "{{ .Date }}",
+  "permalink": "{{ .Permalink }}",
   "severity": "{{ .Params.severity }}",
   "resolved": "{{ .Params.resolved }}",
   "informational": "{{ .Params.informational }}",
-  "resolved_at": "{{ .Params.resolvedWhen }}",
+  "resolvedAt": "{{ .Params.resolvedWhen }}",
   "affected": [{{ range $i, $e := .Params.Affected }}{{ if $i }}, {{ end }}"{{ . }}"{{ end }}],
   "filename": "{{ .File.LogicalName }}",
   "body": {{ jsonify .Content }}
