@@ -6,13 +6,22 @@ Thanks for taking the time to contribute. Folks like you are more than welcome!
 
 Cool, [just create an issue](https://github.com/cstate/cstate/issues)!
 
-## I want to help contribute a new feature.
+## I want to write code.
 
-Great. Here are some things to keep in mind:
+First of all:
 
-+ Keep it as simple as possible.
-+ Keep it as light as possible.
-+ Try to make it readable.
+**Never merge to master. Merge to dev.**
+
+Some guidelines. You want to make sure that you have:
+
+* Looked, if there was an issue for the thing you are trying to achieve
+* If there isn't, create one and discuss your proposal in that issue.
+
+The code you write should be readable to humans. If it is not immediately obvious, add some comments.
+
+## I want to translate
+
+[Read this](https://github.com/cstate/cstate/wiki/Translations#add-your-translations).
 
 ## Wait, my question has not been answered.
 
