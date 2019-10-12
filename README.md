@@ -30,8 +30,9 @@
 + Works not just on mobile, but also on the archaic Internet Explorer 8
 + Makes you accountable, showcasing how long it took for an issue to be resolved
 + Great for data manipulation and viewing — has RSS, tag-like system feeds
++ Customizable views, colors, and other elements
 
-**Fast, reliable, and free**
+**Fast, reliable, and free (even to host)**
 
 + Built with [Hugo](https://gohugo.io), a hyperfast Golang generator
 + Secure, ready for HTTPS, thanks to [JAMstack](https://jamstack.org/)
@@ -42,6 +43,7 @@
 + Edit your status page from a simple config file
 + Comes pre-equipped with Netlify CMS for quick admin updates
 + Extensive documentation on the [wiki](https://github.com/cstate/cstate/wiki)
++ [Read-only API available](https://github.com/cstate/cstate/wiki/API)
 
 ## Getting started 💻
 
