@@ -331,6 +331,31 @@
         display: inline;
       }
     }
+
+    /**
+     * Dark theme
+     */
+
+     @media (prefers-color-scheme: dark) {
+          html, body   { background:  #181a1b; color: #ccc9c1; }
+          h1, h2, h3, h4, a, .bold { color: #e8e6e3; }
+          hr { border-bottom-color: #3d3d3d; }
+          .footer { background: #1b1d1e; }
+          .date { color: #c3bfb6; }
+          .components { border: 2px solid #ddd; border-bottom: 0; border-color: #3a3a3a; }
+          .component { border-bottom: 2px solid #ddd; color: #e8e6e3; border-bottom-color: #3a3a3a; }
+          .tag { background-image: initial; background-color: #1d1f20; }
+          .tag:hover { background: #222; }
+          .issue:hover {background-color: #1b1d1e }
+          .error { color: #ff4242; }
+          .hinted, .faded { color: #c1bcb3; }
+          .warning {color: #ff8b52; }
+          .ok { color: #7fff7f; }
+          .component[data-status="disrupted"] 
+          .component-status { color: #ff8b52; }
+          .component[data-status="ok"] 
+          .component-status { color: #7fff7f; }
+        }
     </style>
     {{ if .Site.Params.enableCustomHTML }}
       {{ partial "custom/meta" . }}
