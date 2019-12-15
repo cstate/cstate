@@ -237,20 +237,22 @@ params:
   incidentPostsPerPage: 10
 
   # Colors throughout cState
-  # HEX codes without the #
+  #
+  # We recommend using HEX
+  # (with the # symbol).
   #
   # Defaults:
   #
-  # brand: "0a0c0f"
-  # ok: "008000"
-  # disrupted: "cc4400"
-  # down: "e60000"
-  # notice: "24478f"
-  brand: "0a0c0f"
-  ok: "008000"
-  disrupted: "cc4400"
-  down: "e60000"
-  notice: "24478f"
+  # brand: "#0a0c0f"
+  # ok: "#008000"
+  # disrupted: "#cc4400"
+  # down: "#e60000"
+  # notice: "#24478f"
+  brand: "#0a0c0f"
+  ok: "#008000"
+  disrupted: "#cc4400"
+  down: "#e60000"
+  notice: "#24478f"
 
   # If the status page shows that
   # there are disruptions or outages

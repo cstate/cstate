@@ -13,13 +13,13 @@
     {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
     {{ end -}}
     <meta name="generator" content="cState v4.0.0 - Dev 2019-10-06">
-    <meta name="theme-color" content="#{{ .Site.Params.brand }}">
+    <meta name="theme-color" content="{{ .Site.Params.brand }}">
     <script>
-    var themeBrandColor = '#{{ .Site.Params.brand }}';
-    var themeOkColor = '#{{ .Site.Params.ok }}';
-    var themeNoticeColor = '#{{ .Site.Params.notice }}';
-    var themeDisruptedColor = '#{{ .Site.Params.disrupted }}';
-    var themeDownColor = '#{{ .Site.Params.down }}';
+    var themeBrandColor = '{{ .Site.Params.brand }}';
+    var themeOkColor = '{{ .Site.Params.ok }}';
+    var themeNoticeColor = '{{ .Site.Params.notice }}';
+    var themeDisruptedColor = '{{ .Site.Params.disrupted }}';
+    var themeDownColor = '{{ .Site.Params.down }}';
 
 
     </script>
@@ -95,9 +95,9 @@
 
     .clean { margin: 0; }
 
-    .ok { color: #{{ .Site.Params.ok }}; }
-    .warning { color: #{{ .Site.Params.disrupted }}; }
-    .error { color: #{{ .Site.Params.down }}; }
+    .ok { color: {{ .Site.Params.ok }}; }
+    .warning { color: {{ .Site.Params.disrupted }}; }
+    .error { color: {{ .Site.Params.down }}; }
 
     .contain {
       max-width: 640px;
@@ -157,7 +157,7 @@
 
     .header {
       padding: 8px 0;
-      background: #{{ .Site.Params.brand }};
+      background: {{ .Site.Params.brand }};
     }
 
     .header a {
@@ -295,18 +295,18 @@
      * Specific to the status
      */
 
-    .status-ok .summary { background: #{{ .Site.Params.ok }}; }
-    .status-disrupted .summary, .change-header-color.status-disrupted .header { background: #{{ .Site.Params.disrupted }}; }
-    .status-down .summary, .change-header-color.status-down .header { background: #{{ .Site.Params.down }}; }
-    .status-notice .summary, .change-header-color.status-notice .header { background: #{{ .Site.Params.notice }}; }
+    .status-ok .summary { background: {{ .Site.Params.ok }}; }
+    .status-disrupted .summary, .change-header-color.status-disrupted .header { background: {{ .Site.Params.disrupted }}; }
+    .status-down .summary, .change-header-color.status-down .header { background: {{ .Site.Params.down }}; }
+    .status-notice .summary, .change-header-color.status-notice .header { background: {{ .Site.Params.notice }}; }
 
     .announcement-box .padding {
       padding: 16px;
     }
 
-    .status-disrupted .announcement-box { border: 2px solid #{{ .Site.Params.disrupted }}; }
-    .status-down .announcement-box { border: 2px solid #{{ .Site.Params.down }}; }
-    .status-notice .announcement-box { border: 2px solid #{{ .Site.Params.notice }}; }
+    .status-disrupted .announcement-box { border: 2px solid {{ .Site.Params.disrupted }}; }
+    .status-down .announcement-box { border: 2px solid {{ .Site.Params.down }}; }
+    .status-notice .announcement-box { border: 2px solid {{ .Site.Params.notice }}; }
     .status-disrupted .announcement-box,
     .status-down .announcement-box,
     .status-notice .announcement-box { border-top: 0; }
@@ -316,10 +316,10 @@
      */
 
     .component-status { float: right; }
-    .component[data-status="ok"] .component-status { color: #{{ .Site.Params.ok }}; }
-    .component[data-status="disrupted"] .component-status { color: #{{ .Site.Params.disrupted }}; }
-    .component[data-status="down"] .component-status { color: #{{ .Site.Params.down }}; }
-    .component[data-status="notice"] .component-status { color: #{{ .Site.Params.notice }}; }
+    .component[data-status="ok"] .component-status { color: {{ .Site.Params.ok }}; }
+    .component[data-status="disrupted"] .component-status { color: {{ .Site.Params.disrupted }}; }
+    .component[data-status="down"] .component-status { color: {{ .Site.Params.down }}; }
+    .component[data-status="notice"] .component-status { color: {{ .Site.Params.notice }}; }
 
     /**
      * Responsiveness
