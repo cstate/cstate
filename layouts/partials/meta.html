@@ -29,7 +29,7 @@
       margin: 0;
       background: #fff;
       color: #4d4d4d;
-      font: 100%/1.5 'Inter', "Inter UI", BlinkMacSystemFont, -apple-system, "San Francisco Text", "Roboto", "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      font: 100%/1.5 "Inter", "Inter UI", BlinkMacSystemFont, -apple-system, "San Francisco Text", "Roboto", "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
       box-sizing: border-box;
       -webkit-tap-highlight-color: rgba(0,0,0, 0.25);
     }
@@ -66,7 +66,7 @@
     h1, h2, h4 {
       font-weight: normal;
       color: #000;
-      font-family: 'Inter', "Inter UI", "Segoe UI", BlinkMacSystemFont, -apple-system, "San Francisco Display", "Roboto", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      font-family: "Inter", "Inter UI", "Segoe UI", BlinkMacSystemFont, -apple-system, "San Francisco Display", "Roboto", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
       letter-spacing: -0.4px;
     }
 
@@ -332,30 +332,64 @@
       }
     }
 
-    /**
-     * Dark theme
-     */
-
-     @media (prefers-color-scheme: dark) {
-          html, body   { background:  #181a1b; color: #ccc9c1; }
-          h1, h2, h3, h4, a, .bold { color: #e8e6e3; }
-          hr { border-bottom-color: #3d3d3d; }
-          .footer { background: #1b1d1e; }
-          .date { color: #c3bfb6; }
-          .components { border: 2px solid #ddd; border-bottom: 0; border-color: #3a3a3a; }
-          .component { border-bottom: 2px solid #ddd; color: #e8e6e3; border-bottom-color: #3a3a3a; }
-          .tag { background-image: initial; background-color: #1d1f20; }
-          .tag:hover { background: #222; }
-          .issue:hover {background-color: #1b1d1e }
-          .error { color: #ff4242; }
-          .hinted, .faded { color: #c1bcb3; }
-          .warning {color: #ff8b52; }
-          .ok { color: #7fff7f; }
-          .component[data-status="disrupted"] 
-          .component-status { color: #ff8b52; }
-          .component[data-status="ok"] 
-          .component-status { color: #7fff7f; }
+    {{ if not .Site.Params.disableDarkMode }}
+      /**
+      * Dark theme
+      */
+      
+      @media (prefers-color-scheme: dark) {
+        /* Basics */
+        html, body { background:  #181a1b; color: #ccc9c1; }
+        h1, h2, h3, h4, a, .bold { color: #fafafa; }
+        hr { border-bottom-color: #3d3d3d; }
+        
+        /* Sections */
+        .footer { background: #1b1d1e; }
+        
+        .components {
+          border: 2px solid #ddd;
+          border-bottom: 0;
+          border-color: #3a3a3a;
         }
+
+        .component {
+          border-bottom: 2px solid #ddd;
+          color: #e8e6e3;
+          border-bottom-color: #3a3a3a;
+        }
+
+        .tabs { border-bottom-color: #3d3d3d; }
+        .tab--current {
+          border-color: #3d3d3d;
+          border-bottom-color: #181a1b;
+        }
+        .tab--other { color: #757575; }
+        .tab--other:hover { color: #fff; }
+
+        .date { color: #c3bfb6; }
+
+        .tag { background-color: #1d1f20; }
+        .tag:hover { background: #222; }
+        .issue:hover,
+        .category__head:hover { background-color: #212121; }
+
+        /* Colors for dark mode */
+
+        .hinted, .faded { color: #c1bcb3; }
+        .error { color: #ff4242; }
+        .warning {color: #ffde7f; }
+        .ok { color: #7fff7f; }
+
+        .component[data-status="ok"] 
+        .component-status { color: #7fff7f; }
+        .component[data-status="disrupted"] 
+        .component-status { color: #ffde7f; }
+        .component[data-status="notice"] 
+        .component-status { color: #83a4e8; }
+        .component[data-status="down"]
+        .component-status { color: #ff8181; }
+      }
+    {{ end }}
     </style>
     {{ if .Site.Params.enableCustomHTML }}
       {{ partial "custom/meta" . }}

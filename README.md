@@ -98,7 +98,7 @@ git submodule add https://github.com/cstate/cstate
 1. Clone this repository in the command line:
 
 ```bash
-git clone --recurisve https://github.com/cstate/cstate.git
+git clone --recursive -b master https://github.com/cstate/cstate.git
 ```
 
 2. Navigate to the theme directory:

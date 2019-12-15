@@ -82,11 +82,11 @@
   {{ else }}
     <strong class="error">
       {{ if eq .Params.severity "down" }}
-      ◼ 
+      ■ 
       {{ else if eq .Params.severity "disrupted" }}
-      ▲
+      ▲ 
       {{ else }}
-      ◆
+      ◆ 
       {{ end }}
       {{ T "downtimeOngoing" }}</strong>
   {{ end }}

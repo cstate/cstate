@@ -172,6 +172,21 @@ params:
   # STRING; `monthly`, `yearly`, `none`
   incidentHistoryFormat: "yearly"
 
+  # Disable dark mode
+  #
+  # If your OS and browser support the
+  # `prefers-color-scheme` media query,
+  # cState will automatically switch to
+  # a darker user interface.
+  #
+  # cState uses its built-in colors for
+  # most of the interface to ensure
+  # a good user experience.
+  #
+  # Default: false
+  # BOOLEAN; `true`, `false`
+  disableDarkMode: false
+
   # Should we show the logo or the title
   # of the status page?
   #
