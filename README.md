@@ -8,6 +8,17 @@
 
 [👩‍💻 You can also see what an example cState project’s source code.](https://github.com/cstate/example)
 
+## Who uses cState? 🥳
+
+Some more examples from the internet:
+
+* [Chocolatey](https://status.chocolatey.org/)
+* [Proventa](https://status.proventa.io/) (German)
+* [sr.ht](https://status.sr.ht/)
+* [Content Ignite](https://status.contentignite.com/)
+
+*Want your status page here? [Create a Pull Request](https://github.com/cstate/cstate/edit/dev/README.md)!*
+
 ## Contents ⁉
 
 + [Features](#features-)
