@@ -147,6 +147,12 @@ collections:
                 widget: 'boolean'
                 required: false
                 default: true
+              - label: 'Disable dark mode'
+                hint: 'If your OS and browser supports prefers-color-scheme and the user opted into a dark mode, the status page will be darker. Some color choices may be overriden.'
+                name: 'disableDarkMode'
+                widget: 'boolean'
+                required: false
+                default: false
               - label: 'Logo image'
                 hint: 'Upload your logo here. If the logo option is switched off, this will not show.'
                 name: 'logo'
@@ -167,11 +173,21 @@ collections:
               # Incidents per page
               - label: 'Incident posts shown in one page'
                 name: 'incidentPostsPerPage'
+                hint: ''
                 widget: 'number'
                 valueType: 'int'
                 min: 1
                 max: 100
                 default: 10
+              # Incident history view
+              - label: "Yearly or monthly incident history / archival view"
+                hint: 'If you enable any of the sorting options, pagination will be disabled.'
+                name: "incidentHistoryFormat"
+                widget: "select"
+                options:
+                  - { label: "Disabled", value: "none" }
+                  - { label: "Yearly", value: "yearly" }
+                  - { label: "Monthly", value: "monthly" }
               # Brand color
               - label: 'Header: always keep brand color the same'
                 name: 'alwaysKeepBrandColor'
