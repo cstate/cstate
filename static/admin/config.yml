@@ -175,13 +175,6 @@ collections:
                 name: 'description'
                 widget: 'text'
                 default: 'We continuously monitor the status of our services and if there are any interruptions, a note will be posted here.'
-              # Refresh
-              - label: 'Auto refresh status'
-                name: 'autoRefresh'
-                widget: 'boolean'
-                hint: 'This does nothing but refresh the page around every 5 minutes; it does not send alerts! May also have issues on some browsers.'
-                required: false
-                default: true
               # Incidents per page
               - label: 'Incident posts shown in one page'
                 name: 'incidentPostsPerPage'
