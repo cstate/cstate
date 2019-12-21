@@ -1,0 +1,13 @@
+{
+  "is": "issue",
+  "title": "{{ .Title }}",
+  "createdAt": "{{ .Date }}",
+  "permalink": "{{ .Permalink }}",
+  "severity": "{{ .Params.severity }}",
+  "resolved": "{{ .Params.resolved }}",
+  "informational": "{{ .Params.informational }}",
+  "resolvedAt": "{{ .Params.resolvedWhen }}",
+  "affected": [{{ range $i, $e := .Params.Affected }}{{ if $i }}, {{ end }}"{{ . }}"{{ end }}],
+  "filename": "{{ .File.LogicalName }}",
+  "body": {{ jsonify .Content }}
+}

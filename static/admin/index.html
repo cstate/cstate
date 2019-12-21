@@ -33,6 +33,11 @@
             var resultOfState = 'This incident has been resolved.';
           }
 
+          if (entry.getIn(['data', 'informational']) === true) {
+            var resultOfStateProps = {"class": "green"};
+            var resultOfState = '';
+          }
+          
 
           return h('div', {},
             h('h1', {}, entry.getIn(['data', 'title'])),

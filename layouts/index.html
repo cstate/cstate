@@ -38,7 +38,13 @@
 
   <!-- All incidents + pagination -->
   <div class="contain contain--more" id="incidents">
-    {{ partial "index/incidents" . }}
+    {{ if eq .Site.Params.incidentHistoryFormat "yearly" }}
+      {{ partial "index/incidents-yearly" . }}
+    {{ else if eq .Site.Params.incidentHistoryFormat "monthly" }}
+      {{ partial "index/incidents-monthly" . }}
+    {{ else }}
+      {{ partial "index/incidents" . }}
+    {{ end }}
     <div class="padding"></div>
   </div>
 

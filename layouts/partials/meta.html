@@ -12,14 +12,16 @@
     {{ range .AlternativeOutputFormats -}}
     {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
     {{ end -}}
-    <meta name="generator" content="cState v3.1.0 - Stable 2019-04-08">
-    <meta name="theme-color" content="#{{ .Site.Params.brand }}">
+    <meta name="generator" content="cState v4.0.0 - https://github.com/cstate/cstate">
+    <meta name="theme-color" content="{{ .Site.Params.brand }}">
     <script>
-    var themeBrandColor = '#{{ .Site.Params.brand }}';
-    var themeOkColor = '#{{ .Site.Params.ok }}';
-    var themeNoticeColor = '#{{ .Site.Params.notice }}';
-    var themeDisruptedColor = '#{{ .Site.Params.disrupted }}';
-    var themeDownColor = '#{{ .Site.Params.down }}';
+    var themeBrandColor = '{{ .Site.Params.brand }}';
+    var themeOkColor = '{{ .Site.Params.ok }}';
+    var themeNoticeColor = '{{ .Site.Params.notice }}';
+    var themeDisruptedColor = '{{ .Site.Params.disrupted }}';
+    var themeDownColor = '{{ .Site.Params.down }}';
+
+
     </script>
     <!-- Sources -->
     <style>
@@ -27,7 +29,7 @@
       margin: 0;
       background: #fff;
       color: #4d4d4d;
-      font: 100%/1.5 BlinkMacSystemFont, -apple-system, "San Francisco Text", "Roboto", "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      font: 100%/1.5 "Inter", "Inter UI", BlinkMacSystemFont, -apple-system, "San Francisco Text", "Roboto", "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
       box-sizing: border-box;
       -webkit-tap-highlight-color: rgba(0,0,0, 0.25);
     }
@@ -64,7 +66,8 @@
     h1, h2, h4 {
       font-weight: normal;
       color: #000;
-      font-family: "Segoe UI", BlinkMacSystemFont, -apple-system, "San Francisco Text", "Roboto", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      font-family: "Inter", "Inter UI", "Segoe UI", BlinkMacSystemFont, -apple-system, "San Francisco Display", "Roboto", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      letter-spacing: -0.4px;
     }
 
     h3 {
@@ -92,9 +95,9 @@
 
     .clean { margin: 0; }
 
-    .ok { color: #{{ .Site.Params.ok }}; }
-    .warning { color: #{{ .Site.Params.disrupted }}; }
-    .error { color: #{{ .Site.Params.down }}; }
+    .ok { color: {{ .Site.Params.ok }}; }
+    .warning { color: {{ .Site.Params.disrupted }}; }
+    .error { color: {{ .Site.Params.down }}; }
 
     .contain {
       max-width: 640px;
@@ -108,6 +111,24 @@
     .right { text-align: right; }
     .padding-s { padding: 6px; }
     .padding { padding: 12px; }
+    .clicky { cursor: pointer; }
+
+
+    /**
+     * Categories
+     */
+
+    /* Categories themselves */
+    .js .category--open .category__closed-marker { display: none; }
+    .js .category--closed .components { display: none; }
+    .js .category--closed .category__open-marker { display: none; }
+
+    /* Markers */
+    .js .hidden-with-js { display: none; }
+    .hide-without-js { display: none; }
+    .js span.hide-without-js { display: inline; }
+    .js div.hide-without-js { display: block; }
+
 
     /**
      * UI elements
@@ -136,7 +157,7 @@
 
     .header {
       padding: 8px 0;
-      background: #{{ .Site.Params.brand }};
+      background: {{ .Site.Params.brand }};
     }
 
     .header a {
@@ -179,11 +200,6 @@
     .summary {
       padding: 16px;
       color: #fff;
-    }
-
-    .summary__date {
-      display: block;
-      cursor: pointer;
     }
 
     .summary__date:hover {
@@ -267,28 +283,30 @@
      */
 
     .issue { display: block; padding: 14px 24px; }
-    .issue:hover { background: #f5f5f5; }
-    .issue:active { background: #eee; }
+    .issue:hover, .category__head:hover { background: #f5f5f5; }
+    .issue:active, .category__head:active { background: #eee; }
 
     .issue h3 { line-height: 1.25; }
+
+    .category__head { margin-top: 20px; }
 
 
     /**
      * Specific to the status
      */
 
-    .status-ok .summary { background: #{{ .Site.Params.ok }}; }
-    .status-disrupted .summary, .change-header-color.status-disrupted .header { background: #{{ .Site.Params.disrupted }}; }
-    .status-down .summary, .change-header-color.status-down .header { background: #{{ .Site.Params.down }}; }
-    .status-notice .summary, .change-header-color.status-notice .header { background: #{{ .Site.Params.notice }}; }
+    .status-ok .summary { background: {{ .Site.Params.ok }}; }
+    .status-disrupted .summary, .change-header-color.status-disrupted .header { background: {{ .Site.Params.disrupted }}; }
+    .status-down .summary, .change-header-color.status-down .header { background: {{ .Site.Params.down }}; }
+    .status-notice .summary, .change-header-color.status-notice .header { background: {{ .Site.Params.notice }}; }
 
     .announcement-box .padding {
       padding: 16px;
     }
 
-    .status-disrupted .announcement-box { border: 2px solid #{{ .Site.Params.disrupted }}; }
-    .status-down .announcement-box { border: 2px solid #{{ .Site.Params.down }}; }
-    .status-notice .announcement-box { border: 2px solid #{{ .Site.Params.notice }}; }
+    .status-disrupted .announcement-box { border: 2px solid {{ .Site.Params.disrupted }}; }
+    .status-down .announcement-box { border: 2px solid {{ .Site.Params.down }}; }
+    .status-notice .announcement-box { border: 2px solid {{ .Site.Params.notice }}; }
     .status-disrupted .announcement-box,
     .status-down .announcement-box,
     .status-notice .announcement-box { border-top: 0; }
@@ -298,10 +316,10 @@
      */
 
     .component-status { float: right; }
-    .component[data-status="ok"] .component-status { color: #{{ .Site.Params.ok }}; }
-    .component[data-status="disrupted"] .component-status { color: #{{ .Site.Params.disrupted }}; }
-    .component[data-status="down"] .component-status { color: #{{ .Site.Params.down }}; }
-    .component[data-status="notice"] .component-status { color: #{{ .Site.Params.notice }}; }
+    .component[data-status="ok"] .component-status { color: {{ .Site.Params.ok }}; }
+    .component[data-status="disrupted"] .component-status { color: {{ .Site.Params.disrupted }}; }
+    .component[data-status="down"] .component-status { color: {{ .Site.Params.down }}; }
+    .component[data-status="notice"] .component-status { color: {{ .Site.Params.notice }}; }
 
     /**
      * Responsiveness
@@ -313,6 +331,65 @@
         display: inline;
       }
     }
+
+    {{ if not .Site.Params.disableDarkMode }}
+      /**
+      * Dark theme
+      */
+      
+      @media (prefers-color-scheme: dark) {
+        /* Basics */
+        html, body { background:  #181a1b; color: #ccc9c1; }
+        h1, h2, h3, h4, a, .bold { color: #fafafa; }
+        hr { border-bottom-color: #3d3d3d; }
+        
+        /* Sections */
+        .footer { background: #1b1d1e; }
+        
+        .components {
+          border: 2px solid #ddd;
+          border-bottom: 0;
+          border-color: #3a3a3a;
+        }
+
+        .component {
+          border-bottom: 2px solid #ddd;
+          color: #e8e6e3;
+          border-bottom-color: #3a3a3a;
+        }
+
+        .tabs { border-bottom-color: #3d3d3d; }
+        .tab--current {
+          border-color: #3d3d3d;
+          border-bottom-color: #181a1b;
+        }
+        .tab--other { color: #757575; }
+        .tab--other:hover { color: #fff; }
+
+        .date { color: #c3bfb6; }
+
+        .tag { background-color: #1d1f20; }
+        .tag:hover { background: #222; }
+        .issue:hover,
+        .category__head:hover { background-color: #212121; }
+
+        /* Colors for dark mode */
+
+        .hinted, .faded { color: #c1bcb3; }
+        .error { color: #ff4242; }
+        .warning {color: #ffde7f; }
+        .ok { color: #7fff7f; }
+
+        .component[data-status="ok"] 
+        .component-status { color: #7fff7f; }
+        .component[data-status="disrupted"] 
+        .component-status { color: #ffde7f; }
+        .component[data-status="notice"] 
+        .component-status { color: #83a4e8; }
+        .component[data-status="down"]
+        .component-status { color: #ff8181; }
+      }
+    {{ end }}
     </style>
     {{ if .Site.Params.enableCustomHTML }}
       {{ partial "custom/meta" . }}

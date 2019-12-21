@@ -1,0 +1,59 @@
+{{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
+{{ $active := where $incidents "Params.resolved" "=" false }}
+{{ $isNotice := where $active "Params.severity" "=" "notice" }}
+{{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}
+{{ $isDown := where $active "Params.severity" "=" "down" }}
+{
+  "is": "index",
+  "cStateVersion": "4.0.0",
+  "apiVersion": "1.0.0",
+  "title": "{{ .Site.Title }}",
+  "languageCodeHTML": "{{ .Site.LanguageCode }}",
+  "languageCode": "{{ T "languageCode" }}",
+  "baseURL": "{{ .Site.BaseURL }}", 
+  "description": "{{ .Site.Params.Description }}",
+  "logo": "{{ .Site.Params.logo | absURL }}",
+  "categories": [
+    {{ range $i, $e := .Site.Params.categories }}{{ if $i }},{{ end }}
+      {
+        "name": "{{ .name }}",{{ if .description }}
+        "description": "{{ .description }}",{{ end }}
+        "hideTitle": {{ if .untitled }}true{{ else }}false{{ end }},
+        "closedByDefault": {{ if .closed }}true{{ else }}false{{ end }}
+      }
+    {{ end }}
+  ],
+  "systems": [
+    {{ range $i, $e := .Site.Params.systems }}{{ if $i }},{{ end }}
+      {
+        "name": "{{ .name }}",{{ if .description }}
+        "description": "{{ .description }}",{{ end }}
+        "category": "{{ .category }}"
+      }
+    {{ end }}
+  ],
+
+  
+  "buildDate": "{{ now.Format "2006-01-02" }}",
+  "buildTime": "{{ now.Format "15:04" }}",
+  "buildTimezone": "{{ now.Format "MST" }}",
+  "summaryStatus":{{ if $isDown }}
+    "down",
+  {{ else }}
+  {{ if $isDisrupted }}
+    "disrupted",
+  {{ else }}
+  {{ if $isNotice }}
+    "notice",
+  {{ else }}
+    "ok",
+  {{ end }}{{ end }}{{ end }}
+  "colorBrand": "{{ .Site.Params.Brand }}",
+  "colorOk": "{{ .Site.Params.Ok }}",
+  "colorDisrupted": "{{ .Site.Params.Disrupted }}",
+  "colorDown": "{{ .Site.Params.Down }}",
+  "colorNotice": "{{ .Site.Params.Notice }}",
+  "alwaysKeepBrandColor": "{{ .Site.Params.alwaysKeepBrandColor }}",
+
+  "googleAnalytics": "{{ .Site.Params.googleAnalytics }}"
+}
