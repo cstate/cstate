@@ -165,7 +165,13 @@
       font-size: 14px;
       font-variant: small-caps;
     }
-
+      
+    {{ if eq .Params.headerTextColor "black" }}
+      .header a h1 { color: #000; }
+    {{ else if eq .Params.headerTextColor "white" }}
+      .header a h1 { color: #fff; }
+    {{ end }}
+      
     .header__logo img {
       height: auto;
       width: 320px;
