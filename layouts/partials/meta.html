@@ -12,7 +12,7 @@
     {{ range .AlternativeOutputFormats -}}
     {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
     {{ end -}}
-    <meta name="generator" content="cState v4.0.0 - https://github.com/cstate/cstate">
+    <meta name="generator" content="cState v4.0.1 - https://github.com/cstate/cstate">
     <meta name="theme-color" content="{{ .Site.Params.brand }}">
     <script>
     var themeBrandColor = '{{ .Site.Params.brand }}';
@@ -165,7 +165,13 @@
       font-size: 14px;
       font-variant: small-caps;
     }
-
+      
+    {{ if eq .Params.headerTextColor "black" }}
+      .header a h1 { color: #000; }
+    {{ else if eq .Params.headerTextColor "white" }}
+      .header a h1 { color: #fff; }
+    {{ end }}
+      
     .header__logo img {
       height: auto;
       width: 320px;

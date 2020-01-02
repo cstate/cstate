@@ -5,7 +5,7 @@
 {{ $isDown := where $active "Params.severity" "=" "down" }}
 {
   "is": "index",
-  "cStateVersion": "4.0.0",
+  "cStateVersion": "4.0.1",
   "apiVersion": "1.0.0",
   "title": "{{ .Site.Title }}",
   "languageCodeHTML": "{{ .Site.LanguageCode }}",

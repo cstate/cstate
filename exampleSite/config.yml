@@ -183,7 +183,7 @@ params:
   # most of the interface to ensure
   # a good user experience.
   #
-  # Default: false
+  # Default: `false`
   # BOOLEAN; `true`, `false`
   disableDarkMode: false
 
@@ -261,9 +261,23 @@ params:
   # and use the status indication
   # colors that were just defined?
   #
-  # Default: true
+  # Default: `true`
   # BOOLEAN; `true`, `false`
   alwaysKeepBrandColor: true
+  
+  # Introduced in v4.0.1 for consistent
+  # site title text color.
+  #
+  # If you do not use the logo, what color
+  # should the site text color be?
+  #
+  # Removing this option will not force
+  # any site text color. This is likely
+  # unwanted behavior.
+  #
+  # Default: `white`
+  # STRING; `white`, `black`, or nothing
+  headerTextColor: white
 
   # Google Analytics tracking code
   #
