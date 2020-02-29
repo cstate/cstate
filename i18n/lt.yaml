@@ -1,5 +1,6 @@
 # Lithuanian language file for cState
-# Version 3.0
+# Official
+# Version 4.1
 
 - id: languageCode
   translation: en
@@ -137,3 +138,12 @@
 ##
 - id: notFoundAffected
   translation: Ši sistema neturi nė vieno įrašo. Arba neegzistuoja, arba nė vieną kartą nebuvo sutrukdyta jos veikla.
+
+##
+## v4.1
+## 
+
+- id: averageSystemsDowntime
+  translation: Pastaruoju metu, regis, šis komponentas sutrikimų metu neveikia apie
+- id: averageSystemsDowntimeSecondPart
+  translation: min.

@@ -219,16 +219,17 @@ params:
   #    name: Name
   #    link: https://example.com
 
-  # Auto refresh the page
-  # every ~5 min
+  # Disable complex server-side
+  # calculations that may impact
+  # your build performance
   #
-  # This does nothing but
-  # refresh the page; it
-  # does not send alerts!
+  # Disables math calculations
+  # for average downtime on
+  # systems ("/affected/") pages
   #
-  # Default: true
+  # Default: false
   # BOOLEAN; `true`, `false`
-  autoRefresh: true
+  disableComplexCalculations: false
 
   # Incident posts shown
   # in one page
@@ -316,3 +317,9 @@ outputs:
     - html
     - json
     - rss
+    - svg
+
+outputFormats:
+  svg:
+    isPlainText: true
+    mediaType: image/svg+xml

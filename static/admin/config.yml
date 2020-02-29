@@ -147,6 +147,15 @@ collections:
                 widget: 'string'
                 hint: 'Default: 15:04 — Jan 2. Hugo formatting docs: https://gohugo.io/functions/format/#hugo-date-and-time-templating-reference'
                 default: '15:04 — Jan 2'
+              # Design site title color toggle in v4.0.1
+              - label: 'Site title text color'
+                hint: 'This is irrelevant, if you use a logo in your header. Docs: https://github.com/cstate/cstate/wiki/Customization#site-title-text-color-v401'
+                name: 'headerTextColor'
+                widget: 'select'
+                default: 'white'
+                options:
+                - { label: "Black", value: "black" }
+                - { label: "White", value: "white" }
               # Design toggles
               - label: 'Use large header design'
                 name: 'useLargeHeaderDesign'
