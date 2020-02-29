@@ -1,5 +1,5 @@
 # German language file for cState
-# Version 3.0
+# Version 4.1
 
 - id: languageCode
   translation: de
@@ -125,7 +125,23 @@
 ##
 ## v3
 ##
+
 - id: entries
   translation: Einträge
 - id: newestToOldest
   translation: von alt nach neu
+
+##
+## v4
+##
+- id: notFoundAffected
+  translation: Es sieht so aus als würde dieses Dokument nicht existieren,  oder es hatte noch nie einen aufgezeichneten Ausfall.
+
+##
+## v4.1
+## 
+
+- id: averageSystemsDowntime
+  translation: Zurzeit, basierend auf Durchschnittsdaten, sieht es so aus, als ob dieses System für ungefähr
+- id: averageSystemsDowntimeSecondPart
+  translation: Minuten ausfällt.

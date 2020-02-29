@@ -18,6 +18,34 @@
           {{ end }}
         {{ end }}
 
+        
+        <!-- Average downtime -->
+        {{ if not .Params.disableComplexCalculations }}
+        <p class="bold">
+          <em>
+            {{ $resolved := first 5 (where .Pages "Params.resolved" "=" true) }}
+
+            {{ if gt $resolved 0 }}
+              {{ $.Scratch.Set "counter" 0 }}
+              {{ range $resolved }}
+
+              {{ $t := (time .Params.ResolvedWhen) }}
+                {{ $timeDiff := (sub $t.Unix .Date.Unix) }}
+                {{ $diffInMin := (div $timeDiff 60) }}
+
+                {{ $.Scratch.Set "counter" (add ($.Scratch.Get "counter") $diffInMin) }}
+              {{ end }}
+
+              {{ T "averageSystemsDowntime" }}
+              
+              {{ div ($.Scratch.Get "counter") (len $resolved) }}
+              {{ T "averageSystemsDowntimeSecondPart" }}
+            {{ end }}
+          </em>
+        </p>
+        {{ end }}
+
+
         <small class="faded">{{ len .Pages }} {{ T "entries" }}, {{ T "newestToOldest" }}</small>
 
         <div class="padding"></div>

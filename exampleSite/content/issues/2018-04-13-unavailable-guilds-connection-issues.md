@@ -7,6 +7,7 @@ resolvedWhen: 2018-04-13 17:30:00
 severity: down
 affected:
   - API
+  - Media Proxy
 section: issue
 ---
 
