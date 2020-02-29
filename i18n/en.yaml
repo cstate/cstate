@@ -144,6 +144,6 @@
 ## 
 
 - id: averageSystemsDowntime
-  translation: Recently, based on averages data, it looks like this system has gone down for about
+  translation: Recently, based on average data, it looks like this system has gone down for about
 - id: averageSystemsDowntimeSecondPart
   translation: minutes at a time.
