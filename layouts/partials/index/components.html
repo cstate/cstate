@@ -60,7 +60,7 @@
 
         <div class="component" data-status="{{ if $thisIsDown }}down{{ else }}{{ if $thisIsDisrupted }}disrupted{{ else }}{{ if $thisIsNotice }}notice{{ else }}ok{{ end }}{{ end }}{{ end }}">
           <a href="/affected/{{ .name | urlize }}" class="no-underline">
-            {{ default .displayName .name }}
+            {{ default .name .displayName }}
           </a>
 
           {{ with .description }}
