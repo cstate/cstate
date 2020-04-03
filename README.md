@@ -17,6 +17,7 @@ Some more examples from the internet:
 * [Proventa](https://status.proventa.io/) (German)
 * [sr.ht](https://status.sr.ht/)
 * [Content Ignite](https://status.contentignite.com/)
+* [Uberspace](https://is.uberspace.online/)
 
 *Want your status page here? [Create a Pull Request](https://github.com/cstate/cstate/edit/dev/README.md)!*
 
