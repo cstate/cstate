@@ -20,7 +20,7 @@
 
         
         <!-- Average downtime -->
-        {{ if not .Params.disableComplexCalculations }}
+        {{ if not .Site.Params.disableComplexCalculations }}
         <p class="bold">
           <em>
             {{ $resolved := first 5 (where .Pages "Params.resolved" "=" true) }}
