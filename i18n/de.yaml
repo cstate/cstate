@@ -83,7 +83,7 @@
   translation: Ausfallzeit
 
 - id: downtimeOngoing
-  translation: Ungelöst!
+  translation: Ungelöst
 
 - id: calmBeforeTheStorm
   translation: Ist dies die Ruhe vor dem Sturm?
