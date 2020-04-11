@@ -84,7 +84,7 @@
   translation: of downtime
 
 - id: downtimeOngoing
-  translation: Unresolved!
+  translation: This issue is not resolved yet
 
 
 - id: calmBeforeTheStorm
