@@ -80,15 +80,23 @@
     </h3>
 
     <!-- Marker -->
-    <strong class="error">
-      {{ if eq .Params.severity "down" }}
-      ■ 
-      {{ else if eq .Params.severity "disrupted" }}
-      ▲ 
-      {{ else }}
-      ◆ 
-      {{ end }}
-      {{ T "downtimeOngoing" }}</strong>
+    {{ if eq .Params.severity "notice" }}
+      <strong class="warning">
+        ◆ 
+        {{ T "downtimeOngoing" }}
+      </strong>
+    {{ else }}
+      <strong class="error">
+        {{ if eq .Params.severity "down" }}
+        ■ 
+        {{ else if eq .Params.severity "disrupted" }}
+        ▲ 
+        {{ else }}
+        ◆ 
+        {{ end }}
+        {{ T "downtimeOngoing" }}
+      </strong>
+    {{ end }}
 
   {{ end }}
 </a>
