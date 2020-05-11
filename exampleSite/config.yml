@@ -172,6 +172,12 @@ params:
   # STRING; `monthly`, `yearly`, `none`
   incidentHistoryFormat: "yearly"
 
+  # Should incident history be enabled?
+  #
+  # Default: `true`
+  # BOOLEAN; `true`, `false`
+  enableHistory: true
+
   # Disable dark mode
   #
   # If your OS and browser support the

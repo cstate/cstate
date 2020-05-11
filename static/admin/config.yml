@@ -193,6 +193,12 @@ collections:
                 min: 1
                 max: 100
                 default: 10
+              # Incidents history
+              - label: 'Should the incident history be enabled?'
+                name: 'incidentHistoryFormat'
+                hint: 'This also disables the RSS feed.'
+                widget: 'boolean'
+                default: true
               # Incidents view format
               - label: 'Should the incident history be sorted by year or month?'
                 name: 'incidentHistoryFormat'
