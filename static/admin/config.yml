@@ -240,6 +240,11 @@ collections:
                 name: 'googleAnalytics'
                 widget: 'string'
                 default: 'UA-00000000-1'
+              # Enable Custom HTML
+              - label: 'Enable custom HTML'
+                name: 'enableCustomHTML'
+                widget: 'boolean'
+                default: 'false'
           # REQUIRED BUT HIDDEN
           - label: 'theme'
             name: 'theme'
@@ -249,10 +254,6 @@ collections:
             name: 'preserveTaxonomyNames'
             widget: 'hidden'
             default: 'true'
-          - label: 'enableCustomHTML'
-            name: 'enableCustomHTML'
-            widget: 'hidden'
-            default: 'false'
           - label: "taxonomies"
             name: taxonomies
             widget: "hidden"
