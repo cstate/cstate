@@ -249,6 +249,10 @@ collections:
             name: 'preserveTaxonomyNames'
             widget: 'hidden'
             default: 'true'
+          - label: 'enableCustomHTML'
+            name: 'enableCustomHTML'
+            widget: 'hidden'
+            default: 'false'
           - label: "taxonomies"
             name: taxonomies
             widget: "hidden"
