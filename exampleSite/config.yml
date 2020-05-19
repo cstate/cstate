@@ -172,6 +172,18 @@ params:
   # STRING; `monthly`, `yearly`, `none`
   incidentHistoryFormat: "yearly"
 
+  # Should incident history be hidden?
+  #
+  # By disabling the incident history, you also disable
+  # the RSS feed. To ensure no incidents are shown, you
+  # should delete them after they are resolved. This option
+  # overrides any other options that tailor your incident
+  # history’s look.
+  #
+  # Default: `false`
+  # BOOLEAN; `true`, `false`
+  disableIncidentHistory: false
+
   # Disable dark mode
   #
   # If your OS and browser support the

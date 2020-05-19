@@ -13,8 +13,10 @@
     </div>
   </div>
 {{ else }}
-  <div class="contain contain--more">
-    <h2 class="center">{{ T "incidentHistory" }}</h2>
-    <hr class="clean">
-  </div>
+  {{ if not .Site.Params.disableIncidentHistory }}
+    <div class="contain contain--more">
+      <h2 class="center">{{ T "incidentHistory" }}</h2>
+      <hr class="clean">
+    </div>
+  {{ end }}
 {{ end }}

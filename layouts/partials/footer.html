@@ -13,22 +13,24 @@
     <!-- Please keep this one around to help cState grow <3 -->
     <small class="footer__copyright faded">{{ T "poweredBy" }} <a href="https://github.com/cstate/cstate"><b>cState</b></a></small>
 
-    <hr>
-
-    <p class="hinted">
-      <small>
-        ⚡
-        {{ T "rss" }} —
-        {{ with $.Site.Home.OutputFormats.Get "rss" }}
-          <a href="{{ .Permalink }}" class="no-underline">{{ T "toAllUpdates" }}</a>
-        {{ end }}
-        {{ if not .IsHome }}
-        {{ with .OutputFormats.Get "rss" }}
-          {{ T "or" }} <a href="{{ .Permalink }}" class="no-underline">{{ T "onlyThisFeed" }} ({{ $.Title }})</a>
-        {{ end }}
-        {{ end }}
-      </small>
-    </p>
+    {{ if not .Site.Params.disableIncidentHistory }}
+      <hr>
+      
+      <p class="hinted">
+        <small>
+          ⚡
+          {{ T "rss" }} —
+          {{ with $.Site.Home.OutputFormats.Get "rss" }}
+            <a href="{{ .Permalink }}" class="no-underline">{{ T "toAllUpdates" }}</a>
+          {{ end }}
+          {{ if not .IsHome }}
+          {{ with .OutputFormats.Get "rss" }}
+            {{ T "or" }} <a href="{{ .Permalink }}" class="no-underline">{{ T "onlyThisFeed" }} ({{ $.Title }})</a>
+          {{ end }}
+          {{ end }}
+        </small>
+      </p>
+    {{ end }}
   </div>
 </div>
 
