@@ -37,7 +37,7 @@
   {{ partial "index/tabs" . }}
 
   <!-- All incidents + pagination -->
-  {{ if .Site.Params.enableHistory }}
+  {{ if not .Site.Params.disableIncidentHistory }}
     <div class="contain contain--more" id="incidents">
       {{ if eq .Site.Params.incidentHistoryFormat "yearly" }}
         {{ partial "index/incidents-yearly" . }}
