@@ -172,7 +172,7 @@ params:
   # STRING; `monthly`, `yearly`, `none`
   incidentHistoryFormat: "yearly"
 
-  # Should incident history be enabled?
+  # Should incident history be hidden?
   #
   # By disabling the incident history, you also disable
   # the RSS feed. To ensure no incidents are shown, you
@@ -180,9 +180,9 @@ params:
   # overrides any other options that tailor your incident
   # history’s look.
   #
-  # Default: `true`
+  # Default: `false`
   # BOOLEAN; `true`, `false`
-  enableIncidentHistory: true
+  disableIncidentHistory: false
 
   # Disable dark mode
   #
