@@ -194,11 +194,11 @@ collections:
                 max: 100
                 default: 10
               # Incidents history
-              - label: 'Should the incident history be shown?'
-                name: 'enableIncidentHistory'
+              - label: 'Should the incident history be hidden?'
+                name: 'disableIncidentHistory'
                 hint: 'By disabling the incident history, you also disable the RSS feed. To ensure no incidents are shown, you should delete them after they are resolved. This option overrides any other options that tailor your incident history’s look.'
                 widget: 'boolean'
-                default: true
+                default: false
               # Incidents view format
               - label: 'Should the incident history be sorted by year or month?'
                 name: 'incidentHistoryFormat'
