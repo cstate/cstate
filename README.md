@@ -8,6 +8,11 @@
 
 [👩‍💻 You can also see what an example cState project’s source code.](https://github.com/cstate/example)
 
+## Sponsors 🏅
+
+<a href="//statuspal.io"><img src="images/statuspal-logo-with-text.png" alt="Statuspal" width="200"></a>
+
+
 ## Who uses cState? 🥳
 
 Some more examples from the internet:
