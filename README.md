@@ -1,19 +1,22 @@
-<p align="center"><img src="https://raw.githubusercontent.com/cstate/cstate/master/images/highlight.svg?sanitize=true" alt="cState example illustration"></p>
+<p align="center"><img src="images/cstate-logo-bg.svg?sanitize=true" alt="cState example illustration"></p>
 
 <p align="center"><a href="https://github.com/cstate/cstate/releases"><img src="https://img.shields.io/github/release/cstate/cstate/all.svg?style=flat-square" alt="GitHub release" /></a> <a href="https://github.com/cstate/cstate/commits/master"><img src="https://img.shields.io/github/last-commit/cstate/cstate.svg?style=flat-square" alt="GitHub last commit" /></a> <a href="https://github.com/cstate/cstate/tree/master/"><img src="https://img.shields.io/github/repo-size/cstate/cstate.svg?style=flat-square" alt="GitHub repo size in bytes" /></a> <a href="https://discord.gg/zYCjzys"><img src="https://img.shields.io/badge/discord-support-7289DA.svg?logo=discord&style=flat-square" alt="Discord Chat" /></a> <a href="https://twitter.com/cstate"><img src="https://img.shields.io/twitter/follow/mistermantas.svg?style=social&amp;label=Follow" alt="Twitter" /></a> <a href="https://github.com/ivbeg/awesome-status-pages"><img src="https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg" alt="Awesome status page" /></a></p>
 
-> Über fast, backwards compatible (IE8+), tiny, and simple status page built with Hugo. Completely _free_ with Netlify, Netlify CMS.
-
-[**🎯 Want an example? Click here to see a live demo!**](https://cstate-example.netlify.com)
-
-[👩‍💻 You can also see what an example cState project’s source code.](https://github.com/cstate/example)
+> Über fast, backwards compatible (IE8+), tiny, and simple status page built with Hugo. Completely _free_ with Netlify and Netlify CMS.
 
 ## Sponsors 🏅
 
 <a href="//statuspal.io"><img src="images/statuspal-logo-with-text.png" alt="Statuspal" width="200"></a>
 
+You can also support the creator and project by **starring, sharing, and using cState**. Thank you!
 
-## Who uses cState? 🥳
+[*Learn more about sponsorships*](https://github.com/sponsors/mistermantas)
+
+## Examples 🥳
+
+[**🎯 Click here to see the official live demo!**](https://cstate-example.netlify.com)
+
+[👩‍💻 You can also see what an example cState project’s source code.](https://github.com/cstate/example)
 
 Some more examples from the internet:
 
@@ -28,6 +31,7 @@ Some more examples from the internet:
 
 ## Contents ⁉
 
++ [Examples](#examples-)
 + [Features](#features-)
 + [Getting started](#getting-started-)
   + [Production](#production)
@@ -35,16 +39,16 @@ Some more examples from the internet:
 + [Updating](#updating-)
 + [FAQ](#faq-)
 + [Contribute](#contribute-)
-* [Support](#support-)
 + [License](#license-)
 
 ***
+
 
 ## Features 😎
 
 **Designed with care**
 
-* **New in v4**: automatically ships with dark mode
+* Automatically ships with dark mode
 + Comes with a simple, focused, and extremely light design
 + Works not just on mobile, but also on the archaic Internet Explorer 8 for some reason
 + Makes you accountable, showcasing how long it took for an issue to be resolved
@@ -63,9 +67,10 @@ Some more examples from the internet:
 + Comes pre-equipped with Netlify CMS for quick admin updates
 + Extensive documentation on the [wiki](https://github.com/cstate/cstate/wiki)
 + You can not only create issues, but also informational, about pages
-+ **New in v4**: [Read-only API available](https://github.com/cstate/cstate/wiki/API)
++ [Read-only API available](https://github.com/cstate/cstate/wiki/API)
 
 ## Getting started 💻
+
 
 For this tutorial, it is assumed that you have Hugo and Git installed (check with `hugo version` & `git --version`).
 
@@ -202,19 +207,6 @@ Time to break that down.
 
 Check out [the wiki](https://github.com/cstate/cstate/wiki).
 
-## Support ❤️
-
-cState is only a hobby project of @mistermantas, but it has turned into something a little bit bigger.
-
-Please **star, share, and use the software**. Thank you, if you do.
-
-If you wish to support the project financially:
-
-[Sponsor the author @mistermantas on GitHub](https://github.com/sponsors/mistermantas)
-
-[Support the author on PayPal](https://www.paypal.me/mistermantas)
-
-
 ## Contribute 💥
 
 > Want to become a maintainer? Hit me up [on Twitter @mistermantas](https://twitter.com/mistermantas)
@@ -223,10 +215,10 @@ If you wish to support the project financially:
 + Before submitting a pull request, create an issue to [discuss the implications of your proposal](https://github.com/cstate/cstate/issues).
 + Or if you are a translator — [see this](https://github.com/cstate/cstate/wiki/Translations#add-your-translations).
 + Write consistent, simple, readable code, and precise documentation.
-+ Version numbers should be added in the JS partial, the meta[generator] tag, and API index!
++ Version numbers should be added in the JS partial, the meta[generator] tag, and API index.
 
 ## License ✍
 
 [MIT](https://github.com/cstate/cstate/blob/master/LICENSE.md) © [Mantas Vilčinskas](https://github.com/mistermantas)
 
-Thanks to all the [contributors](https://github.com/cstate/cstate/graphs/contributors)!
+A special thanks to all [the contributors](https://github.com/cstate/cstate/graphs/contributors)
