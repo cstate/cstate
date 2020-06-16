@@ -1,0 +1,28 @@
+# SERVING CSTATE ON GITLAB PAGES
+# Introduced in v4.2.1
+#
+# This file is very similar to the existing GitLab template, and might need editing before it works on your project.
+#
+# All available Hugo versions are listed here:
+# https://gitlab.com/pages/hugo/container_registry
+#
+# cState uses Hugo Extended.
+image: registry.gitlab.com/pages/hugo/hugo_extended:0.65.3
+
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
+test:
+  script:
+    - hugo
+  except:
+    - master
+
+pages:
+  script:
+    - hugo
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
