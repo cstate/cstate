@@ -8,17 +8,18 @@
 
 <a href="//statuspal.io"><img src="images/statuspal-logo-with-text.png" alt="Statuspal" width="200"></a>
 
-You can also support the creator and project by **starring, sharing, and using cState**. Thank you!
+You can also support the creator of this project by **starring, sharing, and using cState**. Thank you!
 
 [*Learn more about sponsorships*](https://github.com/sponsors/mistermantas)
 
 ## Examples 🥳
 
-[**🎯 Click here to see the official live demo!**](https://cstate-example.netlify.com)
+### Official
 
-[👩‍💻 You can also see what an example cState project’s source code.](https://github.com/cstate/example)
+* [**Example site — cstate.mnts.lt**](https://cstate.mnts.lt)
+* [Source code of the example cState site](https://github.com/cstate/example)
 
-Some more examples from the internet:
+### More examples from the internet
 
 * [Chocolatey](https://status.chocolatey.org/)
 * [tmw.media](https://status.tmw.media)
@@ -27,58 +28,69 @@ Some more examples from the internet:
 * [Content Ignite](https://status.contentignite.com/)
 * [FSCI](https://status.fsci.in/)
 
-*Want your status page here? [Create a Pull Request](https://github.com/cstate/cstate/edit/dev/README.md)!*
+*Want your status page here? [Create a PR](https://github.com/cstate/cstate/edit/dev/README.md)!*
 
-## Contents ⁉
+## Contents 🔍
 
++ [Sponsors](#sponsors-)
 + [Examples](#examples-)
 + [Features](#features-)
 + [Getting started](#getting-started-)
-  + [Production](#production)
-  + [Development](#development)
 + [Updating](#updating-)
 + [FAQ](#faq-)
 + [Contribute](#contribute-)
 + [License](#license-)
 
-***
-
 
 ## Features 😎
 
-**Designed with care**
+### Purpose / how it works
 
-* Automatically ships with dark mode
-+ Comes with a simple, focused, and extremely light design
-+ Works not just on mobile, but also on the archaic Internet Explorer 8 for some reason
-+ Makes you accountable, showcasing how long it took for an issue to be resolved
-+ Great for data manipulation and viewing — has RSS, tag-like system feeds
-+ Customizable views, colors, HTML, and other elements
+You can think of the cState status page as an informational hub. Because the software is static, it cannot directly monitor any services in real time.
 
-**Fast, reliable, and free (even to host)**
+However, cState is a perfect option for recording incidnets because most of the time your services are functioning, so the status page does not need to be updated. By default, the little bit of JavaScript on the page improves the user experience but is not required to see the most vital information.
 
-+ Built with [Hugo](https://gohugo.io), a hyperfast Golang generator
-+ Secure, ready for HTTPS; see [JAMstack](https://jamstack.org/)
-+ Easy to edit and deploy on Netlify for _absolutely free_
+There are other commercial options that may update faster because of their architecture, have built-in real-time uptime monitoring, send notifications by email or other means, but cState is not supposed to be better than paid solutions, but _good enough_.
 
-**Easy to setup, manage, use**
+### List of possibilities
 
-+ Edit your status page from a simple config file
-+ Comes pre-equipped with Netlify CMS for quick admin updates
-+ Extensive documentation on the [wiki](https://github.com/cstate/cstate/wiki)
-+ You can not only create issues, but also informational, about pages
-+ [Read-only API available](https://github.com/cstate/cstate/wiki/API)
+| **cState is designed with care**                                                                                         	| **Fast, reliable, and free (even with host)**                                                                            	| **Easy to setup, manage, use**                                                                                                                           	|
+|--------------------------------------------------------------------------------------------------------------------------	|--------------------------------------------------------------------------------------------------------------------------	|----------------------------------------------------------------------------------------------------------------------------------------------------------	|
+| A simple and focused user interface & experience with [instant loading](https://github.com/cstate/cstate/issues/117), suitable for any brand                            	| Built with [Hugo](https://gohugo.io), a hyperfast Golang static site generator (SSG)                                     	| As easy as WordPress: if you don't like getting into the code, try Netlify CMS                                                                           	|
+| cState switches to dark mode automatically, [if told so by your OS and browser settings](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme)                                   	| Use the full power of Hugo — flavored Markdown, shortcodes, templates, and more                                          	| Most of the settings are in the `config.yml` file or under _Settings_ in Netlify CMS                                                                           	|
+| Statistical calculations show the key take-away (e.g., time spent fixing an issue)                                       	| Airtight back-end security because cState is built on the [JAMstack](https://jamstack.org/)                              	| Create systems, categories for recording incidents (or even [informational posts](https://github.com/cstate/cstate/releases/tag/v4.0.0) and pages)                                                               	|
+| Great for data manipulation and viewing — cState has RSS, tag-like system feeds                                          	| HTTPS, domain linking, easy setup & high performance with [Netlify & Netlify CMS](#getting-started-) — *absolutely free* 	| Built-in [language files/translations](https://github.com/cstate/cstate/wiki/Translations#available-translations) for English, German, French, Turkish, and Lithuanian                                                                	|
+| Easy [linking to 3rd parties](https://github.com/cstate/cstate/wiki/Customization#tabs), customizable views, colors, HTML, and assets                                                	| You can also use many of the advanced features on platforms such as GitLab Pages & others that support Hugo              	| Extensive documentation on the [wiki](https://github.com/cstate/cstate/wiki)                                                                             	|
+| Very little JavaScript. Responsive CSS that is backwards compatible up to Internet Explorer 8                                                    	| Create your own workflow — cState generates static files that can be hosted literally anywhere (CDN, AWS, GitHub Pages)  	| Feel free to [create an issue](https://github.com/cstate/cstate/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc) if you have any questions or feedback 	|
+| [Badges for showing the status on other websites (similiar to shields.io)](https://github.com/cstate/cstate/wiki/Badges) 	| [Read-only API available for even further integration](https://github.com/cstate/cstate/wiki/API)                        	| cState is always improving and the user community is only growing — [you're with good company](#sponsors-)                                                             	|
+
 
 ## Getting started 💻
 
+This is how you create a **new site powered by cState.**  What you are generating is a Hugo site with specific, already existing modifications (to Hugo, cState is a theme).
 
-For this tutorial, it is assumed that you have Hugo and Git installed (check with `hugo version` & `git --version`).
+### — The easy way —
 
-> A minimum version of `0.48` is required for Hugo, starting with v3.
+#### 💚 Netlify and Netlify CMS
 
-#### Production
+cState was built to work best with Netlify and comes with the neccesary files to enable Netlify CMS.
 
-We encourage you to use [Netlify](https://www.netlify.com) for cState. These are the following options you need to change in deploy settings:
+You don't have to use Netlify, but this is the best all-around option:
+
+- To get you started, Netlify is **completely free** (you can pay for extra features, bandwidth, etc)
+- It supports all the features you'd want for hosting a modern website: **HTTPS, domain linking, worldwide asset serving, rollbacks, and more**
+- As you'd expect, **Netlify CMS** works best with Netlify. **It takss just a few clicks** to make it work
+
+
+You can simply click this button to get started:
+
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/cstate/example)
+
+This sets up cState with its default settings from the [the example repository](https://github.com/cstate/example) repo.
+
+If you cloned the example repository and want to use that newly forked repo, click the 'New site from Git' button in the user dashboard.
+
+These are the settings you should be using:
 
 + Build command: **hugo**
 + Publish directory: **public**
@@ -86,39 +98,65 @@ We encourage you to use [Netlify](https://www.netlify.com) for cState. These are
   + Key: **HUGO_VERSION**
   + Value: **0.48** (or later)
 
-**The easy way**
 
-You can simply click this button to get started:
+#### 🧡 GitLab Pages (Experimental)
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/cstate/example)
+GitLab Pages, unlike GitHub Pages, supports Hugo, so you can let GitLab build and serve cState without needing to do it on your own machine ([similarly to how you can blog with GitLab Pages from your phone](https://about.gitlab.com/blog/2016/08/19/posting-to-your-gitlab-pages-blog-from-ios/)).
 
-This sets up cState with its default settings from the cstate/example repo.
+[GitLab has a good guide for getting started with GitLab Pages in their documentation.](https://docs.gitlab.com/ee/user/project/pages/#getting-started)
 
-***
+**In short: a `.gitlab-ci.yml` file** is responsible for making cState work. As of v4.2.1, the [cState automatically ships with this file](https://github.com/cstate/cstate/releases/tag/v4.2.1).
 
-If you want to do this from any branch in this repository, follow the manual instructions:
+As of this time, this is a relatively untested option, but Hugo does seem to generate the right things (this can be checked by downloading the **CI/CD artificats**).
 
-1. Download the contents of the `exampleSite` directory in this repository. This will be your site guts, which will hold the content and configuration for the status page.
-2. Create a `themes` folder and navigate to it on the command line.
+According to GitLab, it may take up to 30 minutes before the site is available after the first deployment.
+
+You can [make Netlify CMS work on GitLab](https://www.netlifycms.org/docs/gitlab-backend/), but that requires overriding an existing file in the theme. Create a file in `static/admin/config.yml` and follow the instructions linked earlier. (cState by default ships with Git Gateway.)
+
+
+#### 🖤 Other platforms
+
+At this time, as of the author's knowledge, there are no other platforms that support 'easy' deployment (if you know any — [let us know](#contribute-)).
+
+Keep reading to see how to deploy manually.
+
+
+
+### — Manual builds —
+
+For this tutorial, it is assumed that you have Hugo and Git installed (check with `hugo version` & `git --version`).
+
+> A minimum version of `0.48` is required for Hugo, starting with v3.
+
+
+#### I want to use my site in production
+
+[Clone the example repository](https://github.com/cstate/example):
 
 ```bash
-mkdir themes; cd themes;
+git clone --recursive -b master https://github.com/cstate/example.git
 ```
-2. Start Git on this folder: 
+
+(We are using `--recursive` because the site will not generate with an empty `themes/cstate` folder.)
+
+Now you can edit what's inside the folder (`example`) and try previewing that with this command:
 
 ```bash
-git init
+hugo serve
 ```
 
-3. Now simply add a Git submodule pointing to this repository, like so:
+Once the changes you wanted done are finished, generate the final files like this:
 
-```bash
-git submodule add https://github.com/cstate/cstate
+```
+hugo
 ```
 
-4. Set up cState for your liking. It is now ready to be used in production.
+And the folder `public` can now be hosted.
 
-#### Development
+The downside with manual building is that, if you do not want to use a solution like GitLab Pages or Netlify, this process will need to happen on your computer. This can be tedious.
+
+
+#### I want to contribute to the development
 
 1. Clone this repository in the command line:
 
@@ -132,21 +170,19 @@ git clone --recursive -b master https://github.com/cstate/cstate.git
 cd cstate/exampleSite
 ```
 
-3. Launch the development setup much like this:
+3. Launch the development setup like this:
 
 ```bash
 hugo serve --baseUrl=http://localhost/ --theme=cstate --themesDir=../.. --verbose
 ```
 
-The main directory is the theme itself (the cState guts, basically) and the `exampleSite` folder houses all content. Use this local setup to experiment before deploying to production!
-
-If you would like to commit/make a PR, make sure that `themesDir` is a comment before trying to merge upstream.
+The main directory is the theme itself (the cState guts, basically) and the `exampleSite` folder houses all content. Use this local setup to experiment before making a PR.
 
 ## Updating 🎉
 
 **If you are updating from one major version to another, like from v3 to v4, then please [read the migration guides](https://github.com/cstate/cstate/wiki/Usage#migration-guides).**
 
-Assuming the production install instructions were followed, keep cState updated by having an up to date Git submodule in the `themes` folder. containing this repository. Your content will stay separate.
+Assuming the production install instructions were followed, keep cState updated by having an up to date Git submodule in the `themes` folder. containing this repository. **Your content should stay separate from the guts of cState.**
 
 Ask yourself these questions:
 
@@ -162,11 +198,11 @@ More info about submodules: [updating](https://stackoverflow.com/a/5828396) & [c
 
 ## FAQ 🤔
 
-### Are there settings you can change?
+### What should be the first thing I do after downloading the example repository? What do I edit?
 
-Yes, most of the settings are in the `config.yml` file or under _Settings_ in Netlify CMS.
+Most of the settings are in the `config.yml` file or under _Settings_, if you have set up Netlify CMS.
 
-### Where do issues go?
+### How do I create issues?
 
 #### Using an admin panel (Netlify CMS)
 
@@ -193,6 +229,8 @@ section: issue
 *Investigating* - We’re aware of users experiencing unavailable guilds and issues when attempting to connect. We're currently investigating. {{< track "2018-04-13 15:54:00" >}}
 ```
 
+This is what you would see for an issue that has been resolved.
+
 Time to break that down.
 
 `title`: This is the one of the most important parts of an incident. *(required)*  
@@ -203,22 +241,50 @@ Time to break that down.
 `affected`. Add the items that were present in the config file which should alter the status of each individual system (component). *(array, required)*  
 `section`. This must be `issue`, so that Hugo treats it as one. *(required)*  
 
+You don't have to define a date for `resolvedWhen` when the issue is not resolved (obviously):
+
+```md
+---
+title: Major outage in East US
+date: 2017-02-30 14:30:00
+resolved: false
+severity: down
+affected:
+  - API
+section: issue
+---
+
+We are looking into this...
+```
+
+### Is that it?
+
+For this very basic tutorial, yes.
+
 ### I have more questions!
 
 Check out [the wiki](https://github.com/cstate/cstate/wiki).
 
 ## Contribute 💥
 
-> Want to become a maintainer? Hit me up [on Twitter @mistermantas](https://twitter.com/mistermantas)
+**Making a change in the code**
 
-+ Glance over the [Code of Conduct](/CODE_OF_CONDUCT.md).
-+ Before submitting a pull request, create an issue to [discuss the implications of your proposal](https://github.com/cstate/cstate/issues).
-+ Or if you are a translator — [see this](https://github.com/cstate/cstate/wiki/Translations#add-your-translations).
-+ Write consistent, simple, readable code, and precise documentation.
-+ Version numbers should be added in the JS partial, the meta[generator] tag, and API index.
+PRs should be submitted to the `dev` branch, if it exists. Before submitting a pull request, create an issue to [discuss the implications of your proposal](https://github.com/cstate/cstate/issues).
+
+**For translators**
+
+[See this](https://github.com/cstate/cstate/wiki/Translations#add-your-translations).
+
+**Code of conduct**
+
+[Be kind](/CODE_OF_CONDUCT.md).
 
 ## License ✍
 
-[MIT](https://github.com/cstate/cstate/blob/master/LICENSE.md) © [Mantas Vilčinskas](https://github.com/mistermantas)
+[MIT](https://github.com/cstate/cstate/blob/master/LICENSE.md) © [Mantas Vilčinskas](https://mnts.lt)
 
 A special thanks to all [the contributors](https://github.com/cstate/cstate/graphs/contributors)
+
+**Note about versions**
+
+We use semantic versioning. Version numbers are logged in the console (JS partial), the HTML — the `meta[generator]` tag (meta partial), and API index (index.json).
