@@ -178,6 +178,13 @@ hugo serve --baseUrl=http://localhost/ --theme=cstate --themesDir=../.. --verbos
 
 The main directory is the theme itself (the cState guts, basically) and the `exampleSite` folder houses all content. Use this local setup to experiment before making a PR.
 
+
+### — Docker —
+
+cState comes with a Dockerfile and Netlify ([according to their article from 2016](https://www.netlify.com/blog/2016/10/18/how-our-build-bots-build-sites/)) uses a similar Docker system to build cState. This is an option for people who prefer Docker and NGINX instead of serverless, but serverless still has the priority in our development. 
+
+[Read wiki](https://github.com/cstate/cstate/wiki/Docker)
+
 ## Updating 🎉
 
 **If you are updating from one major version to another, like from v3 to v4, then please [read the migration guides](https://github.com/cstate/cstate/wiki/Usage#migration-guides).**
