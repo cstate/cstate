@@ -4,7 +4,7 @@ FROM nginx:alpine
 WORKDIR /cstate
 
 # Install hugo & git
-RUN apk add hugo git
+RUN apk add --no-cache hugo git
 
 # -- First Run --
 
