@@ -48,7 +48,7 @@ You can also support the creator of this project by **starring, sharing, and usi
 
 You can think of the cState status page as an informational hub. Because the software is static, it cannot directly monitor any services in real time.
 
-However, cState is a perfect option for recording incidnets because most of the time your services are functioning, so the status page does not need to be updated. By default, the little bit of JavaScript on the page improves the user experience but is not required to see the most vital information.
+However, cState is a perfect option for recording incidents because most of the time your services are functioning, so the status page does not need to be updated. By default, the little bit of JavaScript on the page improves the user experience but is not required to see the most vital information.
 
 There are other commercial options that may update faster because of their architecture, have built-in real-time uptime monitoring, send notifications by email or other means, but cState is not supposed to be better than paid solutions, but _good enough_.
 
