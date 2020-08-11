@@ -214,7 +214,7 @@ params:
   #
   # Recommended: png, bmp, jpg, or gif
   # for best browser support!
-  logo: /logo.png
+  logo: logo.png
 
   # This is the description that is shown
   # on the footer and meta tags.
