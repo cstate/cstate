@@ -6,12 +6,12 @@
     {{ range $active }}
       <div class="padding">
         <p>
-          <a href="{{ .Permalink }}"><strong class="bold">{{ .Title }} →</strong></a>
+          <a href="{{ .RelPermalink }}"><strong class="bold">{{ .Title }} →</strong></a>
         </p>
 
         <p><small>
           {{ range .Params.Affected }}
-            <a href="/affected/{{ . | urlize }}/" class="tag no-underline">{{ . }}</a>
+            <a href="affected/{{ . | urlize }}/" class="tag no-underline">{{ . }}</a>
           {{ end }}
         </small></p>
 
