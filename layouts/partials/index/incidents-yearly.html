@@ -2,11 +2,10 @@
 
 
 {{ range ($incidents.GroupByDate "2006") }}
-  <div class="padding"></div>
-  <hr>
-  <p class="center" id="archive-{{ .Key }}"><a href="#archive-{{ .Key }}" class="no-underline"><strong>{{ .Key }}</strong>
+  
+  <p class="center archive__head" id="archive-{{ .Key }}"><a href="#archive-{{ .Key }}" class="no-underline"><strong>{{ .Key }}</strong>
     <span class="faded">({{ len .Pages }})</span>
-  </a></p><hr>
+  </a></p>
   
   {{ range .Pages }}
     {{ .Render "small" }}
