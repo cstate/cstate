@@ -38,6 +38,9 @@ collections:
       - label: Drafts
         field: draft
         pattern: true
+      - label: Published (not a draft)
+        field: draft
+        pattern: false
       - label: "High severity (down)"
         field: severity
         pattern: 'down'
@@ -77,6 +80,13 @@ collections:
     folder: "content/pages"
     create: true
     slug: "{{slug}}"
+    view_filters:
+      - label: Drafts
+        field: draft
+        pattern: true
+      - label: Published (not a draft)
+        field: draft
+        pattern: false
     fields:
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Hide this from the site (make it a draft) 👀", name: "draft", widget: "boolean", required: false, default: false}
