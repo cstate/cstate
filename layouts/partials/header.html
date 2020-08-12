@@ -7,7 +7,7 @@
   <div class="contain contain--more center">
     <a href="{{ .Site.BaseURL }}" class="header__logo">
       {{ if .Site.Params.useLogo }}
-        <img src="{{ .Site.Params.logo }}" alt="{{ .Site.Title }}">
+        <img src="{{ relURL .Site.Params.logo }}" alt="{{ .Site.Title }}">
           {{ else }}
         <h1>{{ .Site.Title }}</h1>
       {{ end }}
@@ -19,7 +19,7 @@
   <div class="contain">
     <a href="{{ .Site.BaseURL }}" class="header__logo header__logo--small">
       {{ if .Site.Params.useLogo }}
-        <img src="{{ .Site.Params.logo }}" alt="{{ .Site.Title }}">
+        <img src="{{ relURL .Site.Params.logo }}" alt="{{ .Site.Title }}">
           {{ else }}
         <h1>{{ .Site.Title }}</h1>
       {{ end }}
