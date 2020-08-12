@@ -147,3 +147,15 @@
   translation: Recently, based on average data, it looks like this system has gone down for about
 - id: averageSystemsDowntimeSecondPart
   translation: minutes at a time.
+
+
+##
+## v4.4
+##
+
+- id: in
+  translation: in
+- id: weeksAgo
+  translation: "w"
+- id: yearAgo
+  translation: " metus"

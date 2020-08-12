@@ -147,3 +147,15 @@
   translation: Pastaruoju metu, regis, šis komponentas sutrikimų metu neveikia apie
 - id: averageSystemsDowntimeSecondPart
   translation: min.
+
+
+##
+## v4.4
+##
+
+- id: in
+  translation: in
+- id: weeksAgo
+  translation: " sav." # has to include space
+- id: yearAgo
+  translation: " metus"
