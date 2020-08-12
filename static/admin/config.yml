@@ -13,9 +13,10 @@ backend:
   name: git-gateway
 media_folder: "static/img"
 public_folder: "/img"
-display_url: /
+site_url: ../
+logo_url: https://raw.githubusercontent.com/cstate/cstate/master/images/cstate-logo-bg.svg
 
-# Do not change this!
+# Do not change this unless you know what you are doing!
 collections:
   - name: "issues"
     label: "Incidents"
@@ -24,11 +25,34 @@ collections:
     folder: "content/issues"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    view_filters:
+      - label: Active (unresolved) issues
+        field: resolved
+        pattern: false
+      - label: 'Resolved issues'
+        field: resolved
+        pattern: true
+      - label: 'Informational posts'
+        field: informational
+        pattern: true
+      - label: Drafts
+        field: draft
+        pattern: true
+      - label: "High severity (down)"
+        field: severity
+        pattern: 'down'
+      - label: "Medium severity (disrupted)"
+        field: severity
+        pattern: 'disrupted'
+      - label: "Low severity (announcement)"
+        field: severity
+        pattern: 'announcement'
     fields:
       - {label: "Mark as incident", name: "section", widget: "hidden", default: "issue"}
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Start date & time (your time) ⌚", name: "date", widget: "datetime"}
       - {label: "Mark as resolved ✔", name: "resolved", widget: "boolean", required: false, default: false}
+      - {label: "Hide this from the site (make it a draft) 👀", name: "draft", widget: "boolean", required: false, default: false}
       - {label: "Mark as informational ℹ", name: "informational", widget: "boolean", required: false, default: false}
       - {label: "End date & time (your time) ⌛", name: "resolvedWhen", widget: "datetime", required: false}
       - label: "Affected systems (use exact name, separated by commas) 🧐"
@@ -55,6 +79,7 @@ collections:
     slug: "{{slug}}"
     fields:
       - {label: "Title", name: "title", widget: "string"}
+      - {label: "Hide this from the site (make it a draft) 👀", name: "draft", widget: "boolean", required: false, default: false}
       - {label: "Description for SEO and social media", name: "description", widget: "string", required: false}
       - label: "Markdown (or HTML) body"
         name: "body"
