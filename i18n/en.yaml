@@ -156,6 +156,6 @@
 - id: in
   translation: in
 - id: weeksAgo
-  translation: " weeks."
+  translation: " w"
 - id: yearAgo
-  translation: " years"
+  translation: " year"
