@@ -139,9 +139,21 @@
 
 ##
 ## v4.1
-## 
+##
 
 - id: averageSystemsDowntime
   translation: Zurzeit, basierend auf Durchschnittsdaten, sieht es so aus, als ob dieses System für ungefähr
 - id: averageSystemsDowntimeSecondPart
   translation: Minuten ausfällt.
+
+
+##
+## v4.4
+##
+
+- id: in
+  translation: in
+- id: weeksAgo
+  translation: " Wochen." # has to include space
+- id: yearAgo
+  translation: " Jahre"
