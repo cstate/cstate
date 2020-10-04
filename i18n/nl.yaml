@@ -144,3 +144,14 @@
   translation: Recentelijk, gebaseerd op gemiddelde downtime, is het systeem ofline geweest voor ongeveer
 - id: averageSystemsDowntimeSecondPart
   translation: minuten per keer.
+
+##
+## v4.4
+##
+
+- id: in
+  translation: binnen
+- id: weeksAgo
+  translation: " w"
+- id: yearAgo
+  translation: " jaar"
