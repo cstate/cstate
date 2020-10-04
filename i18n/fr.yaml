@@ -1,5 +1,5 @@
 # French language file for cState
-# Version 3.0
+# Version 4.4
 
 - id: languageCode
   translation: fr
@@ -16,7 +16,7 @@
 - id: isDown
   translation: Nous faisons face à des problèmes majeurs
 - id: isDisrupted
-  translation: Nous faisons face à des pertubations
+  translation: Nous faisons face à des perturbations
 - id: isNotice
   translation: Merci de lire le détail
 - id: isOk
@@ -31,7 +31,7 @@
   translation: pour améliorer votre expérience sur ce site Web.
 
 - id: thisIsDown
-  translation: Éteint
+  translation: Arrêté
 - id: thisIsDisrupted
   translation: Perturbé
 - id: thisIsNotice
@@ -41,9 +41,9 @@
 
 # "Last checked" + "just now"
 - id: lastChecked
-  translation: Dernière vérification
+  translation: Dernière vérification il y a # instead of someTimeAgo
 - id: justNow
-  translation: Il y a quelques secondes
+  translation: quelques secondes
 #- id: someTimeAgo
 #  translation: # Unable to translate
 
@@ -89,7 +89,7 @@
 - id: calmBeforeTheStorm
   translation: Est-ce le calme avant la tempête ?
 - id: noIncidentsDesc
-  translation: Cette page d'état ne contient aucun incident enregistré. Cela peut être dû au fait que le ou les propriétaires de la page d'état ont récemment configuré leur page d'état, n'ont eu aucun temps d'arrêt ou n'ont enregistré aucun temps d'arrêt.
+  translation: Cette page d'état ne contient aucun incident enregistré. Ce peut être car la page d'état vient d'être configurée, car il n'y a eu aucun temps d'arrêt ou car aucun n'a été enregistré.
 
 
 - id: continueReading
@@ -113,7 +113,7 @@
 - id: notFound
   translation: Il n'y a rien ici.
 - id: notFoundText
-  translation: Cela pourrait être un problème de notre part. Peut-être avons-nous déplacé une certaine ressource et maintenant elle a disparu. Il est également possible que la ressource que vous essayez de visualiser soit vide. Mais cela vous dérange-t-il aussi de vérifier le lien ?
+  translation: C'est peut-être une erreur de notre part. Peut-être avons-nous déplacé une certaine ressource, ce qui l'a rendu indisponible. Il est également possible que la ressource que vous essayez de visualiser soit vide. Avez-vous pris le temps de vérifier le lien ?
 
 - id: rss
   translation: S'abonner via RSS
@@ -122,7 +122,7 @@
 - id: or
   translation: ou
 - id: onlyThisFeed
-  translation: seulement ce flux
+  translation: seulement à ce flux
 
 ##
 ## v3
@@ -137,3 +137,23 @@
 ##
 - id: notFoundAffected
   translation: Il semble que ce système n'existe pas ou qu'il n'a jamais eu de temps d'arrêt enregistré.
+
+##
+## v4.1
+## 
+
+- id: averageSystemsDowntime
+  translation: D'après les données moyennes, il semble que ce système ait été indisponible pendant environ
+- id: averageSystemsDowntimeSecondPart
+  translation: minutes.
+
+##
+## v4.4
+##
+
+- id: in
+  translation: dans
+- id: weeksAgo
+  translation: " sem"
+- id: yearAgo
+  translation: " années"
