@@ -1,5 +1,5 @@
 # French language file for cState
-# Version 3.0
+# Version 4.4
 
 - id: languageCode
   translation: fr
@@ -137,3 +137,23 @@
 ##
 - id: notFoundAffected
   translation: Il semble que ce système n'existe pas ou qu'il n'a jamais eu de temps d'arrêt enregistré.
+
+##
+## v4.1
+## 
+
+- id: averageSystemsDowntime
+  translation: D'après les données moyennes, il semble que ce système ait été indisponible pendant environ
+- id: averageSystemsDowntimeSecondPart
+  translation: minutes.
+
+##
+## v4.4
+##
+
+- id: in
+  translation: dans
+- id: weeksAgo
+  translation: " sem"
+- id: yearAgo
+  translation: " années"
