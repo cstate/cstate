@@ -1,0 +1,157 @@
+# English language file for cState
+# Official
+# Version 4.1
+
+- id: languageCode
+  translation: nl
+- id: languageName
+  translation: Dutch
+- id: languageNameShort
+  translation: NL
+
+##
+## INDEX.HTML
+##
+
+# Summary status message
+- id: isDown
+  translation: Er zijn grote problemen
+- id: isDisrupted
+  translation: Er zijn onderbrekingen
+- id: isNotice
+  translation: Please read announcement
+- id: isOk
+  translation: Alle systemen werken
+
+# No JS warning
+- id: noScriptingIntro
+  translation: Uh oh! Het lijkt erop dat je javascript hebt uitgeschakeld.
+- id: noScriptingLink
+  translation: zet scripting aan
+- id: noScriptingOutro
+  translation: om je ervaring beter te maken.
+
+- id: thisIsDown
+  translation: Down
+- id: thisIsDisrupted
+  translation: Onderbroken
+- id: thisIsNotice
+  translation: Onderhoud
+- id: thisIsOk
+  translation: Operationeel
+
+# "Last checked" + "just now"
+- id: lastChecked
+  translation: Laatst gecontroleerd
+- id: justNow
+  translation: net
+- id: someTimeAgo
+  translation: geleden
+
+# Example usage: `5` + `years`
+# Final result: 'Last checked 5 years ago'
+# Number goes before string
+# Use short variants until months
+- id: yearsAgo
+  translation: jaren
+- id: monthsAgo
+  translation: maanden
+- id: daysAgo
+  translation: d
+- id: hoursAgo
+  translation: u
+- id: minsAgo
+  translation: min
+- id: secondsAgo
+  translation: s
+
+- id: autoRefreshNotice
+  translation: We herleden elke 5 minuten
+
+# Incidents
+- id: incidents
+  translation: Incidenten
+- id: incidentHistory
+  translation: Incident geschiedenis
+
+- id: resolved
+  translation: Opgelost # if it's less than a min
+- id: inUnderAMinute
+  translation: Binnen de minuut # continuing the last string
+- id: resolvedAfter
+  translation: Opgelost na # + 19 min
+- id: ofDowntime
+  translation: offline te zijn
+
+- id: downtimeOngoing
+  translation: Dit probleem is nog niet opgelost
+
+
+- id: calmBeforeTheStorm
+  translation: Is dit de stilte voor de storm?
+- id: noIncidentsDesc
+  translation: Deze status pagina heeft geen gelogde incidenten. Dit is misschien omdat de status pagina recent geinstaleerd is, er nog geen downtime is geweest, of nog geen downtime is gelogged.
+
+- id: continueReading
+  translation: Verder lezen
+- id: prev
+  translation: Vorige
+- id: next
+  translation: Volgende
+
+##
+## OTHER
+##
+
+- id: goBack
+  translation: Ga terug naar
+- id: backToTop
+  translation: terug naar top
+- id: poweredBy
+  translation: Powered by
+
+- id: notFound
+  translation: Hier is niets.
+- id: notFoundText
+  translation: Dit kan een fout zijn aan onze kant. Misschien hebben we de bron verplaats en nu is het weg. Het kan ook dat je de bron die je probeert te bekijken leeg is. Wil je mischien even de url checken?
+- id: rss
+  translation: Abonneer via RSS
+- id: toAllUpdates
+  translation: op alle updates
+- id: or
+  translation: or
+- id: onlyThisFeed
+  translation: enkel deze feed
+
+##
+## v3
+##
+- id: entries
+  translation: inzendingen
+- id: newestToOldest
+  translation: nieuwste naar oudste
+##
+## v4
+##
+- id: notFoundAffected
+  translation: Het lijkt erop dat het systeem niet bestaat of geen opgenomen downtime heeft.
+
+##
+## v4.1
+## 
+
+- id: averageSystemsDowntime
+  translation: Recentelijk, gebaseerd op gemiddelde downtime, is het systeem ofline geweest voor ongeveer
+- id: averageSystemsDowntimeSecondPart
+  translation: minuten per keer.
+
+##
+## v4.4
+##
+
+- id: in
+  translation: binnen
+- id: weeksAgo
+  translation: " w"
+- id: yearAgo
+  translation: " jaar"
