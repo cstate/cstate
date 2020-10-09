@@ -88,9 +88,10 @@ collections:
             default: 'en'
             options:
             - { label: "🇺🇸 English (default)", value: "en" }
-            - { label: "🇱🇹 Lithuanian (official)", value: "lt" }
+            - { label: "🇱🇹 Lietuviškai (official)", value: "lt" }
             - { label: "🇹🇷 Turkish", value: "tr" }
             - { label: "🇩🇪 Deutsch", value: "de" }
+            - { label: "🇳🇱 Dutch", value: "nl" }
             - { label: "🇫🇷 French", value: "fr" }
             - { label: "🇧🇷 Portuguese", value: "pt"}
           - label: 'Site language in code for html[lang]'
