@@ -147,3 +147,14 @@
   translation: Recentemente, por dados médicos para que esse sistema caiu por
 - id: averageSystemsDowntimeSecondPart
   translation: minutos em uma hora.
+
+##
+## v4.4
+##
+
+- id: in
+  translation: em
+- id: weeksAgo
+  translation: " semanas"
+- id: yearAgo
+  translation: " ano"
