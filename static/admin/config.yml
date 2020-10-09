@@ -92,6 +92,7 @@ collections:
             - { label: "🇹🇷 Turkish", value: "tr" }
             - { label: "🇩🇪 Deutsch", value: "de" }
             - { label: "🇫🇷 French", value: "fr" }
+            - { label: "🇧🇷 Portuguese", value: "pt"}
           - label: 'Site language in code for html[lang]'
             hint: 'Use the ISO 639-1 defined abbreviations. Examples: en, lt, de. Fully explained here: https://github.com/cstate/cstate/wiki/Customization#changing-site-language'
             name: 'languageCode'
