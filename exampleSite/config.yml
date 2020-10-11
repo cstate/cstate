@@ -124,7 +124,7 @@ params:
     - name: North Coast
       description: The main servers are located here.
       closed: true
-    - name: East Coast      
+    - name: East Coast
     - name: Uncategorized
       untitled: true
 
@@ -156,6 +156,11 @@ params:
   # shortDateFormat Default: "15:04 — Jan 2"
   dateFormat: January 2, 2006 at 3:04 PM
   shortDateFormat: 15:04 — Jan 2
+
+  # If enabled, will display relative times for incident history and summaries instead of using dateFormat.
+  #
+  # Default: true
+  useRelativeTime: true
 
   # What header design should we use?
   #
@@ -277,7 +282,7 @@ params:
   # Default: `true`
   # BOOLEAN; `true`, `false`
   alwaysKeepBrandColor: true
-  
+
   # Introduced in v4.0.1 for consistent
   # site title text color.
   #
