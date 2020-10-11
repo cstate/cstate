@@ -75,26 +75,30 @@
    * moves the timestamp to a title attribute tooltip.
    */
   function updateRelativeTimes() {
-    document.querySelectorAll('.relative-time')
-      .forEach(function(element) {
-        var time = Date.parse(element.getAttribute('title'));
-        var html = element.getAttribute('data-prefix') || '';
-        if (!time) {
-          time = element.innerText;
-          element.setAttribute('title', time || new Date);
-          html += '{{ T "justNow" }}';
-        } else {
-          html += timeSince(time) + ' {{ T "someTimeAgo" }}';
-        }
-        element.innerHTML = html.trim();
-      })
+    var elements = document.querySelectorAll('.relative-time');
+    for (var i = 0; i < elements.length; i++) {
+      var element = elements[i];
+      var time = Date.parse(element.getAttribute('title'));
+      var html = element.getAttribute('data-time-prefix') || '';
+      if (!time) {
+        time = element.innerText;
+        element.setAttribute('title', time || new Date);
+        html += '{{ T "justNow" }}';
+      } else {
+        html += timeSince(time) + ' {{ T "someTimeAgo" }}';
+      }
+      html += element.getAttribute('data-time-suffix') || '';
+      element.innerHTML = html.trim();
+    }
   }
   updateRelativeTimes();
   setInterval(updateRelativeTimes, 5000);
 
-  // Reload homepage eevery 290 seconds
+  /**
+   * Reload homepage after 290 seconds.
+   */
   if (document.querySelector('body.status-homepage')) {
-    setInterval(location.reload, 290000)
+    setTimeout(location.reload, 290000)
   }
 </script>
 
