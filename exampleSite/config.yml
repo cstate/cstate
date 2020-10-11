@@ -162,6 +162,11 @@ params:
   # Default: true
   useRelativeTime: true
 
+  # If enabled, doesn't show seconds on relative times.
+  #
+  # Default: false
+  skipSeconds: false
+
   # What header design should we use?
   #
   # Default: true
