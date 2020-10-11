@@ -67,7 +67,11 @@
     if (interval > 1) {
       return interval + ' {{ T "minsAgo" }}';
     }
-    return Math.floor(seconds) + '{{ T "secondsAgo" }}';
+    {{ if .Site.Params.skipSeconds }}
+      return '<1 {{ T "minsAgo" }}'
+    {{ else }}
+      return Math.floor(seconds) + '{{ T "secondsAgo" }}';
+    {{ end }}
   }
 
   /**
