@@ -8,7 +8,7 @@
 <a href="{{ .Permalink }}" class="issue no-underline">
   {{ if .Params.informational }}
 
-  <small class="date float-right relative-time" title="{{ .Date.Format "02 Jan 2006 03:05:00 PM" }}">
+  <small class="date float-right {{ cond .Site.Params.useRelativeTime "relative-time" "" }}" title="{{ .Date.Format "02 Jan 2006 03:05:00 PM" }}">
       {{ if .Site.Params.dateFormat }}
         {{ .Date.Format .Site.Params.dateFormat }}
       {{ else }}
@@ -23,7 +23,7 @@
     </span>
 
   {{ else if .Params.Resolved }}
-    <small class="date float-right relative-time" title="{{ .Date.Format "02 Jan 2006 03:05:00 PM" }}">
+  <small class="date float-right {{ cond .Site.Params.useRelativeTime "relative-time" "" }}" title="{{ .Date.Format "02 Jan 2006 03:05:00 PM" }}">
       {{ if .Site.Params.dateFormat }}
         {{ .Date.Format .Site.Params.dateFormat }}
       {{ else }}
@@ -67,7 +67,7 @@
     {{ end }}
   {{ else }}
 
-    <small class="date float-right relative-time" title="{{ .Date.Format "02 Jan 2006 03:05:00 PM" }}">
+  <small class="date float-right {{ cond .Site.Params.useRelativeTime "relative-time" "" }}" title="{{ .Date.Format "02 Jan 2006 03:05:00 PM" }}">
       {{ if .Site.Params.dateFormat }}
         {{ .Date.Format .Site.Params.dateFormat }}
       {{ else }}
