@@ -41,58 +41,61 @@
   }
 
   /**
-   * Timer
+   * Returns a relative date string for the given date.
    */
+  function timeSince(date) {
+    var seconds = Math.floor((new Date() - date) / 1000);
 
-  function hasClass(element, className) {
-    return (' ' + element.className + ' ').indexOf(' ' + className+ ' ') > -1;
+    var interval = Math.floor(seconds / 31536000);
+
+    if (interval > 1) {
+      return interval + ' {{ T "yearsAgo" }}';
+    }
+    interval = Math.floor(seconds / 2592000);
+    if (interval > 1) {
+      return interval + ' {{ T "monthsAgo" }}';
+    }
+    interval = Math.floor(seconds / 86400);
+    if (interval > 1) {
+      return interval + '{{ T "daysAgo" }}';
+    }
+    interval = Math.floor(seconds / 3600);
+    if (interval > 1) {
+      return interval + '{{ T "hoursAgo" }}';
+    }
+    interval = Math.floor(seconds / 60);
+    if (interval > 1) {
+      return interval + ' {{ T "minsAgo" }}';
+    }
+    return Math.floor(seconds) + '{{ T "secondsAgo" }}';
   }
 
-  if (hasClass(document.querySelector('body'), 'status-homepage')) {
-    var lastUpdated = document.querySelector('.summary__date');
-    lastUpdated.innerHTML = '{{ T "lastChecked" }} {{ T "justNow" }}';
-
-    var lastUpdate = new Date();
-
-    function timeSince(date) {
-      var seconds = Math.floor((new Date() - date) / 1000);
-
-      var interval = Math.floor(seconds / 31536000);
-
-      if (interval > 1) {
-        return interval + ' {{ T "yearsAgo" }}';
-      }
-      interval = Math.floor(seconds / 2592000);
-      if (interval > 1) {
-        return interval + ' {{ T "monthsAgo" }}';
-      }
-      interval = Math.floor(seconds / 86400);
-      if (interval > 1) {
-        return interval + '{{ T "daysAgo" }}';
-      }
-      interval = Math.floor(seconds / 3600);
-      if (interval > 1) {
-        return interval + '{{ T "hoursAgo" }}';
-      }
-      interval = Math.floor(seconds / 60);
-      if (interval > 1) {
-        return interval + ' {{ T "minsAgo" }}';
-      }
-      return Math.floor(seconds) + '{{ T "secondsAgo" }}';
-    }
-    var aDay = 24*60*60*1000;
+  /**
+   * Changes elements with the class 'relative-time' into relative times and
+   * moves the timestamp to a title attribute tooltip.
+   */
+  function updateRelativeTimes() {
+    document.querySelectorAll('.relative-time')
+      .forEach(function(element) {
+        var time = Date.parse(element.getAttribute('title'));
+        var html = element.getAttribute('data-prefix') || '';
+        if (!time) {
+          time = element.innerText;
+          element.setAttribute('title', time || new Date);
+          html += '{{ T "justNow" }}';
+        } else {
+          html += timeSince(time) + ' {{ T "someTimeAgo" }}';
+        }
+        element.innerHTML = html.trim();
+      })
   }
+  updateRelativeTimes();
+  setInterval(updateRelativeTimes, 5000);
 
-  window.setInterval(function() {
-    if (hasClass(document.querySelector('body'), 'status-homepage')) {
-      lastUpdated.innerHTML = '{{ T "lastChecked" }} ' + timeSince(lastUpdate) + ' {{ T "someTimeAgo" }}';
-
-      // Refresh almost every 5m
-      if (Math.floor(new Date() - lastUpdate) > 290000) {
-        location.reload();
-      }
-    }
-  }, 5000)
+  // Reload homepage eevery 290 seconds
+  if (document.querySelector('body.status-homepage')) {
+    setInterval(location.reload, 290000)
+  }
 </script>
 
 
