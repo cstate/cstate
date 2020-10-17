@@ -1,5 +1,5 @@
-# English language file for cState
-# Version 4.1
+# Macedonian language file for cState
+# Version 4.4
 
 - id: languageCode
   translation: mk
@@ -146,3 +146,14 @@
   translation: Во последно време, врз основа на просечни податици, овој систем се сметал паднат за околу
 - id: averageSystemsDowntimeSecondPart
   translation: минути на време.
+
+##
+## v4.4
+##
+
+- id: in
+  translation: во
+- id: weeksAgo
+  translation: " н"
+- id: yearAgo
+  translation: " г"
