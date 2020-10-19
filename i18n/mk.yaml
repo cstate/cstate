@@ -1,0 +1,159 @@
+# Macedonian language file for cState
+# Version 4.4
+
+- id: languageCode
+  translation: mk
+- id: languageName
+  translation: Македонски
+- id: languageNameShort
+  translation: MK
+
+##
+## INDEX.HTML
+##
+
+# Summary status message
+- id: isDown
+  translation: Големи проблеми
+- id: isDisrupted
+  translation: Нарушување
+- id: isNotice
+  translation: Прочитај објава
+- id: isOk
+  translation: Сите системи оперативни
+
+# No JS warning
+- id: noScriptingIntro
+  translation: Изгледа дека сте исклучиле JavaScript.
+- id: noScriptingLink
+  translation: молиме уклучите скриптирање за да
+- id: noScriptingOutro
+  translation: го подобрите вашето искуство на оваа веб страна.
+
+- id: thisIsDown
+  translation: Паднато
+- id: thisIsDisrupted
+  translation: Нарушено
+- id: thisIsNotice
+  translation: Одржување
+- id: thisIsOk
+  translation: Оперативно
+
+# "Last checked" + "just now"
+- id: lastChecked
+  translation: Последно проверено
+- id: justNow
+  translation: сега
+- id: someTimeAgo
+  translation: претходно
+
+# Example usage: `5` + `years`
+# Final result: 'Last checked 5 years ago'
+# Number goes before string
+# Use short variants until months
+- id: yearsAgo
+  translation: години
+- id: monthsAgo
+  translation: месеци
+- id: daysAgo
+  translation: д
+- id: hoursAgo
+  translation: ч
+- id: minsAgo
+  translation: м
+- id: secondsAgo
+  translation: с
+
+- id: autoRefreshNotice
+  translation: Ќе пробаме да освежиме секои 5 минути.
+
+# Incidents
+- id: incidents
+  translation: Инциденти
+- id: incidentHistory
+  translation: Историја на инциденти
+
+- id: resolved
+  translation: Решено # if it's less than a min
+- id: inUnderAMinute
+  translation: под една минута # continuing the last string
+- id: resolvedAfter
+  translation: Решено после # + 19 min
+- id: ofDowntime
+  translation: од нарушување
+
+- id: downtimeOngoing
+  translation: Ова нарушување уште не е решено
+
+
+- id: calmBeforeTheStorm
+  translation: Дали е тихот пред бурата?
+- id: noIncidentsDesc
+  translation: Оваа статус страна нема најавени инциденти. Ова може да биде поради тоа што сопстениците на оваа страна ја поставиле оваа статусна страна неодамна, немале нарушувања или немале најави за нарушувања.
+
+
+- id: continueReading
+  translation: Продолжете со читање
+- id: prev
+  translation: Претходно
+- id: next
+  translation: Следно
+
+##
+## OTHER
+##
+
+- id: goBack
+  translation: Врати се назад
+- id: backToTop
+  translation: Врати се на врвот
+- id: poweredBy
+  translation: Напојувано со
+
+- id: notFound
+  translation: Нема ништо тука.
+- id: notFoundText
+  translation: Ова може да е проблем на нашата страна. Можеби преместивме некои ресурси и сега ги нема. Можни ресурсот што пробувате да го пристапите е празен. Ве молиме проверите го линкот повторно.
+
+- id: rss
+  translation: Претплатете се со RSS
+- id: toAllUpdates
+  translation: за сите најави
+- id: or
+  translation: или
+- id: onlyThisFeed
+  translation: само оваа содржина
+
+##
+## v3
+##
+- id: entries
+  translation: најави
+- id: newestToOldest
+  translation: најнови до најстари
+
+##
+## v4
+##
+- id: notFoundAffected
+  translation: Изгледа дека системот или не постои или нема најавени нарушувања.
+
+##
+## v4.1
+## 
+
+- id: averageSystemsDowntime
+  translation: Во последно време, врз основа на просечни податици, овој систем се сметал паднат за околу
+- id: averageSystemsDowntimeSecondPart
+  translation: минути на време.
+
+##
+## v4.4
+##
+
+- id: in
+  translation: во
+- id: weeksAgo
+  translation: " н"
+- id: yearAgo
+  translation: " г"
