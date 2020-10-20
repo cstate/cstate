@@ -164,7 +164,7 @@ collections:
                 - {label: "Name", name: "name", widget: string}
                 - {label: "Description", name: "description", widget: string, required: false}
                 - {label: "Should this category be open by default", name: "closed", widget: "boolean", required: false}
-                - {label: "Should the name of this category be shown? If you want to create the appearance of an Uncategorized category, enable this.", name: "untited", widget: "boolean", required: false}
+                - {label: "Should the name of this category be shown? If you want to create the appearance of an Uncategorized category, enable this.", name: "untitled", widget: "boolean", required: false}
               # Tabs
               - label: "Tabs"
                 hint: 'You can add extra tabs below the main homepage summary, for example, to external sites, monitoring services, as shown in the example below. Try Uptime Robot!'
