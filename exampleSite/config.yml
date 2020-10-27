@@ -159,17 +159,17 @@ params:
 
   # If enabled, will display relative times for incident history and summaries instead of using dateFormat.
   #
-  # Default: true
+  # Default: `true`
   useRelativeTime: true
 
   # If enabled, doesn't show seconds on relative times.
   #
-  # Default: false
+  # Default: `false`
   skipSeconds: false
 
   # What header design should we use?
   #
-  # Default: true
+  # Default: `true`
   # BOOLEAN; `true`, `false`
   useLargeHeaderDesign: false
 
@@ -212,7 +212,7 @@ params:
   # Should we show the logo or the title
   # of the status page?
   #
-  # Default: false
+  # Default: `false`
   # BOOLEAN; `true`, `false`
   useLogo: true
 
@@ -249,7 +249,7 @@ params:
   # for average downtime on
   # systems ("/affected/") pages
   #
-  # Default: false
+  # Default: `false`
   # BOOLEAN; `true`, `false`
   disableComplexCalculations: false
 
