@@ -28,6 +28,7 @@ You can also support the creator of this project by **starring, sharing, and usi
 * [Content Ignite](https://status.contentignite.com/)
 * [FSCI](https://status.fsci.in/)
 * [Storehouse](https://status.sthse.co)
+* [Hyrousek](https://status.hyrousek.tk)
 
 *Want your status page here? [Create a PR](https://github.com/cstate/cstate/edit/dev/README.md)!*
 
