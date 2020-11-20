@@ -1,13 +1,25 @@
 {{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
 
 
-{{ range ($incidents.GroupByDate "2006") }}
-  
-  <p class="center archive__head" id="archive-{{ .Key }}"><a href="#archive-{{ .Key }}" class="no-underline"><strong>{{ .Key }}</strong>
-    <span class="faded">({{ len .Pages }})</span>
-  </a></p>
-  
-  {{ range .Pages }}
+{{ if .Site.Params.useLocalTime }}
+  <div class="page-template hidden">
+    <p class="center page-anchor archive__head"><a class="page-link no-underline"><strong class="page-date"></strong>
+      <span class="page-count faded"></span>
+    </a></p>
+  </div>
+
+  {{ range $incidents }}
     {{ .Render "small" }}
+  {{ end }}
+{{ else }}
+  {{ range ($incidents.GroupByDate "2006") }}
+
+    <p class="center archive__head" id="archive-{{ .Key }}"><a href="#archive-{{ .Key }}" class="no-underline"><strong>{{ .Key }}</strong>
+      <span class="faded">({{ len .Pages }})</span>
+    </a></p>
+
+    {{ range .Pages }}
+      {{ .Render "small" }}
+    {{ end }}
   {{ end }}
 {{ end }}

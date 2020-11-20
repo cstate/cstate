@@ -95,6 +95,95 @@
   }, 5000)
 </script>
 
+{{ if .Site.Params.useLocalTime }}
+  <script type="text/javascript">
+    var dates = document.getElementsByClassName('date');
+    var options = {year: "numeric", month: "long", day: "numeric", hour: "numeric", minute: "2-digit"};
+
+    for (var i = 0; i < dates.length; i++) {
+      var el = dates.item(i);
+      var date = new Date(Date.parse(el.textContent.trim()));
+      el.textContent = date.toLocaleDateString(undefined, options);
+    }
+  </script>
+
+  <script type="text/javascript">
+    var dates = document.getElementsByClassName('short-date');
+    var options = {month: "short", day: "numeric", hour: "numeric", minute: "2-digit"};
+
+    for (var i = 0; i < dates.length; i++) {
+      var el = dates.item(i);
+      var date = new Date(Date.parse(el.textContent.trim()));
+      el.textContent = "("+date.toLocaleDateString(undefined, options)+")";
+    }
+  </script>
+
+  <script type="text/javascript">
+{{ if eq .Site.Params.incidentHistoryFormat "yearly" }}
+    function getAnchor(date) { return date.getFullYear().toString() }
+    function getTitle(date) { return date.toLocaleDateString(undefined, {year: "numeric"}); }
+{{ else }}
+    function getAnchor(date) { return date.getFullYear().toString()+"-"+(date.getMonth() + 1).toString(); }
+    function getTitle(date) { return date.toLocaleDateString(undefined, {year: "numeric", month: "long"}); }
+{{ end }}
+
+    var incidentContainer = document.getElementById('incidents');
+    var template = incidentContainer.getElementsByClassName('page-template').item(0);
+
+    var currentCategory = undefined;
+    var currentCount = 0;
+    var currentHeader = undefined;
+
+    function cloneHeader(beforeElement, date) {
+      var date = new Date(Date.parse(child.getAttribute("data-date")));
+
+      var header = template.cloneNode(true);
+      header.classList.remove("hidden");
+
+      header.getElementsByClassName("page-date")[0].textContent = getTitle(date);
+
+      var anchor = "archive-"+getAnchor(date);
+      header.getElementsByClassName("page-anchor")[0].id = anchor;
+      header.getElementsByClassName("page-link")[0].setAttribute("href", "#"+anchor);
+
+      return header
+    }
+
+    for (var i = 0; i < incidentContainer.children.length; i++) {
+      var child = incidentContainer.children.item(i);
+      if (!child.classList.contains("issue")) {
+        continue;
+      }
+
+      var date = new Date(Date.parse(child.getAttribute("data-date")));
+      var category = getAnchor(date);
+
+      if (currentCategory === undefined) {
+        currentCategory = category;
+        currentHeader = cloneHeader(child, date);
+
+        // Increment "i" because we added an element to the incidentContainer
+        child.insertAdjacentElement("beforebegin", currentHeader);
+        i++;
+      } else if (category !== currentCategory) {
+        currentHeader.getElementsByClassName("page-count")[0].textContent = " ("+currentCount.toString()+")";
+
+        currentCategory = category;
+        currentCount = 0;
+        currentHeader = cloneHeader(child, date);
+
+        // Increment "i" because we added an element to the incidentContainer
+        child.insertAdjacentElement("beforebegin", currentHeader);
+        i++;
+      }
+
+      currentCount++;
+    }
+
+    currentHeader.getElementsByClassName("page-count")[0].textContent = " ("+currentCount.toString()+")";
+  </script>
+{{ end }}
+
 
 {{ if ne .Site.Params.googleAnalytics "UA-00000000-1" }}
   <!-- Global site tag (gtag.js) - Google Analytics -->

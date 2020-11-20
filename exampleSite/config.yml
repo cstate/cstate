@@ -157,6 +157,15 @@ params:
   dateFormat: January 2, 2006 at 3:04 PM
   shortDateFormat: 15:04 — Jan 2
 
+  # Should dates be in UTC or a users local timezone?
+  #
+  # Note: This will override "dateFormat" and "shortDateFormat" as the dates
+  # will now be rendered client-side by Javascript.
+  #
+  # Default: `false`
+  # BOOLEAN; `true`, `false`
+  useLocalTime: false
+
   # What header design should we use?
   #
   # Default: true

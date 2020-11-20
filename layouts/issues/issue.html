@@ -11,7 +11,9 @@
   </h1>
 
   <small class="date">
-    {{ if .Site.Params.dateFormat }}
+    {{ if .Site.Params.useLocalTime }}
+      {{ .Date.Format "2006-01-02T15:04:05Z" }}
+    {{ else if .Site.Params.dateFormat }}
       {{ .Date.Format .Site.Params.dateFormat }}
     {{ else }}
       {{ .Date.Format "January 2, 2006 at 3:04 PM" }}

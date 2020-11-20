@@ -5,11 +5,13 @@
 {{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}
 {{ $isDown := where $active "Params.severity" "=" "down" }}
 
-<a href="{{ .Permalink }}" class="issue no-underline">
+<a href="{{ .Permalink }}" class="issue no-underline" data-date="{{ .Date.Format "2006-01-02T15:04:05Z" }}">
   {{ if .Params.informational }}
     
     <small class="date float-right">
-      {{ if .Site.Params.dateFormat }}
+      {{ if .Site.Params.useLocalTime }}
+        {{ .Date.Format "2006-01-02T15:04:05Z" }}
+      {{ else if .Site.Params.dateFormat }}
         {{ .Date.Format .Site.Params.dateFormat }}
       {{ else }}
         {{ .Date.Format "January 2, 2006 at 3:04 PM" }}
@@ -24,7 +26,9 @@
   
   {{ else if .Params.Resolved }}
     <small class="date float-right">
-      {{ if .Site.Params.dateFormat }}
+      {{ if .Site.Params.useLocalTime }}
+        {{ .Date.Format "2006-01-02T15:04:05Z" }}
+      {{ else if .Site.Params.dateFormat }}
         {{ .Date.Format .Site.Params.dateFormat }}
       {{ else }}
         {{ .Date.Format "January 2, 2006 at 3:04 PM" }}
@@ -68,7 +72,9 @@
   {{ else }}
 
     <small class="date float-right">
-      {{ if .Site.Params.dateFormat }}
+      {{ if .Site.Params.useLocalTime }}
+        {{ .Date.Format "2006-01-02T15:04:05Z" }}
+      {{ else if .Site.Params.dateFormat }}
         {{ .Date.Format .Site.Params.dateFormat }}
       {{ else }}
         {{ .Date.Format "January 2, 2006 at 3:04 PM" }}
