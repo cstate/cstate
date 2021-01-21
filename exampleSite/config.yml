@@ -89,7 +89,14 @@ defaultContentLanguage: en
 # version 3. If you are just testing,
 # localhost should automatically work.
 #
-# Example: https://status.example.com/
+# Example: 
+# baseUrl: https://status.example.com/
+#
+# For testing:
+# baseUrl: http://localhost
+#
+# Broken example:
+# baseUrl: /
 baseURL: https://cstate.mnts.lt
 
 ############################################################
