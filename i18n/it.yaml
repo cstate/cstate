@@ -31,7 +31,7 @@
   translation: per migliorare la tua esperienza su questo sito web.
 
 - id: thisIsDown
-  translation: Giù
+  translation: Disservizio
 - id: thisIsDisrupted
   translation: Irregolare
 - id: thisIsNotice
@@ -143,7 +143,7 @@
 ##
 
 - id: averageSystemsDowntime
-  translation: Di recente, in base ai dati medi, sembra che questo sistema sia andato giù per circa
+  translation: Di recente, in base ai dati medi, sembra che questo sistema abbia avuto disservizi per circa
 - id: averageSystemsDowntimeSecondPart
   translation: minuti per volta
 
