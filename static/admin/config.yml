@@ -128,6 +128,7 @@ collections:
             - { label: "🇩🇪 Deutsch", value: "de" }
             - { label: "🇳🇱 Dutch", value: "nl" }
             - { label: "🇫🇷 French", value: "fr" }
+            - { label: "🇮🇹 Italiano", value: "it" }
             - { label: "🇧🇷 Portuguese", value: "pt"}
             - { label: "🇲🇰 Македонски", value: "mk" }
             - { label: "🏳️ Tagalog", value: "tl" }
