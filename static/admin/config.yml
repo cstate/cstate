@@ -140,7 +140,7 @@ collections:
           - label: 'Base URL / Hostname'
             name: 'baseURL'
             widget: 'string'
-            hint: 'Where is the site hosted? What is the hostname or path to the root? Slash forces relative links but may not work in all setups.'
+            hint: 'Where is the site hosted? Hostname (and path) to the root. Prior to version 3, a slash was used which now works in local testing, but breaks certain features of cState like RSS feeds, so a correct example for production is: https://cstate.mnts.lt'
             default: '/'
           # PARAMS
           - label: "Params"
