@@ -120,7 +120,7 @@ You can [make Netlify CMS work on GitLab](https://www.netlifycms.org/docs/gitlab
 
 #### 🖤 Other platforms
 
-At this time, as of the author's knowledge, there are no other platforms that support 'easy' deployment (if you know any — [let us know](#contribute-)).
+Check out [Forestry.io](//forestry.io) and [Vercel](//vercel.com).
 
 Keep reading to see how to deploy manually.
 
