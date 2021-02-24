@@ -58,6 +58,8 @@ There are other commercial options that may update faster because of their archi
 
 ### List of possibilities
 
+**Please note that with all that cState _can_ do, it cannot do automatic monitoring. [See this thread](https://github.com/cstate/cstate/issues/124)**
+
 | **cState is designed with care**                                                                                         	| **Fast, reliable, and free (even with host)**                                                                            	| **Easy to setup, manage, use**                                                                                                                           	|
 |--------------------------------------------------------------------------------------------------------------------------	|--------------------------------------------------------------------------------------------------------------------------	|----------------------------------------------------------------------------------------------------------------------------------------------------------	|
 | A simple and focused user interface & experience with [instant loading](https://github.com/cstate/cstate/issues/117), suitable for any brand                            	| Built with [Hugo](https://gohugo.io), a hyperfast Golang static site generator (SSG)                                     	| As easy as WordPress: if you don't like getting into the code, try Netlify CMS                                                                           	|
