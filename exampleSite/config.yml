@@ -161,17 +161,44 @@ params:
   #
   # dateFormat Default: "January 2, 2006 at 3:04 PM"
   # shortDateFormat Default: "15:04 — Jan 2"
-  dateFormat: January 2, 2006 at 3:04 PM
-  shortDateFormat: 15:04 — Jan 2
+  dateFormat: January 2, 2006 at 3:04 PM UTC
+  shortDateFormat: 15:04 UTC — Jan 2
 
-  # If enabled, will display relative times for incident history and summaries instead of using dateFormat.
+  # Should relative time (x min ago) be used?
+  #
+  # IMPORTANT: In the frontmatter, the dates MUST be in
+  # the UTC time zone for this to work preperly. If you 
+  # use Netlify CMS, all good — the CMS picks UTC time
+  # by default. Otherwise, there may be very inaccurate
+  # times if multiple time zones are in your issue files.
+  #
+  # FOR YOUR CONSIDERATION: This feature was introduced in
+  # v5. It may be a breaking change in the case when you
+  # wish to use relative time but old issues do not have
+  # UTC time (and therefore are out of sync by ±24 hours)
+  #
+  # Read the wiki for more: 
+  # https://github.com/cstate/cstate/wiki/Customization#time 
+  #
+  # If enabled, will display relative times in places like
+  # the incident history and summaries instead of using
+  # dateFormat and shortDateFormat (except for if you use
+  # the old shortcode).
   #
   # Default: `true`
+  # BOOLEAN; `true`, `false`
   useRelativeTime: true
-
+ 
   # If enabled, doesn't show seconds on relative times.
   #
+  # With option ON (true):
+  # "Last checked <1 min ago"
+  #
+  # With option OFF (false; default):
+  # "Last checked 20s ago"
+  #
   # Default: `false`
+  # BOOLEAN; `true`, `false`
   skipSeconds: false
 
   # What header design should we use?

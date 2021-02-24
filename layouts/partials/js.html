@@ -3,11 +3,11 @@
    * Dev toolset
    */
 
-  console.log('cState v4.4 - https://github.com/cstate/cstate');
+  console.log('cState v5 Dev - https://github.com/cstate/cstate');
   document.getElementsByTagName('html')[0].className = 'js';
 
   /**
-   * Make theme color pretty
+   * Change header color based on status
    */
 
   if (document.body.className === 'change-header-color') {
@@ -43,6 +43,7 @@
   /**
    * Returns a relative date string for the given date.
    */
+  
   function timeSince(date) {
     var seconds = Math.floor((new Date() - date) / 1000);
 
@@ -78,6 +79,7 @@
    * Changes elements with the class 'relative-time' into relative times and
    * moves the timestamp to a title attribute tooltip.
    */
+  
   function updateRelativeTimes() {
     var elements = document.querySelectorAll('.relative-time');
     for (var i = 0; i < elements.length; i++) {
@@ -95,21 +97,17 @@
       element.innerHTML = html.trim();
     }
   }
-  updateRelativeTimes();
-  setInterval(updateRelativeTimes, 5000);
 
-  /**
-   * Reload homepage after 290 seconds.
-   */
-  if (document.querySelector('body.status-homepage')) {
-    setTimeout(location.reload, 290000)
-  }
+  updateRelativeTimes();
+
+  // Update "time since" feature every 5s
+  setInterval(updateRelativeTimes, 5000);
 </script>
 
 
 {{ if ne .Site.Params.googleAnalytics "UA-00000000-1" }}
   <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script type="text/javascript" defer src="https://www.googletagmanager.com/gtag/js?id=UA-109775664-1"></script>
+  <script type="text/javascript" defer src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.googleAnalytics }}"></script>
   <script type="text/javascript" defer>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
