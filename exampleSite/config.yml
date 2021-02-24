@@ -99,6 +99,19 @@ defaultContentLanguage: en
 # baseUrl: /
 baseURL: https://cstate.mnts.lt
 
+# For features like Last modified, you
+# need to use a Git repository. If you
+# are using Netlify, you are already
+# using Git (with GitHub, GitLab, etc)
+#
+# So, should Git information be used
+# for this website?
+#
+# We recommend to keep this at `true`.
+# BOOLEAN; `true`, `false`
+enableGitInfo: true
+
+
 ############################################################
 # +------------------------------------------------------+ #
 # |                   Preferences                        | #
@@ -200,6 +213,13 @@ params:
   # Default: `false`
   # BOOLEAN; `true`, `false`
   skipSeconds: false
+
+  # Should there be an automatic "Last updated"
+  # text shown below issues?
+  #
+  # Default: `true`
+  # BOOLEAN; `true`, `false`
+  enableLastMod: true
 
   # What header design should we use?
   #
@@ -374,6 +394,10 @@ outputs:
     - json
     - rss
     - svg
+  term:
+    - html
+    - json
+    - rss
 
 outputFormats:
   svg:

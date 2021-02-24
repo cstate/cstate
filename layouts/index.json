@@ -7,7 +7,7 @@
   "languageCode": "{{ T "languageCode" }}",
   "baseURL": "{{ .Site.BaseURL }}", 
   "description": "{{ .Site.Params.Description }}",
-  "summaryStatus":{{ if $isDown }}"down",{{ else }}{{ if $isDisrupted }}"disrupted",{{ else }}{{ if $isNotice }}"notice",{{ else }}"ok",{{ end }}{{ end }}{{ end }} 
+  "summaryStatus": {{ if $isDown }}"down",{{ else }}{{ if $isDisrupted }}"disrupted",{{ else }}{{ if $isNotice }}"notice",{{ else }}"ok",{{ end }}{{ end }}{{ end }} 
   "categories": [{{ range $i, $e := .Site.Params.categories }}{{ if $i }},{{ end }}
       {
         "name": "{{ .name }}",{{ if .description }}

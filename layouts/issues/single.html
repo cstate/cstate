@@ -13,9 +13,24 @@
     </div>
 
     <div class="contain">
-      {{ .Render "issue" }}
+      {{ .Render "issue" }} 
     </div>
+    
+    {{ if .Site.Params.enableLastMod }}
+    <div class="contain center">
+      <p>{{ T "lastChecked" }}:
 
+        {{ if .Site.Params.dateFormat }}
+        {{ .Lastmod.UTC.Format .Site.Params.dateFormat }}
+      {{ else }}
+        {{ .Lastmod.Format "January 2, 2006 at 3:04 PM" }}
+      {{ end }}
+      </p>
+    </div>
+    {{ end }}
+
+
+    
 
     {{ partial "js" . }}
     {{ partial "footer" . }}

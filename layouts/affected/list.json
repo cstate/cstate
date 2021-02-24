@@ -1,0 +1,37 @@
+{{ $incidents := .Pages }}{{ $active := where $incidents "Params.resolved" "=" false }}{{ $isNotice := where $active "Params.severity" "=" "notice" }}{{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}{{ $isDown := where $active "Params.severity" "=" "down" }}{
+  "is": "system",
+  "title": "{{ .Title }}",
+  "permalink": "{{ .Permalink }}",
+  "status": {{ if $isDown }}"down",{{ else }}{{ if $isDisrupted }}"disrupted",{{ else }}{{ if $isNotice }}"notice",{{ else }}"ok",{{ end }}{{ end }}{{ end }} 
+  "pages": [{{ range $i, $e := .Pages }}{{ if $i }},{{ end }}{{ if eq .Section "issues" }}
+      {
+        "is": "issue",
+        "title": "{{ .Title }}",
+        "createdAt": "{{ .Date }}",
+        "lastMod": "{{ .Lastmod }}",
+        "permalink": "{{ .Permalink }}",
+        "severity": "{{ .Params.severity }}",
+        "resolved": {{ if .Params.resolved }}true{{ else }}false{{ end }},
+        "informational": {{ if .Params.informational }}true{{ else }}false{{ end }},
+        "resolvedAt": "{{ .Params.resolvedWhen }}",
+        "affected": [{{ range $i, $e := .Params.Affected }}{{ if $i }}, {{ end }}"{{ . }}"{{ end }}],
+        "filename": "{{ .File.LogicalName }}"
+      }
+    {{ else }}
+      {
+        "is": "page",
+        "title": "{{ .Title }}",
+        "createdAt": "{{ .Date }}",
+        "lastMod": "{{ .Lastmod }}",
+        "permalink": "{{ .Permalink }}",
+        "filename": "{{ .File.LogicalName }}",
+        "summary": {{ jsonify .Summary }}
+      }
+    {{ end }}{{ end }}
+  ], 
+}
+
+
+
+
+

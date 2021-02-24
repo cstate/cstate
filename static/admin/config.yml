@@ -110,18 +110,6 @@ collections:
             hint: 'What is your status page called? Shows up in the browser bar and meta.'
             name: 'title'
             widget: 'string'
-          - label: 'Use relative time (issue began x min ago)'
-            name: 'useRelativeTime'
-            widget: 'boolean'
-            hint: 'IMPORTANT: In the frontmatter, the dates MUST be in the UTC time zone. If you use Netlify CMS, the CMS picks UTC time by default, so no need to worry. However, there may be very inaccurate times, if you manually define non-UTC time in your issues. Read the wiki for more: https://github.com/cstate/cstate/wiki/Customization#time'
-            required: false
-            default: true
-          - label: 'Skip seconds in relative time calculations?'
-            name: 'skipSeconds'
-            widget: 'boolean'
-            hint: 'For users of relative time. With option ON (true): "Last checked <1 min ago". With option OFF (false; default): "Last checked 20s ago". Read the wiki for more: https://github.com/cstate/cstate/wiki/Customization#skip-seconds-v50'
-            required: false
-            default: false
           - label: 'Build future posts'
             name: 'buildFuture'
             widget: 'boolean'
@@ -189,19 +177,37 @@ collections:
                 - {label: "Name", name: "name", widget: string}
                 - {label: "Link", name: "link", widget: string}
               # Dates
+              - label: 'Show last modified date at bottom of issues'
+                name: 'enableLastMod'
+                widget: 'boolean'
+                hint: 'Experimental feature shows when changes occured based on Git info. Read the wiki for more: https://github.com/cstate/cstate/wiki/Customization#time'
+                required: false
+                default: false
+              - label: 'Use relative time (issue began x min ago)'
+                name: 'useRelativeTime'
+                widget: 'boolean'
+                hint: 'IMPORTANT: In the frontmatter, the dates MUST be in the UTC time zone. If you use Netlify CMS, the CMS picks UTC time by default, so no need to worry. However, there may be very inaccurate times, if you manually define non-UTC time in your issues. Read the wiki for more: https://github.com/cstate/cstate/wiki/Customization#time'
+                required: false
+                default: true
+              - label: 'Skip seconds in relative time calculations?'
+                name: 'skipSeconds'
+                widget: 'boolean'
+                hint: 'For users of relative time. With option ON (true): "Last checked <1 min ago". With option OFF (false; default): "Last checked 20s ago". Read the wiki for more: https://github.com/cstate/cstate/wiki/Customization#skip-seconds-v50'
+                required: false
+                default: false
               - label: 'Long date format'
                 name: 'dateFormat'
                 widget: 'string'
-                hint: 'Default: January 2, 2006 at 3:04 PM UTC. Ddocs:  https://github.com/cstate/cstate/wiki/Customization#changing-date-formats-v30'
+                hint: 'Default: January 2, 2006 at 3:04 PM UTC. Docs:  https://github.com/cstate/cstate/wiki/Customization#changing-date-formats-v30'
                 default: 'January 2, 2006 at 3:04 PM UTC'
               - label: 'Short date format'
                 name: 'shortDateFormat'
                 widget: 'string'
-                hint: 'Default: 15:04 UTC — Jan 2. Hugo formatting docs: https://github.com/cstate/cstate/wiki/Customization#changing-date-formats-v30'
+                hint: 'Default: 15:04 UTC — Jan 2. Docs: https://github.com/cstate/cstate/wiki/Customization#changing-date-formats-v30'
                 default: '15:04 UTC — Jan 2'
               # Design site title color toggle in v4.0.1
               - label: 'Site title text color'
-                hint: 'This is irrelevant, if you use a logo in your header. Docs: https://github.com/cstate/cstate/wiki/Customization#changing-date-formats-v30'
+                hint: 'This is irrelevant, if you use a logo in your header.'
                 name: 'headerTextColor'
                 widget: 'select'
                 default: 'white'
@@ -303,36 +309,61 @@ collections:
                 name: 'enableCustomHTML'
                 widget: 'boolean'
                 default: 'false'
-          # REQUIRED BUT HIDDEN
-          - label: 'theme'
-            name: 'theme'
-            widget: 'hidden'
-            default: 'cstate'
-          - label: 'preserveTaxonomyNames'
-            name: 'preserveTaxonomyNames'
-            widget: 'hidden'
-            default: 'true'
-          - label: "taxonomies"
-            name: taxonomies
-            widget: "hidden"
-            fields:
-              - {label: "affected", name: "affected", widget: "hidden", default: "affected"}
-          - label: "outputs (Do not touch!)"
-            name: outputs
-            widget: "hidden"
-            fields:
-              - label: "page"
-                name: page
-                widget: "list"
-                allow_add: false
-                default: ['html', 'json']
-              - label: "section"
-                name: section
-                widget: "list"
-                allow_add: false
-                default: ['html', 'json', 'rss']
-              - label: "home"
-                name: home
-                widget: "list"
-                allow_add: false
-                default: ['html', 'json', 'rss']
+        # REQUIRED BUT HIDDEN
+        - label: 'theme'
+          name: 'theme'
+          widget: 'hidden'
+          default: 'cstate'
+        - label: 'preserveTaxonomyNames'
+          name: 'preserveTaxonomyNames'
+          widget: 'hidden'
+          default: 'true'
+        - label: "taxonomies"
+          name: taxonomies
+          widget: "hidden"
+          fields:
+            - {label: "affected", name: "affected", widget: "hidden", default: "affected"}
+        - label: "Outputs (Do not touch!)"
+          name: outputs
+          widget: "hidden"
+          fields:
+            - label: "page"
+              name: page
+              widget: "list"
+              allow_add: false
+              default: ['html', 'json']
+            - label: "section"
+              name: section
+              widget: "list"
+              allow_add: false
+              default: ['html', 'json', 'rss']
+            - label: "home"
+              name: home
+              widget: "list"
+              allow_add: false
+              default: ['html', 'json', 'rss', 'svg']
+            - label: "term"
+              name: term
+              widget: "list"
+              allow_add: false
+              default: ['html', 'json', 'rss']
+        - label: "Output formats (Do not touch!)"
+          name: outputFormats
+          widget: "hidden"
+          fields:
+            - label: "svg"
+              name: svg 
+              fields:
+              - label: "isPlainText"
+                name: isPlainText
+                widget: "boolean"
+                default: true
+              - label: "mediaType"
+                name: mediaType
+                default: "image/svg+xml"
+        - label: 'Enable Git info'
+          name: 'enableGitInfo'
+          widget: 'hidden'
+          hint: 'Docs: https://github.com/cstate/cstate/wiki/Customization#time'
+          required: false
+          default: true

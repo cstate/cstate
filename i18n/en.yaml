@@ -42,7 +42,7 @@
 
 # "Last checked" + "just now"
 - id: lastChecked
-  translation: Last checked
+  translation: Last updated
 - id: justNow
   translation: just now
 - id: someTimeAgo
