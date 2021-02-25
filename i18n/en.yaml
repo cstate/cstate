@@ -21,7 +21,7 @@
 - id: isNotice
   translation: Please read announcement
 - id: isOk
-  translation: All systems operational
+  translation: No issues detected
 
 # No JS warning
 - id: noScriptingIntro
