@@ -48,15 +48,48 @@
       <div class="padding"></div>
       {{ end }}
 
+      
       {{ $categorySystems := where $systems "category" "=" .name }}
 
       <div class="components">
       {{ range $categorySystems }}
-        {{ $activeComponentIssues := where $active "Params.affected" "intersect" (slice .name) }}
+        <!-- New in v5 is this system of checking the status of a category -->
+        <!-- It is case insensitive at the cost of lots of code -->
+        {{ $caseInsensitiveSystemName := lower .name }} 
+        
+        <!-- Notice categories  -->
+        {{ range $isNotice }} 
+          {{ $allNoticeSystemsLowercaseRange := apply .Params.affected "lower" "." }}
+          {{ $part := delimit $allNoticeSystemsLowercaseRange " " }} 
+          {{ $.Scratch.Add "allNoticeSystemsLowercaseString" $part }}
+        {{ end }}
+        {{ $allNoticeComponents := $.Scratch.Get "allNoticeSystemsLowercaseString" }}
+        {{ $.Scratch.Set "allNoticeSystemsLowercaseString" "" }}
 
-        {{ $thisIsNotice := where $activeComponentIssues "Params.severity" "=" "notice" }}
-        {{ $thisIsDisrupted := where $activeComponentIssues "Params.severity" "=" "disrupted" }}
-        {{ $thisIsDown := where $activeComponentIssues "Params.severity" "=" "down" }}
+        <!-- Disrupted categories  -->
+        {{ range $isDisrupted }} 
+          {{ $allDisruptedSystemsLowercaseRange := apply .Params.affected "lower" "." }}
+          {{ $part := delimit $allDisruptedSystemsLowercaseRange " " }} 
+          {{ $.Scratch.Add "allDisruptedSystemsLowercaseString" $part }}
+        {{ end }}
+        {{ $allDisruptedComponents := $.Scratch.Get "allDisruptedSystemsLowercaseString" }}
+        {{ $.Scratch.Set "allDisruptedSystemsLowercaseString" "" }} 
+        
+        <!-- Down categories  -->
+        {{ range $isDown }} 
+          {{ $allDownSystemsLowercaseRange := apply .Params.affected "lower" "." }}
+          {{ $part := delimit $allDownSystemsLowercaseRange " " }} 
+          {{ $.Scratch.Add "allDownSystemsLowercaseString" $part }}
+        {{ end }}
+        {{ $allDownComponents := $.Scratch.Get "allDownSystemsLowercaseString" }}
+        {{ $.Scratch.Set "allDownSystemsLowercaseString" "" }} 
+ 
+        
+        <!-- Now finally check -->
+        {{ $thisIsNotice := in $allNoticeComponents $caseInsensitiveSystemName }}
+        {{ $thisIsDisrupted := in $allDisruptedComponents $caseInsensitiveSystemName }}
+        {{ $thisIsDown := in $allDownComponents $caseInsensitiveSystemName }}
+
 
         <div class="component" data-status="{{ if $thisIsDown }}down{{ else }}{{ if $thisIsDisrupted }}disrupted{{ else }}{{ if $thisIsNotice }}notice{{ else }}ok{{ end }}{{ end }}{{ end }}">
           <a href="{{ printf "/affected/%s/" (.name | urlize) | relURL }}" class="no-underline">
