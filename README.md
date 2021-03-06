@@ -1,16 +1,12 @@
-<p align="center"><img src="images/cstate-logo-bg.svg?sanitize=true" alt="cState example illustration"></p>
-
-<p align="center"><a href="https://github.com/cstate/cstate/releases"><img src="https://img.shields.io/github/release/cstate/cstate/all.svg?style=flat-square" alt="GitHub release" /></a> <a href="https://github.com/cstate/cstate/commits/master"><img src="https://img.shields.io/github/last-commit/cstate/cstate.svg?style=flat-square" alt="GitHub last commit" /></a> <a href="https://github.com/cstate/cstate/tree/master/"><img src="https://img.shields.io/github/repo-size/cstate/cstate.svg?style=flat-square" alt="GitHub repo size in bytes" /></a> <a href="https://discord.gg/zYCjzys"><img src="https://img.shields.io/badge/discord-support-7289DA.svg?logo=discord&style=flat-square" alt="Discord Chat" /></a>  <a href="https://github.com/ivbeg/awesome-status-pages"><img src="https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg" alt="Awesome status page" /></a></p>
+<p align="center"><img src="images/cstate-logo-bg.svg?sanitize=true" width="500" height="auto" alt="cState example illustration"></p>
 
 > Über fast, backwards compatible (IE8+), tiny, and simple status page built with Hugo. Completely _free_ with Netlify. Comes with Netlify CMS, read-only API, and other useful features.
 
-## Sponsors 🏅
+<a href="https://github.com/cstate/cstate/commits/master"><img src="https://img.shields.io/github/last-commit/cstate/cstate.svg?style=flat-square" alt="GitHub last commit" /></a>  <a href="https://github.com/ivbeg/awesome-status-pages"><img src="https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg" alt="Awesome status page" /></a>
 
-<a href="//statuspal.io"><img src="images/statuspal-logo-with-text.png" alt="Statuspal" width="200"></a>
+<a href="//statuspal.io">Sponsored by <img src="images/statuspal-logo-with-text.png" alt="Statuspal" width="150"></a>
 
-You can also support the creator of this project by **starring, sharing, and using cState**. Thank you!
-
-[*Learn more about sponsorships*](https://github.com/sponsors/mistermantas)
+You can also support the creator of this project by **starring, sharing, using cState and/or [financially supporting the author](https://github.com/sponsors/mistermantas)**. Thank you!
 
 ## Examples 🥳
 
@@ -18,8 +14,6 @@ You can also support the creator of this project by **starring, sharing, and usi
 
 * [**Example site — cstate.mnts.lt**](https://cstate.mnts.lt)
 * [Source code of the example cState site](https://github.com/cstate/example)
-
-*Thank you to [Netlify](https://www.netlify.com) for hosting our demo websites!*
 
 ### More examples from the internet
 
