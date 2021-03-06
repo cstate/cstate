@@ -319,14 +319,23 @@
     .status-notice .announcement-box { border-top: 0; }
 
     /**
-     * Dynamically show individual component statuses
+     * Dynamically show component statuses
      */
 
-    .component-status { float: right; }
-    .component[data-status="ok"] .component-status { color: {{ .Site.Params.ok }}; }
-    .component[data-status="disrupted"] .component-status { color: {{ .Site.Params.disrupted }}; }
-    .component[data-status="down"] .component-status { color: {{ .Site.Params.down }}; }
-    .component[data-status="notice"] .component-status { color: {{ .Site.Params.notice }}; }
+    .category--open .category-status { display: none; }
+    .component-status, .category-status { float: right; }
+    .component[data-status="ok"] .component-status,
+    .category__head[data-status="ok"] .category-status
+    { color: {{ .Site.Params.ok }}; }
+    .component[data-status="disrupted"] .component-status,
+    .category__head[data-status="disrupted"] .category-status
+    { color: {{ .Site.Params.disrupted }}; }
+    .component[data-status="notice"] .component-status,
+    .category__head[data-status="notice"] .category-status
+    { color: {{ .Site.Params.notice }}; }
+    .component[data-status="down"] .component-status,
+    .category__head[data-status="down"] .category-status
+    { color: {{ .Site.Params.down }}; }
 
     /**
      * Responsiveness
@@ -386,15 +395,19 @@
         .error { color: #ff4242; }
         .warning {color: #ffde7f; }
         .ok { color: #7fff7f; }
-
-        .component[data-status="ok"] 
-        .component-status { color: #7fff7f; }
-        .component[data-status="disrupted"] 
-        .component-status { color: #ffde7f; }
-        .component[data-status="notice"] 
-        .component-status { color: #83a4e8; }
-        .component[data-status="down"]
-        .component-status { color: #ff8181; }
+ 
+        .component[data-status="ok"] .component-status,
+        .category__head[data-status="ok"] .category-status
+        { color: #7fff7f; }
+        .component[data-status="disrupted"] .component-status,
+        .category__head[data-status="disrupted"] .category-status
+        { color: #ffde7f; }
+        .component[data-status="notice"] .component-status,
+        .category__head[data-status="notice"] .category-status
+        { color: #83a4e8; }
+        .component[data-status="down"] .component-status,
+        .category__head[data-status="down"] .category-status
+        { color: #ff8181; }
       }
     {{ end }}
     </style>

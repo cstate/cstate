@@ -5,9 +5,9 @@ date: 2021-02-24 10:35:00
 resolved: false
 resolvedWhen: 2021-02-24 12:10:00
 # Possible severity levels: down, disrupted, notice
-severity: disrupted
+severity: notice
 affected:
-  - API
+  - Gateway
 section: issue
 ---
 

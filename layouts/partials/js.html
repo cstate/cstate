@@ -40,6 +40,18 @@
     document.location.pathname = '/admin';
   }
 
+  /** 
+   * Category logic
+   */
+
+  function toggleCategoryHead(el) {
+    if (el.parentNode.className == 'category category--open category--titled') {
+      el.parentNode.className = 'category category--closed category--titled';
+    } else {
+      el.parentNode.className = 'category category--open category--titled';
+    }
+  }
+
   /**
    * Returns a relative date string for the given date.
    */
