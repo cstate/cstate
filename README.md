@@ -74,10 +74,9 @@ There are other commercial options that may update faster because of their archi
 ## Getting started 💻
 
 This is how you create a **new site powered by cState.**  What you are generating is a Hugo site with specific, already existing modifications (to Hugo, cState is a theme).
+ 
 
-### — The easy way —
-
-#### 💚 Netlify and Netlify CMS
+### 💚 Netlify and Netlify CMS
 
 cState was built to work best with Netlify and comes with the neccesary files to enable Netlify CMS.
 
@@ -102,38 +101,49 @@ These are the settings you should be using:
 + Publish directory: **public**
 + Add one build environment variable
   + Key: **HUGO_VERSION**
-  + Value: **0.48** (or later)
+  + Value: **0.80** (or later)
++ Also **for the Build image selection, pick Ubuntu Xenial 16.04 or later**
 
+### 🧡 Other great hosting and CMS options
 
-#### 🧡 GitLab Pages (Experimental)
+The most popular options, apart from Netlify's offers, are:
 
-GitLab Pages, unlike GitHub Pages, supports Hugo, so you can let GitLab build and serve cState without needing to do it on your own machine ([similarly to how you can blog with GitLab Pages from your phone](https://about.gitlab.com/blog/2016/08/19/posting-to-your-gitlab-pages-blog-from-ios/)).
+* **Hosting:**
+    * GitHub Pages
+    * GitLab Pages
+    * CloudFlare Pages
+    * Vercel
+* **Admin panels / CMS:**
+    * Forestry.io
+    * Or just use your Git provider (github.com, gitlab.com, etc)
 
-[GitLab has a good guide for getting started with GitLab Pages in their documentation.](https://docs.gitlab.com/ee/user/project/pages/#getting-started)
+You can also look at [other headless CMS options **(we use Git-based CMS types)** on jamstack.org](https://jamstack.org/headless-cms/).
 
-**In short: a `.gitlab-ci.yml` file** is responsible for making cState work. As of v4.2.1, the [cState automatically ships with this file](https://github.com/cstate/cstate/releases/tag/v4.2.1).
+### GitLab Pages
+
+Here is a [good guide for getting started with the service.](https://docs.gitlab.com/ee/user/project/pages/#getting-started)
+
+**In short: a `.gitlab-ci.yml` file** is responsible for making cState work. As of v4.2.1, the [cState automatically ships with this file](https://github.com/cstate/cstate/releases/tag/v4.2.1), but support is still experimental.
 
 As of this time, this is a relatively untested option, but Hugo does seem to generate the right things (this can be checked by downloading the **CI/CD artificats**).
 
 According to GitLab, it may take up to 30 minutes before the site is available after the first deployment.
 
-You can [make Netlify CMS work on GitLab](https://www.netlifycms.org/docs/gitlab-backend/), but that requires overriding an existing file in the theme. Create a file in `static/admin/config.yml` and follow the instructions linked earlier. (cState by default ships with Git Gateway.)
+You can [make Netlify CMS work on GitLab](https://www.netlifycms.org/docs/gitlab-backend/), but that requires overriding an existing file in the theme. Create a file in `static/admin/config.yml` and follow the instructions linked earlier. (cState by default ships with Git Gateway for Netlify.)
 
+### GitHub Pages, CloudFlare Pages, Vercel, Forestry, and others
 
-#### 🖤 Other platforms
+There is no official, separate documentation for these, but if you look below to see how to deploy manually, the instructions will be the same everywhere.
 
-Check out [Forestry.io](//forestry.io) and [Vercel](//vercel.com).
+### Doing it on your PC
 
-Keep reading to see how to deploy manually.
+Keep reading to see how to deploy manually. Developers wishing to contribute, scroll to the very bottom.
 
-
-
-### — Manual builds —
+### Manual builds
 
 For this tutorial, it is assumed that you have Hugo and Git installed (check with `hugo version` & `git --version`).
 
-> A minimum version of `0.48` is required for Hugo, starting with v3.
-
+> A minimum version of `0.80` is required for Hugo, starting with v5.
 
 #### I want to use my site in production
 
@@ -160,30 +170,6 @@ hugo
 And the folder `public` can now be hosted.
 
 The downside with manual building is that, if you do not want to use a solution like GitLab Pages or Netlify, this process will need to happen on your computer. This can be tedious.
-
-
-#### I want to contribute to the development
-
-1. Clone this repository in the command line:
-
-```bash
-git clone --recursive -b master https://github.com/cstate/cstate.git
-```
-
-2. Navigate to the theme directory:
-
-```bash
-cd cstate/exampleSite
-```
-
-3. Launch the development setup like this:
-
-```bash
-hugo serve --baseUrl=http://localhost/ --theme=cstate --themesDir=../.. --verbose
-```
-
-The main directory is the theme itself (the cState guts, basically) and the `exampleSite` folder houses all content. Use this local setup to experiment before making a PR.
-
 
 ### — Docker —
 
@@ -280,15 +266,37 @@ Check out [the wiki](https://github.com/cstate/cstate/wiki).
 
 ## Contribute 💥
 
-**Making a change in the code**
+### Making a change in the code
 
 PRs should be submitted to the `dev` branch, if it exists. Before submitting a pull request, create an issue to [discuss the implications of your proposal](https://github.com/cstate/cstate/issues).
 
-**For translators**
+Here is a guide for how you should develop:
+
+1. Clone this repository in the command line:
+
+```bash
+git clone --recursive -b master https://github.com/cstate/cstate.git
+```
+
+2. Navigate to the theme directory:
+
+```bash
+cd cstate/exampleSite
+```
+
+3. Launch the development setup like this:
+
+```bash
+hugo serve --baseUrl=http://localhost/ --theme=cstate --themesDir=../.. --verbose
+```
+
+The main directory is the theme itself (the cState guts, basically) and the `exampleSite` folder houses all content. Use this local setup to experiment before making a PR.
+
+### For translators
 
 [See this](https://github.com/cstate/cstate/wiki/Translations#add-your-translations).
 
-**Code of conduct**
+### Code of conduct
 
 [Be kind](/CODE_OF_CONDUCT.md).
 
