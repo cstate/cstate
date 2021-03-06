@@ -165,7 +165,7 @@ And the folder `public` can now be hosted.
 
 The downside with manual building is that, if you do not want to use a solution like GitLab Pages or Netlify, this process will need to happen on your computer. This can be tedious.
 
-### — Docker —
+### Docker
 
 cState comes with a Dockerfile and Netlify ([according to their article from 2016](https://www.netlify.com/blog/2016/10/18/how-our-build-bots-build-sites/)) uses a similar Docker system to build cState. This is an option for people who prefer Docker and NGINX instead of serverless, but serverless still has the priority in our development. 
 
@@ -296,7 +296,7 @@ The main directory is the theme itself (the cState guts, basically) and the `exa
 
 ## License ✍
 
-[MIT](https://github.com/cstate/cstate/blob/master/LICENSE.md) © [Mantas Vilčinskas](https://mnts.lt)
+[MIT](https://github.com/cstate/cstate/blob/master/LICENSE.md) © [Mantas Vilčinskas](https://vilcinskas.me)
 
 A special thanks to all [the contributors](https://github.com/cstate/cstate/graphs/contributors)
 
