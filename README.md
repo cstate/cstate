@@ -25,6 +25,7 @@ You can also support the creator of this project by **starring, sharing, using c
 * [FSCI](https://status.fsci.in/)
 * [Storehouse](https://status.sthse.co)
 * [Hyrousek](https://status.hyrousek.tk)
+* [josh.win](https://status.josh.win)
 
 *Want your status page here? [Create a PR](https://github.com/cstate/cstate/edit/dev/README.md)!*
 
@@ -105,7 +106,7 @@ The most popular options, apart from Netlify's offers, are:
 * **Hosting:**
     * GitHub Pages
     * GitLab Pages
-    * CloudFlare Pages
+    * Cloudflare Pages
     * Vercel
 * **Admin panels / CMS:**
     * Forestry.io
@@ -125,7 +126,7 @@ According to GitLab, it may take up to 30 minutes before the site is available a
 
 You can [make Netlify CMS work on GitLab](https://www.netlifycms.org/docs/gitlab-backend/), but that requires overriding an existing file in the theme. Create a file in `static/admin/config.yml` and follow the instructions linked earlier. (cState by default ships with Git Gateway for Netlify.)
 
-### GitHub Pages, CloudFlare Pages, Vercel, Forestry, and others
+### GitHub Pages, Cloudflare Pages, Vercel, Forestry, and others
 
 There is no official, separate documentation for these, but if you look below to see how to deploy manually, the instructions will be the same everywhere.
 
