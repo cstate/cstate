@@ -21,7 +21,7 @@
 - id: isNotice
   translation: Please read announcement
 - id: isOk
-  translation: All systems operational
+  translation: No issues detected
 
 # No JS warning
 - id: noScriptingIntro
@@ -42,7 +42,7 @@
 
 # "Last checked" + "just now"
 - id: lastChecked
-  translation: Last checked
+  translation: Last updated
 - id: justNow
   translation: just now
 - id: someTimeAgo

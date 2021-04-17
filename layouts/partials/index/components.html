@@ -10,18 +10,8 @@
   {{ $systems := .Site.Params.systems }}
   {{ $categories := .Site.Params.categories }}
 
-  <script>
-  function toggleCategoryHead(el) {
-    if (el.parentNode.className == 'category category--open') {
-      el.parentNode.className = 'category category--closed';
-    } else {
-      el.parentNode.className = 'category category--open';
-    }
-  }
-  </script>
-
   {{ range $categories }}
-    <div class="category {{ if .closed }}category--closed{{ else }}category--open{{ end }}" id="{{ .name | urlize }}">
+    <div class="category {{ if .closed }}category--closed{{ else }}category--open{{ end }}{{ if not .untitled }} category--titled{{ end }}" id="{{ .name | urlize }}">
       {{ if not .untitled }}
       <div class="bold padding clicky category__head" onclick="toggleCategoryHead(this)">
         <span class="hide-without-js">
@@ -42,6 +32,8 @@
           </span>
         </span>
       {{ end }}
+ 
+      <span class="category-status"></span>
 
       </div>
       {{ else }}
@@ -94,7 +86,53 @@
           {{ end }}
         </div>
       {{ end }}
-      </div>
+      </div> 
+
+      <!--
+        Get category status
+      -->
+      <script>
+        // We will look at all components in one category
+        thisCategory = document.currentScript.parentNode 
+
+        componentsOfThisCategory = thisCategory.querySelectorAll('.component')
+        
+        // We will cycle through all components and show
+        // the worst status found
+        //
+        // By default, all is good but we change this value
+        // for progressively worse statuses
+        var highlestLevelStatus = '';
+
+        function checkStatus(element) {
+          var status = element.getAttribute('data-status');
+
+          if (status === 'down') {
+            highlestLevelStatus = 'down'
+          } else if (status === 'disrupted' && highlestLevelStatus !== 'down') {
+            highlestLevelStatus = 'disrupted'
+          } else if (status === 'notice' && highlestLevelStatus !== 'down' && highlestLevelStatus !== 'disrupted') {
+            highlestLevelStatus = 'notice'
+          }
+        }
+
+        componentsOfThisCategory.forEach(element => checkStatus(element));
+        
+        // Human readable (i18n) status name variable
+        var highlestLevelStatusReadable = highlestLevelStatus;
+
+        if (highlestLevelStatus === 'ok') { highlestLevelStatusReadable = '{{ T "thisIsOk" }}' } 
+        if (highlestLevelStatus === 'notice') { highlestLevelStatusReadable = '{{ T "thisIsNotice" }}' } 
+        if (highlestLevelStatus === 'dsirupted') { highlestLevelStatusReadable = '{{ T "thisIsDisrupted" }}' } 
+        if (highlestLevelStatus === 'down') { highlestLevelStatusReadable = '{{ T "thisIsDown" }}' } 
+
+        // Finally we can show the status 
+        // (but only for categories with a name)
+        if (thisCategory.classList.contains('category--titled')) {
+          thisCategory.querySelector('.category__head').setAttribute('data-status', highlestLevelStatus);
+          thisCategory.querySelector('.category-status').innerHTML = highlestLevelStatusReadable;
+        }
+      </script>
     </div>
   {{ end }}
 

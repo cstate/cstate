@@ -3,11 +3,11 @@
    * Dev toolset
    */
 
-  console.log('cState v4.4 - https://github.com/cstate/cstate');
+  console.log('cState v5.0 - https://github.com/cstate/cstate');
   document.getElementsByTagName('html')[0].className = 'js';
 
   /**
-   * Make theme color pretty
+   * Change header color based on status
    */
 
   if (document.body.className === 'change-header-color') {
@@ -40,65 +40,86 @@
     document.location.pathname = '/admin';
   }
 
-  /**
-   * Timer
+  /** 
+   * Category logic
    */
 
-  function hasClass(element, className) {
-    return (' ' + element.className + ' ').indexOf(' ' + className+ ' ') > -1;
+  function toggleCategoryHead(el) {
+    if (el.parentNode.className == 'category category--open category--titled') {
+      el.parentNode.className = 'category category--closed category--titled';
+    } else {
+      el.parentNode.className = 'category category--open category--titled';
+    }
   }
 
-  if (hasClass(document.querySelector('body'), 'status-homepage')) {
-    var lastUpdated = document.querySelector('.summary__date');
-    lastUpdated.innerHTML = '{{ T "lastChecked" }} {{ T "justNow" }}';
+  /**
+   * Returns a relative date string for the given date.
+   */
+  
+  function timeSince(date) {
+    var seconds = Math.floor((new Date() - date) / 1000);
 
-    var lastUpdate = new Date();
+    var interval = Math.floor(seconds / 31536000);
 
-    function timeSince(date) {
-      var seconds = Math.floor((new Date() - date) / 1000);
-
-      var interval = Math.floor(seconds / 31536000);
-
-      if (interval > 1) {
-        return interval + ' {{ T "yearsAgo" }}';
-      }
-      interval = Math.floor(seconds / 2592000);
-      if (interval > 1) {
-        return interval + ' {{ T "monthsAgo" }}';
-      }
-      interval = Math.floor(seconds / 86400);
-      if (interval > 1) {
-        return interval + '{{ T "daysAgo" }}';
-      }
-      interval = Math.floor(seconds / 3600);
-      if (interval > 1) {
-        return interval + '{{ T "hoursAgo" }}';
-      }
-      interval = Math.floor(seconds / 60);
-      if (interval > 1) {
-        return interval + ' {{ T "minsAgo" }}';
-      }
+    if (interval > 1) {
+      return interval + ' {{ T "yearsAgo" }}';
+    }
+    interval = Math.floor(seconds / 2592000);
+    if (interval > 1) {
+      return interval + ' {{ T "monthsAgo" }}';
+    }
+    interval = Math.floor(seconds / 86400);
+    if (interval > 1) {
+      return interval + '{{ T "daysAgo" }}';
+    }
+    interval = Math.floor(seconds / 3600);
+    if (interval > 1) {
+      return interval + '{{ T "hoursAgo" }}';
+    }
+    interval = Math.floor(seconds / 60);
+    if (interval > 1) {
+      return interval + ' {{ T "minsAgo" }}';
+    }
+    {{ if .Site.Params.skipSeconds }}
+      return '<1 {{ T "minsAgo" }}'
+    {{ else }}
       return Math.floor(seconds) + '{{ T "secondsAgo" }}';
-    }
-    var aDay = 24*60*60*1000;
+    {{ end }}
   }
 
-  window.setInterval(function() {
-    if (hasClass(document.querySelector('body'), 'status-homepage')) {
-      lastUpdated.innerHTML = '{{ T "lastChecked" }} ' + timeSince(lastUpdate) + ' {{ T "someTimeAgo" }}';
-
-      // Refresh almost every 5m
-      if (lastUpdate > 290000) {
-        location.reload;
+  /**
+   * Changes elements with the class 'relative-time' into relative times and
+   * moves the timestamp to a title attribute tooltip.
+   */
+  
+  function updateRelativeTimes() {
+    var elements = document.querySelectorAll('.relative-time');
+    for (var i = 0; i < elements.length; i++) {
+      var element = elements[i];
+      var time = Date.parse(element.getAttribute('title'));
+      var html = element.getAttribute('data-time-prefix') || '';
+      if (!time) {
+        time = element.innerText;
+        element.setAttribute('title', time || new Date);
+        html += '{{ T "justNow" }}';
+      } else {
+        html += timeSince(time) + ' {{ T "someTimeAgo" }}';
       }
+      html += element.getAttribute('data-time-suffix') || '';
+      element.innerHTML = html.trim();
     }
-  }, 5000)
+  }
+
+  updateRelativeTimes();
+
+  // Update "time since" feature every 5s
+  setInterval(updateRelativeTimes, 5000);
 </script>
 
 
 {{ if ne .Site.Params.googleAnalytics "UA-00000000-1" }}
   <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script type="text/javascript" defer src="https://www.googletagmanager.com/gtag/js?id=UA-109775664-1"></script>
+  <script type="text/javascript" defer src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.googleAnalytics }}"></script>
   <script type="text/javascript" defer>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}

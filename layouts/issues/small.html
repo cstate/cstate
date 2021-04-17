@@ -7,8 +7,8 @@
 
 <a href="{{ .Permalink }}" class="issue no-underline">
   {{ if .Params.informational }}
-    
-    <small class="date float-right">
+
+  <small class="date float-right {{ cond .Site.Params.useRelativeTime "relative-time" "" }}" title="{{ .Date.Format "Jan 2 15:04:05 2006 UTC" }}">
       {{ if .Site.Params.dateFormat }}
         {{ .Date.Format .Site.Params.dateFormat }}
       {{ else }}
@@ -21,9 +21,9 @@
     </h3>
     <span class="faded">{{ .Summary | truncate 200 }}
     </span>
-  
+
   {{ else if .Params.Resolved }}
-    <small class="date float-right">
+  <small class="date float-right {{ cond .Site.Params.useRelativeTime "relative-time" "" }}" title="{{ .Date.Format "Jan 2 15:04:05 2006" }}">
       {{ if .Site.Params.dateFormat }}
         {{ .Date.Format .Site.Params.dateFormat }}
       {{ else }}
@@ -65,9 +65,10 @@
         </div>
       {{ end }}
     {{ end }}
-  {{ else }}
 
-    <small class="date float-right">
+  {{ else }}
+  <!-- If not resolved -->
+  <small class="date float-right {{ cond .Site.Params.useRelativeTime "relative-time" "" }}" title="{{ .Date.Format "Jan 2 15:04:05 2006 UTC" }}">
       {{ if .Site.Params.dateFormat }}
         {{ .Date.Format .Site.Params.dateFormat }}
       {{ else }}
@@ -82,17 +83,17 @@
     <!-- Marker -->
     {{ if eq .Params.severity "notice" }}
       <strong class="warning">
-        ◆ 
+        ◆
         {{ T "downtimeOngoing" }}
       </strong>
     {{ else }}
       <strong class="error">
         {{ if eq .Params.severity "down" }}
-        ■ 
+        ■
         {{ else if eq .Params.severity "disrupted" }}
-        ▲ 
+        ▲
         {{ else }}
-        ◆ 
+        ◆
         {{ end }}
         {{ T "downtimeOngoing" }}
       </strong>

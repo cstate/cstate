@@ -1,0 +1,160 @@
+# Italian language file for cState
+# Version 4.4
+
+- id: languageCode
+  translation: it
+- id: languageName
+  translation: Italian
+- id: languageNameShort
+  translation: ITA
+
+##
+## INDEX.HTML
+##
+
+# Summary status message
+- id: isDown
+  translation: Si riscontrano problemi gravi
+- id: isDisrupted
+  translation: Si riscontrano alcune interruzioni
+- id: isNotice
+  translation: Per favore leggi l'annuncio
+- id: isOk
+  translation: Tutti i sistemi sono operativi
+
+# No JS warning
+- id: noScriptingIntro
+  translation: Uh Oh! Sembra che tu abbia disabilitato JavaScript. Per favore
+- id: noScriptingLink
+  translation: abilita gli script
+- id: noScriptingOutro
+  translation: per migliorare la tua esperienza su questo sito web.
+
+- id: thisIsDown
+  translation: Disservizio
+- id: thisIsDisrupted
+  translation: Irregolare
+- id: thisIsNotice
+  translation: Manutenzione
+- id: thisIsOk
+  translation: Operativo
+
+# "Last checked" + "just now"
+- id: lastChecked
+  translation: Ultimo controllo
+- id: justNow
+  translation: in questo momento
+- id: someTimeAgo
+  translation: fa
+
+# Example usage: `5` + `years`
+# Final result: 'Last checked 5 years ago'
+# Number goes before string
+# Use short variants until months
+- id: yearsAgo
+  translation: anni
+- id: monthsAgo
+  translation: mesi
+- id: daysAgo
+  translation: g
+- id: hoursAgo
+  translation: o
+- id: minsAgo
+  translation: min
+- id: secondsAgo
+  translation: s
+
+- id: autoRefreshNotice
+  translation: Proveremo ad aggiornare ogni 5 secondi
+
+# Incidents
+- id: incidents
+  translation: Incidenti
+- id: incidentHistory
+  translation: Storia degli incidenti
+
+- id: resolved
+  translation: Risolto # if it's less than a min
+- id: inUnderAMinute
+  translation: in meno di un minuto # continuing the last string
+- id: resolvedAfter
+  translation: Risolto dopo # + 19 min
+- id: ofDowntime
+  translation: di disservizio
+
+- id: downtimeOngoing
+  translation: Questo problema non è ancora risolto
+
+
+- id: calmBeforeTheStorm
+  translation: E' la quiete prima della tempesta?
+- id: noIncidentsDesc
+  translation: Questa pagina di stato non ha registrato incidenti. Questo potrebbe accedere perché il proprietario (o i proprietari) hanno creato questa pagina di recente, non hanno mai avuto disservizi o non hanno mai registrato un disservizio.
+
+
+- id: continueReading
+  translation: Continua a leggere
+- id: prev
+  translation: Precedente
+- id: next
+  translation: Successivo
+
+##
+## OTHER
+##
+
+- id: goBack
+  translation: Torna a
+- id: backToTop
+  translation: Torna all'inizio
+- id: poweredBy
+  translation: Fatto da
+
+- id: notFound
+  translation: Non c'è nulla qui.
+- id: notFoundText
+  translation: Questo potrebbe essere un problema da parte nostra. Forse abbiamo spostato una risorsa e ora non c'è più. È anche possibile che la risorsa che stai cercando di visualizzare sia vuota. Ti dispiace ricontrollare l'indirizzo?
+
+- id: rss
+  translation: Sottoscriviti tramite RSS
+- id: toAllUpdates
+  translation: per tutti gli aggiornamenti
+- id: or
+  translation: o
+- id: onlyThisFeed
+  translation: solo per questo feed
+
+##
+## v3
+##
+- id: entries
+  translation: voci
+- id: newestToOldest
+  translation: dalle nuove alle vecchie
+
+##
+## v4
+##
+- id: notFoundAffected
+  translation: Sembra che questo sistema non esista o non abbia mai registrato disservizi.
+
+##
+## v4.1
+##
+
+- id: averageSystemsDowntime
+  translation: Di recente, in base ai dati medi, sembra che questo sistema abbia avuto disservizi per circa
+- id: averageSystemsDowntimeSecondPart
+  translation: minuti per volta
+
+
+##
+## v4.4
+##
+
+- id: in
+  translation: in
+- id: weeksAgo
+  translation: " sett"
+- id: yearAgo
+  translation: " anni"

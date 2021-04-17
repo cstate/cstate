@@ -89,8 +89,28 @@ defaultContentLanguage: en
 # version 3. If you are just testing,
 # localhost should automatically work.
 #
-# Example: https://status.example.com/
+# Example: 
+# baseUrl: https://status.example.com/
+#
+# For testing:
+# baseUrl: http://localhost
+#
+# Broken example:
+# baseUrl: /
 baseURL: https://cstate.mnts.lt
+
+# For features like Last modified, you
+# need to use a Git repository. If you
+# are using Netlify, you are already
+# using Git (with GitHub, GitLab, etc)
+#
+# So, should Git information be used
+# for this website?
+#
+# We recommend to keep this at `true`.
+# BOOLEAN; `true`, `false`
+enableGitInfo: true
+
 
 ############################################################
 # +------------------------------------------------------+ #
@@ -118,18 +138,22 @@ params:
   #   because you need to set an 'Uncategorized' category.
   #   Or it can be used alongside other categories.
   #
+  # These are case sensitive.
+  # 
   # For help, see the wiki:
   # https://github.com/cstate/cstate/wiki/Customization
   categories:
     - name: North Coast
       description: The main servers are located here.
       closed: true
-    - name: East Coast      
+    - name: Empty Category
     - name: Uncategorized
       untitled: true
 
   # These are your systems. Change them to
   # change the amount of components.
+  #
+  # These are case sensitive.
   #
   # For help, see the wiki:
   # https://github.com/cstate/cstate/wiki/Customization
@@ -137,7 +161,7 @@ params:
     - name: Gateway
       category: North Coast
     - name: Backup Gateway
-      category: East Coast
+      category: North Coast
     - name: API
       description: The guts of the application.
       category: Uncategorized
@@ -154,12 +178,56 @@ params:
   #
   # dateFormat Default: "January 2, 2006 at 3:04 PM"
   # shortDateFormat Default: "15:04 — Jan 2"
-  dateFormat: January 2, 2006 at 3:04 PM
-  shortDateFormat: 15:04 — Jan 2
+  dateFormat: January 2, 2006 at 3:04 PM UTC
+  shortDateFormat: 15:04 UTC — Jan 2
+
+  # Should relative time (x min ago) be used?
+  #
+  # IMPORTANT: In the frontmatter, the dates MUST be in
+  # the UTC time zone for this to work preperly. If you 
+  # use Netlify CMS, all good — the CMS picks UTC time
+  # by default. Otherwise, there may be very inaccurate
+  # times if multiple time zones are in your issue files.
+  #
+  # FOR YOUR CONSIDERATION: This feature was introduced in
+  # v5. It may be a breaking change in the case when you
+  # wish to use relative time but old issues do not have
+  # UTC time (and therefore are out of sync by ±24 hours)
+  #
+  # Read the wiki for more: 
+  # https://github.com/cstate/cstate/wiki/Customization#time 
+  #
+  # If enabled, will display relative times in places like
+  # the incident history and summaries instead of using
+  # dateFormat and shortDateFormat (except for if you use
+  # the old shortcode).
+  #
+  # Default: `true`
+  # BOOLEAN; `true`, `false`
+  useRelativeTime: true
+ 
+  # If enabled, doesn't show seconds on relative times.
+  #
+  # With option ON (true):
+  # "Last checked <1 min ago"
+  #
+  # With option OFF (false; default):
+  # "Last checked 20s ago"
+  #
+  # Default: `false`
+  # BOOLEAN; `true`, `false`
+  skipSeconds: false
+
+  # Should there be an automatic "Last updated"
+  # text shown below issues?
+  #
+  # Default: `true`
+  # BOOLEAN; `true`, `false`
+  enableLastMod: true
 
   # What header design should we use?
   #
-  # Default: true
+  # Default: `true`
   # BOOLEAN; `true`, `false`
   useLargeHeaderDesign: false
 
@@ -202,7 +270,7 @@ params:
   # Should we show the logo or the title
   # of the status page?
   #
-  # Default: false
+  # Default: `false`
   # BOOLEAN; `true`, `false`
   useLogo: true
 
@@ -239,7 +307,7 @@ params:
   # for average downtime on
   # systems ("/affected/") pages
   #
-  # Default: false
+  # Default: `false`
   # BOOLEAN; `true`, `false`
   disableComplexCalculations: false
 
@@ -277,7 +345,7 @@ params:
   # Default: `true`
   # BOOLEAN; `true`, `false`
   alwaysKeepBrandColor: true
-  
+
   # Introduced in v4.0.1 for consistent
   # site title text color.
   #
@@ -330,6 +398,10 @@ outputs:
     - json
     - rss
     - svg
+  term:
+    - html
+    - json
+    - rss
 
 outputFormats:
   svg:

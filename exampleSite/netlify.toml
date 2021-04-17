@@ -4,7 +4,7 @@
     functions = "functions"
 
 [build.environment]
-    HUGO_VERSION = "0.48"
+    HUGO_VERSION = "0.80"
 
 [context.production.environment]
     HUGO_ENV = "production"
@@ -15,3 +15,8 @@
 
 [context.branch-deploy]
     command = "hugo -b $DEPLOY_PRIME_URL"
+
+[[headers]]
+    for = "/*.json"
+    [headers.values]
+      Access-Control-Allow-Origin = "*"
