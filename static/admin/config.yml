@@ -309,61 +309,61 @@ collections:
                 name: 'enableCustomHTML'
                 widget: 'boolean'
                 default: 'false'
-        # REQUIRED BUT HIDDEN
-        - label: 'theme'
-          name: 'theme'
-          widget: 'hidden'
-          default: 'cstate'
-        - label: 'preserveTaxonomyNames'
-          name: 'preserveTaxonomyNames'
-          widget: 'hidden'
-          default: 'true'
-        - label: "taxonomies"
-          name: taxonomies
-          widget: "hidden"
-          fields:
-            - {label: "affected", name: "affected", widget: "hidden", default: "affected"}
-        - label: "Outputs (Do not touch!)"
-          name: outputs
-          widget: "hidden"
-          fields:
-            - label: "page"
-              name: page
-              widget: "list"
-              allow_add: false
-              default: ['html', 'json']
-            - label: "section"
-              name: section
-              widget: "list"
-              allow_add: false
-              default: ['html', 'json', 'rss']
-            - label: "home"
-              name: home
-              widget: "list"
-              allow_add: false
-              default: ['html', 'json', 'rss', 'svg']
-            - label: "term"
-              name: term
-              widget: "list"
-              allow_add: false
-              default: ['html', 'json', 'rss']
-        - label: "Output formats (Do not touch!)"
-          name: outputFormats
-          widget: "hidden"
-          fields:
-            - label: "svg"
-              name: svg 
-              fields:
-              - label: "isPlainText"
-                name: isPlainText
-                widget: "boolean"
+            # REQUIRED BUT HIDDEN
+              - label: 'theme'
+                name: 'theme'
+                widget: 'hidden'
+                default: 'cstate'
+              - label: 'preserveTaxonomyNames'
+                name: 'preserveTaxonomyNames'
+                widget: 'hidden'
+                default: 'true'
+              - label: "taxonomies"
+                name: taxonomies
+                widget: "hidden"
+                fields:
+                  - {label: "affected", name: "affected", widget: "hidden", default: "affected"}
+              - label: "Outputs (Do not touch!)"
+                name: outputs
+                widget: "hidden"
+                fields:
+                  - label: "page"
+                    name: page
+                    widget: "list"
+                    allow_add: false
+                    default: ['html', 'json']
+                  - label: "section"
+                    name: section
+                    widget: "list"
+                    allow_add: false
+                    default: ['html', 'json', 'rss']
+                  - label: "home"
+                    name: home
+                    widget: "list"
+                    allow_add: false
+                    default: ['html', 'json', 'rss', 'svg']
+                  - label: "term"
+                    name: term
+                    widget: "list"
+                    allow_add: false
+                    default: ['html', 'json', 'rss']
+              - label: "Output formats (Do not touch!)"
+                name: outputFormats
+                widget: "hidden"
+                fields:
+                  - label: "svg"
+                    name: svg 
+                    fields:
+                    - label: "isPlainText"
+                      name: isPlainText
+                      widget: "boolean"
+                      default: true
+                    - label: "mediaType"
+                      name: mediaType
+                      default: "image/svg+xml"
+              - label: 'Enable Git info'
+                name: 'enableGitInfo'
+                widget: 'hidden'
+                hint: 'Docs: https://github.com/cstate/cstate/wiki/Customization#time'
+                required: false
                 default: true
-              - label: "mediaType"
-                name: mediaType
-                default: "image/svg+xml"
-        - label: 'Enable Git info'
-          name: 'enableGitInfo'
-          widget: 'hidden'
-          hint: 'Docs: https://github.com/cstate/cstate/wiki/Customization#time'
-          required: false
-          default: true
