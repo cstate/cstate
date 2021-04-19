@@ -14,9 +14,7 @@ You can also support the creator of this project by **starring, sharing, using c
 
 * [**Example site — cstate.mnts.lt**](https://cstate.mnts.lt)
 * [Source code of the example cState site](https://github.com/cstate/example)
-
-*Thank you to [Netlify](https://www.netlify.com) for hosting our demo websites!*
-
+ 
 ### More examples from the internet
 
 * [Chocolatey](https://status.chocolatey.org/)
@@ -44,6 +42,8 @@ You can also support the creator of this project by **starring, sharing, using c
 
 
 ## Features 😎
+
+> NEWLY RELEASED: [Embed cState into other pages and take advantage of its API. Alert users of downtime without needing to visit your status page!](https://github.com/cstate/html-embed)
 
 ### Purpose / how it works
 
