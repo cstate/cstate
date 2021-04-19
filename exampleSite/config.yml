@@ -97,7 +97,7 @@ defaultContentLanguage: en
 #
 # Broken example:
 # baseUrl: /
-baseURL: https://cstate.mnts.lt
+baseURL: https://example.com
 
 # For features like Last modified, you
 # need to use a Git repository. If you
