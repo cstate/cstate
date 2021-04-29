@@ -284,7 +284,10 @@ cd cstate/exampleSite
 3. Launch the development setup like this:
 
 ```bash
+# old command
 hugo serve --baseUrl=http://localhost/ --theme=cstate --themesDir=../.. --verbose
+# new command partially works for v5.0.2; does not load images from static/
+hugo serve --config=exampleSite/config.yml --theme=../ --contentDir=exampleSite/content
 ```
 
 The main directory is the theme itself (the cState guts, basically) and the `exampleSite` folder houses all content. Use this local setup to experiment before making a PR.
