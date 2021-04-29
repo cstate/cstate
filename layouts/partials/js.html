@@ -98,6 +98,11 @@
       var element = elements[i];
       var time = Date.parse(element.getAttribute('title'));
       var html = element.getAttribute('data-time-prefix') || '';
+      
+      // DEBUG
+      console.log(time)
+      //
+      
       if (!time) {
         time = element.innerText;
         element.setAttribute('title', time || new Date);
