@@ -159,3 +159,11 @@
   translation: " w"
 - id: yearAgo
   translation: " year"
+
+
+##
+## v5.0.2
+##
+
+- id: someTime
+  translation: "Some time"

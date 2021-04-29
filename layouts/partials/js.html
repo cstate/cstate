@@ -3,7 +3,7 @@
    * Dev toolset
    */
 
-  console.log('cState v5.0.1 - https://github.com/cstate/cstate');
+  console.log('cState v5.0.2 - https://github.com/cstate/cstate');
   document.getElementsByTagName('html')[0].className = 'js';
 
   /**
@@ -80,6 +80,14 @@
     if (interval > 1) {
       return interval + ' {{ T "minsAgo" }}';
     }
+
+  
+    if(Math.floor(seconds) < 0) {
+      console.log('Negative value: ' +Math.floor(seconds))
+      return '{{ T "someTime" }}';
+    }
+
+
     {{ if .Site.Params.skipSeconds }}
       return '<1 {{ T "minsAgo" }}'
     {{ else }}
@@ -98,10 +106,6 @@
       var element = elements[i];
       var time = Date.parse(element.getAttribute('title'));
       var html = element.getAttribute('data-time-prefix') || '';
-      
-      // DEBUG
-      console.log(time)
-      //
       
       if (!time) {
         time = element.innerText;
