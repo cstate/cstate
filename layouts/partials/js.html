@@ -81,13 +81,12 @@
       return interval + ' {{ T "minsAgo" }}';
     }
 
-  
+    // Negative value
     if(Math.floor(seconds) < 0) {
-      console.log('Negative value: ' +Math.floor(seconds))
-      return '{{ T "someTime" }}';
+      return Math.floor(seconds);
     }
 
-
+    // Non-negative seconds
     {{ if .Site.Params.skipSeconds }}
       return '<1 {{ T "minsAgo" }}'
     {{ else }}
@@ -107,10 +106,16 @@
       var time = Date.parse(element.getAttribute('title'));
       var html = element.getAttribute('data-time-prefix') || '';
       
+       {
+
+      }
+
       if (!time) {
         time = element.innerText;
         element.setAttribute('title', time || new Date);
         html += '{{ T "justNow" }}';
+      } else if (timeSince(time) < 0) {
+        html = element.innerText;
       } else {
         html += timeSince(time) + ' {{ T "someTimeAgo" }}';
       }
