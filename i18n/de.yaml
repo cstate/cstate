@@ -65,13 +65,13 @@
   translation: s
 
 - id: autoRefreshNotice
-  translation: Wir versuchen die Daten alle fünf Minuten zu aktualisieren.
+  translation: Wir versuchen, die Daten alle fünf Minuten zu aktualisieren.
 
 # Incidents
 - id: incidents
   translation: Vorfälle
 - id: incidentHistory
-  translation: Vorfalls Historie
+  translation: Vorfallshistorie
 
 - id: resolved
   translation: Gelöst # if it's less than a min
@@ -135,7 +135,7 @@
 ## v4
 ##
 - id: notFoundAffected
-  translation: Es sieht so aus als würde dieses Dokument nicht existieren,  oder es hatte noch nie einen aufgezeichneten Ausfall.
+  translation: Es sieht so aus als würde dieses Dokument nicht existieren, oder es hatte noch nie einen aufgezeichneten Ausfall.
 
 ##
 ## v4.1
