@@ -12,8 +12,15 @@
 
     <div class="contain center">
       <h1 class="bold">{{ T "notFound" }}</h1>
+      <p class="affected-text hidden">{{ T "notFoundAffected" }}</p>
       <p>{{ T "notFoundText" }}</p>
     </div>
+    
+    <script>
+      if (window.location.pathname.includes('affected')) {
+        document.querySelector('.affected-text').className = "affected-text";
+      }
+    </script>
 
     {{ partial "js" . }}
     {{ partial "footer" . }}
