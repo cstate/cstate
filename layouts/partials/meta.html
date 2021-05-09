@@ -6,7 +6,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Data -->
-    <meta name="description" content="{{ with .Summary }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+    <meta name="description" content="{{ with .Summary }}{{ . }}{{ else }}{{ .Site.Params.description | markdownify | plainify }}{{ end }}">
     <title>{{ if eq  .Title  .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{.}} | {{ end }}{{ .Site.Title }}{{ end }}</title>
     <link rel="canonical" href="{{ .Permalink }}">
     {{ range .AlternativeOutputFormats -}}
