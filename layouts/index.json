@@ -1,6 +1,6 @@
 {{ $incidents := where .Site.RegularPages "Params.section" "issue" }}{{ $active := where $incidents "Params.resolved" "=" false }}{{ $isNotice := where $active "Params.severity" "=" "notice" }}{{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}{{ $isDown := where $active "Params.severity" "=" "down" }}{
   "is": "index",
-  "cStateVersion": "5.0.2",
+  "cStateVersion": "5.0.3",
   "apiVersion": "2.0",
   "title": "{{ .Site.Title }}",
   "languageCodeHTML": "{{ .Site.LanguageCode }}",
