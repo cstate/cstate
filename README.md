@@ -263,9 +263,11 @@ Check out [the wiki](https://github.com/cstate/cstate/wiki).
 
 ## Contribute 💥
 
-### Making a change in the code
+### Making a change in the code for the cstate/cstate repo
 
 PRs should be submitted to the `dev` branch, if it exists. Before submitting a pull request, create an issue to [discuss the implications of your proposal](https://github.com/cstate/cstate/issues).
+
+The root directory is where the theme itself is (the cState guts, basically) and the `exampleSite` folder houses all content for your specific site. Use this local setup to experiment before making a PR.
 
 Here is a guide for how you should develop:
 
@@ -275,22 +277,18 @@ Here is a guide for how you should develop:
 git clone --recursive -b master https://github.com/cstate/cstate.git
 ```
 
-2. Navigate to the theme directory:
-
-```bash
-cd cstate/exampleSite
-```
-
-3. Launch the development setup like this:
+2. Launch the development setup like this:
 
 ```bash
 # old command
+# navigate to the directory where your content is and start dev server from there
+cd cstate/exampleSite
 hugo serve --baseUrl=http://localhost/ --theme=cstate --themesDir=../.. --verbose
 # new command partially works for v5.0.2; does not load images from static/
+# for this you need to be in the theme root
 hugo serve --config=exampleSite/config.yml --theme=../ --contentDir=exampleSite/content
 ```
 
-The main directory is the theme itself (the cState guts, basically) and the `exampleSite` folder houses all content. Use this local setup to experiment before making a PR.
 
 ### For translators
 

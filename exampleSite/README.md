@@ -1,10 +1,9 @@
-# cState Example Site v5.0.2
+# cState Site v5.0.3
 
 This is the default cState status page website directory/folder.
 
-Example site repository link (you are here): https://github.com/cstate/example
-
-Main cState source code repository: https://github.com/cstate/cstate
+* Example site repository link (you are here): https://github.com/cstate/example
+* Main cState source code repository: https://github.com/cstate/cstate
 
 ## Are you updating? Use these commands
 
@@ -19,9 +18,11 @@ Then do `git add -A; git commit -m "Update cState"; git push origin <branch, pro
 
 ## For maintainers (probably not for you)
 
+Maintainers need to update both cstate/cstate and cstate/example for each new version.
+
 Download this repo with all the directories. `git clone --recursive -b master https://github.com/cstate/example.git`
 
-Make your changes.
+Add your changes from cstate/cstate's exampleSite folder.
 
 Update the cState theme submodule. `git submodule foreach git pull origin master`
 
