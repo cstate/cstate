@@ -25,6 +25,7 @@ You can also support the creator of this project by **starring, sharing, using c
 * [FSCI](https://status.fsci.in/)
 * [Storehouse](https://status.sthse.co)
 * [Hyrousek](https://status.hyrousek.tk)
+* [Šebestíček](https://status.sebestik.tk)
 * [josh.win](https://status.josh.win)
 
 *Want your status page here? [Create a PR](https://github.com/cstate/cstate/edit/dev/README.md)!*
