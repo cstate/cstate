@@ -23,7 +23,6 @@ You can also support the creator of this project by **starring, sharing, using c
 * [sr.ht](https://status.sr.ht/)
 * [Content Ignite](https://status.contentignite.com/)
 * [FSCI](https://status.fsci.in/)
-* [Storehouse](https://status.sthse.co)
 * [Hyrousek](https://status.hyrousek.tk)
 * [josh.win](https://status.josh.win)
 
