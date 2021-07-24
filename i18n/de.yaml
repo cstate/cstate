@@ -26,7 +26,7 @@
 - id: noScriptingIntro
   translation: Uh oh! Es sieht aus, als wäre JavaScript bei Dir deaktiviert. Bitte
 - id: noScriptingLink
-  translation: aktiviere die Einstellung, die verhinderdert, dass Skripte laufen.
+  translation: aktiviere die Einstellung, die verhindert, dass Skripte laufen.
 - id: noScriptingOutro
   translation: um Dein Erlebnis auf dieser Website zu verbessern.
 
@@ -135,7 +135,7 @@
 ## v4
 ##
 - id: notFoundAffected
-  translation: Es sieht so aus als würde dieses Dokument nicht existieren, oder es hatte noch nie einen aufgezeichneten Ausfall.
+  translation: Es sieht so aus, als würde dieses Dokument nicht existieren oder es hatte noch nie einen aufgezeichneten Ausfall.
 
 ##
 ## v4.1
