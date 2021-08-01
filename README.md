@@ -3,10 +3,8 @@
 > Über fast, backwards compatible (IE8+), tiny, and simple status page built with Hugo. Completely _free_ with Netlify. Comes with Netlify CMS, read-only API, and other useful features.
 
 <a href="https://github.com/cstate/cstate/commits/master"><img src="https://img.shields.io/github/last-commit/cstate/cstate.svg?style=flat-square" alt="GitHub last commit" /></a>  <a href="https://github.com/ivbeg/awesome-status-pages"><img src="https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg" alt="Awesome status page" /></a>
-
-<a href="//statuspal.io">Sponsored by <img src="images/statuspal-logo-with-text.png" alt="Statuspal" width="150"></a>
-
-You can also support the creator of this project by **starring, sharing, using cState and/or [financially supporting the author](https://github.com/sponsors/mistermantas)**. Thank you!
+ 
+You can support the creator of this project by **starring, sharing, using cState and/or [financially supporting the author](https://github.com/sponsors/mistermantas)**. Thank you!
 
 ## Examples 🥳
 
