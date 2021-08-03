@@ -78,7 +78,7 @@ You don't have to use Netlify, but this is the best all-around option:
 
 - To get you started, Netlify is **completely free** (you can pay for extra features, bandwidth, etc)
 - It supports all the features you'd want for hosting a modern website: **HTTPS, domain linking, worldwide asset serving, rollbacks, and more**
-- As you'd expect, **Netlify CMS** works best with Netlify. **It takss just a few clicks** to make it work
+- As you'd expect, **Netlify CMS** works best with Netlify. **It takes just a few clicks** to make it work
 
 
 You can simply click this button to get started:
