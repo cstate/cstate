@@ -28,5 +28,5 @@
         "summary": {{ jsonify .Summary }}
       }
     {{ end }}{{ end }}
-  ], 
+  ]
 }
