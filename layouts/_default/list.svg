@@ -1,0 +1,44 @@
+{{ $incidents := where .Site.RegularPages "Params.section" "issue" -}}
+{{ $active := where $incidents "Params.resolved" "=" false -}}
+{{ $isNotice := where $active "Params.severity" "=" "notice" -}}
+{{ $isDisrupted := where $active "Params.severity" "=" "disrupted" -}}
+{{ $isDown := where $active "Params.severity" "=" "down" -}}
+{{ $shield_prefix := .Site.Title -}}
+{{ $status_text := T "thisIsOk" -}}
+{{ $status_color := .Site.Params.ok -}}
+{{ if $isDown -}}
+  {{ $status_text = T "thisIsDown" -}}
+  {{ $status_color = .Site.Params.down -}}
+{{ else if $isDisrupted -}}
+  {{ $status_text = T "thisIsDisrupted" -}}
+  {{ $status_color = .Site.Params.disrupted -}}
+{{ else if $isNotice -}}
+  {{ $status_text = T "thisIsNotice" -}}
+  {{ $status_color = .Site.Params.notice -}}
+{{ end -}}
+{{ $text_padding := 1 -}}
+{{ $left_text_lenght := $shield_prefix | strings.RuneCount -}}
+{{ $right_text_length := $status_text | strings.RuneCount -}}
+{{ $left_text_padding := $text_padding -}}
+{{ $right_box_padding := add (mul $text_padding 2) $left_text_lenght -}}
+{{ $right_text_padding := add $right_box_padding $text_padding -}}
+{{ $total_width := add (mul $text_padding 4) (add $left_text_lenght $right_text_length) -}}
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="2em" width="{{ $total_width }}ex" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="11">
+  <linearGradient id="b" x2="0" y2="100%">
+    <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+    <stop offset="1" stop-opacity=".1"/>
+  </linearGradient>
+  <clipPath id="a">
+    <rect width="100%" height="100%" rx="3" fill="#fff"/>
+  </clipPath>
+  <g clip-path="url(#a)" fill="#fff" >
+    <rect x="0" y="0" width="100%" height="100%" fill="#555" />
+    <rect x="{{ $right_box_padding }}ex" y="0" height="100%" width="100%" fill="{{ $status_color }}"/>
+    <rect x="0"  y="0" width="100%" height="100%" fill="url(#b)"/>
+    
+    <text x="{{ $left_text_padding }}ex" y="15" fill="#010101" fill-opacity=".3">{{ $shield_prefix }}</text>
+    <text x="{{ $left_text_padding }}ex" y="14">{{ $shield_prefix }}</text>
+    <text x="{{ $right_text_padding }}ex" y="15" fill="#010101" fill-opacity=".3">{{ $status_text }}</text>
+    <text x="{{ $right_text_padding }}ex" y="14">{{ $status_text }}</text>
+  </g>
+</svg>
