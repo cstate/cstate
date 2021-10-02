@@ -25,6 +25,7 @@
     {{ end }}
     
     {{ range $pinned }}
+      {{ if .Params.informational }}
       <div class="padding">
         <p>
           <a href="{{ .RelPermalink }}"><strong class="bold">{{ .Title }} →</strong></a>
@@ -42,6 +43,7 @@
         <p></p>
       </div>
       <hr class="clean announcement-box">
+      {{ end }}
     {{ end }}
   </div>
 {{ end }} 
