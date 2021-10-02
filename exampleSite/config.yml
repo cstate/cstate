@@ -393,6 +393,7 @@ outputs:
     - html
     - json
     - rss
+    - svg
   home:
     - html
     - json
