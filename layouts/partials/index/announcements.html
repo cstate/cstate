@@ -1,7 +1,8 @@
 {{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
 {{ $active := where $incidents "Params.resolved" "=" false }}
+{{ $pinned := where $incidents "Params.pin" "=" true }}
 
-{{ if $active }}
+{{ if or ($active) ($pinned) }}
   <div class="announcement-box" style="border-bottom: 0">
     {{ range $active }}
       <div class="padding">
@@ -17,10 +18,30 @@
           {{ end }}
         </small></p>
 
-        {{ .Content | safeHTML | truncate 500 "…" }}
+        {{ .Content | safeHTML | truncate 500 "…" }} <a href="{{ .RelPermalink }}"><b>→</b></a>
+        <p></p>
+      </div>
+      <hr class="clean announcement-box">
+    {{ end }}
+    
+    {{ range $pinned }}
+      <div class="padding">
+        <p>
+          <a href="{{ .RelPermalink }}"><strong class="bold">{{ .Title }} →</strong></a>
+        </p>
+
+        <p><small>
+          {{ range .Params.Affected }}
+              
+          <a href="{{ printf "/affected/%s/" (. | urlize) | relURL }}" class="tag no-underline">{{ . }}</a>
+          
+          {{ end }}
+        </small></p>
+
+        {{ .Content | safeHTML | truncate 500 "…" }} <a href="{{ .RelPermalink }}"><b>→</b></a>
         <p></p>
       </div>
       <hr class="clean announcement-box">
     {{ end }}
   </div>
-{{ end }}
+{{ end }} 
