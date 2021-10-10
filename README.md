@@ -1,10 +1,16 @@
 <p align="center"><img src="images/cstate-logo-bg.svg?sanitize=true" width="500" height="auto" alt="cState example illustration"></p>
 
-> Über fast, backwards compatible (IE8+), tiny, and simple status page built with Hugo. Completely _free_ with Netlify. Comes with Netlify CMS, read-only API, and other useful features.
+> Über fast to load and build, backwards compatible (IE8+), tiny, and simple OSS status page built with Hugo. Completely _free_ with Netlify. Comes with Netlify CMS, read-only API, badges liek from shields.io, and other useful features.
 
-<a href="https://github.com/cstate/cstate/commits/master"><img src="https://img.shields.io/github/last-commit/cstate/cstate.svg?style=flat-square" alt="GitHub last commit" /></a>  <a href="https://github.com/ivbeg/awesome-status-pages"><img src="https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg" alt="Awesome status page" /></a>
- 
-You can support the creator of this project by **starring, sharing, using cState and/or [financially supporting the author](https://github.com/sponsors/mistermantas)**. Thank you!
+
+<p>
+<a href="https://github.com/cstate/cstate/releases"><img src="https://img.shields.io/github/release/cstate/cstate/all.svg?style=flat-square" alt="GitHub release" /></a>
+<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/cstate/cstate?label=Star%20Repo&style=social">
+<a href="https://github.com/ivbeg/awesome-status-pages"><img src="https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg" alt="Awesome status page" /></a></p>
+
+**[VISIT THE CSTATE WEBSITE HERE](https://cstate.netlify.app)**
+
+You can support the creator of this project by starring, sharing, using cState and/or [financially supporting the author](https://github.com/sponsors/mistermantas). Thank you!
 
 ## Examples 🥳
 
@@ -40,29 +46,30 @@ You can support the creator of this project by **starring, sharing, using cState
 
 ## Features 😎
 
-> NEWLY RELEASED: [Embed cState into other pages and take advantage of its API. Alert users of downtime without needing to visit your status page!](https://github.com/cstate/html-embed)
+Fast.
 
-### Purpose / how it works
+* Fast to load. Even on Internet Explorer 8. Incredible browser support. Minimal JS. No CSS dependencies either.
+* Fast to create incidents. Use the command line or setup a CMS like Netlify CMS or Forestry for a no-code experience. See here
+* Stays fast. Hugo & Golang can build a site with thousands of entries in seconds.
 
-You can think of the cState status page as an informational hub. Because the software is static, it cannot directly monitor any services in real time.
+Nice.
+
+* Focused, adaptable design. Auto dark mode. Easy customization from one file (or settings page). Statistical calculations show the key take-away (e.g., time spent fixing an issue).
+* Fit for any language. With built-in support for English, German, French, Italian, Lithuanian, Macedonian, Dutch, Portuguese, Turkish, and Tagalog. See here
+* All incidents, sorted. Link incidents to systems/categories, let users know how long previous downtime took, and more.
+
+Free.
+
+* Free hosting. Host on supported platforms like Netlify or manage cState yourself. See here
+* Free your data. Use RSS or the read-only API to create custom HTML/JS integrations or simply embed the built-in badges/shields.
+* Free for developers to expand upon. Integrate monitoring, link to other systems, change any text or style, create custom pages, and more.
+
+**Please note that with all that cState _can_ do, it cannot do automatic monitoring out of the box. [See this thread](https://github.com/cstate/cstate/issues/124)** You can think of the cState status page as an informational hub. Because the software is static, it cannot directly monitor any services in real time.
 
 However, cState is a perfect option for recording incidents because most of the time your services are functioning, so the status page does not need to be updated. By default, the little bit of JavaScript on the page improves the user experience but is not required to see the most vital information.
 
-There are other commercial options that may update faster because of their architecture, have built-in real-time uptime monitoring, send notifications by email or other means, but cState is not supposed to be better than paid solutions, but _good enough_.
+There are other commercial options that may update faster because of their architecture, have built-in real-time uptime monitoring, send notifications by email or other means, but cState is not supposed to be better than paid solutions.
 
-### List of possibilities
-
-**Please note that with all that cState _can_ do, it cannot do automatic monitoring. [See this thread](https://github.com/cstate/cstate/issues/124)**
-
-| **cState is designed with care**                                                                                         	| **Fast, reliable, and free (even with host)**                                                                            	| **Easy to setup, manage, use**                                                                                                                           	|
-|--------------------------------------------------------------------------------------------------------------------------	|--------------------------------------------------------------------------------------------------------------------------	|----------------------------------------------------------------------------------------------------------------------------------------------------------	|
-| A simple and focused user interface & experience with [instant loading](https://github.com/cstate/cstate/issues/117), suitable for any brand                            	| Built with [Hugo](https://gohugo.io), a hyperfast Golang static site generator (SSG)                                     	| As easy as WordPress: if you don't like getting into the code, try Netlify CMS                                                                           	|
-| cState switches to dark mode automatically, [if told so by your OS and browser settings](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme)                                   	| Use the full power of Hugo — flavored Markdown, shortcodes, templates, and more                                          	| Most of the settings are in the `config.yml` file or under _Settings_ in Netlify CMS                                                                           	|
-| Statistical calculations show the key take-away (e.g., time spent fixing an issue)                                       	| Airtight back-end security because cState is built on the [JAMstack](https://jamstack.org/)                              	| Create systems, categories for recording incidents (or even [informational posts](https://github.com/cstate/cstate/releases/tag/v4.0.0) and pages)                                                               	|
-| Great for data manipulation and viewing — cState has RSS, tag-like system feeds                                          	| HTTPS, domain linking, easy setup & high performance with [Netlify & Netlify CMS](#getting-started-) — *absolutely free* 	| Built-in [language files/translations](https://github.com/cstate/cstate/wiki/Translations#available-translations) for English, German, French, Turkish, and Lithuanian                                                                	|
-| Easy [linking to 3rd parties](https://github.com/cstate/cstate/wiki/Customization#tabs), customizable views, colors, HTML, and assets                                                	| You can also use many of the advanced features on platforms such as GitLab Pages & others that support Hugo              	| Extensive documentation on the [wiki](https://github.com/cstate/cstate/wiki)                                                                             	|
-| Very little JavaScript. Responsive CSS that is backwards compatible up to Internet Explorer 8                                                    	| Create your own workflow — cState generates static files that can be hosted literally anywhere (CDN, AWS, GitHub Pages)  	| Feel free to [create an issue](https://github.com/cstate/cstate/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc) if you have any questions or feedback 	|
-| [Badges for showing the status on other websites (similiar to shields.io)](https://github.com/cstate/cstate/wiki/Badges) 	| [Read-only API available for even further integration](https://github.com/cstate/cstate/wiki/API)                        	| cState is always improving and the user community is only growing — [you're with good company](#sponsors-)                                                             	|
 
 
 ## Getting started 💻
