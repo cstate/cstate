@@ -57,6 +57,7 @@ collections:
       - {label: "Mark as resolved ✔", name: "resolved", widget: "boolean", required: false, default: false}
       - {label: "Hide this from the site (make it a draft) 👀", name: "draft", widget: "boolean", required: false, default: false}
       - {label: "Mark as informational ℹ", name: "informational", widget: "boolean", required: false, default: false}
+      - {label: "Pin to top of page", name: "pin", widget: "boolean", required: false, default: false}
       - {label: "End date & time (your time) ⌛", name: "resolvedWhen", widget: "datetime", required: false}
       - label: "Affected systems (use exact name, separated by commas) 🧐"
         name: "affected"
