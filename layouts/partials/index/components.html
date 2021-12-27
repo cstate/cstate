@@ -65,6 +65,14 @@
             </span>
           {{ end }}
 
+          {{ with .link }}
+            <span class="span-icon">
+              <a href="{{ . }}" class="link-style">
+                🔗
+              </a>
+            </span>
+          {{ end }}
+
           <span class="component-status">
             {{ if $thisIsDown }}
               {{ T "thisIsDown" }}
