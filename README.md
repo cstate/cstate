@@ -30,6 +30,7 @@ You can support the creator of this project by starring, sharing, using cState a
 * [FSCI](https://status.fsci.in/)
 * [Hyrousek](https://status.hyrousek.tk)
 * [josh.win](https://status.josh.win)
+* [Esmail EL BoB](https://status.esmailelbob.xyz)
 
 *Want your status page here? [Create a PR](https://github.com/cstate/cstate/edit/dev/README.md)!*
 
