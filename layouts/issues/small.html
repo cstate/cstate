@@ -88,7 +88,7 @@
 
     <!-- Marker -->
     {{ if eq .Params.severity "notice" }}
-      <strong class="warning">
+      <strong class="error">
         ◆
         {{ if .Date.Before now }}
           {{ T "downtimeOngoing" }}
