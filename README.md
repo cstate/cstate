@@ -127,7 +127,7 @@ Here is a [good guide for getting started with the service.](https://docs.gitlab
 
 **In short: a `.gitlab-ci.yml` file** is responsible for making cState work. As of v4.2.1, the [cState automatically ships with this file](https://github.com/cstate/cstate/releases/tag/v4.2.1), but support is still experimental.
 
-As of this time, this is a relatively untested option, but Hugo does seem to generate the right things (this can be checked by downloading the **CI/CD artificats**).
+As of this time, this is a relatively untested option, but Hugo does seem to generate the right things (this can be checked by downloading the **CI/CD artifacts**).
 
 According to GitLab, it may take up to 30 minutes before the site is available after the first deployment.
 
