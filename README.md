@@ -13,6 +13,10 @@
 You can support the creator of this project by starring, sharing, using cState and/or [financially supporting the author](https://github.com/sponsors/mistermantas). Thank you!
 
 
+## Sponsors
+
+cState's development is being sposnored by [Instatus](https://instatus.com/) from June, 2022.
+
 ## Examples 🥳
 
 ### Official
@@ -35,7 +39,7 @@ You can support the creator of this project by starring, sharing, using cState a
 
 ## Contents 🔍
 
-+ [Sponsors](#sponsors-)
++ [Sponsors](#sponsors)
 + [Examples](#examples-)
 + [Features](#features-)
 + [Getting started](#getting-started-)
