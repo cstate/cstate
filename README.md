@@ -1,6 +1,6 @@
 <p align="center"><img src="images/cstate-logo-bg.svg?sanitize=true" width="500" height="auto" alt="cState example illustration"></p>
 
-> Über fast to load and build, backwards compatible (IE8+), tiny, and simple OSS status page built with Hugo. Completely _free_ with Netlify. Comes with Netlify CMS, read-only API, badges liek from shields.io, and other useful features.
+> Über fast to load and build, backwards compatible (IE8+), tiny, and simple OSS status page built with Hugo. Completely _free_ with Netlify. Comes with Netlify CMS, read-only API, badges like from shields.io, and other useful features.
 
 
 <p>
