@@ -43,19 +43,19 @@
       {{ $categorySystems := where $systems "category" "=" .name }}
 
       <div class="components">
-      {{ range $categorySystems }}
-        {{ $activeComponentIssues := where $active "Params.affected" "intersect" (slice .name) }}
+      {{ range $system := $categorySystems }}
+        {{ $activeComponentIssues := where $active "Params.affected" "intersect" (slice $system.name) }}
 
         {{ $thisIsNotice := where $activeComponentIssues "Params.severity" "=" "notice" }}
         {{ $thisIsDisrupted := where $activeComponentIssues "Params.severity" "=" "disrupted" }}
         {{ $thisIsDown := where $activeComponentIssues "Params.severity" "=" "down" }}
 
         <div class="component" data-status="{{ if $thisIsDown }}down{{ else }}{{ if $thisIsDisrupted }}disrupted{{ else }}{{ if $thisIsNotice }}notice{{ else }}ok{{ end }}{{ end }}{{ end }}">
-          <a href="{{ printf "/affected/%s/" (.name | urlize) | relURL }}" class="no-underline">
-            {{ default .name .displayName }}
+          <a href="{{ printf "/affected/%s/" ($system.name | urlize) | relURL }}" class="no-underline">
+            {{ default $system.name $system.displayName }}
           </a>
 
-          {{ with .description }}
+          {{ with $system.description }}
             <span class="tooltip tooltip--small">
               &nbsp; <span class="faded">(?)</span>
 
@@ -65,7 +65,7 @@
             </span>
           {{ end }}
 
-          {{ with .link }}
+          {{ with $system.link }}
             <span class="span-icon">
               <a href="{{ . }}" class="link-style">
                 🔗
@@ -87,9 +87,9 @@
             {{ end }}{{ end }}{{ end }}
           </span>
 
-          {{ with .partial }}
+          {{ with $system.partial }}
           <div>
-            {{ partial . . }}
+            {{ partial . (dict "system" $system "incidents" $incidents) }}
           </div>
           {{ end }}
         </div>
