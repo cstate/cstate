@@ -13,10 +13,20 @@
         {{ range .Site.Params.systems }}
           {{ if eq .name $title }}
             {{ with .description }}
-              <p class="bold">{{ . }}</p>
+              <p class="bold">{{ . }}
+              &nbsp;
+              {{ with .link }}
+                <span class="span-icon">
+                  <a href="{{ . }}">
+                    🔗
+                  </a>
+                </span>
+              {{ end }}
+              </p>
             {{ end }}
           {{ end }}
         {{ end }}
+ 
 
         
         <!-- Average downtime -->
