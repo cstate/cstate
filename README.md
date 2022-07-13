@@ -1,6 +1,6 @@
 <p align="center"><img src="images/cstate-logo-bg.svg?sanitize=true" width="500" height="auto" alt="cState example illustration"></p>
 
-> Über fast to load and build, backwards compatible (IE8+), tiny, and simple OSS status page built with Hugo. Completely _free_ with Netlify. Comes with Netlify CMS, read-only API, badges liek from shields.io, and other useful features.
+> Über fast to load and build, backwards compatible (IE8+), tiny, and simple OSS status page built with Hugo. Completely _free_ with Netlify. Comes with Netlify CMS, read-only API, badges like from shields.io, and other useful features.
 
 
 <p>
@@ -12,6 +12,10 @@
 
 You can support the creator of this project by starring, sharing, using cState and/or [financially supporting the author](https://github.com/sponsors/mistermantas). Thank you!
 
+
+## Sponsors
+
+cState's development is being sposnored by [Instatus](https://instatus.com/) from June, 2022.
 
 ## Examples 🥳
 
@@ -35,7 +39,7 @@ You can support the creator of this project by starring, sharing, using cState a
 
 ## Contents 🔍
 
-+ [Sponsors](#sponsors-)
++ [Sponsors](#sponsors)
 + [Examples](#examples-)
 + [Features](#features-)
 + [Getting started](#getting-started-)
@@ -127,7 +131,7 @@ Here is a [good guide for getting started with the service.](https://docs.gitlab
 
 **In short: a `.gitlab-ci.yml` file** is responsible for making cState work. As of v4.2.1, the [cState automatically ships with this file](https://github.com/cstate/cstate/releases/tag/v4.2.1), but support is still experimental.
 
-As of this time, this is a relatively untested option, but Hugo does seem to generate the right things (this can be checked by downloading the **CI/CD artificats**).
+As of this time, this is a relatively untested option, but Hugo does seem to generate the right things (this can be checked by downloading the **CI/CD artifacts**).
 
 According to GitLab, it may take up to 30 minutes before the site is available after the first deployment.
 

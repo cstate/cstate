@@ -18,5 +18,5 @@
 
 [[headers]]
     for = ["/*.json", "/*.xml"]
-    [headers.values]  
+    [headers.values]
       Access-Control-Allow-Origin = "*"
