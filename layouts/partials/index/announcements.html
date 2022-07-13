@@ -1,11 +1,13 @@
-{{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
-{{ $active := where $incidents "Params.resolved" "=" false }}
-{{ $activeIncidents := where $incidents "Params.informational" "=" false }}
-{{ $pinned := where $incidents "Params.pin" "=" true }}
+{{ $allPosts := where .Site.RegularPages "Params.section" "issue" }}
+{{ $active := where $allPosts "Params.resolved" "=" false }}
 
-{{ if or ($activeIncidents) ($pinned) }}
+{{ $informationals := where $allPosts "Params.informational" "=" true }}
+{{ $pinned := where $informationals "Params.pin" "=" true }}
+
+
+{{ if or ($active) ($pinned) }}
   <div class="announcement-box" style="border-bottom: 0">
-    {{ range $activeIncidents }}
+    {{ range $active }}
       <div class="padding">
         <p>
           <a href="{{ .RelPermalink }}"><strong class="bold">{{ .Title }} →</strong></a>
@@ -19,7 +21,7 @@
           {{ end }}
         </small></p>
 
-        {{ .Content | safeHTML | truncate 500 "…" }} <a href="{{ .RelPermalink }}"><b>→</b></a>
+        {{ .Content | safeHTML | truncate 500 "…" }}
         <p></p>
       </div>
       <hr class="clean announcement-box">
