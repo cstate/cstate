@@ -34,6 +34,7 @@ cState's development is being sposnored by [Instatus](https://instatus.com/) fro
 * [FSCI](https://status.fsci.in/)
 * [Hyrousek](https://status.hyrousek.tk)
 * [josh.win](https://status.josh.win)
+* [Grex HPC System Status](https://grex-status.netlify.app/)
 
 *Want your status page here? [Create a PR](https://github.com/cstate/cstate/edit/dev/README.md)!*
 
