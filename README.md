@@ -149,6 +149,8 @@ For this tutorial, it is assumed that you have Hugo and Git installed (check wit
 git clone --recursive -b master https://github.com/cstate/example.git
 ```
 
+You must use `--recursive` so that Git downloads cState and you do not have an empty `themes/cstate` folder.
+
 Now you can edit what's inside the folder (`cd example`) and try previewing that with this command:
 
 ```bash
