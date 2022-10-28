@@ -76,12 +76,12 @@
           <div class="center">
             {{ if $paginator.HasPrev }}
               <a href="{{ $paginator.Prev.URL }}#incidents">
-                ⭠ &nbsp;
+                ← &nbsp;
                 {{ T "prev" }}
               </a>
             {{ else }}
               <span class="faded">
-                ⭠ &nbsp;
+                ← &nbsp;
                 {{ T "prev" }}
               </span>
             {{ end }}
@@ -97,12 +97,12 @@
             {{ if $paginator.HasNext }}
               <a href="{{ $paginator.Next.URL }}#incidents">
                 {{ T "next" }} &nbsp;
-                ⭢
+                →
               </a>
             {{ else }}
               <span class="faded">
                 {{ T "next" }} &nbsp;
-                ⭢
+                →
               </span>
             {{ end }}
           </div>
