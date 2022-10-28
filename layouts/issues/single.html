@@ -21,7 +21,7 @@
       <p>{{ T "lastChecked" }}:
 
         {{ if .Site.Params.dateFormat }}
-        {{ .Lastmod.UTC.Format .Site.Params.dateFormat }}
+        {{ .Lastmod.Format .Site.Params.dateFormat }}
       {{ else }}
         {{ .Lastmod.Format "January 2, 2006 at 3:04 PM" }}
       {{ end }}
