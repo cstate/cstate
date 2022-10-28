@@ -1,4 +1,7 @@
-<p align="center"><img src="https://github.com/cstate/html-embed/raw/main/images/preview.svg?sanitize=true" width="500" height="auto" alt="cState example illustration"></p>
+ 
+
+<p align="center"><img src="images/cstate-logo-bg.svg?sanitize=true" width="500" height="auto" alt="cState example illustration"></p>
+
 
 > Über fast to load and build, backwards compatible (IE8+), tiny, and simple OSS status page built with Hugo. Completely _free_ with Netlify. Comes with Netlify CMS, read-only API, badges like from shields.io, and other useful features.
 
@@ -51,7 +54,7 @@ cState's development is being sposnored by [Instatus](https://instatus.com/) fro
 
 ## Features 😎
 
-<a href="https://github.com/cstate/html-embed"><img src="https://github.com/cstate/html-embed/images/preview.svg?sanitize=true" alt="cState HTML embed lets you add a dot indicator or show an alert if your cState status page has active issues"></a>
+<a href="https://github.com/cstate/html-embed"><img src="https://github.com/cstate/html-embed/raw/main/images/preview.svg?sanitize=true" alt="cState HTML embed lets you add a dot indicator or show an alert if your cState status page has active issues"></a>
 
 
 Fast.
