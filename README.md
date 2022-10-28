@@ -54,6 +54,10 @@ cState's development is being sposnored by [Instatus](https://instatus.com/) fro
 
 ## Features 😎
 
+**NEW:** [HTML Embed now in version 2. Check it out!](https://github.com/cstate/html-embed)
+
+
+
 <a href="https://github.com/cstate/html-embed"><img src="https://github.com/cstate/html-embed/raw/main/images/preview.svg?sanitize=true" alt="cState HTML embed lets you add a dot indicator or show an alert if your cState status page has active issues"></a>
 
 
