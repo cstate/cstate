@@ -51,7 +51,7 @@
         {{ $thisIsDown := where $activeComponentIssues "Params.severity" "=" "down" }}
 
         <div class="component" data-status="{{ if $thisIsDown }}down{{ else }}{{ if $thisIsDisrupted }}disrupted{{ else }}{{ if $thisIsNotice }}notice{{ else }}ok{{ end }}{{ end }}{{ end }}">
-          <a href="{{ printf "/affected/%s/" ($system.name | urlize) | relURL }}" class="no-underline">
+          <a href="{{ printf "affected/%s/" ($system.name | urlize) | relURL }}" class="no-underline">
             {{ default $system.name $system.displayName }}
           </a>
 

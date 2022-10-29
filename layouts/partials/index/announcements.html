@@ -16,7 +16,7 @@
         <p><small>
           {{ range .Params.Affected }}
               
-          <a href="{{ printf "/affected/%s/" (. | urlize) | relURL }}" class="tag no-underline">{{ . }}</a>
+          <a href="{{ printf "affected/%s/" (. | urlize) | relURL }}" class="tag no-underline">{{ . }}</a>
           
           {{ end }}
         </small></p>
@@ -37,7 +37,7 @@
         <p><small>
           {{ range .Params.Affected }}
               
-          <a href="{{ printf "/affected/%s/" (. | urlize) | relURL }}" class="tag no-underline">{{ . }}</a>
+          <a href="{{ printf "affected/%s/" (. | urlize) | relURL }}" class="tag no-underline">{{ . }}</a>
           
           {{ end }}
         </small></p>
