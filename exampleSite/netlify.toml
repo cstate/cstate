@@ -17,6 +17,6 @@
     command = "hugo -b $DEPLOY_PRIME_URL"
 
 [[headers]]
-    for = ["/*"]
+    for = "/*"
     [headers.values]
       Access-Control-Allow-Origin = "*"
