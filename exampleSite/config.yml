@@ -43,7 +43,7 @@
 
 # What is your status page called?
 # Shows up in the browser bar and meta tags
-title: Eggsample Status
+title: Summit Productions Status
 
 # Should posts, which have a publish date
 # from the future, be built? Useful for
@@ -143,8 +143,8 @@ params:
   # For help, see the wiki:
   # https://github.com/cstate/cstate/wiki/Customization
   categories:
-    - name: North Coast
-      description: The main servers are located here.
+    - name: Game Services
+      description: The main game services.
       closed: true
     - name: Empty Category
     - name: Uncategorized
