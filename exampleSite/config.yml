@@ -143,12 +143,10 @@ params:
   # For help, see the wiki:
   # https://github.com/cstate/cstate/wiki/Customization
   categories:
-    - name: Game Services
-      description: The main game services.
-      closed: true
-    - name: Empty Category
-    - name: Uncategorized
-      untitled: true
+    - name: Gunpoint: Vendetta
+      description: The main game of Summit Productions.
+      link: https://www.roblox.com/games/5573455629/Gun-Point-Vendetta-PRE-ALPHA
+      closed: false
 
   # These are your systems. Change them to
   # change the amount of components.
@@ -158,20 +156,16 @@ params:
   # For help, see the wiki:
   # https://github.com/cstate/cstate/wiki/Customization
   systems:
-    - name: Gateway
-      category: North Coast
-    - name: Backup Gateway
-      category: North Coast
-    - name: Website
-      description: The web frontend for the application.
-      category: Uncategorized
-      link: https://example.com/
-    - name: API
-      description: The guts of the application.
-      category: Uncategorized
-    - name: Media Proxy
-      description: This is the service responsible for serving images, audio, and video. It is reliant on our CDN.
-      category: Uncategorized
+    - name: Game Services
+      category: Gunpoint: Vendetta
+    - name: Parties, Friends, Messaging
+      category: Gunpoint: Vendetta
+    - name: Matchmaking
+      category: Gunpoint: Vendetta
+    - name: Stats and Leaderboards
+      category: Gunpoint: Vendetta
+    - name: Item Shop
+      category: Gunpoint: Vendetta
 
   # What date format to use?
   #
