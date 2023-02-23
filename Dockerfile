@@ -7,7 +7,7 @@ WORKDIR /cstate
 RUN apk add --no-cache hugo git
 
 # Download the example site
-RUN git clone -b master --depth=1 https://github.com/cstate/example /cstate
+COPY exampleSite /cstate
 
 # Copy files from this repo into themes/cstate
 RUN mkdir -p /cstate/themes/cstate
