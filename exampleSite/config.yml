@@ -109,7 +109,7 @@ baseURL: https://example.com
 #
 # We recommend to keep this at `true`.
 # BOOLEAN; `true`, `false`
-enableGitInfo: true
+enableGitInfo: false
 
 
 ############################################################
