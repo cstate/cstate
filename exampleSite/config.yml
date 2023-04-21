@@ -164,13 +164,16 @@ params:
       category: North Coast
     - name: Website
       description: The web frontend for the application.
+      tooltip: The web frontend for the application.
       category: Uncategorized
       link: https://example.com/
     - name: API
       description: The guts of the application.
+      tooltip: The API
       category: Uncategorized
     - name: Media Proxy
       description: This is the service responsible for serving images, audio, and video. It is reliant on our CDN.
+      tooltip: 
       category: Uncategorized
 
   # What date format to use?
