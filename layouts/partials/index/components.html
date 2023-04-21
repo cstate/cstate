@@ -55,12 +55,12 @@
             {{ default $system.name $system.displayName }}
           </a>
 
-          {{ with $system.description }}
+          {{ with $system.tooltip }}
             <span class="tooltip tooltip--small">
               &nbsp; <span class="faded">(?)</span>
 
               <span class="tooltip__text">
-                {{ . }}
+                {{ . | safeHTML }}
               </span>
             </span>
           {{ end }}
