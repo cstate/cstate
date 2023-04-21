@@ -13,7 +13,7 @@
         {{ range .Site.Params.systems }}
           {{ if eq .name $title }}
             {{ with .description }}
-              <p class="bold">{{ . }}</p>
+              <p class="bold">{{ . | safeHTML }}</p>
             {{ end }}
           {{ end }}
         {{ end }}
