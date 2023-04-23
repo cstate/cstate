@@ -12,7 +12,7 @@
 
   <small class="date">
     {{ if .Site.Params.dateFormat }}
-      {{ .Date.Format .Site.Params.dateFormat }}
+      {{ dateFormat .Site.Params.dateFormat .Params.date }}
     {{ else }}
       {{ .Date.Format "January 2, 2006 at 3:04 PM" }}
     {{ end }}
