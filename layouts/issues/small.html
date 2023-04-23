@@ -10,7 +10,7 @@
 
   <small class="date float-right {{ cond .Site.Params.useRelativeTime "relative-time" "" }}" title="{{ .Date.Format "Jan 2 15:04:05 2006 UTC" }}">
       {{ if .Site.Params.dateFormat }}
-        {{ .Date.Format .Site.Params.dateFormat }}
+        {{ dateFormat .Site.Params.dateFormat .Params.date }}
       {{ else }}
         {{ .Date.Format "January 2, 2006 at 3:04 PM" }}
       {{ end }}
@@ -25,7 +25,7 @@
   {{ else if .Params.Resolved }}
   <small class="date float-right {{ cond .Site.Params.useRelativeTime "relative-time" "" }}" title="{{ .Date.Format "Jan 2 15:04:05 2006 UTC" }}">
       {{ if .Site.Params.dateFormat }}
-        {{ .Date.Format .Site.Params.dateFormat }}
+        {{ dateFormat .Site.Params.dateFormat .Params.date }}
       {{ else }}
         {{ .Date.Format "January 2, 2006 at 3:04 PM" }}
       {{ end }}
