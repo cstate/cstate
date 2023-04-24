@@ -85,33 +85,32 @@
     </h3>
 
 
-
     <!-- Marker -->
     {{ if eq .Params.severity "notice" }}
-      <strong class="error">
-        ◆
+      <!-- <strong class="error"> -->
+        <span  style="color: {{ .Site.Params.notice }}">◆ {{ T "thisIsNotice" }} -
         {{ if .Date.Before now }}
           {{ T "downtimeOngoing" }}
         {{ else }}
           {{ if .Site.Params.dateFormat }}
-            {{ .Date.Format .Site.Params.dateFormat }}
+            {{ dateFormat .Site.Params.dateFormat .Params.date }}
           {{ else }}
             {{ .Date.Format "January 2, 2006 at 3:04 PM" }}
           {{ end }}
-        {{ end }}
-      </strong>
+        {{ end }}</span>
+      <!-- </strong> -->
     {{ else }}
     
-      <strong class="error">
+      <!-- <strong> -->
         {{ if eq .Params.severity "down" }}
-        ■
+        <span  style="color: {{ .Site.Params.down }}">■ {{ T "thisIsDown" }}
         {{ else if eq .Params.severity "disrupted" }}
-        ▲
+        <span  style="color: {{ .Site.Params.disrupted }}">▲ {{ T "thisIsDisrupted" }}
         {{ else }}
-        ◆
+        <span  style="color: {{ .Site.Params.notice }}">◆ {{ T "thisIsNotice" }}
         {{ end }}
-        {{ T "downtimeOngoing" }}
-      </strong>
+        - {{ T "downtimeOngoing" }}</span>
+      <!-- </strong> -->
     {{ end }}
 
   {{ end }}
