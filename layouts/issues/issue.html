@@ -80,15 +80,15 @@
     {{ end }}
   {{ end }}
   {{ else }}
-    <strong class="error">
+    <strong>
       {{ if eq .Params.severity "down" }}
-      ■ 
+      <span  style="color: {{ .Site.Params.down }}">■ {{ T "thisIsDown" }}</span>
       {{ else if eq .Params.severity "disrupted" }}
-      ▲ 
+      <span  style="color: {{ .Site.Params.disrupted }}">▲ {{ T "thisIsDisrupted" }}</span>
       {{ else }}
-      ◆ 
+      <span  style="color: {{ .Site.Params.notice }}">◆ {{ T "thisIsNotice" }}</span>
       {{ end }}
-      {{ T "downtimeOngoing" }}</strong>
+      - {{ T "downtimeOngoing" }}</strong>
   {{ end }}
 
   <hr>
