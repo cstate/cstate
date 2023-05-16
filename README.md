@@ -18,7 +18,7 @@ You can support the creator of this project by starring, sharing, using cState a
 
 ## Sponsors
 
-cState's development is being sposnored by [Instatus](https://instatus.com/) from June, 2022.
+[You can sponsor cState by sponsoring the main developer of the project, @mistermantas](https://github.com/sponsors/mistermantas).
 
 ## Examples 🥳
 
