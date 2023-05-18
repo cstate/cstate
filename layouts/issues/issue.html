@@ -47,7 +47,10 @@
           {{ $minutesForCalc := (mod $diffInMin 60) }}
 
           {{ div (sub $diffInMin $minutesForCalc) 60 }}h
-          {{ $minutesForCalc }}m {{ T "ofDowntime" }}.
+          {{ $minutesForCalc }}m
+          {{ if eq .Params.severity "down" }}
+              {{ T "ofDowntime" }}
+          {{ end }}
         </strong>
 
         <span class="tooltip__text">
@@ -66,7 +69,9 @@
           {{ $secsForCalc := (mod $timeDiff 60) }}
 
           {{ div (sub $timeDiff $secsForCalc) 60 }}m
-          {{ T "ofDowntime" }}.
+          {{ if eq .Params.severity "down" }}
+            {{ T "ofDowntime" }}
+          {{ end }}
         </strong>
 
         <span class="tooltip__text">
