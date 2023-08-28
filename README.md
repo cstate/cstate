@@ -26,17 +26,13 @@ You can support the creator of this project by starring, sharing, using cState a
 
 * [**Example site — cstate.mnts.lt**](https://cstate.mnts.lt)
 * [Source code of the example cState site](https://github.com/cstate/example)
- 
+
 ### More examples from the internet
 
 * [Chocolatey](https://status.chocolatey.org/)
-* [tmw.media](https://status.tmw.media)
-* [Proventa](https://status.proventa.io/) (German)
 * [sr.ht](https://status.sr.ht/)
 * [Content Ignite](https://status.contentignite.com/)
 * [FSCI](https://status.fsci.in/)
-* [Hyrousek](https://status.hyrousek.tk)
-* [josh.win](https://status.josh.win)
 
 *Want your status page here? [Create a PR](https://github.com/cstate/cstate/edit/dev/README.md)!*
 
