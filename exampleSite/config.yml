@@ -188,7 +188,7 @@ params:
   # Should relative time (x min ago) be used?
   #
   # IMPORTANT: In the frontmatter, the dates MUST be in
-  # the UTC time zone for this to work preperly. If you 
+  # the UTC time zone for this to work properly. If you 
   # use Netlify CMS, all good — the CMS picks UTC time
   # by default. Otherwise, there may be very inaccurate
   # times if multiple time zones are in your issue files.
