@@ -241,7 +241,7 @@ collections:
               - label: 'Show last modified date at bottom of issues'
                 name: 'enableLastMod'
                 widget: 'boolean'
-                hint: 'Experimental feature shows when changes occured based on Git info. Read the wiki for more: https://github.com/cstate/cstate/wiki/Customization#time'
+                hint: 'Experimental feature shows when changes occurred based on Git info. Read the wiki for more: https://github.com/cstate/cstate/wiki/Customization#time'
                 required: false
                 default: false
               - label: 'Use relative time (issue began x min ago)'
