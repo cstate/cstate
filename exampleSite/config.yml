@@ -76,7 +76,7 @@ languageCode: en
 # For enableMissingTranslationPlaceholders—
 # do not set it to true for languages other
 # than English! When tested with Lithuanian,
-# it would add unnecesary placeholders to
+# it would add unnecessary placeholders to
 # values that were intentionally empty.
 defaultContentLanguage: en
 
