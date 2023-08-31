@@ -288,7 +288,7 @@ collections:
                 required: false
                 default: true
               - label: 'Disable dark mode'
-                hint: 'If your OS and browser supports prefers-color-scheme and the user opted into a dark mode, the status page will be darker. Some color choices may be overriden.'
+                hint: 'If your OS and browser supports prefers-color-scheme and the user opted into a dark mode, the status page will be darker. Some color choices may be overridden.'
                 name: 'disableDarkMode'
                 widget: 'boolean'
                 required: false
