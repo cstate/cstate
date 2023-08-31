@@ -171,7 +171,7 @@ hugo
 
 And the folder `public` can now be hosted.
 
-As you can imagine, manual building is a little bit tedious but a great option to have available programatically.
+As you can imagine, manual building is a little bit tedious but a great option to have available programmatically.
 
 ### Docker
 
