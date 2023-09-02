@@ -18,7 +18,7 @@ You can support the creator of this project by starring, sharing, using cState a
 
 ## Sponsors
 
-cState's development is being sposnored by [Instatus](https://instatus.com/) from June, 2022.
+[You can sponsor cState by sponsoring the main developer of the project, @mistermantas](https://github.com/sponsors/mistermantas).
 
 ## Examples 🥳
 
@@ -26,17 +26,13 @@ cState's development is being sposnored by [Instatus](https://instatus.com/) fro
 
 * [**Example site — cstate.mnts.lt**](https://cstate.mnts.lt)
 * [Source code of the example cState site](https://github.com/cstate/example)
- 
+
 ### More examples from the internet
 
 * [Chocolatey](https://status.chocolatey.org/)
-* [tmw.media](https://status.tmw.media)
-* [Proventa](https://status.proventa.io/) (German)
 * [sr.ht](https://status.sr.ht/)
 * [Content Ignite](https://status.contentignite.com/)
 * [FSCI](https://status.fsci.in/)
-* [Hyrousek](https://status.hyrousek.tk)
-* [josh.win](https://status.josh.win)
 
 *Want your status page here? [Create a PR](https://github.com/cstate/cstate/edit/dev/README.md)!*
 
@@ -175,7 +171,7 @@ hugo
 
 And the folder `public` can now be hosted.
 
-As you can imagine, manual building is a little bit tedious but a great option to have available programatically.
+As you can imagine, manual building is a little bit tedious but a great option to have available programmatically.
 
 ### Docker
 
