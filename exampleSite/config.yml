@@ -90,13 +90,13 @@ defaultContentLanguage: en
 # localhost should automatically work.
 #
 # Example: 
-# baseUrl: https://status.example.com/
+# baseURL: https://status.example.com/
 #
 # For testing:
-# baseUrl: http://localhost
+# baseURL: http://localhost
 #
 # Broken example:
-# baseUrl: /
+# baseURL: /
 baseURL: https://example.com
 
 # For features like Last modified, you
