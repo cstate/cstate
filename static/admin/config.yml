@@ -134,6 +134,7 @@ collections:
             - { label: "🇲🇰 Македонски", value: "mk" }
             - { label: "🏳️ Tagalog", value: "tl" }
             - { label: "🇯🇵 Japanese", value: "ja" }
+            - { label: "🇺🇦 Urkainian", value: uk" }
           - label: 'Site language in code for html[lang]'
             hint: 'Use the ISO 639-1 defined abbreviations. Examples: en, lt, de. Fully explained here: https://github.com/cstate/cstate/wiki/Customization#changing-site-language'
             name: 'languageCode'
