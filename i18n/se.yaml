@@ -1,0 +1,157 @@
+# Swedish language file for cState
+# Version 4.4
+
+- id: languageCode
+  translation: se
+- id: languageName
+  translation: Swedish
+- id: languageNameShort
+  translation: SE
+
+##
+## INDEX.HTML
+##
+
+# Summary status message
+- id: isDown
+  translation: Upplever stora problem
+- id: isDisrupted
+  translation: Upplever störningar
+- id: isNotice
+  translation: Läs meddelandet
+- id: isOk
+  translation: Inga problem upptäcktes
+
+# No JS warning
+- id: noScriptingIntro
+  translation: Oj oj! Det verkar som att du har inaktiverat JavaScript. Vänligen
+- id: noScriptingLink
+  translation: aktivera skript
+- id: noScriptingOutro
+  translation: för att förbättra din upplevelse på denna webbplats.
+
+- id: thisIsDown
+  translation: Nere
+- id: thisIsDisrupted
+  translation: Störning
+- id: thisIsNotice
+  translation: Underhåll
+- id: thisIsOk
+  translation: Operativ
+
+# "Last checked" + "just now"
+- id: lastChecked
+  translation: Senast uppdaterad
+- id: justNow
+  translation: precis nu
+- id: someTimeAgo
+  translation: sedan
+
+# Example usage: `5` + `years`
+# Final result: 'Last checked 5 years ago'
+# Number goes before string
+# Use short variants until months
+- id: yearsAgo
+  translation: år
+- id: monthsAgo
+  translation: månader
+- id: daysAgo
+  translation: d
+- id: hoursAgo
+  translation: h
+- id: minsAgo
+  translation: min
+- id: secondsAgo
+  translation: s
+
+- id: autoRefreshNotice
+  translation: Vi försöker uppdatera uppgifterna var 5:e minut.
+
+# Incidents
+- id: incidents
+  translation: Incidenter
+- id: incidentHistory
+  translation: Incident historik
+
+- id: resolved
+  translation: Löst # if it's less than a min
+- id: inUnderAMinute
+  translation: på under en minut # continuing the last string
+- id: resolvedAfter
+  translation: Löst efter # + 19 min
+- id: ofDowntime
+  translation: av driftstopp
+
+- id: downtimeOngoing
+  translation: Det här problemet är inte löst än
+
+- id: calmBeforeTheStorm
+  translation: Är det lugnet före stormen?
+- id: noIncidentsDesc
+  translation: Den här statussidan har inga loggade incidenter. Detta kan bero på att statussidans ägare (eller ägare) nyligen har ställt in sin statussida, inte har haft någon driftstopp eller inte har loggat någon driftstopp.
+
+- id: continueReading
+  translation: Fortsätt läsa
+- id: prev
+  translation: Föregående
+- id: next
+  translation: Nästa
+
+##
+## OTHER
+##
+
+- id: goBack
+  translation: Gå tillbaka till
+- id: backToTop
+  translation: Tillbaka till toppen
+- id: poweredBy
+  translation: Powered by
+
+- id: notFound
+  translation: Det finns ingenting här.
+- id: notFoundText
+  translation: Detta kan vara ett problem från vår sida. Kanske har vi flyttat en viss resurs och nu är den borta. Det är också möjligt att resursen du försöker visa är tom. Men har du också något emot att dubbelkolla länken?
+
+- id: rss
+  translation: Prenumerera via RSS
+- id: toAllUpdates
+  translation: till alla uppdateringar
+- id: or
+  translation: eller
+- id: onlyThisFeed
+  translation: bara detta flöde
+
+##
+## v3
+##
+- id: entries
+  translation: poster
+- id: newestToOldest
+  translation: nyaste till äldsta
+
+##
+## v4
+##
+- id: notFoundAffected
+  translation: Det ser ut som att det här systemet antingen inte existerar eller aldrig har haft någon inspelad driftstopp.
+
+##
+## v4.1
+##
+
+- id: averageSystemsDowntime
+  translation: Nyligen, baserat på genomsnittliga data, ser det ut som att detta system har gått ner i ungefär
+- id: averageSystemsDowntimeSecondPart
+  translation: minuter åt gången.
+
+##
+## v4.4
+##
+
+- id: in
+  translation: i
+- id: weeksAgo
+  translation: " v"
+- id: yearAgo
+  translation: " år"
