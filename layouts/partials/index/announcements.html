@@ -1,5 +1,7 @@
 {{ $allPosts := where .Site.RegularPages "Params.section" "issue" }}
-{{ $active := where $allPosts "Params.resolved" "=" false }}
+{{ $allActive := where $allPosts "Params.resolved" "=" false }}
+{{ $active := where $allActive "Params.pin" "!=" false }}
+{{/* this $active checks if pin is explicitely set to false */}}
 
 {{ $informationals := where $allPosts "Params.informational" "=" true }}
 {{ $pinned := where $informationals "Params.pin" "=" true }}

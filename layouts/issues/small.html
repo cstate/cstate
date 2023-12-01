@@ -8,9 +8,9 @@
 <a href="{{ .Permalink }}" class="issue no-underline">
   {{ if .Params.informational }}
 
-  <small class="date float-right {{ cond .Site.Params.useRelativeTime "relative-time" "" }}" title="{{ .Date.Format "Jan 2 15:04:05 2006 UTC" }}">
+  <small class="date float-right {{ cond .Site.Params.useRelativeTime "relative-time" "" }}" title="{{ dateFormat .Site.Params.dateFormat .Params.date }}" data-date="{{ .Date.Format "Jan 2 15:04:05 2006 UTC" }}">
       {{ if .Site.Params.dateFormat }}
-        {{ .Date.Format .Site.Params.dateFormat }}
+        {{ dateFormat .Site.Params.dateFormat .Params.date }}
       {{ else }}
         {{ .Date.Format "January 2, 2006 at 3:04 PM" }}
       {{ end }}
@@ -23,9 +23,9 @@
     </span>
 
   {{ else if .Params.Resolved }}
-  <small class="date float-right {{ cond .Site.Params.useRelativeTime "relative-time" "" }}" title="{{ .Date.Format "Jan 2 15:04:05 2006 UTC" }}">
+  <small class="date float-right {{ cond .Site.Params.useRelativeTime "relative-time" "" }}" title="{{ dateFormat .Site.Params.dateFormat .Params.date }}" data-date="{{ .Date.Format "Jan 2 15:04:05 2006 UTC" }}">
       {{ if .Site.Params.dateFormat }}
-        {{ .Date.Format .Site.Params.dateFormat }}
+        {{ dateFormat .Site.Params.dateFormat .Params.date }}
       {{ else }}
         {{ .Date.Format "January 2, 2006 at 3:04 PM" }}
       {{ end }}
@@ -73,11 +73,11 @@
 
   {{ else }}
   <!-- If not resolved -->
-    <small class="date float-right {{ cond .Site.Params.useRelativeTime "relative-time" "" }}" title="{{ .Date.Format "Jan 2 15:04:05 2006 UTC" }}">
+    <small class="date float-right {{ cond .Site.Params.useRelativeTime "relative-time" "" }}" title="{{ dateFormat .Site.Params.dateFormat .Params.date }}" data-date="{{ .Date.Format "Jan 2 15:04:05 2006 UTC" }}">
         
       {{ if .Date.Before now }}
         {{ if .Site.Params.dateFormat }}
-          {{ .Date.Format .Site.Params.dateFormat }}
+          {{ dateFormat .Site.Params.dateFormat .Params.date }}
         {{ else }}
           {{ .Date.Format "January 2, 2006 at 3:04 PM" }}
         {{ end }}
@@ -99,7 +99,7 @@
           {{ T "downtimeOngoing" }}
         {{ else }}
           {{ if .Site.Params.dateFormat }}
-            {{ .Date.Format .Site.Params.dateFormat }}
+            {{ dateFormat .Site.Params.dateFormat .Params.date }}
           {{ else }}
             {{ .Date.Format "January 2, 2006 at 3:04 PM" }}
           {{ end }}

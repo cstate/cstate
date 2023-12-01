@@ -3,7 +3,7 @@
    * Dev toolset
    */
 
-  console.log('cState v5.5.2 - https://github.com/cstate/cstate');
+  console.log('cState v5.6 - https://github.com/cstate/cstate');
   document.getElementsByTagName('html')[0].className = 'js';
 
   /**
@@ -103,7 +103,7 @@
     var elements = document.querySelectorAll('.relative-time');
     for (var i = 0; i < elements.length; i++) {
       var element = elements[i];
-      var time = Date.parse(element.getAttribute('title'));
+      var time = Date.parse(element.dataset.date);
       var html = element.getAttribute('data-time-prefix') || '';
 
 
