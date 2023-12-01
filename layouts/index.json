@@ -17,6 +17,20 @@
       }
     {{ end }}
   ],
+  {{ $informationals := where $incidents "Params.informational" "=" true }}{{ $pinnedIssues := where $informationals "Params.pin" "=" true }}
+  {{ if not $pinnedIssues }}
+  "pinnedIssues": []{{ else }}
+  "pinnedIssues": [{{ range $i, $e := $pinnedIssues }}{{ if $i }},{{ end }}
+      {
+        "is": "issue",
+        "title": "{{ .Title }}",
+        "createdAt": "{{ .Date }}",
+        "lastMod": "{{ .Lastmod }}",
+        "permalink": "{{ .Permalink }}",
+        "affected": [{{ range $i, $e := .Params.Affected }}{{ if $i }}, {{ end }}"{{ . }}"{{ end }}],
+        "filename": "{{ .File.LogicalName }}"
+      }{{ end }}
+  ]{{ end }},
   "systems": [
     {{ range $i, $e := .Site.Params.systems }}{{ if $i }},{{ end }}
       {
