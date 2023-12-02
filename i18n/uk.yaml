@@ -71,7 +71,7 @@
 - id: incidents
   translation: Інциденти
 - id: incidentHistory
-  translation: Історія інциденту
+  translation: Історія інцидентів
 
 - id: resolved
   translation: Вирішено # if it's less than a min
