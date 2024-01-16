@@ -1,9 +1,9 @@
 {{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
-{{ $active := where $incidents "Params.resolved" "=" false }}
-{{ $activeIncidents := where $incidents "Params.informational" "=" false }}
-{{ $pinned := where $incidents "Params.pin" "=" true }}
+{{ $activeIncidents := where $incidents "Params.resolved" "=" false }}
+{{ $informational := where $incidents "Params.informational" "=" true }}
+{{ $informationalPinned := where $incidents "Params.pin" "=" true }}
 
-{{ if or ($activeIncidents) ($pinned) }}
+{{ if or ($activeIncidents) ($informationalPinned) }}
   <div class="announcement-box" style="border-bottom: 0">
     {{ range $activeIncidents }}
       <div class="padding">
@@ -25,7 +25,7 @@
       <hr class="clean announcement-box">
     {{ end }}
     
-    {{ range $pinned }}
+    {{ range $informationalPinned }}
       {{ if .Params.informational }}
       <div class="padding">
         <p>
