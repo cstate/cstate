@@ -12,7 +12,7 @@
     {{ range .AlternativeOutputFormats -}}
     {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
     {{ end -}}
-    <meta name="generator" content="cState v5.6 - https://github.com/cstate/cstate">
+    <meta name="generator" content="cState v5.6.1 - https://github.com/cstate/cstate">
     <meta name="theme-color" content="{{ .Site.Params.brand }}">
     <script>
     var themeBrandColor = '{{ .Site.Params.brand }}';
@@ -68,6 +68,7 @@
       color: #000;
       font-family: "Inter", "Inter UI", "Segoe UI", BlinkMacSystemFont, -apple-system, "San Francisco Display", "Roboto", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
       letter-spacing: -0.4px;
+      overflow-wrap: break-word;
     }
 
     h3 {
