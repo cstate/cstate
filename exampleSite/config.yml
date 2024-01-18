@@ -76,7 +76,7 @@ languageCode: en
 # For enableMissingTranslationPlaceholders—
 # do not set it to true for languages other
 # than English! When tested with Lithuanian,
-# it would add unnecesary placeholders to
+# it would add unnecessary placeholders to
 # values that were intentionally empty.
 defaultContentLanguage: en
 
@@ -109,7 +109,7 @@ baseURL: https://example.com
 #
 # We recommend to keep this at `true`.
 # BOOLEAN; `true`, `false`
-enableGitInfo: true
+enableGitInfo: false
 
 
 ############################################################
@@ -133,7 +133,7 @@ params:
   #   and the user can expand by clicking on the category
   #   (Requires JavaScript.)
   # - untitled boolean `untitled: true`
-  #   This would complerely hide the name of the category.
+  #   This would completely hide the name of the category.
   #   This is useful, if you do not want to use categories
   #   because you need to set an 'Uncategorized' category.
   #   Or it can be used alongside other categories.
@@ -188,7 +188,7 @@ params:
   # Should relative time (x min ago) be used?
   #
   # IMPORTANT: In the frontmatter, the dates MUST be in
-  # the UTC time zone for this to work preperly. If you 
+  # the UTC time zone for this to work properly. If you 
   # use Netlify CMS, all good — the CMS picks UTC time
   # by default. Otherwise, there may be very inaccurate
   # times if multiple time zones are in your issue files.

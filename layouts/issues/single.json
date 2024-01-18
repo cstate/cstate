@@ -1,6 +1,7 @@
 {
   "is": "issue",
   "title": "{{ .Title }}",
+  "body": {{ jsonify .Content }},
   "createdAt": "{{ .Date }}",
   "lastMod": "{{ .Lastmod }}",
   "permalink": "{{ .Permalink }}",

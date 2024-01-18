@@ -15,7 +15,7 @@ Explain the **details** for making this change. What existing problem does the p
 Demonstrate the code is solid. Example: The exact commands you ran and their output, screenshots / videos if the pull request changes UI.
 
 <!-- Run some tests to make sure the code doesn't throw any errors, is valid, and works on IE8+. -->
-<!-- Also, maake sure that the code formatting is in line with the rest of the project. -->
+<!-- Also, make sure that the code formatting is in line with the rest of the project. -->
 
 **Closing issues**
 

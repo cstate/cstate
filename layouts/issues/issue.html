@@ -12,7 +12,7 @@
 
   <small class="date">
     {{ if .Site.Params.dateFormat }}
-      {{ .Date.Format .Site.Params.dateFormat }}
+      {{ dateFormat .Site.Params.dateFormat .Params.date }}
     {{ else }}
       {{ .Date.Format "January 2, 2006 at 3:04 PM" }}
     {{ end }}
@@ -20,7 +20,7 @@
 
   <p><small>
     {{ range .Params.Affected }}
-      <a href="{{ printf "/affected/%s/" (. | urlize) | relURL }}" class="tag no-underline">{{ . }}</a>
+      <a href="{{ printf "affected/%s/" (. | urlize) | relURL }}" class="tag no-underline">{{ . }}</a>
     {{ end }}
   </small></p>
 
@@ -47,7 +47,10 @@
           {{ $minutesForCalc := (mod $diffInMin 60) }}
 
           {{ div (sub $diffInMin $minutesForCalc) 60 }}h
-          {{ $minutesForCalc }}m {{ T "ofDowntime" }}.
+          {{ $minutesForCalc }}m
+          {{ if eq .Params.severity "down" }}
+              {{ T "ofDowntime" }}
+          {{ end }}
         </strong>
 
         <span class="tooltip__text">
@@ -66,7 +69,9 @@
           {{ $secsForCalc := (mod $timeDiff 60) }}
 
           {{ div (sub $timeDiff $secsForCalc) 60 }}m
-          {{ T "ofDowntime" }}.
+          {{ if eq .Params.severity "down" }}
+            {{ T "ofDowntime" }}
+          {{ end }}
         </strong>
 
         <span class="tooltip__text">
@@ -92,6 +97,6 @@
   {{ end }}
 
   <hr>
-  {{ .Content }}
+  <div class="markdown">{{ .Content }}</div>
 </div>
 <div class="padding"></div>

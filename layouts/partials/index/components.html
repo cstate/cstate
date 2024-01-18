@@ -43,19 +43,19 @@
       {{ $categorySystems := where $systems "category" "=" .name }}
 
       <div class="components">
-      {{ range $categorySystems }}
-        {{ $activeComponentIssues := where $active "Params.affected" "intersect" (slice .name) }}
+      {{ range $system := $categorySystems }}
+        {{ $activeComponentIssues := where $active "Params.affected" "intersect" (slice $system.name) }}
 
         {{ $thisIsNotice := where $activeComponentIssues "Params.severity" "=" "notice" }}
         {{ $thisIsDisrupted := where $activeComponentIssues "Params.severity" "=" "disrupted" }}
         {{ $thisIsDown := where $activeComponentIssues "Params.severity" "=" "down" }}
 
         <div class="component" data-status="{{ if $thisIsDown }}down{{ else }}{{ if $thisIsDisrupted }}disrupted{{ else }}{{ if $thisIsNotice }}notice{{ else }}ok{{ end }}{{ end }}{{ end }}">
-          <a href="{{ printf "/affected/%s/" (.name | urlize) | relURL }}" class="no-underline">
-            {{ default .name .displayName }}
+          <a href="{{ printf "affected/%s/" ($system.name | urlize) | relURL }}" class="no-underline">
+            {{ default $system.name $system.displayName }}
           </a>
 
-          {{ with .description }}
+          {{ with $system.description }}
             <span class="tooltip tooltip--small">
               &nbsp; <span class="faded">(?)</span>
 
@@ -65,7 +65,7 @@
             </span>
           {{ end }}
 
-          {{ with .link }}
+          {{ with $system.link }}
             <span class="span-icon">
               <a href="{{ . }}" class="link-style">
                 🔗
@@ -87,9 +87,9 @@
             {{ end }}{{ end }}{{ end }}
           </span>
 
-          {{ with .partial }}
+          {{ with $system.partial }}
           <div>
-            {{ partial . . }}
+            {{ partial . (dict "system" $system "incidents" $incidents) }}
           </div>
           {{ end }}
         </div>
@@ -110,35 +110,35 @@
         //
         // By default, all is good but we change this value
         // for progressively worse statuses
-        var highlestLevelStatus = '';
+        var highestLevelStatus = '';
 
         function checkStatus(element) {
           var status = element.getAttribute('data-status');
 
           if (status === 'down') {
-            highlestLevelStatus = 'down'
-          } else if (status === 'disrupted' && highlestLevelStatus !== 'down') {
-            highlestLevelStatus = 'disrupted'
-          } else if (status === 'notice' && highlestLevelStatus !== 'down' && highlestLevelStatus !== 'disrupted') {
-            highlestLevelStatus = 'notice'
+            highestLevelStatus = 'down'
+          } else if (status === 'disrupted' && highestLevelStatus !== 'down') {
+            highestLevelStatus = 'disrupted'
+          } else if (status === 'notice' && highestLevelStatus !== 'down' && highestLevelStatus !== 'disrupted') {
+            highestLevelStatus = 'notice'
           }
         }
 
         componentsOfThisCategory.forEach(element => checkStatus(element));
         
         // Human readable (i18n) status name variable
-        var highlestLevelStatusReadable = highlestLevelStatus;
+        var highestLevelStatusReadable = highestLevelStatus;
 
-        if (highlestLevelStatus === 'ok') { highlestLevelStatusReadable = '{{ T "thisIsOk" }}' } 
-        if (highlestLevelStatus === 'notice') { highlestLevelStatusReadable = '{{ T "thisIsNotice" }}' } 
-        if (highlestLevelStatus === 'dsirupted') { highlestLevelStatusReadable = '{{ T "thisIsDisrupted" }}' } 
-        if (highlestLevelStatus === 'down') { highlestLevelStatusReadable = '{{ T "thisIsDown" }}' } 
+        if (highestLevelStatus === 'ok') { highestLevelStatusReadable = '{{ T "thisIsOk" }}' } 
+        if (highestLevelStatus === 'notice') { highestLevelStatusReadable = '{{ T "thisIsNotice" }}' } 
+        if (highestLevelStatus === 'disrupted') { highestLevelStatusReadable = '{{ T "thisIsDisrupted" }}' } 
+        if (highestLevelStatus === 'down') { highestLevelStatusReadable = '{{ T "thisIsDown" }}' } 
 
         // Finally we can show the status 
         // (but only for categories with a name)
         if (thisCategory.classList.contains('category--titled')) {
-          thisCategory.querySelector('.category__head').setAttribute('data-status', highlestLevelStatus);
-          thisCategory.querySelector('.category-status').innerHTML = highlestLevelStatusReadable;
+          thisCategory.querySelector('.category__head').setAttribute('data-status', highestLevelStatus);
+          thisCategory.querySelector('.category-status').innerHTML = highestLevelStatusReadable;
         }
       </script>
     </div>

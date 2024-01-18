@@ -1,11 +1,15 @@
 {{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
 {{ $activeIncidents := where $incidents "Params.resolved" "=" false }}
+
+{{ $activeIncidentsFiltered := where $activeIncidents "Params.pin" "!=" false }}
+{{/* this $active checks if pin is explicitely set to false */}}
+
 {{ $informational := where $incidents "Params.informational" "=" true }}
 {{ $informationalPinned := where $incidents "Params.pin" "=" true }}
 
-{{ if or ($activeIncidents) ($informationalPinned) }}
+{{ if or ($activeIncidentsFiltered) ($informationalPinned) }}
   <div class="announcement-box" style="border-bottom: 0">
-    {{ range $activeIncidents }}
+    {{ range $activeIncidentsFiltered }}
       <div class="padding">
         <p>
           <a href="{{ .RelPermalink }}"><strong class="bold">{{ .Title }} →</strong></a>

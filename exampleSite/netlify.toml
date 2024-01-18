@@ -17,9 +17,6 @@
     command = "hugo -b $DEPLOY_PRIME_URL"
 
 [[headers]]
-    for = "/*.json"
-    [headers.values]
-      Access-Control-Allow-Origin = "*"
-    for = "/*.xml"
+    for = "/*"
     [headers.values]
       Access-Control-Allow-Origin = "*"
