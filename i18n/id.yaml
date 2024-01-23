@@ -1,0 +1,160 @@
+# Indonesian language file for cState
+# Version 4.4
+
+- id: languageCode
+  translation: id
+- id: languageName
+  translation: Bahasa Indonesia
+- id: languageNameShort
+  translation: IND
+
+##
+## INDEX.HTML
+##
+
+# Summary status message
+- id: isDown
+  translation: Sedang mengalami masalah besar
+- id: isDisrupted
+  translation: Sedang mengalami gangguan
+- id: isNotice
+  translation: Harap baca pengumuman
+- id: isOk
+  translation: Tidak ada masalah terdeteksi
+
+# No JS warning
+- id: noScriptingIntro
+  translation: Aduh! Sepertinya JavaScript dinonaktifkan. Harap
+- id: noScriptingLink
+  translation: aktifkan
+- id: noScriptingOutro
+  translation: guna meningkatkan pengalaman Anda di situs ini.
+
+- id: thisIsDown
+  translation: Terhenti
+- id: thisIsDisrupted
+  translation: Terganggu
+- id: thisIsNotice
+  translation: Dalam Pemeliharaan
+- id: thisIsOk
+  translation: Beroperasi
+
+# "Last checked" + "just now"
+- id: lastChecked
+  translation: Terakhir diperiksa
+- id: justNow
+  translation: baru saja
+- id: someTimeAgo
+  translation: yang lalu
+
+# Example usage: `5` + `years`
+# Final result: 'Last checked 5 years ago'
+# Number goes before string
+# Use short variants until months
+- id: yearsAgo
+  translation: tahun
+- id: monthsAgo
+  translation: bulan
+- id: daysAgo
+  translation: h
+- id: hoursAgo
+  translation: j
+- id: minsAgo
+  translation: m
+- id: secondsAgo
+  translation: d
+
+- id: autoRefreshNotice
+  translation: Kami akan usahakan memuat ulang setiap 5 menit
+
+# Incidents
+- id: incidents
+  translation: Insiden
+- id: incidentHistory
+  translation: Riwayat insiden
+
+- id: resolved
+  translation: Selesai # if it's less than a min
+- id: inUnderAMinute
+  translation: di bawah satu menit # continuing the last string
+- id: resolvedAfter
+  translation: Selesai setelah # + 19 min
+- id: ofDowntime
+  translation: terhenti
+
+- id: downtimeOngoing
+  translation: Masalah ini belum terselesaikan
+
+
+- id: calmBeforeTheStorm
+  translation: Apakah ini ketenangan sebelum badai?
+- id: noIncidentsDesc
+  translation: Halaman status ini belum memiliki insiden tercatat, karena kemungkinan pemilik halaman ini baru saja mengatur halaman ini, belum memiliki waktu henti, atau belum pernah mencatat waktu henti.
+
+
+- id: continueReading
+  translation: Terus membaca
+- id: prev
+  translation: Sebelum
+- id: next
+  translation: Sesudah
+
+##
+## OTHER
+##
+
+- id: goBack
+  translation: Kembali ke
+- id: backToTop
+  translation: Kembali ke atas
+- id: poweredBy
+  translation: Diberdayakan oleh
+
+- id: notFound
+  translation: Tidak ada apa-apa di sini.
+- id: notFoundText
+  translation: Mungkin ini masalah kami. Barangkali ada informasi yang telah kami pindahkan, atau boleh jadi informasi yang Anda ingin lihat kosong. Namun bisakah Anda coba periksa ulang tautannya?
+
+- id: rss
+  translation: Langganan via RSS
+- id: toAllUpdates
+  translation: untuk semua pembaruan
+- id: or
+  translation: atau
+- id: onlyThisFeed
+  translation: feed ini saja
+
+##
+## v3
+##
+- id: entries
+  translation: entri
+- id: newestToOldest
+  translation: baru ke lama
+
+##
+## v4
+##
+- id: notFoundAffected
+  translation: Tampaknya sistem ini tidak ada atau belum pernah mencatat waktu henti.
+
+##
+## v4.1
+##
+
+- id: averageSystemsDowntime
+  translation: Baru-baru ini, berdasarkan data rata-rata, tampaknya sistem ini telah berhenti selama sekitar
+- id: averageSystemsDowntimeSecondPart
+  translation: menit setiap kalinya.
+
+
+##
+## v4.4
+##
+
+- id: in
+  translation: dalam
+- id: weeksAgo
+  translation: " minggu"
+- id: yearAgo
+  translation: " tahun"
