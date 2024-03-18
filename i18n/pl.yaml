@@ -14,9 +14,9 @@
 
 # Summary status message
 - id: isDown
-  translation: Awaria systemów
+  translation: Awaria
 - id: isDisrupted
-  translation: Cześciowa awaria systemów
+  translation: Częściowa awaria
 - id: isNotice
   translation: Ogłoszenie
 - id: isOk
