@@ -1,0 +1,160 @@
+# Polish language file for cState
+# Version 4.4
+
+- id: languageCode
+  translation: pl
+- id: languageName
+  translation: Polish
+- id: languageNameShort
+  translation: PL
+
+##
+## INDEX.HTML
+##
+
+# Summary status message
+- id: isDown
+  translation: Awaria systemów
+- id: isDisrupted
+  translation: Cześciowa awaria systemów
+- id: isNotice
+  translation: Ogłoszenie
+- id: isOk
+  translation: Wszystkie systemy sprawne 
+
+# No JS warning
+- id: noScriptingIntro
+  translation: Ou! Wygląda na to, że wyłączyłeś JavaScript. Proszę
+- id: noScriptingLink
+  translation: włącz skrypty
+- id: noScriptingOutro
+  translation: aby poprawić Twoje wrażenia z korzystania z tej witryny.
+
+- id: thisIsDown
+  translation: Awaria
+- id: thisIsDisrupted
+  translation: Częściowa awaria
+- id: thisIsNotice
+  translation: Prace techniczne
+- id: thisIsOk
+  translation: Sprawny
+
+# "Last checked" + "just now"
+- id: lastChecked
+  translation: "Ostatnia aktualizacja:"
+- id: justNow
+  translation: teraz
+- id: someTimeAgo
+  translation: temu
+
+# Example usage: `5` + `years`
+# Final result: 'Last checked 5 years ago'
+# Number goes before string
+# Use short variants until months
+- id: yearsAgo
+  translation: "y"
+- id: monthsAgo
+  translation: m
+- id: daysAgo
+  translation: d
+- id: hoursAgo
+  translation: h
+- id: minsAgo
+  translation: min
+- id: secondsAgo
+  translation: s
+
+- id: autoRefreshNotice
+  translation: Serwis odświeża się co 5 minut.
+
+# Incidents
+- id: incidents
+  translation: Zdarzenia
+- id: incidentHistory
+  translation: Historia zdarzeń
+
+- id: resolved
+  translation: Rozwiązano # if it's less than a min
+- id: inUnderAMinute
+  translation: w mniej niż minute # continuing the last string
+- id: resolvedAfter
+  translation: Rozwiązano po # + 19 min
+- id: ofDowntime
+  translation: awarii
+
+- id: downtimeOngoing
+  translation: Ten problem nie został jeszcze rozwiązany
+
+
+- id: calmBeforeTheStorm
+  translation: Czy to cisza przed burzą?
+- id: noIncidentsDesc
+  translation: Na tej stronie nie ma zarejestrowanych żadnych zdarzeń. Może to być spowodowane tym, że właściciel(e) strony stanu niedawno skonfigurował swoją stronę, nie miał awarii lub ich nie zarejestrował.
+
+
+- id: continueReading
+  translation: Kontynuuj czytanie
+- id: prev
+  translation: Poprzedni
+- id: next
+  translation: Następny
+
+##
+## OTHER
+##
+
+- id: goBack
+  translation: Wróć do
+- id: backToTop
+  translation: Powrót do góry
+- id: poweredBy
+  translation: Oparte na
+
+- id: notFound
+  translation: Nic tu nie ma.
+- id: notFoundText
+  translation: To może być problem z naszej strony. Być może przenieśliśmy określony zasób i teraz go nie ma. Możliwe jest również, że zasób, który próbujesz wyświetlić, jest pusty. Ale czy masz też coś przeciwko, aby dwukrotnie sprawdzić link?
+
+- id: rss
+  translation: Subskrybuj przez RSS
+- id: toAllUpdates
+  translation: wszystkie zdarzenia
+- id: or
+  translation: lub
+- id: onlyThisFeed
+  translation: to zdarzenie
+
+##
+## v3
+##
+- id: entries
+  translation: wpisów
+- id: newestToOldest
+  translation: od najnowszego do najstarszego
+
+##
+## v4
+##
+- id: notFoundAffected
+  translation: Wygląda na to, że ten system albo nie istnieje, albo nigdy nie miał zarejestrowanych awarii.
+
+##
+## v4.1
+##
+
+- id: averageSystemsDowntime
+  translation: Wygląda na to, że ten system nie działał średnio przez
+- id: averageSystemsDowntimeSecondPart
+  translation: minut
+
+
+##
+## v4.4
+##
+
+- id: in
+  translation: w
+- id: weeksAgo
+  translation: " tyg"
+- id: yearAgo
+  translation: " y"
