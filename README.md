@@ -33,6 +33,7 @@ You can support the creator of this project by starring, sharing, using cState a
 * [sr.ht](https://status.sr.ht/)
 * [Content Ignite](https://status.contentignite.com/)
 * [FSCI](https://status.fsci.in/)
+* [Testing Farm](https://status.testing-farm.io/)
 
 *Want your status page here? [Create a PR](https://github.com/cstate/cstate/edit/dev/README.md)!*
 
