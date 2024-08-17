@@ -103,7 +103,7 @@
 - id: backToTop
   translation: Volver al inicio
 - id: poweredBy
-  translation: Desarrollado por
+  translation: Powered by
 
 - id: notFound
   translation: No hay nada aquí.
