@@ -124,6 +124,7 @@ collections:
             default: 'en'
             options:
             - { label: "🇺🇸 English (default)", value: "en" }
+            - { label: "🇪🇸 Spanish", value: "es" }
             - { label: "🇱🇹 Lietuviškai (official)", value: "lt" }
             - { label: "🇹🇷 Turkish", value: "tr" }
             - { label: "🇩🇪 Deutsch", value: "de" }
@@ -149,7 +150,7 @@ collections:
             widget: 'string'
             hint: 'Where is the site hosted? Hostname (and path) to the root. Prior to version 3, a slash was used which now works in local testing, but breaks certain features of cState like RSS feeds, so a correct example for production is: https://cstate.mnts.lt'
             default: '/'
-              
+
           # REQUIRED BUT HIDDEN
           - label: 'theme'
             name: 'theme'
@@ -193,7 +194,7 @@ collections:
             widget: "hidden"
             fields:
               - label: "svg"
-                name: svg 
+                name: svg
                 fields:
                 - label: "isPlainText"
                   name: isPlainText
@@ -207,7 +208,7 @@ collections:
             widget: 'hidden'
             required: false
             default: true
-            
+
           # PARAMS
           - label: "Params"
             name: "params"
