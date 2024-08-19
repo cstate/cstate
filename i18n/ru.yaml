@@ -1,0 +1,161 @@
+# Russian language file for cState
+# Official
+# Version 4.4
+
+- id: languageCode
+  translation: ru
+- id: languageName
+  translation: Русский
+- id: languageNameShort
+  translation: РУС
+
+##
+## INDEX.HTML
+##
+
+# Summary status message
+- id: isDown
+  translation: Испытываем серьезные проблемы
+- id: isDisrupted
+  translation: Испытываем перебои
+- id: isNotice
+  translation: Пожалуйста, прочитайте объявление
+- id: isOk
+  translation: Проблем не обнаружено
+
+# No JS warning
+- id: noScriptingIntro
+  translation: Ой! Похоже, вы отключили JavaScript. Пожалуйста
+- id: noScriptingLink
+  translation: включите поддержку JavaScript
+- id: noScriptingOutro
+  translation: чтобы улучшить ваш опыт на этом сайте.
+
+- id: thisIsDown
+  translation: Не работает
+- id: thisIsDisrupted
+  translation: Перебои
+- id: thisIsNotice
+  translation: Обслуживание
+- id: thisIsOk
+  translation: Работает
+
+# "Last checked" + "just now"
+- id: lastChecked
+  translation: Последнее обновление
+- id: justNow
+  translation: только что
+- id: someTimeAgo
+  translation: назад
+
+# Example usage: `5` + `years`
+# Final result: 'Last checked 5 years ago'
+# Number goes before string
+# Use short variants until months
+- id: yearsAgo
+  translation: лет
+- id: monthsAgo
+  translation: месяцев
+- id: daysAgo
+  translation: д
+- id: hoursAgo
+  translation: ч
+- id: minsAgo
+  translation: мин
+- id: secondsAgo
+  translation: с
+
+- id: autoRefreshNotice
+  translation: Мы будем пытаться обновлять каждые 5 мин
+
+# Incidents
+- id: incidents
+  translation: Инциденты
+- id: incidentHistory
+  translation: История инцидентов
+
+- id: resolved
+  translation: Решено # если меньше минуты
+- id: inUnderAMinute
+  translation: менее чем за минуту # продолжая предыдущую строку
+- id: resolvedAfter
+  translation: Решено через # + 19 мин
+- id: ofDowntime
+  translation: простоя
+
+- id: downtimeOngoing
+  translation: Эта проблема еще не решена
+
+
+- id: calmBeforeTheStorm
+  translation: Это затишье перед бурей?
+- id: noIncidentsDesc
+  translation: На этой странице статуса нет зарегистрированных инцидентов. Это может быть связано с тем, что владелец (или владельцы) страницы статуса недавно настроили свою страницу, не имели простоев или не зарегистрировали их.
+
+
+- id: continueReading
+  translation: Продолжить чтение
+- id: prev
+  translation: Предыдущий
+- id: next
+  translation: Следующий
+
+##
+## OTHER
+##
+
+- id: goBack
+  translation: Вернуться к
+- id: backToTop
+  translation: Наверх
+- id: poweredBy
+  translation: На платформе
+
+- id: notFound
+  translation: Здесь ничего нет.
+- id: notFoundText
+  translation: Возможно, это наша проблема. Может быть, мы переместили какой-то ресурс, и теперь он недоступен. Возможно также, что ресурс, который вы пытаетесь просмотреть, пуст. Не могли бы вы также дважды проверить ссылку?
+
+- id: rss
+  translation: Подписаться через RSS
+- id: toAllUpdates
+  translation: на все обновления
+- id: or
+  translation: или
+- id: onlyThisFeed
+  translation: только этот канал
+
+##
+## v3
+##
+- id: entries
+  translation: записи
+- id: newestToOldest
+  translation: от новых к старым
+
+##
+## v4
+##
+- id: notFoundAffected
+  translation: Похоже, эта система либо не существует, либо никогда не имела зарегистрированных простоев.
+
+##
+## v4.1
+##
+
+- id: averageSystemsDowntime
+  translation: Недавно, на основе средних данных, кажется, что эта система выходила из строя примерно на
+- id: averageSystemsDowntimeSecondPart
+  translation: минут за раз.
+
+
+##
+## v4.4
+##
+
+- id: in
+  translation: через
+- id: weeksAgo
+  translation: " нед."
+- id: yearAgo
+  translation: " год"
