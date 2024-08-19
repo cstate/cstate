@@ -124,8 +124,8 @@ collections:
             default: 'en'
             options:
             - { label: "🇺🇸 English (default)", value: "en" }
-            - { label: "🇪🇸 Spanish", value: "es" }
             - { label: "🇱🇹 Lietuviškai (official)", value: "lt" }
+            - { label: "🇪🇸 Spanish", value: "es" }
             - { label: "🇹🇷 Turkish", value: "tr" }
             - { label: "🇩🇪 Deutsch", value: "de" }
             - { label: "🇳🇱 Dutch", value: "nl" }
@@ -138,6 +138,8 @@ collections:
             - { label: "🇺🇦 Ukrainian", value: "uk" }
             - { label: "🇸🇪 Swedish", value: "se" }
             - { label: "🇮🇩 Indonesian", value: "id" }
+            - { label: "🇵🇱 Polska", value: "pl" }
+            - { label: "🇷🇺 Русский", value: "ru" }
           - label: 'Site language in code for html[lang]'
             hint: 'Use the ISO 639-1 defined abbreviations. Examples: en, lt, de. Fully explained here: https://github.com/cstate/cstate/wiki/Customization#changing-site-language'
             name: 'languageCode'
@@ -148,7 +150,7 @@ collections:
             widget: 'string'
             hint: 'Where is the site hosted? Hostname (and path) to the root. Prior to version 3, a slash was used which now works in local testing, but breaks certain features of cState like RSS feeds, so a correct example for production is: https://cstate.mnts.lt'
             default: '/'
-
+              
           # REQUIRED BUT HIDDEN
           - label: 'theme'
             name: 'theme'
@@ -192,7 +194,7 @@ collections:
             widget: "hidden"
             fields:
               - label: "svg"
-                name: svg
+                name: svg 
                 fields:
                 - label: "isPlainText"
                   name: isPlainText
@@ -206,7 +208,7 @@ collections:
             widget: 'hidden'
             required: false
             default: true
-
+            
           # PARAMS
           - label: "Params"
             name: "params"
