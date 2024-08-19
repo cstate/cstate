@@ -125,6 +125,7 @@ collections:
             options:
             - { label: "🇺🇸 English (default)", value: "en" }
             - { label: "🇱🇹 Lietuviškai (official)", value: "lt" }
+            - { label: "🇪🇸 Spanish", value: "es" }
             - { label: "🇹🇷 Turkish", value: "tr" }
             - { label: "🇩🇪 Deutsch", value: "de" }
             - { label: "🇳🇱 Dutch", value: "nl" }
