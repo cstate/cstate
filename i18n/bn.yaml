@@ -1,0 +1,161 @@
+# Bangla language file for cState
+
+# Version 4.4
+
+- id: languageCode
+  translation: bn
+- id: languageName
+  translation: Bangla
+- id: languageNameShort
+  translation: BAN
+
+##
+## INDEX.HTML
+##
+
+# Summary status message
+- id: isDown
+  translation: মেজর সমস্যার সম্মুখীন
+- id: isDisrupted
+  translation: বিঘ্নিত হচ্ছে
+- id: isNotice
+  translation: অনুগ্রহ করে ঘোষণা পড়ুন
+- id: isOk
+  translation: কোন সমস্যা সনাক্ত করা হয়নি
+
+# No JS warning
+- id: noScriptingIntro
+  translation: ওহ! দেখে মনে হচ্ছে আপনি জাভাস্ক্রিপ্ট নিষ্ক্রিয় করেছেন। প্লিজ
+- id: noScriptingLink
+  translation: স্ক্রিপ্টিং এনেবল করুন
+- id: noScriptingOutro
+  translation: এই ওয়েবসাইটে আপনার অভিজ্ঞতা বাড়ানোর জন্য।
+
+- id: thisIsDown
+  translation: ডাউন
+- id: thisIsDisrupted
+  translation: ব্যাহত
+- id: thisIsNotice
+  translation: মেইনটেইনেন্স
+- id: thisIsOk
+  translation: অপারেশনাল
+
+# "Last checked" + "just now"
+- id: lastChecked
+  translation: সর্বশেষ আপডেট করা হয়েছে
+- id: justNow
+  translation: এইমাত্র
+- id: someTimeAgo
+  translation: পূর্বে
+
+# Example usage: `5` + `years`
+# Final result: 'Last checked 5 years ago'
+# Number goes before string
+# Use short variants until months
+- id: yearsAgo
+  translation: বছর
+- id: monthsAgo
+  translation: মাস
+- id: daysAgo
+  translation: d
+- id: hoursAgo
+  translation: h
+- id: minsAgo
+  translation: min
+- id: secondsAgo
+  translation: s
+
+- id: autoRefreshNotice
+  translation: আমরা প্রতি 5 মিনিটে রিফ্রেশ করার চেষ্টা করি
+
+# Incidents
+- id: incidents
+  translation: ঘটনা
+- id: incidentHistory
+  translation: ঘটনার ইতিহাস
+
+- id: resolved
+  translation: সমাধান করা হয়েছে # if it's less than a min
+- id: inUnderAMinute
+  translation: এক মিনিটের মধ্যে # continuing the last string
+- id: resolvedAfter
+  translation: সমাধান করা হয়েছে # + 19 min
+- id: ofDowntime
+  translation: ডাউনটাইম পরে
+
+- id: downtimeOngoing
+  translation: এই সমস্যা এখনও সমাধান করা হয় নি
+
+
+- id: calmBeforeTheStorm
+  translation: এটা কি ঝড়ের আগের শান্তি?
+- id: noIncidentsDesc
+  translation: এই স্ট্যাটাস পৃষ্ঠায় কোন লগ ইন ঘটনা নেই. এটি হতে পারে কারণ স্ট্যাটাস পৃষ্ঠার মালিক (বা মালিকরা) সম্প্রতি তাদের স্ট্যাটাস পৃষ্ঠা সেট আপ করেছেন, কোন ডাউনটাইম নেই বা কোন ডাউনটাইম লগ ইন করেননি।
+
+
+- id: continueReading
+  translation: পড়া চালিয়ে যান
+- id: prev
+  translation: পূর্বে
+- id: next
+  translation: পরে
+
+##
+## OTHER
+##
+
+- id: goBack
+  translation: ফিরে যান
+- id: backToTop
+  translation: উপরে ফিরে যান
+- id: poweredBy
+  translation: চালিত হয়েছে
+
+- id: notFound
+  translation: এখানে কিছুই নেই।
+- id: notFoundText
+  translation: এটি আমাদের পক্ষ থেকে একটি সমস্যা হতে পারে। সম্ভবত আমরা একটি নির্দিষ্ট রিসোর্স স্থানান্তরিত করেছি এবং এখন এটি চলে গেছে। এটাও সম্ভব যে আপনি যে রিসোর্সটি দেখার চেষ্টা করছেন সেটি খালি। কিন্তু আপনি কি আবার লিঙ্ক চেক করতে আপত্তি করবেন?
+
+- id: rss
+  translation: RSS এর মাধ্যমে সাবস্ক্রাইব করুন
+- id: toAllUpdates
+  translation: সব আপডেট
+- id: or
+  translation: অথবা
+- id: onlyThisFeed
+  translation: শুধুমাত্র এই ফিড
+
+##
+## v3
+##
+- id: entries
+  translation: এন্ট্রি
+- id: newestToOldest
+  translation: নতুন থেকে পুরাতন
+
+##
+## v4
+##
+- id: notFoundAffected
+  translation: দেখে মনে হচ্ছে এই সিস্টেমটি হয় বিদ্যমান নেই বা কখনও রেকর্ড করা ডাউনটাইম ছিল না।
+
+##
+## v4.1
+##
+
+- id: averageSystemsDowntime
+  translation: সম্প্রতি, গড় ডেটার উপর ভিত্তি করে, দেখে মনে হচ্ছে এই সিস্টেমটি নিচে চলে গেছে প্রায় 
+- id: averageSystemsDowntimeSecondPart
+  translation: মিনিটের জন্য।
+
+
+##
+## v4.4
+##
+
+- id: in
+  translation: in
+- id: weeksAgo
+  translation: " w"
+- id: yearAgo
+  translation: " year"
