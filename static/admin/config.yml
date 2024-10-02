@@ -127,7 +127,7 @@ collections:
             - { label: "🇱🇹 Lietuviškai (official)", value: "lt" }
             - { label: "🇪🇸 Spanish", value: "es" }
             - { label: "🇹🇷 Turkish", value: "tr" }
-            - { label: "Bn Bangla", value: "bn" }
+            - { label: "🇧🇩 Bangla", value: "bn" }
             - { label: "🇩🇪 Deutsch", value: "de" }
             - { label: "🇳🇱 Dutch", value: "nl" }
             - { label: "🇫🇷 French", value: "fr" }
