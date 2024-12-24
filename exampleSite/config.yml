@@ -184,6 +184,8 @@ params:
   # shortDateFormat Default: "15:04 — Jan 2"
   dateFormat: January 2, 2006 at 3:04 PM UTC
   shortDateFormat: 15:04 UTC — Jan 2
+  # Note: "at" is not translated with language codes, e.g.
+  # for German, it would be "um", so change it if needed.
 
   # Should relative time (x min ago) be used?
   #
