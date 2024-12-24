@@ -20,10 +20,10 @@
     <div class="contain center">
       <small>{{ T "lastChecked" }}:
 
-        {{ if .Site.Params.dateFormat }}
+      {{ if .Site.Params.dateFormat }}
         {{ dateFormat .Site.Params.dateFormat .Lastmod }}
       {{ else }}
-        {{ .Lastmod.Format "January 2, 2006 at 3:04 PM" }}
+        {{ .Lastmod.Format "January 2, 2006 at 3:04 PM UTC" }}
       {{ end }}
 	  </small>
 	  <div class="padding"></div>

@@ -1,4 +1,4 @@
-# cState Site v5.0
+# cState Site v6.0
 
 This is the default cState status page website directory/folder.
 

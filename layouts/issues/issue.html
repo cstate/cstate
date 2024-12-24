@@ -78,8 +78,8 @@
 
 
 
-	{{/* Only show the button if it's informational or a "notice" event */}}
-	{{ if or .Params.informational (eq .Params.severity "notice") }}
+	{{/* Add to Calendar */}}
+	{{ if eq .Params.severity "notice" }}
 
 	<div class="padding"></div>
 	<p><small class="faded"><b>Add this period to your calendar</b></small></p>
