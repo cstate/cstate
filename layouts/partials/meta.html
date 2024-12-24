@@ -81,7 +81,7 @@
       width: 100%;
       height: auto;
     }
-      
+
     .hidden { display: none; }
 
     /**
@@ -177,13 +177,13 @@
       font-size: 14px;
       font-variant: small-caps;
     }
-      
+
     {{ if eq .Site.Params.headerTextColor "black" }}
       .header a h1 { color: #000; }
     {{ else if eq .Site.Params.headerTextColor "white" }}
       .header a h1 { color: #fff; }
     {{ end }}
-      
+
     .header__logo img {
       height: auto;
       width: 320px;
@@ -314,10 +314,50 @@
      * Specific to the status
      */
 
-    .status-ok .summary { background: {{ .Site.Params.ok }}; }
-    .status-disrupted .summary, .change-header-color.status-disrupted .header { background: {{ .Site.Params.disrupted }}; }
-    .status-down .summary, .change-header-color.status-down .header { background: {{ .Site.Params.down }}; }
-    .status-notice .summary, .change-header-color.status-notice .header { background: {{ .Site.Params.notice }}; }
+{{- $ok := .Site.Params.ok -}}
+{{- $okR := (printf "0x%s" (substr $ok 1 2) | int) -}}
+{{- $okG := (printf "0x%s" (substr $ok 3 2) | int) -}}
+{{- $okB := (printf "0x%s" (substr $ok 5 2) | int) -}}
+
+{{- $disrupted := .Site.Params.disrupted -}}
+{{- $disruptedR := (printf "0x%s" (substr $disrupted 1 2) | int) -}}
+{{- $disruptedG := (printf "0x%s" (substr $disrupted 3 2) | int) -}}
+{{- $disruptedB := (printf "0x%s" (substr $disrupted 5 2) | int) -}}
+
+{{- $down := .Site.Params.down -}}
+{{- $downR := (printf "0x%s" (substr $down 1 2) | int) -}}
+{{- $downG := (printf "0x%s" (substr $down 3 2) | int) -}}
+{{- $downB := (printf "0x%s" (substr $down 5 2) | int) -}}
+
+{{- $notice := .Site.Params.notice -}}
+{{- $noticeR := (printf "0x%s" (substr $notice 1 2) | int) -}}
+{{- $noticeG := (printf "0x%s" (substr $notice 3 2) | int) -}}
+{{- $noticeB := (printf "0x%s" (substr $notice 5 2) | int) -}}
+
+
+.status-ok .summary {
+  background: {{ .Site.Params.ok }};
+  box-shadow: 0 0 20px rgba({{ $okR }}, {{ $okG }}, {{ $okB }}, 0.3);
+	border-radius: 4px;
+}
+
+.status-disrupted .summary,
+.change-header-color.status-disrupted .header {
+  background: rgba({{ $disruptedR }}, {{ $disruptedG }}, {{ $disruptedB }}, 1);
+
+  box-shadow: 0 0 20px rgba({{ $disruptedR }}, {{ $disruptedG }}, {{ $disruptedB }}, 0.3);
+}
+
+.status-down .summary,
+.change-header-color.status-down .header {
+  background: rgba({{ $downR }}, {{ $downG }}, {{ $downB }}, 1);
+}
+
+.status-notice .summary,
+.change-header-color.status-notice .header {
+  background: rgba({{ $noticeR }}, {{ $noticeG }}, {{ $noticeB }}, 1);
+}
+
 
     .announcement-box .padding {
       padding: 16px;
@@ -364,16 +404,16 @@
       /**
       * Dark theme
       */
-      
+
       @media (prefers-color-scheme: dark) {
         /* Basics */
         html, body { background:  #181a1b; color: #ccc9c1; }
         h1, h2, h3, h4, a, .bold { color: #fafafa; }
         hr { border-bottom-color: #3d3d3d; }
-        
+
         /* Sections */
         .footer { background: #1b1d1e; }
-        
+
         .components {
           border: 2px solid #ddd;
           border-bottom: 0;
@@ -407,7 +447,7 @@
         .error { color: #ff4242; }
         .warning {color: #ffde7f; }
         .ok { color: #7fff7f; }
- 
+
         .component[data-status="ok"] .component-status,
         .category__head[data-status="ok"] .category-status
         { color: #7fff7f; }

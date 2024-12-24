@@ -89,7 +89,7 @@ defaultContentLanguage: en
 # version 3. If you are just testing,
 # localhost should automatically work.
 #
-# Example: 
+# Example:
 # baseUrl: https://status.example.com/
 #
 # For testing:
@@ -139,7 +139,7 @@ params:
   #   Or it can be used alongside other categories.
   #
   # These are case sensitive.
-  # 
+  #
   # For help, see the wiki:
   # https://github.com/cstate/cstate/wiki/Customization
   categories:
@@ -188,7 +188,7 @@ params:
   # Should relative time (x min ago) be used?
   #
   # IMPORTANT: In the frontmatter, the dates MUST be in
-  # the UTC time zone for this to work properly. If you 
+  # the UTC time zone for this to work properly. If you
   # use Netlify CMS, all good — the CMS picks UTC time
   # by default. Otherwise, there may be very inaccurate
   # times if multiple time zones are in your issue files.
@@ -198,8 +198,8 @@ params:
   # wish to use relative time but old issues do not have
   # UTC time (and therefore are out of sync by ±24 hours)
   #
-  # Read the wiki for more: 
-  # https://github.com/cstate/cstate/wiki/Customization#time 
+  # Read the wiki for more:
+  # https://github.com/cstate/cstate/wiki/Customization#time
   #
   # If enabled, will display relative times in places like
   # the incident history and summaries instead of using
@@ -209,7 +209,7 @@ params:
   # Default: `true`
   # BOOLEAN; `true`, `false`
   useRelativeTime: true
- 
+
   # If enabled, doesn't show seconds on relative times.
   #
   # With option ON (true):
@@ -378,6 +378,7 @@ params:
   #
   # Default: UA-00000000-1
   googleAnalytics: UA-00000000-1
+
 
 # These options affect the core of cState.
 # Please do not change them if you do not
