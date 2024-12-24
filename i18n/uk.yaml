@@ -155,3 +155,8 @@
   translation: ' тиж.'
 - id: yearAgo
   translation: ' р.'
+
+## v6
+##
+- id: incidentMaxAgeNotice
+  translation: "Не показувати інциденти, яким більше {{ .MaxAgeYears }} років"

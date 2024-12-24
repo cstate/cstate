@@ -236,12 +236,12 @@ params:
   useLargeHeaderDesign: false
 
   # Should incident history be separated
-  # like in an archive view?
+  # in the archive view by year or month?
   #
-  # Note: This WILL disable pagination.
+  # Only takes affect on /issues/ page.
   #
   # Default: `yearly`
-  # STRING; `monthly`, `yearly`, `none`
+  # STRING; `monthly`, `yearly`
   incidentHistoryFormat: "yearly"
 
   # Should incident history be hidden?
@@ -315,11 +315,30 @@ params:
   # BOOLEAN; `true`, `false`
   disableComplexCalculations: false
 
-  # Incident posts shown
-  # in one page
+  # Incident posts shown on homepage
   #
-  # NUMERIC; Default: `10`
-  incidentPostsPerPage: 10
+  # NUMERIC; Default: `5`
+  incidentPostsPerPage: 5
+
+  # Introduced in v6, you can hide
+  # incidents that are older than
+  # this number of years.
+  #
+  # Note: this does not mean they
+  # are no longer accessible.
+  # If you still have the issue
+  # link, you can still access it.
+  #
+  # We recommend to keep this at `6`.
+  # This will hide incidents older
+  # than 6 years on /issues/ archive.
+  #
+  # To disable this feature, comment
+  # out the line below.
+  #
+  # Default: `6`
+  # NUMERIC; Default: `6`
+  incidentMaxAgeYears: 6
 
   # Colors throughout cState
   #

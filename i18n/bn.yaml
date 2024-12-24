@@ -144,7 +144,7 @@
 ##
 
 - id: averageSystemsDowntime
-  translation: সম্প্রতি, গড় ডেটার উপর ভিত্তি করে, দেখে মনে হচ্ছে এই সিস্টেমটি নিচে চলে গেছে প্রায় 
+  translation: সম্প্রতি, গড় ডেটার উপর ভিত্তি করে, দেখে মনে হচ্ছে এই সিস্টেমটি নিচে চলে গেছে প্রায়
 - id: averageSystemsDowntimeSecondPart
   translation: মিনিটের জন্য।
 
@@ -159,3 +159,9 @@
   translation: " w"
 - id: yearAgo
   translation: " year"
+
+
+## v6
+##
+- id: incidentMaxAgeNotice
+  translation: "{{ .MaxAgeYears }} বছর আগে ঘটে যাওয়া ঘটনাগুলি আর দেখানো হবে না"

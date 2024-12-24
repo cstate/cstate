@@ -157,3 +157,9 @@
   translation: " Wochen." # has to include space
 - id: yearAgo
   translation: " Jahre"
+
+
+## v6
+##
+- id: incidentMaxAgeNotice
+  translation: "Keine Vorfälle anzeigen, die älter als {{ .MaxAgeYears }} Jahre sind"

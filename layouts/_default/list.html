@@ -1,117 +1,37 @@
 {{ partial "meta" . }}
 {{ $title := .Title }}
 
-  <body class="default list">
-    <header>
-      <div class="contain">
-        <a href="{{ .Site.BaseURL }}">← {{ T "goBack" }} <em>{{ .Site.Title }}</em></a>
-        <div class="padding"></div>
-        <div class="padding"></div>
+<body class="default list">
+	<header>
+		<div class="contain center">
+			<a href="{{ .Site.BaseURL }}">← {{ T "goBack" }} <em>{{ .Site.Title }}</em></a>
+			<div class="padding"></div><div class="padding"></div>
 
-        <h1 class="clean">{{ $title }}</h1>
+			<h1 class="clean">
+				{{ if eq $title "Issues" }}
+					{{ T "incidentHistory" }}
+				{{ else }}
+					{{ $title }}
+				{{ end }}
+			</h1>
 
-        {{ range .Site.Params.systems }}
-          {{ if eq .name $title }}
-            {{ with .description }}
-              <p class="bold">{{ . }}</p>
-            {{ end }}
-          {{ end }}
-        {{ end }}
- 
+		</div>
+	</header>
 
-        
-        <!-- Average downtime -->
-        {{ if not .Site.Params.disableComplexCalculations }}
-        <p class="bold">
-          <em>
-            {{ $resolved := first 5 (where .Pages "Params.resolved" "=" true) }}
-
-            {{ if gt $resolved 0 }}
-              {{ $.Scratch.Set "counter" 0 }}
-              {{ range $resolved }}
-
-              {{ $t := (time .Params.ResolvedWhen) }}
-                {{ $timeDiff := (sub $t.Unix .Date.Unix) }}
-                {{ $diffInMin := (div $timeDiff 60) }}
-
-                {{ $.Scratch.Set "counter" (add ($.Scratch.Get "counter") $diffInMin) }}
-              {{ end }}
-
-              {{ T "averageSystemsDowntime" }}
-              
-              {{ div ($.Scratch.Get "counter") (len $resolved) }}
-              {{ T "averageSystemsDowntimeSecondPart" }}
-            {{ end }}
-          </em>
-        </p>
-        {{ end }}
+	{{ if not .Site.Params.disableIncidentHistory }}
+	<div class="contain contain--more" id="incidents">
+		{{  if eq .Site.Params.incidentHistoryFormat "monthly" }}
+		{{ partial "index/incidents-monthly" . }}
+		{{ else }}
+		{{ partial "index/incidents-yearly" . }}
+		{{ end }}
+		<div class="padding"></div>
+	</div>
+	{{ end }}
 
 
-        <small class="faded">{{ len .Pages }} {{ T "entries" }}, {{ T "newestToOldest" }}</small>
+	{{ partial "js" . }}
+	{{ partial "footer" . }}
+</body>
 
-        <div class="padding"></div>
-        <hr class="clean">
-      </div>
-      {{ $incidents := .Pages }}
-    </header>
-
-    <div class="contain contain--more" id="incidents">
-      {{ if not $incidents }}
-        <div class="padding"></div>
-        <h3>{{ T "calmBeforeTheStorm" }}</h3>
-        <p>{{ T "noIncidentsDesc" }}</p>
-        <div class="padding"></div>
-        <div class="padding"></div>
-        <div class="padding"></div>
-      {{ else }}
-        {{ $paginator := .Paginate $incidents .Site.Params.incidentPostsPerPage }}
-        {{ range $paginator.Pages }}
-          {{ .Render "small" }}
-        {{ end }}
-
-        <!-- If there are more than 2 pages, show pagination -->
-        {{ if gt $paginator.TotalPages 1 }}
-          <hr>
-
-          <div class="center">
-            {{ if $paginator.HasPrev }}
-              <a href="{{ $paginator.Prev.URL }}#incidents">
-                ← &nbsp;
-                {{ T "prev" }}
-              </a>
-            {{ else }}
-              <span class="faded">
-                ← &nbsp;
-                {{ T "prev" }}
-              </span>
-            {{ end }}
-
-
-            &nbsp; &nbsp;
-            {{ $paginator.PageNumber }}
-            /
-            {{ $paginator.TotalPages }}
-            &nbsp; &nbsp;
-
-
-            {{ if $paginator.HasNext }}
-              <a href="{{ $paginator.Next.URL }}#incidents">
-                {{ T "next" }} &nbsp;
-                →
-              </a>
-            {{ else }}
-              <span class="faded">
-                {{ T "next" }} &nbsp;
-                →
-              </span>
-            {{ end }}
-          </div>
-        {{ end }}
-      {{ end }}
-      <div class="padding"></div>
-    </div>
-
-    {{ partial "js" . }}
-    {{ partial "footer" . }}
-  </body>
 </html>

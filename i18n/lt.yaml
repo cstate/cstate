@@ -141,7 +141,7 @@
 
 ##
 ## v4.1
-## 
+##
 
 - id: averageSystemsDowntime
   translation: Pastaruoju metu, regis, šis komponentas sutrikimų metu neveikia apie
@@ -159,3 +159,8 @@
   translation: " sav." # has to include space
 - id: yearAgo
   translation: " metus"
+
+## v6
+##
+- id: maxAgeYears
+  translation: "Nerodomi įvykiai, senesni nei {{ .MaxAgeYears }} metai"

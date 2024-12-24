@@ -159,3 +159,10 @@
   translation: " w"
 - id: yearAgo
   translation: " year"
+
+##
+## v6
+##
+
+- id: incidentMaxAgeNotice
+  translation: "Not showing incidents older than from {{ .MaxAgeYears }} years"

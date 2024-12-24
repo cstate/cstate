@@ -152,3 +152,10 @@
   translation: " semanas"
 - id: yearAgo
   translation: " año"
+
+##
+## v6
+##
+
+- id: incidentMaxAgeNotice
+  translation: "No mostrar incidentes anteriores a {{ .MaxAgeYears }} años"
