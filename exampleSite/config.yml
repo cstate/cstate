@@ -161,6 +161,7 @@ params:
     - name: Gateway
       category: North Coast
     - name: Backup Gateway
+      description: This is a description for a system with no recorded downtime.
       category: North Coast
     - name: Website
       description: The web frontend for the application.
@@ -170,7 +171,7 @@ params:
       description: The guts of the application.
       category: Uncategorized
     - name: Media Proxy
-      description: This is the service responsible for serving images, audio, and video. It is reliant on our CDN.
+      description: This is the *service* responsible for serving images, audio, and video. It is reliant on our CDN.
       category: Uncategorized
 
   # What date format to use?
