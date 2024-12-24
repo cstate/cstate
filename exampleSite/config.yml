@@ -146,9 +146,9 @@ params:
     - name: North Coast
       description: The main servers are located here.
       closed: true
-    - name: Empty Category
+      untitled: false
     - name: Uncategorized
-      untitled: true
+      untitled: false
 
   # These are your systems. Change them to
   # change the amount of components.

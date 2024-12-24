@@ -6,97 +6,73 @@
 {{ $isDown := where $active "Params.severity" "=" "down" }}
 
 <div class="article">
-  <h1 class="clean">
-    {{ .Title }}
-  </h1>
+	<h1 class="clean">
+		{{ .Title }}
+	</h1>
 
-  <small class="date">
-    {{ if .Site.Params.dateFormat }}
-      {{ dateFormat .Site.Params.dateFormat .Params.date }}
-    {{ else }}
-      {{ .Date.Format "January 2, 2006 at 3:04 PM" }}
-    {{ end }}
-  </small>
+	<small class="date">
+		{{ if .Site.Params.dateFormat }}
+		{{ dateFormat .Site.Params.dateFormat .Params.date }}
+		{{ else }}
+		{{ .Date.Format "January 2, 2006 at 3:04 PM" }}
+		{{ end }}
+	</small>
 
-  <p><small>
-    {{ range .Params.Affected }}
-      <a href="{{ printf "affected/%s/" (. | urlize) | relURL }}" class="tag no-underline">{{ . }}</a>
-    {{ end }}
-  </small></p>
+	<p><small>
+			{{ range .Params.Affected }}
+			<a href="{{ printf " affected/%s/" (. | urlize) | relURL }}" class="tag no-underline">{{ . }}</a>
+			{{ end }}
+		</small></p>
 
-  {{ if .Params.informational }}
-  {{ else if .Params.Resolved }}
-  {{ $t := (time .Params.ResolvedWhen) }}
-  {{ $timeDiff := (sub $t.Unix .Date.Unix) }}
-  {{ $diffInMin := (div $timeDiff 60) }}
+	{{ if .Params.informational }}
+	{{ else if .Params.Resolved }}
+	{{ $resolvedTime := (time .Params.ResolvedWhen) }}
+	{{ $timeDiff := (sub $resolvedTime.Unix .Date.Unix) }}
+	{{ $diffInMin := (div $timeDiff 60) }}
+	{{ $days := div $timeDiff 86400 }}
+	{{ $remainingSeconds := mod $timeDiff 86400 }}
+	{{ $hours := div $remainingSeconds 3600 }}
+	{{ $minutes := div (mod $remainingSeconds 3600) 60 }}
 
+	<!-- Marker -->
+	<div
+		class="{{ if lt $timeDiff 60 }}faded{{ else if gt $days 0 }}warning{{ else if gt $hours 0 }}warning{{ else }}ok{{ end }}">
+		{{ if lt $timeDiff 60 }}
+		<strong>{{ T "resolved" }} {{ T "inUnderAMinute" }}</strong>
+		{{ else }}
+		<strong>
+			{{ T "resolvedAfter" }}
+			{{ if gt $days 0 }}{{ $days }}d {{ end }}
+			{{ if gt $hours 0 }}{{ $hours }}h {{ end }}
+			{{ $minutes }}m
+			{{ if eq .Params.severity "down" }}
+			{{ T "ofDowntime" }}
+			{{ end }}
+		</strong>
+		<span class="tooltip__text">
+			{{ if .Site.Params.dateFormat }}
+			{{ dateFormat .Site.Params.dateFormat .Params.resolvedWhen }}
+			{{ else }}
+			{{ dateFormat "January 2, 2006 at 3:04 PM" .Params.resolvedWhen }}
+			{{ end }}
+		</span>
+		{{ end }}
+	</div>
+	{{ else }}
+	<strong>
+		{{ if eq .Params.severity "down" }}
+		<span style="color: {{ .Site.Params.down }}">■ {{ T "thisIsDown" }}</span>
+		{{ else if eq .Params.severity "disrupted" }}
+		<span style="color: {{ .Site.Params.disrupted }}">▲ {{ T "thisIsDisrupted" }}</span>
+		{{ else }}
+		<span style="color: {{ .Site.Params.notice }}">◆ {{ T "thisIsNotice" }}</span>
+		{{ end }}
+		<br />
+		{{ T "downtimeOngoing" }}
+	</strong>
+	{{ end }}
 
-  <!-- Marker -->
-  {{ if lt $timeDiff 60 }}
-  <div class="faded">
-    <strong>
-    {{ T "resolved" }} {{ T "inUnderAMinute" }}.
-    </strong>
-  </div>
-  {{ else }}
-    {{ if gt $timeDiff 3600 }}
-      <div class="warning tooltip">
-        <strong>
-          {{ T "resolvedAfter" }}
-
-          {{ $minutesForCalc := (mod $diffInMin 60) }}
-
-          {{ div (sub $diffInMin $minutesForCalc) 60 }}h
-          {{ $minutesForCalc }}m
-          {{ if eq .Params.severity "down" }}
-              {{ T "ofDowntime" }}
-          {{ end }}
-        </strong>
-
-        <span class="tooltip__text">
-          {{ if .Site.Params.dateFormat }}
-            {{ dateFormat .Site.Params.dateFormat .Params.resolvedWhen }}
-          {{ else }}
-            {{ dateFormat "January 2, 2006 at 3:04 PM" .Params.resolvedWhen }}
-          {{ end }}
-        </span>
-      </div>
-    {{ else }}
-      <div class="ok tooltip">
-        <strong>
-          {{ T "resolvedAfter" }}
-
-          {{ $secsForCalc := (mod $timeDiff 60) }}
-
-          {{ div (sub $timeDiff $secsForCalc) 60 }}m
-          {{ if eq .Params.severity "down" }}
-            {{ T "ofDowntime" }}
-          {{ end }}
-        </strong>
-
-        <span class="tooltip__text">
-          {{ if .Site.Params.dateFormat }}
-            {{ dateFormat .Site.Params.dateFormat .Params.resolvedWhen }}
-          {{ else }}
-            {{ dateFormat "January 2, 2006 at 3:04 PM" .Params.resolvedWhen }}
-          {{ end }}
-        </span>
-      </div>
-    {{ end }}
-  {{ end }}
-  {{ else }}
-    <strong class="error">
-      {{ if eq .Params.severity "down" }}
-      ■ 
-      {{ else if eq .Params.severity "disrupted" }}
-      ▲ 
-      {{ else }}
-      ◆ 
-      {{ end }}
-      {{ T "downtimeOngoing" }}</strong>
-  {{ end }}
-
-  <hr>
-  <div class="markdown">{{ .Content }}</div>
+	<hr>
+	<div class="markdown">{{ .Content }}</div>
 </div>
 <div class="padding"></div>

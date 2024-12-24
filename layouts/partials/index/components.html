@@ -22,7 +22,7 @@
       <b>
         {{ .name }}
       </b>
-      
+
       {{ with .description }}
         <span class="tooltip tooltip--small">
           &nbsp; <span class="faded">(?)</span>
@@ -32,7 +32,7 @@
           </span>
         </span>
       {{ end }}
- 
+
       <span class="category-status"></span>
 
       </div>
@@ -94,23 +94,23 @@
           {{ end }}
         </div>
       {{ end }}
-      </div> 
+      </div>
 
       <!--
         Get category status
       -->
       <script>
         // We will look at all components in one category
-        thisCategory = document.currentScript.parentNode 
+        thisCategory = document.currentScript.parentNode
 
         componentsOfThisCategory = thisCategory.querySelectorAll('.component')
-        
+
         // We will cycle through all components and show
         // the worst status found
         //
         // By default, all is good but we change this value
         // for progressively worse statuses
-        var highestLevelStatus = '';
+        var highestLevelStatus = 'ok';
 
         function checkStatus(element) {
           var status = element.getAttribute('data-status');
@@ -125,16 +125,16 @@
         }
 
         componentsOfThisCategory.forEach(element => checkStatus(element));
-        
+
         // Human readable (i18n) status name variable
         var highestLevelStatusReadable = highestLevelStatus;
 
-        if (highestLevelStatus === 'ok') { highestLevelStatusReadable = '{{ T "thisIsOk" }}' } 
-        if (highestLevelStatus === 'notice') { highestLevelStatusReadable = '{{ T "thisIsNotice" }}' } 
-        if (highestLevelStatus === 'disrupted') { highestLevelStatusReadable = '{{ T "thisIsDisrupted" }}' } 
-        if (highestLevelStatus === 'down') { highestLevelStatusReadable = '{{ T "thisIsDown" }}' } 
+        if (highestLevelStatus === 'ok') { highestLevelStatusReadable = '{{ T "thisIsOk" }}' }
+        if (highestLevelStatus === 'notice') { highestLevelStatusReadable = '{{ T "thisIsNotice" }}' }
+        if (highestLevelStatus === 'disrupted') { highestLevelStatusReadable = '{{ T "thisIsDisrupted" }}' }
+        if (highestLevelStatus === 'down') { highestLevelStatusReadable = '{{ T "thisIsDown" }}' }
 
-        // Finally we can show the status 
+        // Finally we can show the status
         // (but only for categories with a name)
         if (thisCategory.classList.contains('category--titled')) {
           thisCategory.querySelector('.category__head').setAttribute('data-status', highestLevelStatus);
