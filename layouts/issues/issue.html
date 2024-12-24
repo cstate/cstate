@@ -18,6 +18,7 @@
 		{{ end }}
 	</small>
 
+
 	<p><small>
 			{{ range .Params.Affected }}
 			<a href="{{ printf "affected/%s/" (. | urlize) | relURL }}" class="tag no-underline">{{ . }}</a>
@@ -74,5 +75,88 @@
 
 	<hr>
 	<div class="markdown">{{ .Content }}</div>
+
+
+
+	{{/* Only show the button if it's informational or a "notice" event */}}
+	{{ if or .Params.informational (eq .Params.severity "notice") }}
+
+	<div class="padding"></div>
+	<p><small class="faded"><b>Add this period to your calendar</b></small></p>
+	<button id="addToCalendarBtn" class="tag" style="padding: 8px 12px">
+		Download event (.ics)
+	</button>
+
+	{{ $theTitle := .Title | default "Event" | plainify }}
+	{{ $theDescription := .Content | default "" | plainify | jsonify }}
+
+	<script>
+ 		const eventTitle = {{ $theTitle }};
+		const eventDescription = {{ $theDescription }};
+		const eventStart = "{{ .Date }}";           // from 'date' in front matter
+		const endDateRaw = "{{ .Params.resolvedWhen }}";
+		const eventLocation = "{{ .Site.BaseURL }}";   // or a more specific .Params.location if you have one
+
+		// If no resolvedWhen is defined, add 1 hour to the start date
+		let eventEnd = endDateRaw;
+		if (!endDateRaw || endDateRaw.trim() === "") {
+			const startTimeObj = new Date(eventStart);
+			startTimeObj.setHours(startTimeObj.getHours() + 1);
+			eventEnd = startTimeObj.toISOString();
+		}
+
+		function downloadICS() {
+			// Convert date strings into ICS-friendly format: YYYYMMDDTHHMMSSZ
+			function toICSDate(dString) {
+				const d = new Date(dString);
+				return d.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+			}
+
+			const dtStart = toICSDate(eventStart);
+			const dtEnd = toICSDate(eventEnd);
+
+			// ICS contents with a 1-hour reminder
+			const icsData = [
+				"BEGIN:VCALENDAR",
+				"VERSION:2.0",
+				"PRODID:-//cState//EN",
+				"BEGIN:VEVENT",
+				`UID:${Date.now()}@cstate`,
+				`DTSTAMP:${new Date().toISOString().replace(/[-:]/g, "").split(".")[0]}Z`,
+				`DTSTART:${dtStart}`,
+				`DTEND:${dtEnd}`,
+				// eventTitle and eventDescription are already safe strings (via jsonify)
+				`SUMMARY:${eventTitle}`,
+				`LOCATION:${eventLocation}`,
+				`DESCRIPTION:${eventDescription}`,
+				"BEGIN:VALARM",
+				"ACTION:DISPLAY",
+				"DESCRIPTION:Reminder",
+				"TRIGGER:-PT1H", // 1 hour beforehand
+				"END:VALARM",
+				"END:VEVENT",
+				"END:VCALENDAR"
+			].join("\r\n");
+
+			// Download as an .ics file
+			const blob = new Blob([icsData], { type: "text/calendar" });
+			const blobUrl = URL.createObjectURL(blob);
+
+			const link = document.createElement("a");
+			link.href = blobUrl;
+			link.download = eventTitle.replace(/[^\w\s-]/g, "") + ".ics";
+			// remove special chars from filename, or fallback to "event.ics" if empty
+			document.body.appendChild(link);
+			link.click();
+			document.body.removeChild(link);
+		}
+
+		document
+			.getElementById("addToCalendarBtn")
+			.addEventListener("click", downloadICS);
+	</script>
+
+	{{ end }}
+
 </div>
 <div class="padding"></div>
