@@ -88,6 +88,18 @@
      * Classes
      */
 
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border-width: 0;
+	}
+
     a.no-underline { border-bottom: 0; }
 
     .headline { font-size: 20px; }
@@ -135,6 +147,11 @@
     .js .category--closed .components { display: none; }
     .js .category--closed .category__open-marker { display: none; }
 
+	.hide-without-js svg {
+		position: relative;
+		margin-bottom: -6px;
+	}
+
     /* Markers */
     .js .hidden-with-js { display: none; }
     .hide-without-js { display: none; }
@@ -158,11 +175,15 @@
       padding: 4px 8px;
       margin-right: 4px;
       margin-bottom: 2px;
+	  border-radius: 4px;
+	  transition: background 0.2s;
+	  cursor: pointer;
 	  border: none;
       background: #eee;
     }
 
     .tag:hover { background: #ddd; }
+	.tag:active { background: #ccc; }
 
     /**
      * Section blocks
@@ -308,7 +329,7 @@
      * Articles
      */
 
-    .issue { display: block; padding: 14px 24px; }
+    .issue { display: block; padding: 14px 24px; border-radius: 4px; }
     .issue:hover, .category__head:hover { background: #f5f5f5; }
     .issue:active, .category__head:active { background: #eee; }
 

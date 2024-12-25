@@ -6,6 +6,8 @@
 {{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}
 {{ $isDown := where $active "Params.severity" "=" "down" }}
 
+{{ $uptimeHistogramEnabled := .Site.Params.enableUptimeHistogram }}
+
 <!-- The main categories layout -->
 <div class="categories">
 	{{ $systems := .Site.Params.systems }}
@@ -17,8 +19,20 @@
 		{{ if not .untitled }}
 		<div class="bold padding clicky category__head" onclick="toggleCategoryHead(this)">
 			<span class="hide-without-js">
-				<span class="category__closed-marker">►</span>
-				<span class="category__open-marker">▲</span>
+				<span class="category__closed-marker">
+					<span class="sr-only">{{ T "openDropdown" }}</span>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+						stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+						<polyline points="9 18 15 12 9 6"></polyline>
+					</svg>
+				</span>
+				<span class="category__open-marker">
+					<span class="sr-only">{{ T "closeDropdown" }}</span>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+						stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down">
+						<polyline points="6 9 12 15 18 9"></polyline>
+					</svg>
+				</span>
 			</span>
 			<b>{{ .name }}</b>
 			{{ with .description }}
@@ -43,7 +57,7 @@
 
 			<div class="component" id="system-{{ .name | urlize }}"
 				data-status="{{ if $thisIsDown }}down{{ else if $thisIsDisrupted }}disrupted{{ else if $thisIsNotice }}notice{{ else }}ok{{ end }}">
-				<a href="{{ printf " affected/%s/" ($system.name | urlize) | relURL }}" class="no-underline">
+				<a href="{{ printf "affected/%s/" ($system.name | urlize) | relURL }}" class="no-underline">
 					{{ default $system.name $system.displayName }}
 				</a>
 
@@ -72,11 +86,14 @@
 					{{ end }}
 				</span>
 
-				<!-- HISTOGRAM: place it above the partial -->
-				<div class="histogram-container" style="margin-top:10px;">
-					<!-- A quick loading text, removed once data is fetched -->
-					<div id="histogram-{{ .name | urlize }}" class="histogram">Loading {{ .name }} uptime…</div>
-				</div>
+				{{ if $uptimeHistogramEnabled }}
+					{{ if ne $system.histogram false }}
+					<div class="histogram-container">
+						<!-- A quick loading text, removed once data is fetched -->
+						<div id="histogram-{{ .name | urlize }}" class="histogram">{{ T "laoding" }} {{ .name }} {{ T "chart" }}</div>
+					</div>
+					{{ end }}
+				{{ end }}
 
 				{{ with $system.partial }}
 				<div>
@@ -123,10 +140,14 @@
 	{{ end }}
 </div>
 
+
+
+{{ if $uptimeHistogramEnabled }}
 <!-- HISTOGRAM STYLES -->
 <style>
 	.histogram-container {
 		width: 100%;
+		margin-top: 10px;
 	}
 
 	.histogram {
@@ -289,3 +310,4 @@
 		});
 	})();
 </script>
+{{ end }}

@@ -119,10 +119,6 @@ enableGitInfo: false
 ############################################################
 
 params:
-  uptimeHistogramEnabled: true
-  uptimeHistogramDays: 30
-  uptimeHistogramWidth: 1000
-
   # Before setting up your systems, you need
   # to first define at least one category.
   #
@@ -170,6 +166,7 @@ params:
     - name: Website
       description: The web frontend for the application.
       category: Uncategorized
+      histogram: false # explicitely disable histogram for this system
       link: https://example.com/
     - name: API
       description: The guts of the application.
@@ -177,6 +174,26 @@ params:
     - name: Media Proxy
       description: This is the *service* responsible for serving images, audio, and video. It is reliant on our CDN.
       category: Uncategorized
+
+  # Want to disable the uptime histogram?
+  # Set this to `false` for any system you want to disable.
+  #
+  # Default: `true`
+  # BOOLEAN; `true`, `false`
+  enableUptimeHistogram: true
+
+  # TODO:
+  # Monitor bots
+  #
+  #
+  #
+  # If you have a monitor bot, you get access to
+  # more features like notifications to Slack,
+  # Discord, and more.
+  #
+  # Default: `false`
+  # STRING or BOOLEAN to disable
+  monitorBot: false
 
   # What date format to use?
   #
