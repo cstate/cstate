@@ -46,8 +46,8 @@
       border-bottom: 1px dotted currentColor;
     }
 
-    a:hover { border-bottom-style: solid; }
-    a:active { position: relative; top: 2px; }
+    a:hover { opacity: 0.9; }
+    a:active { opacity: 0.8; }
 
     hr {
       border: 0;
@@ -222,7 +222,7 @@
     }
 
     .summary__date:hover {
-      color: #ccc;
+      opacity: 0.8;
     }
 
     .summary__date:hover:after {
@@ -251,18 +251,25 @@
     .tooltip:active .tooltip__text  {
       display: block;
       position: absolute;
+	  animation: fadeUp 0.1s cubic-bezier(0.39, 0.575, 0.565, 1);
       top: 0;
       left: 24px;
-      background: #181818;
+      background: #000;
       color: #fff;
       z-index: 50;
       padding: 8px;
-      border: 2px solid #242424;
+	  border-radius: 4px;
+	  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
       font-size: 14px;
       color: #ccc;
       width: 320px;
       height: auto;
     }
+
+	@keyframes fadeUp {
+	  0% { opacity: 0; transform: translateY(5px); }
+	  100% { opacity: 1; transform: translateY(0); }
+	}
 
     @media (max-width: 640px) {
       .tooltip:hover .tooltip__text,
@@ -444,7 +451,7 @@
 
         /* Colors for dark mode */
 
-        .hinted, .faded { color: #c1bcb3; }
+        .hinted, .faded { opacity: 0.8; }
         .error { color: #ff4242; }
         .warning {color: #ffde7f; }
         .ok { color: #7fff7f; }

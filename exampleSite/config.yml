@@ -119,6 +119,10 @@ enableGitInfo: false
 ############################################################
 
 params:
+  uptimeHistogramEnabled: true
+  uptimeHistogramDays: 30
+  uptimeHistogramWidth: 1000
+
   # Before setting up your systems, you need
   # to first define at least one category.
   #
@@ -148,7 +152,7 @@ params:
       closed: true
       untitled: false
     - name: Uncategorized
-      untitled: false
+      untitled: true
 
   # These are your systems. Change them to
   # change the amount of components.

@@ -5,7 +5,7 @@ resolvedWhen: 2024-12-24 13:35:00
 affected:
   - API
 resolved: true
-severity: notice
+severity: disrupted
 section: issue
 ---
 
