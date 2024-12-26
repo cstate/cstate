@@ -1,0 +1,160 @@
+# Romanian language file for cState
+# Version 4.4
+
+- id: languageCode
+  translation: ro
+- id: languageName
+  translation: Română
+- id: languageNameShort
+  translation: ROU
+
+##
+## INDEX.HTML
+##
+
+# Summary status message
+- id: isDown
+  translation: Ne confruntăm cu un eșec
+- id: isDisrupted
+  translation: Ne confruntăm cu o întrerupere
+- id: isNotice
+  translation: Vă rugăm să citiți anunțurile
+- id: isOk
+  translation: Nu s-au detectat probleme
+
+# No JS warning
+- id: noScriptingIntro
+  translation: Uh oh! Se pare că ai dezactivat JavaScript. Te rugăm
+- id: noScriptingLink
+  translation: să activezi JavaScript
+- id: noScriptingOutro
+  translation: pentru a-ți îmbunătăți experiența pe acest site.
+
+- id: thisIsDown
+  translation: Eșec
+- id: thisIsDisrupted
+  translation: Întrerupere
+- id: thisIsNotice
+  translation: Mentenanță
+- id: thisIsOk
+  translation: Operațional
+
+# "Last checked" + "just now"
+- id: lastChecked
+  translation: Ultima actualizare
+- id: justNow
+  translation: chiar acum
+- id: someTimeAgo
+  translation: în urmă
+
+# Example usage: `5` + `years`
+# Final result: 'Last checked 5 years ago'
+# Number goes before string
+# Use short variants until months
+- id: yearsAgo
+  translation: ani
+- id: monthsAgo
+  translation: luni
+- id: daysAgo
+  translation: d
+- id: hoursAgo
+  translation: h
+- id: minsAgo
+  translation: min
+- id: secondsAgo
+  translation: s
+
+- id: autoRefreshNotice
+  translation: Noi actualizăm automat această pagină la fiecare 5 minute
+
+# Incidents
+- id: incidents
+  translation: Incidente
+- id: incidentHistory
+  translation: Istoric incidente
+
+- id: resolved
+  translation: Rezolvat  # if it's less than a min
+- id: inUnderAMinute
+  translation: în mai puțin de un minut  # continuing the last string
+- id: resolvedAfter
+  translation: Rezolvat după # + 19 min
+- id: ofDowntime
+  translation: din timpul de inactivitate
+
+- id: downtimeOngoing
+  translation: Problemele nu au fost rezolvate
+
+
+- id: calmBeforeTheStorm
+  translation: Este liniștea dinaintea furtunii?
+- id: noIncidentsDesc
+  translation: Nu s-au înregistrat incidente recente pe această pagină de stare. Aceasta poate fi din cauza faptului că pagina de stare a fost recent creată sau că nu a avut nicio întrerupere.
+
+
+- id: continueReading
+  translation: Continuă să citești
+- id: prev
+  translation: Anterior
+- id: next
+  translation: Următorul
+
+##
+## OTHER
+##
+
+- id: goBack
+  translation: Înapoi
+- id: backToTop
+  translation: Înapoi sus
+- id: poweredBy
+  translation: Realizat de
+
+- id: notFound
+  translation: Aici nu este nimic.
+- id: notFoundText
+  translation: Se pare că este o problemă la noi. Poate că am mutat resursa pe care o căutați sau aceasta nu mai există. Vă rugăm să verificați linkul pentru a vă asigura că este corect.
+
+- id: rss
+  translation: Abonează-te la RSS
+- id: toAllUpdates
+  translation: la toate actualizările
+- id: or
+  translation: sau
+- id: onlyThisFeed
+  translation: doar acest feed
+
+##
+## v3
+##
+- id: entries
+  translation: intrări
+- id: newestToOldest
+  translation: cel mai nou la cel mai vechi
+
+##
+## v4
+##
+- id: notFoundAffected
+  translation: Se pare că acest sistem nu există sau nu a înregistrat nicio întrerupere până acum.
+
+##
+## v4.1
+##
+
+- id: averageSystemsDowntime
+  translation: Recent, pe baza datelor medii, se pare că acest sistem a fost inactiv pentru aproximativ
+- id: averageSystemsDowntimeSecondPart
+  translation: minute.
+
+
+##
+## v4.4
+##
+
+- id: in
+  translation: în
+- id: weeksAgo
+  translation: " săptămâni"
+- id: yearAgo
+  translation: " ani"
