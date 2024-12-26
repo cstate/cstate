@@ -40,15 +40,17 @@
   translation: Operațional
 
 # "Last checked" + "just now"
+# "Ultima actualizare acum"
 - id: lastChecked
-  translation: Ultima actualizare
-- id: justNow
-  translation: chiar acum
-- id: someTimeAgo
-  translation: în urmă
+  translation: Ultima actualizare acum
+#- id: justNow
+#  translation: acum
+#- id: someTimeAgo
+#  translation: în urmă
 
 # Example usage: `5` + `years`
 # Final result: 'Last checked 5 years ago'
+# Final result (RO): 'Ultima actualizare acum 5 ani'
 # Number goes before string
 # Use short variants until months
 - id: yearsAgo
@@ -80,7 +82,7 @@
 - id: resolvedAfter
   translation: Rezolvat după # + 19 min
 - id: ofDowntime
-  translation: din timpul de inactivitate
+  translation: de inactivitate
 
 - id: downtimeOngoing
   translation: Problemele nu au fost rezolvate
