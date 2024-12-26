@@ -130,3 +130,10 @@
   translation: girdiler
 - id: newestToOldest
   translation: en yeniden en eskiye
+
+# TODO: Missing translations from v3 to v6
+
+## v6
+##
+- id: incidentMaxAgeNotice
+  translation: "Hindi ipinapakita ang mga insidente na higit sa {{ .MaxAgeYears }} taon"

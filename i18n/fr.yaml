@@ -131,7 +131,7 @@
   translation: rubriques
 - id: newestToOldest
   translation: du plus récent au plus ancien
-  
+
 ##
 ## v4
 ##
@@ -140,7 +140,7 @@
 
 ##
 ## v4.1
-## 
+##
 
 - id: averageSystemsDowntime
   translation: D'après les données moyennes, il semble que ce système ait été indisponible pendant environ
@@ -157,3 +157,10 @@
   translation: " sem"
 - id: yearAgo
   translation: " années"
+
+##
+## v6
+##
+
+- id: incidentMaxAgeNotice
+  translation: "Ne pas afficher les incidents datant de plus de {{ .MaxAgeYears }} ans"

@@ -8,7 +8,7 @@
 <a href="{{ .Permalink }}" class="issue no-underline">
   {{ if .Params.informational }}
 
-  <small class="date float-right {{ cond .Site.Params.useRelativeTime "relative-time" "" }}" title="{{ dateFormat .Site.Params.dateFormat .Params.date }}" data-date="{{ .Date.Format "Jan 2 15:04:05 2006 UTC" }}">
+  <small class="date float-right {{ cond .Site.Params.useRelativeTime "relative-time" "" }}" title="{{ dateFormat .Site.Params.dateFormat .Params.date }}" data-date="{{ .Date.Format "Jan 2 15:04:05 2006" }}">
       {{ if .Site.Params.dateFormat }}
         {{ dateFormat .Site.Params.dateFormat .Params.date }}
       {{ else }}
@@ -19,11 +19,9 @@
     <h3>
       {{ .Title }} &nbsp;ℹ
     </h3>
-    <span class="faded">{{ .Summary | truncate 200 }}
-    </span>
 
   {{ else if .Params.Resolved }}
-  <small class="date float-right {{ cond .Site.Params.useRelativeTime "relative-time" "" }}" title="{{ dateFormat .Site.Params.dateFormat .Params.date }}" data-date="{{ .Date.Format "Jan 2 15:04:05 2006 UTC" }}">
+    <small class="date float-right {{ cond .Site.Params.useRelativeTime "relative-time" "" }}" title="{{ dateFormat .Site.Params.dateFormat .Params.date }}" data-date="{{ .Date.Format "Jan 2 15:04:05 2006" }}">
       {{ if .Site.Params.dateFormat }}
         {{ dateFormat .Site.Params.dateFormat .Params.date }}
       {{ else }}
@@ -40,41 +38,32 @@
     {{ $diffInMin := (div $timeDiff 60) }}
 
     <!-- Marker -->
-    {{ if lt $timeDiff 60 }}
-    <div class="faded">
-      {{ T "resolved" }} {{ T "inUnderAMinute" }}
-    </div>
-    {{ else }}
-      {{ if gt $timeDiff 3600 }}
-        <div class="warning">
-          {{ T "resolvedAfter" }}
+	{{ $t := (time .Params.ResolvedWhen) }}
+	{{ $timeDiff := (sub $t.Unix .Date.Unix) }}
+	{{ $days := div $timeDiff 86400 }}
+	{{ $remainingSeconds := mod $timeDiff 86400 }}
+	{{ $hours := div $remainingSeconds 3600 }}
+	{{ $minutes := div (mod $remainingSeconds 3600) 60 }}
 
-          {{ $minutesForCalc := (mod $diffInMin 60) }}
-
-          {{ div (sub $diffInMin $minutesForCalc) 60 }}h
-          {{ $minutesForCalc }}m
-          {{ if eq .Params.severity "down" }}
-            {{ T "ofDowntime" }}
-          {{ end }}
-        </div>
-      {{ else }}
-        <div class="ok">
-          {{ T "resolvedAfter" }}
-
-          {{ $secsForCalc := (mod $timeDiff 60) }}
-
-          {{ div (sub $timeDiff $secsForCalc) 60 }}m
-          {{ if eq .Params.severity "down" }}
-          <!-- {{ $secsForCalc }}s --> {{ T "ofDowntime" }}
-          {{ end }}
-        </div>
-      {{ end }}
-    {{ end }}
+	<div
+		class="{{ if lt $timeDiff 60 }}faded{{ else if gt $days 0 }}warning{{ else if gt $hours 0 }}warning{{ else }}ok{{ end }}">
+		{{ if lt $timeDiff 60 }}
+		{{ T "resolved" }}
+		{{ T "inUnderAMinute" }}
+		{{ else }}
+		{{ T "resolvedAfter" }} {{ if gt $days 0 }}{{ $days }}d {{ end }}
+		{{ if gt $hours 0 }}{{ $hours }}h {{ end }}
+		{{ $minutes }}m
+		{{ if eq .Params.severity "down" }}
+		{{ T "ofDowntime" }}
+		{{ end }}
+		{{ end }}
+	</div>
 
   {{ else }}
   <!-- If not resolved -->
-    <small class="date float-right {{ cond .Site.Params.useRelativeTime "relative-time" "" }}" title="{{ dateFormat .Site.Params.dateFormat .Params.date }}" data-date="{{ .Date.Format "Jan 2 15:04:05 2006 UTC" }}">
-        
+    <small class="date float-right {{ cond .Site.Params.useRelativeTime "relative-time" "" }}" title="{{ dateFormat .Site.Params.dateFormat .Params.date }}" data-date="{{ .Date.Format "Jan 2 15:04:05 2006" }}">
+
       {{ if .Date.Before now }}
         {{ if .Site.Params.dateFormat }}
           {{ dateFormat .Site.Params.dateFormat .Params.date }}
@@ -106,17 +95,18 @@
         {{ end }}
       </strong>
     {{ else }}
-    
-      <strong class="error">
-        {{ if eq .Params.severity "down" }}
-        ■
-        {{ else if eq .Params.severity "disrupted" }}
-        ▲
-        {{ else }}
-        ◆
-        {{ end }}
-        {{ T "downtimeOngoing" }}
-      </strong>
+		<strong>
+		{{ if eq .Params.severity "down" }}
+		<span style="color: {{ .Site.Params.down }}">■ {{ T "thisIsDown" }}</span>
+		{{ else if eq .Params.severity "disrupted" }}
+		<span style="color: {{ .Site.Params.disrupted }}">▲ {{ T "thisIsDisrupted" }}</span>
+		{{ else }}
+		<span style="color: {{ .Site.Params.notice }}">◆ {{ T "thisIsNotice" }}</span>
+		{{ end }}
+		</strong>
+		<span class="faded">
+			– {{ T "downtimeOngoing" }}
+		</span>
     {{ end }}
 
   {{ end }}

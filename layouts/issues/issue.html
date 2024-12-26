@@ -6,97 +6,157 @@
 {{ $isDown := where $active "Params.severity" "=" "down" }}
 
 <div class="article">
-  <h1 class="clean">
-    {{ .Title }}
-  </h1>
+	<h1 class="clean">
+		{{ .Title }}
+	</h1>
 
-  <small class="date">
-    {{ if .Site.Params.dateFormat }}
-      {{ dateFormat .Site.Params.dateFormat .Params.date }}
-    {{ else }}
-      {{ .Date.Format "January 2, 2006 at 3:04 PM" }}
-    {{ end }}
-  </small>
-
-  <p><small>
-    {{ range .Params.Affected }}
-      <a href="{{ printf "affected/%s/" (. | urlize) | relURL }}" class="tag no-underline">{{ . }}</a>
-    {{ end }}
-  </small></p>
-
-  {{ if .Params.informational }}
-  {{ else if .Params.Resolved }}
-  {{ $t := (time .Params.ResolvedWhen) }}
-  {{ $timeDiff := (sub $t.Unix .Date.Unix) }}
-  {{ $diffInMin := (div $timeDiff 60) }}
+	<small class="date">
+		{{ if .Site.Params.dateFormat }}
+		{{ dateFormat .Site.Params.dateFormat .Params.date }}
+		{{ else }}
+		{{ .Date.Format "January 2, 2006 at 3:04 PM" }}
+		{{ end }}
+	</small>
 
 
-  <!-- Marker -->
-  {{ if lt $timeDiff 60 }}
-  <div class="faded">
-    <strong>
-    {{ T "resolved" }} {{ T "inUnderAMinute" }}.
-    </strong>
-  </div>
-  {{ else }}
-    {{ if gt $timeDiff 3600 }}
-      <div class="warning tooltip">
-        <strong>
-          {{ T "resolvedAfter" }}
+	<p><small>
+			{{ range .Params.Affected }}
+			<a href="{{ printf "affected/%s/" (. | urlize) | relURL }}" class="tag no-underline">{{ . }}</a>
+			{{ end }}
+		</small></p>
 
-          {{ $minutesForCalc := (mod $diffInMin 60) }}
+	{{ if .Params.informational }}
+	{{ else if .Params.Resolved }}
+	{{ $resolvedTime := (time .Params.ResolvedWhen) }}
+	{{ $timeDiff := (sub $resolvedTime.Unix .Date.Unix) }}
+	{{ $diffInMin := (div $timeDiff 60) }}
+	{{ $days := div $timeDiff 86400 }}
+	{{ $remainingSeconds := mod $timeDiff 86400 }}
+	{{ $hours := div $remainingSeconds 3600 }}
+	{{ $minutes := div (mod $remainingSeconds 3600) 60 }}
 
-          {{ div (sub $diffInMin $minutesForCalc) 60 }}h
-          {{ $minutesForCalc }}m
-          {{ if eq .Params.severity "down" }}
-              {{ T "ofDowntime" }}
-          {{ end }}
-        </strong>
+	<!-- Marker -->
+	<div
+		class="{{ if lt $timeDiff 60 }}faded{{ else if gt $days 0 }}warning{{ else if gt $hours 0 }}warning{{ else }}ok{{ end }}">
+		{{ if lt $timeDiff 60 }}
+		<strong>{{ T "resolved" }} {{ T "inUnderAMinute" }}</strong>
+		{{ else }}
+		<strong>
+			{{ T "resolvedAfter" }}
+			{{ if gt $days 0 }}{{ $days }}d {{ end }}
+			{{ if gt $hours 0 }}{{ $hours }}h {{ end }}
+			{{ $minutes }}m
+			{{ if eq .Params.severity "down" }}
+			{{ T "ofDowntime" }}
+			{{ end }}
+		</strong>
+		<span class="tooltip__text">
+			{{ if .Site.Params.dateFormat }}
+			{{ dateFormat .Site.Params.dateFormat .Params.resolvedWhen }}
+			{{ else }}
+			{{ dateFormat "January 2, 2006 at 3:04 PM" .Params.resolvedWhen }}
+			{{ end }}
+		</span>
+		{{ end }}
+	</div>
+	{{ else }}
+	<strong>
+		{{ if eq .Params.severity "down" }}
+		<span style="color: {{ .Site.Params.down }}">■ {{ T "thisIsDown" }}</span>
+		{{ else if eq .Params.severity "disrupted" }}
+		<span style="color: {{ .Site.Params.disrupted }}">▲ {{ T "thisIsDisrupted" }}</span>
+		{{ else }}
+		<span style="color: {{ .Site.Params.notice }}">◆ {{ T "thisIsNotice" }}</span>
+		{{ end }}
+		<br />
+		{{ T "downtimeOngoing" }}
+	</strong>
+	{{ end }}
 
-        <span class="tooltip__text">
-          {{ if .Site.Params.dateFormat }}
-            {{ dateFormat .Site.Params.dateFormat .Params.resolvedWhen }}
-          {{ else }}
-            {{ dateFormat "January 2, 2006 at 3:04 PM" .Params.resolvedWhen }}
-          {{ end }}
-        </span>
-      </div>
-    {{ else }}
-      <div class="ok tooltip">
-        <strong>
-          {{ T "resolvedAfter" }}
+	<hr>
+	<div class="markdown">{{ .Content }}</div>
 
-          {{ $secsForCalc := (mod $timeDiff 60) }}
 
-          {{ div (sub $timeDiff $secsForCalc) 60 }}m
-          {{ if eq .Params.severity "down" }}
-            {{ T "ofDowntime" }}
-          {{ end }}
-        </strong>
 
-        <span class="tooltip__text">
-          {{ if .Site.Params.dateFormat }}
-            {{ dateFormat .Site.Params.dateFormat .Params.resolvedWhen }}
-          {{ else }}
-            {{ dateFormat "January 2, 2006 at 3:04 PM" .Params.resolvedWhen }}
-          {{ end }}
-        </span>
-      </div>
-    {{ end }}
-  {{ end }}
-  {{ else }}
-    <strong class="error">
-      {{ if eq .Params.severity "down" }}
-      ■ 
-      {{ else if eq .Params.severity "disrupted" }}
-      ▲ 
-      {{ else }}
-      ◆ 
-      {{ end }}
-      {{ T "downtimeOngoing" }}</strong>
-  {{ end }}
+	{{/* Add to Calendar */}}
+	{{ if eq .Params.severity "notice" }}
 
-  <hr>
-  <div class="markdown">{{ .Content }}</div>
+	<div class="padding"></div>
+	<p><small class="faded"><b>Add this period to your calendar</b></small></p>
+	<button id="addToCalendarBtn" class="tag" style="padding: 8px 12px">
+		Download event (.ics)
+	</button>
+
+	{{ $theTitle := .Title | default "Event" | plainify }}
+	{{ $theDescription := .Content | default "" | plainify | jsonify }}
+
+	<script>
+ 		const eventTitle = {{ $theTitle }};
+		const eventDescription = {{ $theDescription }};
+		const eventStart = "{{ .Date }}";           // from 'date' in front matter
+		const endDateRaw = "{{ .Params.resolvedWhen }}";
+		const eventLocation = "{{ .Site.BaseURL }}";   // or a more specific .Params.location if you have one
+
+		// If no resolvedWhen is defined, add 1 hour to the start date
+		let eventEnd = endDateRaw;
+		if (!endDateRaw || endDateRaw.trim() === "") {
+			const startTimeObj = new Date(eventStart);
+			startTimeObj.setHours(startTimeObj.getHours() + 1);
+			eventEnd = startTimeObj.toISOString();
+		}
+
+		function downloadICS() {
+			// Convert date strings into ICS-friendly format: YYYYMMDDTHHMMSSZ
+			function toICSDate(dString) {
+				const d = new Date(dString);
+				return d.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+			}
+
+			const dtStart = toICSDate(eventStart);
+			const dtEnd = toICSDate(eventEnd);
+
+			// ICS contents with a 1-hour reminder
+			const icsData = [
+				"BEGIN:VCALENDAR",
+				"VERSION:2.0",
+				"PRODID:-//cState//EN",
+				"BEGIN:VEVENT",
+				`UID:${Date.now()}@cstate`,
+				`DTSTAMP:${new Date().toISOString().replace(/[-:]/g, "").split(".")[0]}Z`,
+				`DTSTART:${dtStart}`,
+				`DTEND:${dtEnd}`,
+				// eventTitle and eventDescription are already safe strings (via jsonify)
+				`SUMMARY:${eventTitle}`,
+				`LOCATION:${eventLocation}`,
+				`DESCRIPTION:${eventDescription}`,
+				"BEGIN:VALARM",
+				"ACTION:DISPLAY",
+				"DESCRIPTION:Reminder",
+				"TRIGGER:-PT1H", // 1 hour beforehand
+				"END:VALARM",
+				"END:VEVENT",
+				"END:VCALENDAR"
+			].join("\r\n");
+
+			// Download as an .ics file
+			const blob = new Blob([icsData], { type: "text/calendar" });
+			const blobUrl = URL.createObjectURL(blob);
+
+			const link = document.createElement("a");
+			link.href = blobUrl;
+			link.download = eventTitle.replace(/[^\w\s-]/g, "") + ".ics";
+			// remove special chars from filename, or fallback to "event.ics" if empty
+			document.body.appendChild(link);
+			link.click();
+			document.body.removeChild(link);
+		}
+
+		document
+			.getElementById("addToCalendarBtn")
+			.addEventListener("click", downloadICS);
+	</script>
+
+	{{ end }}
+
 </div>
 <div class="padding"></div>

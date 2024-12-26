@@ -1,9 +1,9 @@
- 
+
 
 <p align="center"><img src="images/cstate-logo-bg.svg?sanitize=true" width="500" height="auto" alt="cState example illustration"></p>
 
 
-> Über fast to load and build, backwards compatible (IE8+), tiny, and simple OSS status page built with Hugo. Completely _free_ with Netlify. Comes with Netlify CMS, read-only API, badges like from shields.io, and other useful features.
+> Über fast to load and build, works with legacy browsers such as Internet Explorer, tiny, and simple OSS status page built with Hugo. Completely _free_ with Netlify. Comes with Netlify CMS, read-only API, badges like from shields.io, and other useful features.
 
 
 <p>
@@ -89,7 +89,7 @@ There are other commercial options that may update faster because of their archi
 This is how you create a **new site powered by cState.**  What you are generating is a Hugo site with specific, already existing modifications (to Hugo, cState acts like a theme).
 
 **IF YOU ARE A DEVELOPER / WANT TO CONTRIBUTE TO THE DEVELOPMENT, SCROLL TO THE BOTTOM. THIS IS FOR USERS.**
- 
+
 Aside from hosting the repository itself on Git (usually on GitHub), your next options are:
 
 * **Site deployment platform:**
@@ -122,10 +122,10 @@ All other static site generator platforms require you to follow this instruction
 + Publish directory: **public**
 + Add one build environment variable
   + Key: **HUGO_VERSION**
-  + Value: **0.101.0** (or later) 
+  + Value: **0.101.0** (or later)
 
 ### 💚 Netlify and Netlify CMS
- 
+
 You don't have to use Netlify, but this is the best option if you need **Netlify CMS** which works best with Netlify. **It takes just a few clicks** to make it work, more info is in the documentation.
 
 You can simply click this button to get started:
@@ -176,7 +176,7 @@ As you can imagine, manual building is a little bit tedious but a great option t
 
 ### Docker
 
-cState comes with a Dockerfile and Netlify ([according to their article from 2016](https://www.netlify.com/blog/2016/10/18/how-our-build-bots-build-sites/)) uses a similar Docker system to build cState. This is an option for people who prefer Docker and NGINX instead of serverless, but serverless still has the priority in cState development. 
+cState comes with a Dockerfile and Netlify ([according to their article from 2016](https://www.netlify.com/blog/2016/10/18/how-our-build-bots-build-sites/)) uses a similar Docker system to build cState. This is an option for people who prefer Docker and NGINX instead of serverless, but serverless still has the priority in cState development.
 
 [Read wiki](https://github.com/cstate/cstate/wiki/Docker)
 
@@ -235,13 +235,13 @@ This is what you would see for an issue that has been resolved.
 
 Time to break that down.
 
-`title`: This is the one of the most important parts of an incident. *(required)*  
-`date`: An ISO-8601 formatted date. Does not include time zone. This is when you first discovered the issue. *(required)*  
-`resolved`: Whether issue should affect overall status. Either `true` or `false`. *(boolean, required)*  
-`resolvedWhen`: An ISO-8601 formatted date. Does not include time zone. This is when downtime stopped. You may set the time that downtime ended without completely resolving the issue (thus leaving time for monitoring).  
-`severity`: If an issue is not resolved, it will have an applied severity. There are 3 levels of severity: `notice`, `disrupted`, and `down`. If there are multiple issues, the status page will take the appearance of the more drastic issue (such as `disrupted` instead of `notice`). *(required)*  
-`affected`. Add the items that were present in the config file which should alter the status of each individual system (component). *(array, required)*  
-`section`. This must be `issue`, so that Hugo treats it as one. *(required)*  
+`title`: This is the one of the most important parts of an incident. *(required)*
+`date`: An ISO-8601 formatted date. Does not include time zone. This is when you first discovered the issue. *(required)*
+`resolved`: Whether issue should affect overall status. Either `true` or `false`. *(boolean, required)*
+`resolvedWhen`: An ISO-8601 formatted date. Does not include time zone. This is when downtime stopped. You may set the time that downtime ended without completely resolving the issue (thus leaving time for monitoring).
+`severity`: If an issue is not resolved, it will have an applied severity. There are 3 levels of severity: `notice`, `disrupted`, and `down`. If there are multiple issues, the status page will take the appearance of the more drastic issue (such as `disrupted` instead of `notice`). *(required)*
+`affected`. Add the items that were present in the config file which should alter the status of each individual system (component). *(array, required)*
+`section`. This must be `issue`, so that Hugo treats it as one. *(required)*
 
 You don't have to define a date for `resolvedWhen` when the issue is not resolved (obviously):
 
@@ -289,10 +289,10 @@ git clone --recursive -b master https://github.com/cstate/cstate.git
 # old command
 # navigate to the directory where your content is and start dev server from there
 cd cstate/exampleSite
-hugo serve --baseUrl=http://localhost/ --theme=cstate --themesDir=../.. --verbose
+hugo server --theme=cstate --themesDir=../..
 # new command partially works for v5.0.2; does not load images from static/
 # for this you need to be in the theme root
-hugo serve --config=exampleSite/config.yml --theme=../ --contentDir=exampleSite/content
+hugo server --config=exampleSite/config.yml --theme=../ --contentDir=exampleSite/content
 ```
 
 

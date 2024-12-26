@@ -1,0 +1,61 @@
+{{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
+{{ $active := where $incidents "Params.resolved" "=" false }}
+
+{{ $isNotice := where $active "Params.severity" "=" "notice" }}
+{{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}
+{{ $isDown := where $active "Params.severity" "=" "down" }}
+
+<!-- Pagination is also included with incidents -->
+
+{{ if not $incidents }}
+  <div class="padding"></div>
+  <h3>{{ T "calmBeforeTheStorm" }}</h3>
+  <p>{{ T "noIncidentsDesc" }}</p>
+  <div class="padding"></div>
+  <div class="padding"></div>
+  <div class="padding"></div>
+{{ else }}
+  {{ $paginator := .Paginate $incidents .Site.Params.incidentPostsPerPage }}
+  {{ range $paginator.Pages }}
+    {{ .Render "small" }}
+  {{ end }}
+
+  <!-- If there are more than 2 pages, show pagination -->
+  {{ if gt $paginator.TotalPages 1 }}
+    <hr>
+
+    <div class="center">
+      {{ if $paginator.HasPrev }}
+        <a href="{{ $paginator.Prev.URL }}#incidents">
+          ← &nbsp;
+          {{ T "prev" }}
+        </a>
+      {{ else }}
+        <span class="faded">
+          ← &nbsp;
+          {{ T "prev" }}
+        </span>
+      {{ end }}
+
+
+      &nbsp; &nbsp;
+      {{ $paginator.PageNumber }}
+      /
+      {{ $paginator.TotalPages }}
+      &nbsp; &nbsp;
+
+
+      {{ if $paginator.HasNext }}
+        <a href="{{ $paginator.Next.URL }}#incidents">
+          {{ T "next" }} &nbsp;
+          →
+        </a>
+      {{ else }}
+        <span class="faded">
+          {{ T "next" }} &nbsp;
+          →
+        </span>
+      {{ end }}
+    </div>
+  {{ end }}
+{{ end }}

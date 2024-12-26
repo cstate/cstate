@@ -3,7 +3,7 @@
    * Dev toolset
    */
 
-  console.log('cState v5.6.1 - https://github.com/cstate/cstate');
+  console.log('cState v6.0 - https://github.com/cstate/cstate');
   document.getElementsByTagName('html')[0].className = 'js';
 
   /**
@@ -40,7 +40,7 @@
     document.location.pathname = '/admin';
   }
 
-  /** 
+  /**
    * Category logic
    */
 
@@ -55,7 +55,7 @@
   /**
    * Returns a relative date string for the given date.
    */
-  
+
   function timeSince(date) {
     var seconds = Math.floor((new Date() - date) / 1000);
 
@@ -98,7 +98,7 @@
    * Changes elements with the class 'relative-time' into relative times and
    * moves the timestamp to a title attribute tooltip.
    */
-  
+
   function updateRelativeTimes() {
     var elements = document.querySelectorAll('.relative-time');
     for (var i = 0; i < elements.length; i++) {
