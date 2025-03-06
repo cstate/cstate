@@ -15,8 +15,8 @@
     -->
 
     <script>console.log('You are using cState. The version can be looked at from the console on the homepage or incidents view. https://github.com/cstate')</script>
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
+
+	<script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <script>
       var IssuePreview = createClass({
         render: function() {
@@ -37,7 +37,7 @@
             var resultOfStateProps = {"class": "green"};
             var resultOfState = '';
           }
-          
+
 
           return h('div', {},
             h('h1', {}, entry.getIn(['data', 'title'])),

@@ -1,5 +1,5 @@
 # Dutch language file for cState
-# Version 4.4
+# Version 6.0
 
 - id: languageCode
   translation: nl
@@ -113,7 +113,7 @@
   translation: Hier is niets.
 - id: notFoundText
   translation: Dit kan een fout zijn aan onze kant. Misschien hebben we de bron verplaats en nu is het weg. Het kan ook dat je de bron die je probeert te bekijken leeg is. Wil je mischien even de url checken?
-- id: rss
+- id: subscribeViaRss
   translation: Abonneer via RSS
 - id: toAllUpdates
   translation: op alle updates
@@ -137,7 +137,7 @@
 
 ##
 ## v4.1
-## 
+##
 
 - id: averageSystemsDowntime
   translation: Recentelijk, gebaseerd op gemiddelde downtime, is het systeem ofline geweest voor ongeveer
@@ -154,3 +154,74 @@
   translation: " w"
 - id: yearAgo
   translation: " jaar"
+
+##
+## v6
+##
+
+- id: incidentMaxAgeNotice
+  translation: "Incidenten ouder dan {{ .MaxAgeYears }} jaar worden niet weergegeven"
+- id: loading
+  translation: "Laden"
+- id: chart
+  translation: "Grafiek"
+- id: getSupport
+  translation: "Krijg ondersteuning"
+- id: subscribe
+  translation: "Abonneren"
+- id: subscribeDescription
+  translation: "Abonneer je op updates van deze statuspagina."
+- id: rss
+  translation: "RSS"
+- id: email
+  translation: "E-mail"
+- id: discord
+  translation: "Discord"
+- id: slack
+  translation: "Slack"
+- id: webhook
+  translation: "Webhook"
+- id: webhookUrl
+  translation: "Webhook-URL"
+- id: embed
+  translation: "Insluiten"
+- id: embedDescription
+  translation: "U kunt deze statuspagina insluiten in uw eigen website of applicatie. Kopieer eenvoudig het volgende HTML-fragment en plak het om een pop-upbericht te krijgen als er storingen zijn:"
+- id: copy
+  translation: "Kopiëren"
+- id: embedDisclaimer
+  translation: "Op zoek naar meer informatie over deze insluiting en hoe u deze kunt gebruiken?"
+- id: learnMore
+  translation: "Meer informatie hier"
+- id: pushNotifications
+  translation: "Pushmeldingen"
+- id: pushNotificationsDescription
+  translation: "U kunt zich abonneren op deze statuspagina via pushmeldingen via uw browser. U moet dit doen op elk apparaat waarop u meldingen wilt ontvangen. Houd er rekening mee dat deze functie afhankelijk is van browserondersteuning en mogelijk niet op alle apparaten werkt zoals verwacht."
+- id: pushNotificationsDisclaimer
+  translation: "We raden aan om een andere meldingsmethode te kiezen als u kritieke updates zo snel mogelijk wilt ontvangen."
+- id: API
+  translation: "API"
+- id: APIdescription
+  translation: "U kunt onze API gebruiken om de informatie en updates van deze statuspagina te integreren in uw eigen website of applicatie. Maak eenvoudig een GET-verzoek naar de volgende URL:"
+- id: APIdisclaimer
+  translation: "Houd er rekening mee dat de API mogelijk onderhevig is aan snelheidsbeperkingen."
+- id: getAllUpdates
+  translation: "Ontvang alle updates"
+- id: getSomeUpdates
+  translation: "Ontvang alleen updates van sommige systemen"
+- id: openDropdown
+  translation: "Open dropdown"
+- id: closeDropdown
+  translation: "Sluit dropdown"
+- id: automated
+  translation: "Geautomatiseerd"
+- id: thisPostWasAutomaticallyGenerated
+  translation: "Dit bericht is automatisch gegenereerd."
+- id: readDocumentation
+  translation: "Lees documentatie"
+- id: copied
+  translation: "Gekopieerd!"
+- id: copyToClipboard
+  translation: "Kopieer naar klembord"
+- id: open
+  translation: "Open"

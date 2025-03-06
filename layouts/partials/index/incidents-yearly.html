@@ -1,13 +1,70 @@
+{{/*
+Template to display incidents grouped by year, excluding those older than a specified number of years if configured
+correctly.
+*/}}
+
+{{/* Step 1: Retrieve all incidents */}}
 {{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
 
+{{/* Step 2: Attempt to retrieve and cast maximum age in years from config */}}
+{{/*
+- Cast to integer
+- If casting fails (e.g., non-numeric value), set to 0
+*/}}
+{{ $maxAgeYears := .Site.Params.incidentMaxAgeYears | int }}
 
-{{ range ($incidents.GroupByDate "2006") }}
-  
-  <p class="center archive__head" id="archive-{{ .Key }}"><a href="#archive-{{ .Key }}" class="no-underline"><strong>{{ .Key }}</strong>
-    <span class="faded">({{ len .Pages }})</span>
-  </a></p>
-  
-  {{ range .Pages }}
-    {{ .Render "small" }}
-  {{ end }}
+{{/* Step 3: Initialize a variable to hold incidents to display */}}
+{{ $displayIncidents := $incidents }}
+
+{{/* Step 4: Conditionally filter incidents if $maxAgeYears is greater than 0 */}}
+{{ if gt $maxAgeYears 0 }}
+{{/* Calculate the cutoff date */}}
+{{ $currentDate := now }}
+{{ $cutoffYear := sub $currentDate.Year $maxAgeYears }}
+{{ $cutoffDateString := printf "%d-%02d-%02d" $cutoffYear $currentDate.Month $currentDate.Day }}
+{{ $cutoffDate := $cutoffDateString | time }}
+
+{{/* Filter incidents to include only those newer than the cutoff date */}}
+{{ $filteredIncidents := where $incidents "Date" "ge" $cutoffDate }}
+
+{{/* Update $displayIncidents to the filtered list */}}
+{{ $displayIncidents = $filteredIncidents }}
+{{ end }}
+
+{{/* Step 5: Check if there are any incidents to display */}}
+{{ if not $displayIncidents }}
+<div class="padding"></div>
+<h3>{{ T "calmBeforeTheStorm" }}</h3>
+<p>{{ T "noIncidentsDesc" }}</p>
+<div class="padding"></div>
+<div class="padding"></div>
+<div class="padding"></div>
+{{ else }}
+{{/* Step 6: Group the incidents by year */}}
+{{ range ($displayIncidents.GroupByDate "2006") }}
+<p class="center archive__head" id="archive-{{ .Key }}">
+	<a href="#archive-{{ .Key }}" class="no-underline">
+		<strong>{{ .Key }}</strong>
+		<span class="faded">({{ len .Pages }})</span>
+	</a>
+</p>
+
+{{/* Step 7: Render each incident in the group */}}
+{{ range .Pages }}
+{{ .Render "small" }}
+{{ end }}
+{{ end }}
+{{ end }}
+
+{{/* Step 8: Show the notice if filtering is applied */}}
+{{ if gt $maxAgeYears 0 }}
+<div class="padding"></div>
+<div class="padding"></div>
+<div class="padding"></div>
+
+<div class="center">
+	<small class="faded">
+		{{ i18n "incidentMaxAgeNotice" (dict "MaxAgeYears" $maxAgeYears) }}
+	</small>
+</div>
 {{ end }}

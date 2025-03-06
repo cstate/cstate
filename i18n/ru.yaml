@@ -1,6 +1,6 @@
 # Russian language file for cState
 # Official
-# Version 4.4
+# Version 6.0
 
 - id: languageCode
   translation: ru
@@ -116,7 +116,7 @@
 - id: notFoundText
   translation: Возможно, это наша проблема. Может быть, мы переместили какой-то ресурс, и теперь он недоступен. Возможно также, что ресурс, который вы пытаетесь просмотреть, пуст. Не могли бы вы также дважды проверить ссылку?
 
-- id: rss
+- id: subscribeViaRss
   translation: Подписаться через RSS
 - id: toAllUpdates
   translation: на все обновления
@@ -159,3 +159,74 @@
   translation: " нед."
 - id: yearAgo
   translation: " год"
+
+##
+## v6
+##
+
+- id: incidentMaxAgeNotice
+  translation: "Не показывать инциденты старше {{ .MaxAgeYears }} лет"
+- id: loading
+  translation: "Загрузка"
+- id: chart
+  translation: "График"
+- id: getSupport
+  translation: "Получить поддержку"
+- id: subscribe
+  translation: "Подписаться"
+- id: subscribeDescription
+  translation: "Подпишитесь на обновления с этой страницы состояния."
+- id: rss
+  translation: "RSS"
+- id: email
+  translation: "Электронная почта"
+- id: discord
+  translation: "Discord"
+- id: slack
+  translation: "Slack"
+- id: webhook
+  translation: "Webhook"
+- id: webhookUrl
+  translation: "URL-адрес веб-перехватчика"
+- id: embed
+  translation: "Встроить"
+- id: embedDescription
+  translation: "Вы можете встроить эту страницу состояния в свой собственный веб-сайт или приложение. Просто скопируйте следующий фрагмент HTML и вставьте его, чтобы получать всплывающее сообщение, если есть сбои:"
+- id: copy
+  translation: "Копировать"
+- id: embedDisclaimer
+  translation: "Ищете дополнительную информацию об этом встраивании и о том, как вы можете его использовать?"
+- id: learnMore
+  translation: "Узнать больше здесь"
+- id: pushNotifications
+  translation: "Push-уведомления"
+- id: pushNotificationsDescription
+  translation: "Вы можете подписаться на эту страницу состояния через push-уведомления через свой браузер. Вам нужно будет сделать это на каждом устройстве, на котором вы хотите получать уведомления. Обратите внимание, что эта функция зависит от поддержки браузера и может работать не на всех устройствах должным образом."
+- id: pushNotificationsDisclaimer
+  translation: "Мы рекомендуем выбрать другой способ уведомления, если вам нужно, чтобы критические обновления доставлялись как можно скорее."
+- id: API
+  translation: "API"
+- id: APIdescription
+  translation: "Вы можете использовать наш API для интеграции информации и обновлений с этой страницы состояния в свой собственный веб-сайт или приложение. Просто сделайте GET-запрос по следующему URL-адресу:"
+- id: APIdisclaimer
+  translation: "Обратите внимание, что API может подвергаться ограничению скорости."
+- id: getAllUpdates
+  translation: "Получить все обновления"
+- id: getSomeUpdates
+  translation: "Получать обновления только от некоторых систем"
+- id: openDropdown
+  translation: "Открыть раскрывающийся список"
+- id: closeDropdown
+  translation: "Закрыть раскрывающийся список"
+- id: automated
+  translation: "Автоматически"
+- id: thisPostWasAutomaticallyGenerated
+  translation: "Это сообщение было сгенерировано автоматически."
+- id: readDocumentation
+  translation: "Прочитать документацию"
+- id: copied
+  translation: "Скопировано!"
+- id: copyToClipboard
+  translation: "Копировать в буфер обмена"
+- id: open
+  translation: "Открыть"

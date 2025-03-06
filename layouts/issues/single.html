@@ -13,24 +13,25 @@
     </div>
 
     <div class="contain">
-      {{ .Render "issue" }} 
+      {{ .Render "issue" }}
     </div>
-    
+
     {{ if .Site.Params.enableLastMod }}
     <div class="contain center">
-      <p>{{ T "lastChecked" }}:
+      <small>{{ T "lastChecked" }}:
 
-        {{ if .Site.Params.dateFormat }}
+      {{ if .Site.Params.dateFormat }}
         {{ dateFormat .Site.Params.dateFormat .Lastmod }}
       {{ else }}
-        {{ .Lastmod.Format "January 2, 2006 at 3:04 PM" }}
+        {{ .Lastmod.Format "January 2, 2006 at 3:04 PM UTC" }}
       {{ end }}
-      </p>
+	  </small>
+	  <div class="padding"></div>
     </div>
     {{ end }}
 
 
-    
+
 
     {{ partial "js" . }}
     {{ partial "footer" . }}

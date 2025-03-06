@@ -15,11 +15,11 @@
 
     {{ if not .Site.Params.disableIncidentHistory }}
       <hr>
-      
+
       <p class="hinted">
         <small>
           ⚡
-          {{ T "rss" }} —
+          {{ T "subscribeViaRss" }} —
           {{ with $.Site.Home.OutputFormats.Get "rss" }}
             <a href="{{ .Permalink }}" class="no-underline">{{ T "toAllUpdates" }}</a>
           {{ end }}

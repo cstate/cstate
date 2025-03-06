@@ -1,3 +1,4 @@
+{{/* Existing cState references */}}
 {{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
 {{ $active := where $incidents "Params.resolved" "=" false }}
 
@@ -5,143 +6,308 @@
 {{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}
 {{ $isDown := where $active "Params.severity" "=" "down" }}
 
-<!-- Individual info -->
+{{ $uptimeHistogramEnabled := .Site.Params.enableUptimeHistogram }}
+
+<!-- The main categories layout -->
 <div class="categories">
-  {{ $systems := .Site.Params.systems }}
-  {{ $categories := .Site.Params.categories }}
+	{{ $systems := .Site.Params.systems }}
+	{{ $categories := .Site.Params.categories }}
 
-  {{ range $categories }}
-    <div class="category {{ if .closed }}category--closed{{ else }}category--open{{ end }}{{ if not .untitled }} category--titled{{ end }}" id="{{ .name | urlize }}">
-      {{ if not .untitled }}
-      <div class="bold padding clicky category__head" onclick="toggleCategoryHead(this)">
-        <span class="hide-without-js">
-          <span class="category__closed-marker">►</span>
-          <span class="category__open-marker">▲</span>
-        </span>
+	{{ range $categories }}
+	<div class="category {{ if .closed }}category--closed{{ else }}category--open{{ end }}{{ if not .untitled }} category--titled{{ end }}"
+		id="{{ .name | urlize }}">
+		{{ if not .untitled }}
+		<div class="bold padding clicky category__head" onclick="toggleCategoryHead(this)">
+			<span class="hide-without-js">
+				<span class="category__closed-marker">
+					<span class="sr-only">{{ T "openDropdown" }}</span>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+						stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
+						<polyline points="9 18 15 12 9 6"></polyline>
+					</svg>
+				</span>
+				<span class="category__open-marker">
+					<span class="sr-only">{{ T "closeDropdown" }}</span>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+						stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down">
+						<polyline points="6 9 12 15 18 9"></polyline>
+					</svg>
+				</span>
+			</span>
+			<b>{{ .name }}</b>
+			{{ with .description }}
+			<span class="tooltip tooltip--small">
+				&nbsp; <span class="faded">(?)</span>
+				<span class="tooltip__text">{{ . }}</span>
+			</span>
+			{{ end }}
+			<span class="category-status"></span>
+		</div>
+		{{ else }}
+		<div class="padding"></div>
+		{{ end }}
 
-      <b>
-        {{ .name }}
-      </b>
-      
-      {{ with .description }}
-        <span class="tooltip tooltip--small">
-          &nbsp; <span class="faded">(?)</span>
+		{{ $categorySystems := where $systems "category" "=" .name }}
+		<div class="components">
+			{{ range $system := $categorySystems }}
+			{{ $activeComponentIssues := where $active "Params.affected" "intersect" (slice $system.name) }}
+			{{ $thisIsNotice := where $activeComponentIssues "Params.severity" "=" "notice" }}
+			{{ $thisIsDisrupted := where $activeComponentIssues "Params.severity" "=" "disrupted" }}
+			{{ $thisIsDown := where $activeComponentIssues "Params.severity" "=" "down" }}
 
-          <span class="tooltip__text">
-            {{ . }}
-          </span>
-        </span>
-      {{ end }}
- 
-      <span class="category-status"></span>
+			<div class="component" id="system-{{ .name | urlize }}"
+				data-status="{{ if $thisIsDown }}down{{ else if $thisIsDisrupted }}disrupted{{ else if $thisIsNotice }}notice{{ else }}ok{{ end }}">
+				<a href="{{ printf "affected/%s/" ($system.name | urlize) | relURL }}" class="no-underline">
+					{{ default $system.name $system.displayName }}
+				</a>
 
-      </div>
-      {{ else }}
-      <div class="padding"></div>
-      {{ end }}
+				{{ with $system.description }}
+				<span class="tooltip tooltip--small">
+					&nbsp; <span class="faded">(?)</span>
+					<span class="tooltip__text">{{ . }}</span>
+				</span>
+				{{ end }}
 
-      {{ $categorySystems := where $systems "category" "=" .name }}
+				{{ with $system.link }}
+				<span class="span-icon">
+					<a href="{{ . }}" class="link-style">🔗</a>
+				</span>
+				{{ end }}
 
-      <div class="components">
-      {{ range $system := $categorySystems }}
-        {{ $activeComponentIssues := where $active "Params.affected" "intersect" (slice $system.name) }}
+				<span class="component-status">
+					{{ if $thisIsDown }}
+					{{ T "thisIsDown" }}
+					{{ else if $thisIsDisrupted }}
+					{{ T "thisIsDisrupted" }}
+					{{ else if $thisIsNotice }}
+					{{ T "thisIsNotice" }}
+					{{ else }}
+					{{ T "thisIsOk" }}
+					{{ end }}
+				</span>
 
-        {{ $thisIsNotice := where $activeComponentIssues "Params.severity" "=" "notice" }}
-        {{ $thisIsDisrupted := where $activeComponentIssues "Params.severity" "=" "disrupted" }}
-        {{ $thisIsDown := where $activeComponentIssues "Params.severity" "=" "down" }}
+				{{ if $uptimeHistogramEnabled }}
+					{{ if ne $system.histogram false }}
+					<div class="histogram-container">
+						<!-- A quick loading text, removed once data is fetched -->
+						<div id="histogram-{{ .name | urlize }}" class="histogram">{{ T "laoding" }} {{ .name }} {{ T "chart" }}</div>
+					</div>
+					{{ end }}
+				{{ end }}
 
-        <div class="component" data-status="{{ if $thisIsDown }}down{{ else }}{{ if $thisIsDisrupted }}disrupted{{ else }}{{ if $thisIsNotice }}notice{{ else }}ok{{ end }}{{ end }}{{ end }}">
-          <a href="{{ printf "affected/%s/" ($system.name | urlize) | relURL }}" class="no-underline">
-            {{ default $system.name $system.displayName }}
-          </a>
+				{{ with $system.partial }}
+				<div>
+					{{ partial . (dict "system" $system "incidents" $incidents) }}
+				</div>
+				{{ end }}
+			</div>
+			{{ end }}
+		</div>
 
-          {{ with $system.description }}
-            <span class="tooltip tooltip--small">
-              &nbsp; <span class="faded">(?)</span>
+		<!-- Category-level script to compute worst status -->
+		<script>
+			(function () {
+				var thisCategory = document.currentScript.parentNode;
+				var componentsOfThisCategory = thisCategory.querySelectorAll('.component');
+				var highestLevelStatus = 'ok';
 
-              <span class="tooltip__text">
-                {{ . }}
-              </span>
-            </span>
-          {{ end }}
+				function checkStatus(element) {
+					var status = element.getAttribute('data-status');
+					if (status === 'down') {
+						highestLevelStatus = 'down';
+					} else if (status === 'disrupted' && highestLevelStatus !== 'down') {
+						highestLevelStatus = 'disrupted';
+					} else if (status === 'notice' && highestLevelStatus !== 'down' && highestLevelStatus !== 'disrupted') {
+						highestLevelStatus = 'notice';
+					}
+				}
 
-          {{ with $system.link }}
-            <span class="span-icon">
-              <a href="{{ . }}" class="link-style">
-                🔗
-              </a>
-            </span>
-          {{ end }}
+				componentsOfThisCategory.forEach(checkStatus);
 
-          <span class="component-status">
-            {{ if $thisIsDown }}
-              {{ T "thisIsDown" }}
-            {{ else }}
-            {{ if $thisIsDisrupted }}
-              {{ T "thisIsDisrupted" }}
-            {{ else }}
-            {{ if $thisIsNotice }}
-              {{ T "thisIsNotice" }}
-            {{ else }}
-              {{ T "thisIsOk" }}
-            {{ end }}{{ end }}{{ end }}
-          </span>
+				var highestLevelStatusReadable = highestLevelStatus;
+				if (highestLevelStatus === 'ok') highestLevelStatusReadable = '{{ T "thisIsOk" }}';
+				else if (highestLevelStatus === 'notice') highestLevelStatusReadable = '{{ T "thisIsNotice" }}';
+				else if (highestLevelStatus === 'disrupted') highestLevelStatusReadable = '{{ T "thisIsDisrupted" }}';
+				else if (highestLevelStatus === 'down') highestLevelStatusReadable = '{{ T "thisIsDown" }}';
 
-          {{ with $system.partial }}
-          <div>
-            {{ partial . (dict "system" $system "incidents" $incidents) }}
-          </div>
-          {{ end }}
-        </div>
-      {{ end }}
-      </div> 
-
-      <!--
-        Get category status
-      -->
-      <script>
-        // We will look at all components in one category
-        thisCategory = document.currentScript.parentNode 
-
-        componentsOfThisCategory = thisCategory.querySelectorAll('.component')
-        
-        // We will cycle through all components and show
-        // the worst status found
-        //
-        // By default, all is good but we change this value
-        // for progressively worse statuses
-        var highestLevelStatus = '';
-
-        function checkStatus(element) {
-          var status = element.getAttribute('data-status');
-
-          if (status === 'down') {
-            highestLevelStatus = 'down'
-          } else if (status === 'disrupted' && highestLevelStatus !== 'down') {
-            highestLevelStatus = 'disrupted'
-          } else if (status === 'notice' && highestLevelStatus !== 'down' && highestLevelStatus !== 'disrupted') {
-            highestLevelStatus = 'notice'
-          }
-        }
-
-        componentsOfThisCategory.forEach(element => checkStatus(element));
-        
-        // Human readable (i18n) status name variable
-        var highestLevelStatusReadable = highestLevelStatus;
-
-        if (highestLevelStatus === 'ok') { highestLevelStatusReadable = '{{ T "thisIsOk" }}' } 
-        if (highestLevelStatus === 'notice') { highestLevelStatusReadable = '{{ T "thisIsNotice" }}' } 
-        if (highestLevelStatus === 'disrupted') { highestLevelStatusReadable = '{{ T "thisIsDisrupted" }}' } 
-        if (highestLevelStatus === 'down') { highestLevelStatusReadable = '{{ T "thisIsDown" }}' } 
-
-        // Finally we can show the status 
-        // (but only for categories with a name)
-        if (thisCategory.classList.contains('category--titled')) {
-          thisCategory.querySelector('.category__head').setAttribute('data-status', highestLevelStatus);
-          thisCategory.querySelector('.category-status').innerHTML = highestLevelStatusReadable;
-        }
-      </script>
-    </div>
-  {{ end }}
-
+				if (thisCategory.classList.contains('category--titled')) {
+					thisCategory.querySelector('.category__head').setAttribute('data-status', highestLevelStatus);
+					thisCategory.querySelector('.category-status').innerHTML = highestLevelStatusReadable;
+				}
+			})();
+		</script>
+	</div>
+	{{ end }}
 </div>
+
+
+
+{{ if $uptimeHistogramEnabled }}
+<!-- HISTOGRAM STYLES -->
+<style>
+	.histogram-container {
+		width: 100%;
+		margin-top: 10px;
+	}
+
+	.histogram {
+		display: flex;
+		flex-wrap: nowrap;
+		align-items: flex-end;
+		/* 50 bars in total. We'll just always build 60. */
+		height: 30px;
+		/* slightly shorter */
+		box-sizing: border-box;
+		/* no forced background => better for dark mode */
+	}
+
+	.histogram-bar {
+		flex: 1;
+		/* each bar has equal width */
+		margin: 0 2px;
+		height: 30px;
+		border: none;
+		position: relative;
+		cursor: pointer;
+		transition: background-color 0.2s;
+	}
+
+	.histogram-bar:hover::after {
+		display: block;
+	}
+
+	.histogram-bar::after {
+		content: attr(data-label);
+		position: absolute;
+		bottom: 100%;
+		left: 50%;
+		transform: translateX(-50%);
+		border-radius: 4px;
+		box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+		color: #fff;
+		background-color: #000;
+		padding: 2px 6px;
+		font-size: 12px;
+		border-radius: 3px;
+		display: none;
+		pointer-events: none;
+		white-space: nowrap;
+	}
+
+	/* Show all 50 on desktop; only 30 on mobile/tablet (max-width: 640px) */
+	@media (max-width: 640px) {
+		/* Hide the oldest 20 bars from the left, keep the newest 30 bars on the right */
+		.histogram-bar:nth-child(-n+20) {
+			display: none;
+		}
+	}
+</style>
+
+<!-- HISTOGRAM SCRIPT -->
+<script>
+	// Colors from your site/theme
+	var themeOkColor = '{{ .Site.Params.ok }}';
+	var themeDisruptedColor = '{{ .Site.Params.disrupted }}';
+	var themeDownColor = '{{ .Site.Params.down }}';
+
+	// We'll always build 60 bars
+	const DAYS = 60;
+
+	(function () {
+		var components = document.querySelectorAll('.component');
+		components.forEach(function (component) {
+			var systemName = component.id.replace('system-', '');
+			var histogramDiv = document.getElementById('histogram-' + systemName);
+			if (!histogramDiv) return;
+
+			// Example endpoint
+			var endpoint = '{{ .Site.BaseURL }}affected/' + systemName + '/index.json';
+			fetch(endpoint)
+				.then(res => res.json())
+				.then(data => {
+					histogramDiv.textContent = ''; // Clear "Loading..."
+
+					// We'll keep track of each day with a "worstSeverity" = "ok" / "disrupted" / "down"
+					var now = new Date();
+					var dayStats = [];
+					for (var i = 0; i < DAYS; i++) {
+						var d = new Date(now);
+						d.setDate(d.getDate() - i);
+						var y = d.getFullYear();
+						var m = String(d.getMonth() + 1).padStart(2, '0');
+						var dd = String(d.getDate()).padStart(2, '0');
+						var dateStr = y + '-' + m + '-' + dd;
+						dayStats.push({
+							dateStr: dateStr,
+							worstSeverity: 'ok' /* by default */
+						});
+					}
+
+					var incidents = data.pages || [];
+					incidents.forEach(incident => {
+						var severity = (incident.severity || '').toLowerCase();
+						// If it's not "down" or "disrupted," no need to color the day as special
+						if (severity !== 'down' && severity !== 'disrupted') return;
+
+						var startTime = new Date(incident.createdAt);
+						var endTime = incident.resolved ? new Date(incident.resolvedAt) : new Date();
+
+						// Overlap each day. If any overlap => mark worstSeverity
+						dayStats.forEach(ds => {
+							var dayStart = new Date(ds.dateStr + 'T00:00:00Z');
+							var dayEnd = new Date(ds.dateStr + 'T23:59:59Z');
+
+							var overlapStart = (startTime > dayStart) ? startTime : dayStart;
+							var overlapEnd = (endTime < dayEnd) ? endTime : dayEnd;
+							if (overlapEnd > overlapStart) {
+								// If it's "down," that's the worst.
+								// If it's "disrupted" and worst is not "down," set to "disrupted."
+								if (severity === 'down') {
+									ds.worstSeverity = 'down';
+								} else if (severity === 'disrupted' && ds.worstSeverity !== 'down') {
+									ds.worstSeverity = 'disrupted';
+								}
+							}
+						});
+					});
+
+					// Now build 60 bars, from oldest on the left to newest on the right
+					for (let i = dayStats.length - 1; i >= 0; i--) {
+						let ds = dayStats[i];
+						let bar = document.createElement('a');
+						bar.href = '{{ .Site.BaseURL }}/affected/' + systemName;
+						bar.className = 'histogram-bar';
+
+						// Determine localized label from severity
+						let labelText;
+						if (ds.worstSeverity === 'down') {
+							labelText = '{{ T "thisIsDown" }}';        // e.g. "Down"
+						} else if (ds.worstSeverity === 'disrupted') {
+							labelText = '{{ T "thisIsDisrupted" }}';   // e.g. "Disrupted"
+						} else {
+							labelText = '{{ T "thisIsOk" }}';          // e.g. "Operational"
+						}
+
+						// Full tooltip: dateStr + localized severity
+						bar.setAttribute('data-label', ds.dateStr + ' — ' + labelText);
+
+						// Assign color by worstSeverity
+						if (ds.worstSeverity === 'down') {
+							bar.style.backgroundColor = themeDownColor;
+						} else if (ds.worstSeverity === 'disrupted') {
+							bar.style.backgroundColor = themeDisruptedColor;
+						} else {
+							bar.style.backgroundColor = themeOkColor;
+						}
+
+						histogramDiv.appendChild(bar);
+					}
+				})
+				.catch(err => {
+					histogramDiv.textContent = 'Error loading data for ' + systemName;
+					console.error('Histogram load error:', systemName, err);
+				});
+		});
+	})();
+</script>
+{{ end }}

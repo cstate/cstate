@@ -1,5 +1,5 @@
 # Japanese language file for cState
-# Version 4.4
+# Version 6.0
 
 - id: languageCode
   translation: ja
@@ -115,7 +115,7 @@
 - id: notFoundText
   translation: これは私たちに問題があるかもしれません。おそらくページを移動したら、それが無くなってしまったのでしょう。リンク先をもう一度ご確認ください。
 
-- id: rss
+- id: subscribeViaRss
   translation: RSS
 - id: toAllUpdates
   translation: 全てのアップデートを購読
@@ -158,3 +158,74 @@
   translation: " 週間前"
 - id: yearAgo
   translation: " 年前"
+
+##
+## v6
+##
+
+- id: incidentMaxAgeNotice
+  translation: "{{ .MaxAgeYears }} 年以上前のインシデントは表示しません"
+- id: loading
+  translation: "読み込み中"
+- id: chart
+  translation: "チャート"
+- id: getSupport
+  translation: "サポートを受ける"
+- id: subscribe
+  translation: "購読"
+- id: subscribeDescription
+  translation: "このステータスページの更新を購読します。"
+- id: rss
+  translation: "RSS"
+- id: email
+  translation: "メール"
+- id: discord
+  translation: "Discord"
+- id: slack
+  translation: "Slack"
+- id: webhook
+  translation: "Webhook"
+- id: webhookUrl
+  translation: "Webhook URL"
+- id: embed
+  translation: "埋め込み"
+- id: embedDescription
+  translation: "このステータスページを自分のウェブサイトやアプリケーションに埋め込むことができます。障害が発生した場合にポップアップメッセージを表示するには、次の HTML スニペットをコピーして貼り付けてください:"
+- id: copy
+  translation: "コピー"
+- id: embedDisclaimer
+  translation: "この埋め込みに関する詳細と使用方法については、こちらをご覧ください。"
+- id: learnMore
+  translation: "詳細はこちら"
+- id: pushNotifications
+  translation: "プッシュ通知"
+- id: pushNotificationsDescription
+  translation: "ブラウザのプッシュ通知を介して、このステータスページを購読できます。通知を受信するすべてのデバイスでこれを行う必要があります。この機能はブラウザのサポート対象であり、すべてのデバイスで期待どおりに動作しない場合があることに注意してください。"
+- id: pushNotificationsDisclaimer
+  translation: "重要な更新をできるだけ早く配信する必要がある場合は、別の通知方法を選択することをお勧めします。"
+- id: API
+  translation: "API"
+- id: APIdescription
+  translation: "API を使用して、このステータスページの情報と更新を自分のウェブサイトやアプリケーションに統合できます。次の URL に GET リクエストを送信してください:"
+- id: APIdisclaimer
+  translation: "API にはレート制限が適用される場合があることに注意してください。"
+- id: getAllUpdates
+  translation: "すべての更新を取得する"
+- id: getSomeUpdates
+  translation: "一部のシステムからのみ更新を取得する"
+- id: openDropdown
+  translation: "ドロップダウンを開く"
+- id: closeDropdown
+  translation: "ドロップダウンを閉じる"
+- id: automated
+  translation: "自動化"
+- id: thisPostWasAutomaticallyGenerated
+  translation: "この投稿は自動的に生成されました。"
+- id: readDocumentation
+  translation: "ドキュメントを読む"
+- id: copied
+  translation: "コピーしました！"
+- id: copyToClipboard
+  translation: "クリップボードにコピー"
+- id: open
+  translation: "開く"

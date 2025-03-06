@@ -1,5 +1,5 @@
 # Italian language file for cState
-# Version 4.4
+# Version 6.0
 
 - id: languageCode
   translation: it
@@ -115,7 +115,7 @@
 - id: notFoundText
   translation: Questo potrebbe essere un problema da parte nostra. Forse abbiamo spostato una risorsa e ora non c'è più. È anche possibile che la risorsa che stai cercando di visualizzare sia vuota. Ti dispiace ricontrollare l'indirizzo?
 
-- id: rss
+- id: subscribeViaRss
   translation: Sottoscriviti tramite RSS
 - id: toAllUpdates
   translation: per tutti gli aggiornamenti
@@ -158,3 +158,74 @@
   translation: " sett"
 - id: yearAgo
   translation: " anni"
+
+##
+## v6
+##
+
+- id: incidentMaxAgeNotice
+  translation: "Non mostrare incidenti più vecchi di {{ .MaxAgeYears }} anni"
+- id: loading
+  translation: "Caricamento"
+- id: chart
+  translation: "Grafico"
+- id: getSupport
+  translation: "Ottieni supporto"
+- id: subscribe
+  translation: "Iscriviti"
+- id: subscribeDescription
+  translation: "Iscriviti agli aggiornamenti da questa pagina di stato."
+- id: rss
+  translation: "RSS"
+- id: email
+  translation: "Email"
+- id: discord
+  translation: "Discord"
+- id: slack
+  translation: "Slack"
+- id: webhook
+  translation: "Webhook"
+- id: webhookUrl
+  translation: "URL Webhook"
+- id: embed
+  translation: "Incorpora"
+- id: embedDescription
+  translation: "Puoi incorporare questa pagina di stato nel tuo sito web o applicazione. Copia semplicemente il seguente snippet HTML e incollalo per ottenere un messaggio pop-up in caso di interruzioni:"
+- id: copy
+  translation: "Copia"
+- id: embedDisclaimer
+  translation: "Cerchi maggiori informazioni su questo incorporamento e su come puoi usarlo?"
+- id: learnMore
+  translation: "Scopri di più qui"
+- id: pushNotifications
+  translation: "Notifiche push"
+- id: pushNotificationsDescription
+  translation: "Puoi iscriverti a questa pagina di stato tramite notifiche push tramite il tuo browser. Dovrai farlo su ogni dispositivo su cui desideri ricevere le notifiche. Tieni presente che questa funzione è soggetta al supporto del browser e potrebbe non funzionare su tutti i dispositivi come previsto."
+- id: pushNotificationsDisclaimer
+  translation: "Ti consigliamo di scegliere un metodo di notifica diverso se hai bisogno di aggiornamenti critici da consegnare il prima possibile."
+- id: API
+  translation: "API"
+- id: APIdescription
+  translation: "Puoi utilizzare la nostra API per integrare le informazioni e gli aggiornamenti da questa pagina di stato nel tuo sito Web o applicazione. Effettua semplicemente una richiesta GET al seguente URL:"
+- id: APIdisclaimer
+  translation: "Si prega di notare che l'API potrebbe essere soggetta a limitazioni di velocità."
+- id: getAllUpdates
+  translation: "Ricevi tutti gli aggiornamenti"
+- id: getSomeUpdates
+  translation: "Ricevi aggiornamenti solo da alcuni sistemi"
+- id: openDropdown
+  translation: "Apri menu a tendina"
+- id: closeDropdown
+  translation: "Chiudi menu a tendina"
+- id: automated
+  translation: "Automatizzato"
+- id: thisPostWasAutomaticallyGenerated
+  translation: "Questo post è stato generato automaticamente."
+- id: readDocumentation
+  translation: "Leggi la documentazione"
+- id: copied
+  translation: "Copiato!"
+- id: copyToClipboard
+  translation: "Copia negli appunti"
+- id: open
+  translation: "Apri"

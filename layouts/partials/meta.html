@@ -12,7 +12,7 @@
     {{ range .AlternativeOutputFormats -}}
     {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
     {{ end -}}
-    <meta name="generator" content="cState v5.6.1 - https://github.com/cstate/cstate">
+    <meta name="generator" content="cState v6.0 - https://github.com/cstate/cstate">
     <meta name="theme-color" content="{{ .Site.Params.brand }}">
     <script>
     var themeBrandColor = '{{ .Site.Params.brand }}';
@@ -46,8 +46,8 @@
       border-bottom: 1px dotted currentColor;
     }
 
-    a:hover { border-bottom-style: solid; }
-    a:active { position: relative; top: 2px; }
+    a:hover { opacity: 0.9; }
+    a:active { opacity: 0.8; }
 
     hr {
       border: 0;
@@ -66,7 +66,6 @@
     h1, h2, h4 {
       font-weight: normal;
       color: #000;
-      font-family: "Inter", "Inter UI", "Segoe UI", BlinkMacSystemFont, -apple-system, "San Francisco Display", "Roboto", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
       letter-spacing: -0.4px;
       overflow-wrap: break-word;
     }
@@ -81,12 +80,24 @@
       width: 100%;
       height: auto;
     }
-      
+
     .hidden { display: none; }
 
     /**
      * Classes
      */
+
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border-width: 0;
+	}
 
     a.no-underline { border-bottom: 0; }
 
@@ -116,8 +127,8 @@
 
     .center { text-align: center; }
     .right { text-align: right; }
-    .padding-s { padding: 6px; }
-    .padding { padding: 12px; }
+    .padding-s { padding: 8px; }
+    .padding { padding: 16px; }
     .clicky { cursor: pointer; }
 
     .link-style { border: none; }
@@ -134,6 +145,11 @@
     .js .category--open .category__closed-marker { display: none; }
     .js .category--closed .components { display: none; }
     .js .category--closed .category__open-marker { display: none; }
+
+	.hide-without-js svg {
+		position: relative;
+		margin-bottom: -6px;
+	}
 
     /* Markers */
     .js .hidden-with-js { display: none; }
@@ -158,10 +174,15 @@
       padding: 4px 8px;
       margin-right: 4px;
       margin-bottom: 2px;
+	  border-radius: 4px;
+	  transition: background 0.2s;
+	  cursor: pointer;
+	  border: none;
       background: #eee;
     }
 
     .tag:hover { background: #ddd; }
+	.tag:active { background: #ccc; }
 
     /**
      * Section blocks
@@ -177,13 +198,13 @@
       font-size: 14px;
       font-variant: small-caps;
     }
-      
+
     {{ if eq .Site.Params.headerTextColor "black" }}
       .header a h1 { color: #000; }
     {{ else if eq .Site.Params.headerTextColor "white" }}
       .header a h1 { color: #fff; }
     {{ end }}
-      
+
     .header__logo img {
       height: auto;
       width: 320px;
@@ -221,7 +242,7 @@
     }
 
     .summary__date:hover {
-      color: #ccc;
+      opacity: 0.8;
     }
 
     .summary__date:hover:after {
@@ -250,18 +271,25 @@
     .tooltip:active .tooltip__text  {
       display: block;
       position: absolute;
+	  animation: fadeUp 0.1s cubic-bezier(0.39, 0.575, 0.565, 1);
       top: 0;
       left: 24px;
-      background: #181818;
+      background: #000;
       color: #fff;
       z-index: 50;
       padding: 8px;
-      border: 2px solid #242424;
+	  border-radius: 4px;
+	  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
       font-size: 14px;
       color: #ccc;
       width: 320px;
       height: auto;
     }
+
+	@keyframes fadeUp {
+	  0% { opacity: 0; transform: translateY(5px); }
+	  100% { opacity: 1; transform: translateY(0); }
+	}
 
     @media (max-width: 640px) {
       .tooltip:hover .tooltip__text,
@@ -300,7 +328,7 @@
      * Articles
      */
 
-    .issue { display: block; padding: 14px 24px; }
+    .issue { display: block; padding: 14px 24px; border-radius: 4px; }
     .issue:hover, .category__head:hover { background: #f5f5f5; }
     .issue:active, .category__head:active { background: #eee; }
 
@@ -314,10 +342,50 @@
      * Specific to the status
      */
 
-    .status-ok .summary { background: {{ .Site.Params.ok }}; }
-    .status-disrupted .summary, .change-header-color.status-disrupted .header { background: {{ .Site.Params.disrupted }}; }
-    .status-down .summary, .change-header-color.status-down .header { background: {{ .Site.Params.down }}; }
-    .status-notice .summary, .change-header-color.status-notice .header { background: {{ .Site.Params.notice }}; }
+{{- $ok := .Site.Params.ok -}}
+{{- $okR := (printf "0x%s" (substr $ok 1 2) | int) -}}
+{{- $okG := (printf "0x%s" (substr $ok 3 2) | int) -}}
+{{- $okB := (printf "0x%s" (substr $ok 5 2) | int) -}}
+
+{{- $disrupted := .Site.Params.disrupted -}}
+{{- $disruptedR := (printf "0x%s" (substr $disrupted 1 2) | int) -}}
+{{- $disruptedG := (printf "0x%s" (substr $disrupted 3 2) | int) -}}
+{{- $disruptedB := (printf "0x%s" (substr $disrupted 5 2) | int) -}}
+
+{{- $down := .Site.Params.down -}}
+{{- $downR := (printf "0x%s" (substr $down 1 2) | int) -}}
+{{- $downG := (printf "0x%s" (substr $down 3 2) | int) -}}
+{{- $downB := (printf "0x%s" (substr $down 5 2) | int) -}}
+
+{{- $notice := .Site.Params.notice -}}
+{{- $noticeR := (printf "0x%s" (substr $notice 1 2) | int) -}}
+{{- $noticeG := (printf "0x%s" (substr $notice 3 2) | int) -}}
+{{- $noticeB := (printf "0x%s" (substr $notice 5 2) | int) -}}
+
+
+.status-ok .summary {
+  background: {{ .Site.Params.ok }};
+  box-shadow: 0 0 20px rgba({{ $okR }}, {{ $okG }}, {{ $okB }}, 0.3);
+	border-radius: 4px;
+}
+
+.status-disrupted .summary,
+.change-header-color.status-disrupted .header {
+  background: rgba({{ $disruptedR }}, {{ $disruptedG }}, {{ $disruptedB }}, 1);
+
+  box-shadow: 0 0 20px rgba({{ $disruptedR }}, {{ $disruptedG }}, {{ $disruptedB }}, 0.3);
+}
+
+.status-down .summary,
+.change-header-color.status-down .header {
+  background: rgba({{ $downR }}, {{ $downG }}, {{ $downB }}, 1);
+}
+
+.status-notice .summary,
+.change-header-color.status-notice .header {
+  background: rgba({{ $noticeR }}, {{ $noticeG }}, {{ $noticeB }}, 1);
+}
+
 
     .announcement-box .padding {
       padding: 16px;
@@ -364,16 +432,16 @@
       /**
       * Dark theme
       */
-      
+
       @media (prefers-color-scheme: dark) {
         /* Basics */
         html, body { background:  #181a1b; color: #ccc9c1; }
         h1, h2, h3, h4, a, .bold { color: #fafafa; }
         hr { border-bottom-color: #3d3d3d; }
-        
+
         /* Sections */
         .footer { background: #1b1d1e; }
-        
+
         .components {
           border: 2px solid #ddd;
           border-bottom: 0;
@@ -403,11 +471,11 @@
 
         /* Colors for dark mode */
 
-        .hinted, .faded { color: #c1bcb3; }
+        .hinted, .faded { opacity: 0.8; }
         .error { color: #ff4242; }
         .warning {color: #ffde7f; }
         .ok { color: #7fff7f; }
- 
+
         .component[data-status="ok"] .component-status,
         .category__head[data-status="ok"] .category-status
         { color: #7fff7f; }

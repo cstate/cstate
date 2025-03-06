@@ -5,20 +5,506 @@
 {{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}
 {{ $isDown := where $active "Params.severity" "=" "down" }}
 
-<div class="summary">
-  <strong>
-    {{ if $isDown }}
-      {{ T "isDown" }}
-    {{ else }}
-    {{ if $isDisrupted }}
-      {{ T "isDisrupted" }}
-    {{ else }}
-    {{ if $isNotice }}
-      {{ T "isNotice" }}
-    {{ else }}
-      {{ T "isOk" }}
-    {{ end }}{{ end }}{{ end }}
-  </strong>
+<div class="summary status-box">
+	<div class="summary-flex">
+		<div class="status-text">
+			<strong>
+				{{ if $isDown }}
+				{{ T "isDown" }}
+				{{ else if $isDisrupted }}
+				{{ T "isDisrupted" }}
+				{{ else if $isNotice }}
+				{{ T "isNotice" }}
+				{{ else }}
+				{{ T "isOk" }}
+				{{ end }}
+			</strong>
+			<div class="summary__date clicky relative-time" onclick="location.reload()" data-time-prefix="{{ T "lastChecked" }} "
+      ></div>
+    </div>
 
-  <div class="summary__date clicky float-right relative-time" onclick="location.reload()" data-time-prefix="{{ T "lastChecked" }} "></div>
-</div>
+    <!-- Subscribe button (no icon) -->
+    <div class=" subscribe-wrapper">
+				<button class="subscribe-button" aria-haspopup="true" aria-expanded="false" aria-label="{{ T "openDropdown" }}">
+					{{ T "subscribe" }}
+				</button>
+				<div class="subscribe-dropdown hidden" aria-label="{{ T "closeDropdown" }}">
+					<ul>
+						<a href="{{ .Site.BaseURL }}/index.xml" target="_blank" rel="noopener noreferrer">
+						<li>
+							<svg viewBox="0 0 512 512" class="subscribe-dropdown__icon">
+								<path d="M108.56 342.78a60.34 60.34 0 1 0 60.56 60.44 60.63 60.63 0 0 0-60.56-60.44Z">
+								</path>
+								<path
+									d="M48 186.67v86.55c52 0 101.94 15.39 138.67 52.11s52 86.56 52 138.67h86.66c0-151.56-125.66-277.33-277.33-277.33Z">
+								</path>
+								<path
+									d="M48 48v86.56c185.25 0 329.22 144.08 329.22 329.44H464C464 234.66 277.67 48 48 48Z">
+								</path>
+							</svg>
+							{{ T "rss" }}
+						</li></a>
+						{{ if .Site.Params.monitorBot }}
+						<li data-option="email">
+							<svg viewBox="0 0 512 512" class="subscribe-dropdown__icon">
+								<path
+									d="M424 80H88a56 56 0 0 0-56 56v240a56 56 0 0 0 56 56h336a56 56 0 0 0 56-56V136a56 56 0 0 0-56-56zm-14.18 92.63-144 112a16 16 0 0 1-19.64 0l-144-112a16 16 0 1 1 19.64-25.26L256 251.73l134.18-104.36a16 16 0 1 1 19.64 25.26z">
+								</path>
+							</svg>
+							{{ T "email" }}
+						</li>
+						<li data-option="discord">
+							<svg viewBox="0 0 128 97" class="subscribe-dropdown__icon">
+								<path
+									d="M107.7 8.07A105.152 105.152 0 0 0 81.47 0a72.073 72.073 0 0 0-3.36 6.83 97.68 97.68 0 0 0-29.11 0A72.375 72.375 0 0 0 45.64 0a105.89 105.89 0 0 0-26.25 8.09C2.79 32.65-1.71 56.6.54 80.21a105.73 105.73 0 0 0 32.17 16.15 77.7 77.7 0 0 0 6.89-11.11 68.418 68.418 0 0 1-10.85-5.18c.91-.66 1.8-1.34 2.66-2a75.57 75.57 0 0 0 64.32 0c.87.71 1.76 1.39 2.66 2a68.68 68.68 0 0 1-10.87 5.19 77 77 0 0 0 6.89 11.1 105.255 105.255 0 0 0 32.19-16.14c2.64-27.38-4.51-51.11-18.9-72.15ZM42.45 65.69C36.18 65.69 31 60 31 53c0-7 5-12.74 11.43-12.74S54 46 53.89 53c-.11 7-5.05 12.69-11.44 12.69Zm42.24 0C78.41 65.69 73.25 60 73.25 53c0-7 5-12.74 11.44-12.74 6.44 0 11.54 5.74 11.43 12.74-.11 7-5.04 12.69-11.43 12.69Z">
+								</path>
+							</svg>
+							{{ T "discord" }}
+						</li>
+						<li data-option="slack">
+							<svg viewBox="0 0 512 512" class="subscribe-dropdown__icon">
+								<path
+									d="M126.12 315.1A47.06 47.06 0 1 1 79.06 268h47.06zm23.72 0a47.06 47.06 0 0 1 94.12 0v117.84a47.06 47.06 0 1 1-94.12 0zm47.06-188.98A47.06 47.06 0 1 1 244 79.06v47.06zm0 23.72a47.06 47.06 0 0 1 0 94.12H79.06a47.06 47.06 0 0 1 0-94.12zm188.98 47.06a47.06 47.06 0 1 1 47.06 47.1h-47.06zm-23.72 0a47.06 47.06 0 0 1-94.12 0V79.06a47.06 47.06 0 0 1 94.12 0zM315.1 385.88a47.06 47.06 0 1 1-47.1 47.06v-47.06zm0-23.72a47.06 47.06 0 0 1 0-94.12h117.84a47.06 47.06 0 1 1 0 94.12z">
+								</path>
+							</svg>
+							{{ T "slack" }}
+						</li>
+						<li data-option="webhook">
+							<svg viewBox="0 0 58 52" class="subscribe-dropdown__icon">
+								<path fill-rule="evenodd" clip-rule="evenodd"
+									d="M37.474 18.014A10.955 10.955 0 0 0 40 11c0-6.075-4.925-11-11-11S18 4.925 18 11c0 2.918 1.136 5.57 2.99 7.538l-6.876 11.909A11.003 11.003 0 0 0 11 30C4.925 30 0 34.925 0 41s4.925 11 11 11c4.851 0 8.97-3.14 10.431-7.5H36.57C38.03 48.86 42.149 52 47 52c6.075 0 11-4.925 11-11s-4.925-11-11-11c-.842 0-1.661.095-2.449.273l-7.077-12.259ZM25.16 21.312l-6.7 11.605a10.976 10.976 0 0 1 3.438 6.583H36.1a10.986 10.986 0 0 1 3.948-7.026l-6.59-11.415A10.96 10.96 0 0 1 29 22c-1.35 0-2.644-.243-3.839-.688Z">
+								</path>
+							</svg>
+							{{ T "webhook" }}
+						</li>
+						<li data-option="push">
+							<svg viewBox="0 0 512 512" class="subscribe-dropdown__icon">
+								<path
+									d="M256 0c-42.1 0-76.2 34.1-76.2 76.2v29.3c-64.5 17.2-112.1 75.3-112.1 145v70.7L32.1 384v28.6h447.8V384l-35.6-62.8v-70.7c0-69.7-47.6-127.8-112.1-145V76.2C332.2 34.1 298.1 0 256 0zm-23.4 444.2h46.8c0 12.9-10.5 23.4-23.4 23.4-12.9 0-23.4-10.5-23.4-23.4z">
+								</path>
+							</svg>
+							{{ T "pushNotifications" }}
+						</li>
+						{{ end }}
+						<li data-option="api">
+							<svg viewBox="0 0 512 512" class="subscribe-dropdown__icon">
+								<path
+									d="M160 389a20.91 20.91 0 0 1-13.82-5.2l-128-112a21 21 0 0 1 0-31.6l128-112a21 21 0 0 1 27.66 31.61L63.89 256l109.94 96.19A21 21 0 0 1 160 389zm192 0a21 21 0 0 1-13.84-36.81L448.11 256l-109.94-96.19a21 21 0 0 1 27.66-31.61l128 112a21 21 0 0 1 0 31.6l-128 112A20.89 20.89 0 0 1 352 389zm-144 48a21 21 0 0 1-20.12-27l96-320a21 21 0 1 1 40.23 12l-96 320A21 21 0 0 1 208 437z">
+								</path>
+							</svg>
+							{{ T "API" }}
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div id="modal-overlay" class="hidden"></div>
+	<div class="subscribe-modal hidden" role="dialog" aria-modal="true">
+		<button class="subscribe-modal__close" aria-label="{{ T "closeDropdown" }}">✕</button>
+		<h2 class="subscribe-modal__title"></h2>
+		<div class="subscribe-modal__content"></div>
+		<!-- Additional area for disclaimers/buttons -->
+		<div class="subscribe-modal__actions"></div>
+	</div>
+
+	<style>
+		/* Status box styling */
+		.status-box {
+			padding: 16px;
+			color: #fff;
+			display: flex;
+			flex-direction: column;
+			border-radius: 4px;
+			position: relative;
+
+			background: {
+					{
+					.Site.Params.ok
+				}
+			}
+
+			;
+		}
+
+		.summary-flex {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+
+		.status-text {
+			font-size: 20px;
+			font-weight: bold;
+		}
+
+		.summary__date {
+			font-size: 14px;
+			margin-top: 4px;
+			color: rgba(255, 255, 255, 0.8);
+		}
+
+		/* Subscribe button & dropdown */
+		.subscribe-wrapper {
+			position: relative;
+			z-index: 500;
+		}
+
+		.subscribe-button {
+			padding: 8px 16px;
+			font: inherit;
+			font-size: 15px;
+			border-radius: 4px;
+			cursor: pointer;
+			background: rgba(255, 255, 255, 0.2);
+			border: 1px solid rgba(255, 255, 255, 0.25);
+			color: #fff;
+			transition: background 0.1s, opacity 0.1s;
+		}
+
+		.subscribe-button:hover {
+			background: rgba(255, 255, 255, 0.3);
+		}
+
+		.subscribe-button:active {
+			background: rgba(255, 255, 255, 0.4);
+		}
+
+		/* Remove icon from subscribe button => no .subscribe-button__icon inside that button */
+
+		.subscribe-dropdown {
+			position: absolute;
+			top: calc(100% + 10px);
+			right: 0;
+			background: #fff;
+			border-radius: 8px;
+			width: 220px;
+			overflow-y: auto;
+			opacity: 0;
+			transform: translateY(5px);
+			animation: fadeUp 0.15s ease-out forwards;
+			box-shadow: 0 10px 32px rgba(0, 0, 0, 0.15);
+		}
+
+		.subscribe-dropdown ul {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+
+		.subscribe-dropdown li {
+			display: flex;
+			align-items: center;
+			padding: 10px 12px;
+			margin: 4px;
+			font-size: 14px;
+			cursor: pointer;
+			color: #333;
+			border-radius: 8px;
+			/* apply same border rounding on hover */
+			transition: background 0.1s;
+			/* Faster transition */
+		}
+
+		.subscribe-dropdown li:hover {
+			background: #f2f2f2;
+		}
+
+		.subscribe-dropdown__icon {
+			width: 18px;
+			height: 18px;
+			margin-right: 8px;
+			fill: #999;
+			/* slightly lighter icons */
+		}
+
+		/* fadeUp animation */
+		@keyframes fadeUp {
+			0% {
+				opacity: 0;
+				transform: translateY(5px);
+			}
+
+			100% {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		.hidden {
+			display: none !important;
+		}
+
+		/* Modal Styling */
+		#modal-overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.5);
+			/* Dimmed background */
+			z-index: 998;
+			/* Ensure it's below the modal but above other content */
+		}
+
+		.subscribe-modal {
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			/* Center the modal */
+			margin: auto;
+			max-width: 600px;
+			background: #fff;
+			border-radius: 8px;
+			box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+			padding: 24px;
+			z-index: 999;
+			display: flex;
+			flex-direction: column;
+			gap: 16px;
+			opacity: 0;
+			animation: fadeUpModal 0.2s ease-out forwards;
+			/* Adjusted animation */
+		}
+
+		.subscribe-modal__close {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			border: none;
+			background: transparent;
+			font-size: 20px;
+			line-height: 1;
+			cursor: pointer;
+			color: #444;
+			padding: 10px;
+			border-radius: 50%;
+		}
+
+		.subscribe-modal__close:hover {
+			background-color: rgba(0, 0, 0, 0.1);
+		}
+
+		.subscribe-modal__close:active {
+			background-color: rgba(0, 0, 0, 0.2);
+		}
+
+		.subscribe-modal__title {
+			margin: 0 0 16px 0;
+			font-size: 20px;
+			font-weight: bold;
+			color: #333;
+		}
+
+		.subscribe-modal__content {
+			color: #555;
+			flex: 1;
+		}
+
+		.subscribe-modal__content p {
+			margin: 0;
+		}
+
+		.btn {
+			padding: 10px 20px;
+			border-radius: 4px;
+			display: inline-block;
+			border: none;
+			font-weight: bold;
+			cursor: pointer;
+			transition: background 0.1s, opacity 0.1s;
+		}
+
+		.btn--primary {
+			background: #000;
+			color: #fff;
+			border: none;
+		}
+
+		.btn--primary:hover {
+			background: #111;
+		}
+
+		.btn--primary:active {
+			background: #222;
+		}
+
+
+		/* An extra area for disclaimers or buttons, etc. */
+		.subscribe-modal__actions {
+			margin-top: 8px;
+			gap: 8px;
+		}
+
+		/* Modal fade up animation */
+		@keyframes fadeUpModal {
+			0% {
+				opacity: 0;
+			}
+
+			100% {
+				opacity: 1;
+			}
+		}
+	</style>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			const subscribeButton = document.querySelector('.subscribe-button');
+			const subscribeDropdown = document.querySelector('.subscribe-dropdown');
+			const subscribeModal = document.querySelector('.subscribe-modal');
+			const modalCloseBtn = document.querySelector('.subscribe-modal__close');
+			const modalTitle = document.querySelector('.subscribe-modal__title');
+			const modalContent = document.querySelector('.subscribe-modal__content');
+			const modalActions = document.querySelector('.subscribe-modal__actions');
+			const modalOverlay = document.getElementById('modal-overlay');
+
+			// Function to show the modal
+			function showModal() {
+				modalOverlay.classList.remove('hidden');
+				subscribeModal.classList.remove('hidden');
+			}
+
+			// Function to hide the modal
+			function hideModal() {
+				modalOverlay.classList.add('hidden');
+				subscribeModal.classList.add('hidden');
+			}
+
+			// Toggle dropdown
+			subscribeButton.addEventListener('click', function (e) {
+				e.stopPropagation();
+				if (subscribeDropdown.classList.contains('hidden')) {
+					subscribeDropdown.classList.remove('hidden');
+					subscribeButton.setAttribute('aria-expanded', 'true');
+				} else {
+					subscribeDropdown.classList.add('hidden');
+					subscribeButton.setAttribute('aria-expanded', 'false');
+				}
+			});
+
+			// Dropdown option click
+			subscribeDropdown.addEventListener('click', function (e) {
+				if (e.target && e.target.matches('li[data-option], li[data-option] *')) {
+					let li = e.target.closest('li[data-option]');
+					let chosen = li.getAttribute('data-option');
+
+					subscribeDropdown.classList.add('hidden');
+					subscribeButton.setAttribute('aria-expanded', 'false');
+					showModal();
+
+					// Clear previous actions
+					modalActions.innerHTML = '';
+
+					let copyText = ''; // Initialize copyText here
+
+					switch (chosen) {
+						case 'rss':
+							modalTitle.textContent = '{{ T "rss" }}';
+							modalContent.innerHTML = `<p>{{ T "subscribeDescription" }}</p>`;
+							modalActions.innerHTML = `
+							<a href="{{ .Site.BaseURL }}/index.xml" target="_blank" rel="noopener noreferrer" class="padding-s">{{ T "open" }}</a>
+          `;
+							break;
+
+						case 'email':
+							modalTitle.textContent = '{{ T "email" }}';
+							modalContent.innerHTML = `<p>{{ T "subscribeDescription" }}</p>
+            <input type="email" placeholder="Email address..." />`;
+							modalActions.innerHTML = `
+            <button class="btn btn--primary">{{ T "subscribe" }}</button>
+            <p class="small-text">{{ T "pushNotificationsDisclaimer" }}</p>
+          `;
+							break;
+
+						case 'discord':
+							modalTitle.textContent = '{{ T "discord" }}';
+							modalContent.innerHTML = `<p>{{ T "subscribeDescription" }} (Discord server invitation)</p>`;
+							copyText = 'YOUR_DISCORD_INVITE_LINK'; // Replace with your Discord invite link
+							modalActions.innerHTML = `
+            <button class="btn btn--primary" data-copy="${copyText}">{{ T "copy" }}</button>
+            <p class="small-text">{{ T "embedDisclaimer" }}</p>
+          `;
+							break;
+
+						case 'slack':
+							modalTitle.textContent = '{{ T "slack" }}';
+							modalContent.innerHTML = `<p>{{ T "subscribeDescription" }} (Slack workspace link)</p>`;
+							copyText = 'YOUR_SLACK_WORKSPACE_LINK'; // Replace with your Slack workspace link
+							modalActions.innerHTML = `
+            <button class="btn btn--primary" data-copy="${copyText}">{{ T "copy" }}</button>
+            <p class="small-text">{{ T "embedDisclaimer" }}</p>
+          `;
+							break;
+
+						case 'webhook':
+							modalTitle.textContent = '{{ T "webhook" }}';
+							modalContent.innerHTML = `<p>{{ T "subscribeDescription" }}</p>
+            <input type="text" placeholder="{{ T "webhookUrl" }}" />`;
+							modalActions.innerHTML = `
+            <button class="btn btn--primary">{{ T "subscribe" }}</button>
+            <p class="small-text">{{ T "APIdisclaimer" }}</p>
+          `;
+							break;
+
+						case 'push':
+							modalTitle.textContent = '{{ T "pushNotifications" }}';
+							modalContent.innerHTML = `<p>{{ T "pushNotificationsDescription" }}</p>`;
+							modalActions.innerHTML = `
+            <button class="btn btn--primary">{{ T "subscribe" }}</button>
+            <p class="small-text">{{ T "pushNotificationsDisclaimer" }}</p>
+          `;
+							break;
+
+						case 'api':
+							modalTitle.textContent = '{{ T "API" }}';
+							modalContent.innerHTML = `<p>{{ T "APIdescription" }} <br /> <code>{{ .Site.BaseURL }}index.json</code></p>`;
+							modalActions.innerHTML = `
+            <a href="https://github.com/cstate/cstate/wiki/API" target="_blank" rel="noopener noreferrer" class="btn btn--primary">{{ T "readDocumentation" }}</a>
+            <p>{{ T "APIdisclaimer" }}</p>
+          `;
+							break;
+
+						default:
+							modalTitle.textContent = '{{ T "subscribe" }}';
+							modalContent.innerHTML = `<p>{{ T "subscribeDescription" }}</p>`;
+							modalActions.innerHTML = `
+            <button class="btn btn--primary">{{ T "subscribe" }}</button>
+            <p class="small-text">{{ T "embedDisclaimer" }}</p>
+          `;
+							break;
+					}
+
+					// Add event listeners to copy buttons
+					const copyButtons = modalActions.querySelectorAll('button[data-copy]');
+					copyButtons.forEach(button => {
+						button.addEventListener('click', () => {
+							const textToCopy = button.getAttribute('data-copy');
+							navigator.clipboard.writeText(textToCopy).then(() => {
+								// Optional: Display a success message or change button text
+								button.textContent = '{{ T "copied" }}';
+							}).catch(err => {
+								console.error('Failed to copy text:', err);
+							});
+						});
+					});
+				}
+			});
+
+			// Close modal
+			modalCloseBtn.addEventListener('click', hideModal);
+			modalOverlay.addEventListener('click', hideModal);
+
+			// Close dropdown if user clicks outside
+			document.addEventListener('click', function (e) {
+				if (!subscribeButton.contains(e.target) && !subscribeDropdown.contains(e.target)) {
+					subscribeDropdown.classList.add('hidden');
+					subscribeButton.setAttribute('aria-expanded', 'false');
+				}
+			});
+		});
+	</script>

@@ -1,6 +1,6 @@
 # English language file for cState
 # Official
-# Version 4.4
+# Version 6.0
 
 - id: languageCode
   translation: en
@@ -116,7 +116,7 @@
 - id: notFoundText
   translation: This could be a problem on our part. Perhaps we moved a certain resource and now it is gone. It is also possible that the resource you are trying to view is empty. But do you also mind to double check the link?
 
-- id: rss
+- id: subscribeViaRss
   translation: Subscribe via RSS
 - id: toAllUpdates
   translation: to all updates
@@ -159,3 +159,74 @@
   translation: " w"
 - id: yearAgo
   translation: " year"
+
+##
+## v6
+##
+
+- id: incidentMaxAgeNotice
+  translation: "Not showing incidents older than from {{ .MaxAgeYears }} years"
+- id: loading
+  translation: "Loading"
+- id: chart
+  translation: "chart"
+- id: getSupport
+  translation: "Get support"
+- id: subscribe
+  translation: "Subscribe"
+- id: subscribeDescription
+  translation: "Subscribe to updates from this status page."
+- id: rss
+  translation: "RSS"
+- id: email
+  translation: "Email"
+- id: discord
+  translation: "Discord"
+- id: slack
+  translation: "Slack"
+- id: webhook
+  translation: "Webhook"
+- id: webhookUrl
+  translation: "Webhook URL"
+- id: embed
+  translation: "Embed"
+- id: embedDescription
+  translation: "You can embed this status page in your own website or application. Simply copy the following HTML snippet and paste it in to get a pop-up message if there are disruptions:"
+- id: copy
+  translation: "Copy"
+- id: embedDisclaimer
+  translation: "Looking for more information about this embed and how you can use it?"
+- id: learnMore
+  translation: "Learn more here"
+- id: pushNotifications
+  translation: "Push notifications"
+- id: pushNotificationsDescription
+  translation: "You can subscribe to this status page via push notifications through your browser. You will have to do this on every device you want to receive notifications on. Please note that this feature is subject to browser support and may not work on all devices as expected."
+- id: pushNotificationsDisclaimer
+  translation: "We recommend choosing a different method of notification if you need critical updates to be delivered as soon as possible."
+- id: API
+  translation: "API"
+- id: APIdescription
+  translation: "You can use our API to integrate the information and updates from this status page into your own website or application. Simply make a GET request to the following URL:"
+- id: APIdisclaimer
+  translation: "Please note that the API may be subject to rate limiting."
+- id: getAllUpdates
+  translation: "Get all updates"
+- id: getSomeUpdates
+  translation: "Get updates only from some systems"
+- id: openDropdown
+  translation: "Open dropdown"
+- id: closeDropdown
+  translation: "Close dropdown"
+- id: automated
+  translation: "Automated"
+- id: thisPostWasAutomaticallyGenerated
+  translation: "This post was automatically generated."
+- id: readDocumentation
+  translation: "Read documentation"
+- id: copied
+  translation: "Copied!"
+- id: copyToClipboard
+  translation: "Copy to clipboard"
+- id: open
+  translation: "Open"

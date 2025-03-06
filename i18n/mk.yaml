@@ -1,5 +1,5 @@
 # Macedonian language file for cState
-# Version 4.4
+# Version 6.0
 
 - id: languageCode
   translation: mk
@@ -115,7 +115,7 @@
 - id: notFoundText
   translation: Ова може да е проблем на нашата страна. Можеби преместивме некои ресурси и сега ги нема. Можни ресурсот што пробувате да го пристапите е празен. Ве молиме проверите го линкот повторно.
 
-- id: rss
+- id: subscribeViaRss
   translation: Претплатете се со RSS
 - id: toAllUpdates
   translation: за сите најави
@@ -140,7 +140,7 @@
 
 ##
 ## v4.1
-## 
+##
 
 - id: averageSystemsDowntime
   translation: Во последно време, врз основа на просечни податици, овој систем се сметал паднат за околу
@@ -157,3 +157,74 @@
   translation: " н"
 - id: yearAgo
   translation: " г"
+
+##
+## v6
+##
+
+- id: incidentMaxAgeNotice
+  translation: "Не се прикажуваат инциденти постари од {{ .MaxAgeYears }} години"
+- id: loading
+  translation: "Се вчитува"
+- id: chart
+  translation: "Графикон"
+- id: getSupport
+  translation: "Добијте поддршка"
+- id: subscribe
+  translation: "Претплатете се"
+- id: subscribeDescription
+  translation: "Претплатете се на ажурирања од оваа страница за статус."
+- id: rss
+  translation: "RSS"
+- id: email
+  translation: "Е-пошта"
+- id: discord
+  translation: "Discord"
+- id: slack
+  translation: "Slack"
+- id: webhook
+  translation: "Webhook"
+- id: webhookUrl
+  translation: "Webhook URL"
+- id: embed
+  translation: "Вметни"
+- id: embedDescription
+  translation: "Можете да ја вметнете оваа страница за статус во вашата сопствена веб-страница или апликација. Едноставно копирајте го следниов HTML исечок и залепете го за да добиете скокачка порака доколку има прекини:"
+- id: copy
+  translation: "Копирај"
+- id: embedDisclaimer
+  translation: "Барате повеќе информации за ова вметнување и како можете да го користите?"
+- id: learnMore
+  translation: "Дознајте повеќе овде"
+- id: pushNotifications
+  translation: "Push известувања"
+- id: pushNotificationsDescription
+  translation: "Можете да се претплатите на оваа страница за статус преку push известувања преку вашиот прелистувач. Ќе треба да го направите ова на секој уред на кој сакате да примате известувања. Ве молиме имајте предвид дека оваа функција е предмет на поддршка од прелистувачот и може да не работи на сите уреди како што се очекува."
+- id: pushNotificationsDisclaimer
+  translation: "Препорачуваме да изберете различен метод на известување доколку ви требаат критичните ажурирања да бидат испорачани што е можно поскоро."
+- id: API
+  translation: "API"
+- id: APIdescription
+  translation: "Можете да го користите нашиот API за да ги интегрирате информациите и ажурирањата од оваа страница за статус во вашата сопствена веб-страница или апликација. Едноставно направете GET барање до следнава URL-адреса:"
+- id: APIdisclaimer
+  translation: "Ве молиме имајте предвид дека API може да биде предмет на ограничување на стапката."
+- id: getAllUpdates
+  translation: "Добијте ги сите ажурирања"
+- id: getSomeUpdates
+  translation: "Добијте ажурирања само од некои системи"
+- id: openDropdown
+  translation: "Отвори паѓачко мени"
+- id: closeDropdown
+  translation: "Затвори паѓачко мени"
+- id: automated
+  translation: "Автоматизирано"
+- id: thisPostWasAutomaticallyGenerated
+  translation: "Овој пост беше автоматски генериран."
+- id: readDocumentation
+  translation: "Прочитајте ја документацијата"
+- id: copied
+  translation: "Копирано!"
+- id: copyToClipboard
+  translation: "Копирај во таблата со исечоци"
+- id: open
+  translation: "Отвори"

@@ -1,5 +1,5 @@
 # Portuguese language file for cState
-# Version 4.4
+# Version 6.0
 
 - id: languageCode
   translation: pt
@@ -115,7 +115,7 @@
 - id: notFoundText
   translation: Isso pode ser um problema da nossa parte. Talvez tenhamos movido um determinado recurso e agora ele se foi. Também é possível que o recurso que você está tentando visualizar esteja vazio. Mas você se importa de verificar o link?
 
-- id: rss
+- id: subscribeViaRss
   translation: Se increva via RSS
 - id: toAllUpdates
   translation: para todas as atualizações
@@ -140,7 +140,7 @@
 
 ##
 ## v4.1
-## 
+##
 
 - id: averageSystemsDowntime
   translation: Recentemente, por dados médicos para que esse sistema caiu por
@@ -157,3 +157,73 @@
   translation: " semanas"
 - id: yearAgo
   translation: " ano"
+
+##
+## v6
+##
+- id: incidentMaxAgeNotice
+  translation: "Não mostrando incidentes anteriores a {{ .MaxAgeYears }} anos"
+- id: loading
+  translation: "Carregando"
+- id: chart
+  translation: "Gráfico"
+- id: getSupport
+  translation: "Obter suporte"
+- id: subscribe
+  translation: "Inscrever-se"
+- id: subscribeDescription
+  translation: "Inscreva-se para receber atualizações desta página de status."
+- id: rss
+  translation: "RSS"
+- id: email
+  translation: "E-mail"
+- id: discord
+  translation: "Discord"
+- id: slack
+  translation: "Slack"
+- id: webhook
+  translation: "Webhook"
+- id: webhookUrl
+  translation: "URL do Webhook"
+- id: embed
+  translation: "Incorporar"
+- id: embedDescription
+  translation: "Você pode incorporar esta página de status em seu próprio site ou aplicativo. Basta copiar o seguinte trecho de HTML e colá-lo para obter uma mensagem pop-up se houver interrupções:"
+- id: copy
+  translation: "Copiar"
+- id: embedDisclaimer
+  translation: "Procurando mais informações sobre esta incorporação e como você pode usá-la?"
+- id: learnMore
+  translation: "Saiba mais aqui"
+- id: pushNotifications
+  translation: "Notificações push"
+- id: pushNotificationsDescription
+  translation: "Você pode se inscrever nesta página de status por meio de notificações push por meio de seu navegador. Você terá que fazer isso em todos os dispositivos em que deseja receber notificações. Observe que esse recurso está sujeito ao suporte do navegador e pode não funcionar em todos os dispositivos como esperado."
+- id: pushNotificationsDisclaimer
+  translation: "Recomendamos escolher um método de notificação diferente se você precisar que as atualizações críticas sejam entregues o mais rápido possível."
+- id: API
+  translation: "API"
+- id: APIdescription
+  translation: "Você pode usar nossa API para integrar as informações e atualizações desta página de status em seu próprio site ou aplicativo. Basta fazer uma solicitação GET para o seguinte URL:"
+- id: APIdisclaimer
+  translation: "Observe que a API pode estar sujeita a limitação de taxa."
+- id: getAllUpdates
+  translation: "Obter todas as atualizações"
+- id: getSomeUpdates
+  translation: "Obter atualizações apenas de alguns sistemas"
+- id: openDropdown
+  translation: "Abrir menu suspenso"
+- id: closeDropdown
+  translation: "Fechar menu suspenso"
+- id: automated
+  translation: "Automatizado"
+- id: thisPostWasAutomaticallyGenerated
+  translation: "Esta postagem foi gerada automaticamente."
+- id: readDocumentation
+  translation: "Ler documentação"
+- id: copied
+  translation: "Copiado!"
+- id: copyToClipboard
+  translation: "Copiar para a área de transferência"
+- id: open
+  translation: "Abrir"

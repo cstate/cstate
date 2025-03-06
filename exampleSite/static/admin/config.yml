@@ -9,8 +9,10 @@
 #
 # https://github.com/netlify/netlify-cms/blob/master/docs/quick-start.md
 
+local_backend: true
+
 backend:
-  name: git-gateway
+  name: github
 media_folder: "static/img"
 public_folder: "/img"
 site_url: ../
@@ -62,6 +64,9 @@ collections:
       - label: "Affected systems (use exact name, separated by commas) 🧐"
         name: "affected"
         widget: "list"
+        summary: "{{fields.individualaffected}}"
+        field:
+        - { label: "Affected System", name: "individualaffected", widget: "string" }
         required: false
       - label: "Severity ⚠"
         name: "severity"
@@ -140,6 +145,7 @@ collections:
             - { label: "🇸🇪 Swedish", value: "se" }
             - { label: "🇮🇩 Indonesian", value: "id" }
             - { label: "🇵🇱 Polska", value: "pl" }
+            - { label: "🇷🇴 Română", value: "ro" }
             - { label: "🇷🇺 Русский", value: "ru" }
             - { label: "🇷🇴 Română", value: "ro" }
           - label: 'Site language in code for html[lang]'
@@ -152,7 +158,7 @@ collections:
             widget: 'string'
             hint: 'Where is the site hosted? Hostname (and path) to the root. Prior to version 3, a slash was used which now works in local testing, but breaks certain features of cState like RSS feeds, so a correct example for production is: https://cstate.mnts.lt'
             default: '/'
-              
+
           # REQUIRED BUT HIDDEN
           - label: 'theme'
             name: 'theme'
@@ -196,7 +202,7 @@ collections:
             widget: "hidden"
             fields:
               - label: "svg"
-                name: svg 
+                name: svg
                 fields:
                 - label: "isPlainText"
                   name: isPlainText
@@ -210,7 +216,7 @@ collections:
             widget: 'hidden'
             required: false
             default: true
-            
+
           # PARAMS
           - label: "Params"
             name: "params"
@@ -316,7 +322,7 @@ collections:
                 name: 'incidentPostsPerPage'
                 hint: ''
                 widget: 'number'
-                valueType: 'int'
+                value_type: 'int'
                 min: 1
                 max: 100
                 default: 10

@@ -1,28 +1,135 @@
 {{ partial "meta" . }}
+{{ $title := .Title }}
 
-{{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
-{{ $active := where $incidents "Params.resolved" "=" false }}
+<body class="default list">
+	<header>
+		<div class="contain">
+			<a href="{{ .Site.BaseURL }}">← {{ T "goBack" }} <em>{{ .Site.Title }}</em></a>
+			<div class="padding"></div>
+			<div class="padding"></div>
 
-{{ $isNotice := where $active "Params.severity" "=" "notice" }}
-{{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}
-{{ $isDown := where $active "Params.severity" "=" "down" }}
+			<!-- Hugo's Title (Fallback if JS is disabled) -->
+			<h1 class="clean" id="component-title">404 - {{ T "notFound" }}</h1>
 
-  <body class="status-homepage status-{{ if $isDown }}down{{ else }}{{ if $isDisrupted}}disrupted{{ else }}{{ if $isNotice }}notice{{ else }}ok{{ end }}{{ end }}{{ end }} {{ if not .Site.Params.alwaysKeepBrandColor }}change-header-color{{ end }}">
-    {{ partial "header" . }}
+			<div class="padding"></div>
 
-    <div class="contain center">
-      <h1 class="bold">{{ T "notFound" }}</h1>
-      <p class="affected-text hidden">{{ T "notFoundAffected" }}</p>
-      <p>{{ T "notFoundText" }}</p>
-    </div>
-    
-    <script>
-      if (window.location.pathname.includes('affected')) {
-        document.querySelector('.affected-text').className = "affected-text";
-      }
-    </script>
+			<!-- Status Marker Start -->
+			<div id="status-marker"></div>
+			<!-- Status Marker End -->
 
-    {{ partial "js" . }}
-    {{ partial "footer" . }}
-  </body>
+			<!-- Description placeholder -->
+			<div id="component-description" class="faded"></div>
+
+			<div class="padding"></div>
+			<div class="padding"></div>
+			<div class="padding"></div>
+			<div class="padding"></div>
+			<div class="padding"></div>
+
+
+			{{ if .Site.Params.enableLastMod }}
+			<div class="contain center">
+				<small>{{ T "lastChecked" }}:
+					{{ if .Site.Params.dateFormat }}
+					{{ dateFormat .Site.Params.dateFormat now }}
+					{{ else }}
+					{{ now.Format "January 2, 2006 at 3:04 PM" }}
+					{{ end }}
+				</small>
+				<div class="padding"></div>
+			</div>
+			{{ end }}
+		</div>
+	</header>
+
+	<!-- No incident listing here. Just a static page. -->
+
+	<script>
+		// Bring in your cState color config
+		const colorOk = "{{ .Site.Params.ok }}";
+		const colorDown = "{{ .Site.Params.down }}";
+		const colorDisrupted = "{{ .Site.Params.disrupted }}";
+		const colorMaintenance = "{{ .Site.Params.notice }}";
+
+		// Bring in text translations
+		const txtOk = "{{ T "thisIsOk" }}";
+		const txtDown = "{{ T "thisIsDown" }}";
+		const txtDisrupted = "{{ T "thisIsDisrupted" }}";
+		const txtMaintenance = "{{ T "thisIsMaintenance" }}";
+
+		// Symbols or icons
+		const symOk = "◆";
+		const symDown = "■";
+		const symDisrupted = "▲";
+		const symMaintenance = "◆";
+
+		// Helper to slugify system names (to compare with path)
+		function slugify(name) {
+			return name.toLowerCase()
+				.replace(/[^a-z0-9]+/g, '-')
+				.replace(/^-+|-+$/g, '');
+		}
+
+		// Derive the system slug from the URL path.
+		// e.g. /affected/backup-gateway/ => systemSlug = "backup-gateway"
+		const pathParts = window.location.pathname.split('/');
+		let systemSlug = pathParts[pathParts.length - 2];
+		// If your route is /affected/backup-gateway without a trailing slash,
+		// adjust the index logic or ensure trailing slash is forced.
+
+		// Provide fallback 404 UI
+		function show404() {
+			document.getElementById("component-title").textContent = "404 - {{ T "notFound" }}";
+			document.getElementById("component-description").textContent =
+				"{{ T "notFoundText" }}";
+			document.getElementById("status-marker").innerHTML = "";
+		}
+
+		// Fetch index.json and compare
+		fetch("/index.json", { cache: "no-cache" })
+			.then(resp => {
+				if (!resp.ok) throw new Error(resp.statusText);
+				return resp.json();
+			})
+			.then(data => {
+				// Attempt to find a system whose slug matches systemSlug
+				const found = data.systems.find(sys => slugify(sys.name) === systemSlug);
+				if (!found) {
+					show404();
+					return;
+				}
+
+				// Found a system: Update the page
+				document.getElementById("component-title").textContent = found.name;
+				if (found.description) {
+					document.getElementById("component-description").innerHTML = found.description;
+				}
+
+				// Now set status
+				const marker = document.getElementById("status-marker");
+				switch (found.status) {
+					case "down":
+						marker.innerHTML = `<strong style="color: ${colorDown}">${symDown} ${txtDown}</strong>`;
+						break;
+					case "disrupted":
+						marker.innerHTML = `<strong style="color: ${colorDisrupted}">${symDisrupted} ${txtDisrupted}</strong>`;
+						break;
+					case "notice":
+						marker.innerHTML = `<strong style="color: ${colorMaintenance}">${symMaintenance} ${txtMaintenance}</strong>`;
+						break;
+					default:
+						marker.innerHTML = `<strong style="color: ${colorOk}">${symOk} ${txtOk}</strong>`;
+						break;
+				}
+			})
+			.catch(err => {
+				// If fetching or parsing fails, revert to 404 UI
+				show404();
+			});
+	</script>
+
+	{{ partial "js" . }}
+	{{ partial "footer" . }}
+</body>
+
 </html>
