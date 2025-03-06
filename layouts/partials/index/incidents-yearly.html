@@ -11,7 +11,7 @@ correctly.
 - Cast to integer
 - If casting fails (e.g., non-numeric value), set to 0
 */}}
-{{ $maxAgeYears := .Site.Params.incidentMaxAgeYears | default 6 | int }}
+{{ $maxAgeYears := .Site.Params.incidentMaxAgeYears | int }}
 
 {{/* Step 3: Initialize a variable to hold incidents to display */}}
 {{ $displayIncidents := $incidents }}

@@ -166,7 +166,7 @@ params:
     - name: Website
       description: The web frontend for the application.
       category: Uncategorized
-      histogram: false # explicitely disable histogram for this system
+      histogram: false # explicitly disable histogram for this system
       link: https://example.com/
     - name: API
       description: The guts of the application.
@@ -175,7 +175,7 @@ params:
       description: This is the *service* responsible for serving images, audio, and video. It is reliant on our CDN.
       category: Uncategorized
 
-  # Want to disable the uptime histogram?
+  # Want to enable the uptime histogram?
   # Set this to `false` for any system you want to disable.
   #
   # Default: `true`
@@ -184,8 +184,6 @@ params:
 
   # TODO:
   # Monitor bots
-  #
-  #
   #
   # If you have a monitor bot, you get access to
   # more features like notifications to Slack,
@@ -360,9 +358,9 @@ params:
   # To disable this feature, comment
   # out the line below.
   #
-  # Default: `6`
-  # NUMERIC; Default: `6`
-  incidentMaxAgeYears: 6
+  # Default: empty
+  # NUMERIC
+  # incidentMaxAgeYears: 10
 
   # Colors throughout cState
   #
