@@ -131,7 +131,22 @@
     .padding { padding: 16px; }
     .clicky { cursor: pointer; }
 
-    .link-style { border: none; }
+    a.external-link-style {
+			border: none;
+			padding: 2px;
+			display: inline-block;
+			border-radius: 4px;
+			opacity: 0.5;
+		}
+
+    a.external-link-style:hover {
+			opacity: 1;
+		}
+
+    a.external-link-style:active {
+			opacity: 0.75;
+		}
+
     .span-icon {
       float: right;
       margin-left: 16px;
