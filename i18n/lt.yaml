@@ -3,7 +3,7 @@
 # Version 4.4
 
 - id: languageCode
-  translation: en
+  translation: lt
 - id: languageName
   translation: Lithuanian
 - id: languageNameShort
@@ -45,8 +45,8 @@
   translation: Paskutinį kartą atnaujinta prieš
 - id: justNow
   translation: <5s
-# - id: someTimeAgo
-#   translation: # not used
+- id: someTimeAgo
+  translation: ""
 
 # Example usage: `5` + `years`
 # Final result: 'Last checked 5 years ago'
@@ -79,9 +79,9 @@
 - id: inUnderAMinute
   translation: minutės # continuing the last string
 - id: resolvedAfter
-  translation: Išspręsta problema po # + 19 min # not used
-#- id: ofDowntime
-#  translation: of downtime
+  translation: Išspręsta problema po # + 19 min
+- id: ofDowntime
+  translation: neveikimo laiko
 
 - id: downtimeOngoing
   translation: Dar sprendžiama problema
@@ -116,8 +116,8 @@
 - id: notFoundText
   translation: Tai gali būti mūsų problema — galbūt puslapis, kurį bandote peržiūrėti, buvo kitur perkeltas arba buvo ištrintas. Rekomenduoje dar kartą patikrinti, ar nuoroda, kurią naudojate, nėra neteisinga.
 
-- id: rss
-  translation: Gaukite atnaujinimus naudojant RSS
+- id: subscribeViaRss
+  translation: Prenumeruoti per RSS
 - id: toAllUpdates
   translation: visi atnaujinimai
 - id: or
@@ -154,13 +154,79 @@
 ##
 
 - id: in
-  translation: in
+  translation: per
 - id: weeksAgo
-  translation: " sav." # has to include space
+  translation: " sav."
 - id: yearAgo
   translation: " metus"
 
+##
 ## v6
 ##
-- id: maxAgeYears
-  translation: "Nerodomi įvykiai, senesni nei {{ .MaxAgeYears }} metai"
+
+- id: incidentMaxAgeNotice
+  translation: "Nerodomi įvykiai, senesni nei {{ .MaxAgeYears }} met."
+- id: loading
+  translation: "Įkeliama"
+- id: chart
+  translation: "grafikas"
+- id: getSupport
+  translation: "Gauti pagalbą"
+- id: subscribe
+  translation: "Gauti pranešimus"
+- id: subscribeDescription
+  translation: "Gaukite žinutes, kai šis puslapis atsinaujina su nauja informacija."
+- id: rss
+  translation: "RSS"
+- id: email
+  translation: "El. paštas"
+- id: discord
+  translation: "Discord"
+- id: slack
+  translation: "Slack"
+- id: webhook
+  translation: "Webhook"
+- id: webhookUrl
+  translation: "Webhook URL"
+- id: embed
+  translation: "Įterpti"
+- id: embedDescription
+  translation: "Galite įterpti šį puslapį į savo programą ar internetinį puslapį. Tiesiog nukopijuokite šį HTML fragmentą ir įklijuokite jį, kad gautumėte iššokantį pranešimą, jei yra sutrikimų:"
+- id: copy
+  translation: "Kopijuoti"
+- id: embedDisclaimer
+  translation: "Ieškote daugiau informacijos apie šį įterpimą ir kaip jį naudoti?"
+- id: learnMore
+  translation: "Sužinokite daugiau čia"
+- id: pushNotifications
+  translation: "Tiesioginiai pranešimai"
+- id: pushNotificationsDescription
+  translation: "Galite gauti pranešimus apie pokyčius šiame puslapyje per tiesioginius pranešimus savo naršyklėje. Kiekviename įrenginyje, kuriame norite gauti pranešimus, turėsite įjungti žinutes. Atkreipkite dėmesį, kad ši funkcija priklauso nuo naršyklės palaikymo ir gali veikti ne visuose įrenginiuose, kaip tikėtasi."
+- id: pushNotificationsDisclaimer
+  translation: "Rekomenduojame pasirinkti kitą pranešimų būdą, jei jums reikia, kad kritiniai atnaujinimai būtų pristatyti kuo greičiau."
+- id: API
+  translation: "API"
+- id: APIdescription
+  translation: "Galite naudoti mūsų API, kad integruotumėte informaciją ir atnaujinimus iš šio puslapio į savo svetainę ar programą. Tiesiog atlikite GET užklausą šiuo URL:"
+- id: APIdisclaimer
+  translation: "Atkreipkite dėmesį, kad API gali būti taikomi apribojimai."
+- id: getAllUpdates
+  translation: "Gauti visus atnaujinimus"
+- id: getSomeUpdates
+  translation: "Gauti atnaujinimus tik iš kai kurių sistemų"
+- id: openDropdown
+  translation: "Atidaryti išskleidžiamąjį meniu"
+- id: closeDropdown
+  translation: "Uždaryti išskleidžiamąjį meniu"
+- id: automated
+  translation: "Automatizuota"
+- id: thisPostWasAutomaticallyGenerated
+  translation: "Šis įrašas buvo sugeneruotas automatiškai."
+- id: readDocumentation
+  translation: "Skaityti dokumentaciją"
+- id: copied
+  translation: "Nukopijuota!"
+- id: copyToClipboard
+  translation: "Kopijuoti į iškarpinę"
+- id: open
+  translation: "Atidaryti"

@@ -1,5 +1,5 @@
 # German language file for cState
-# Version 4.4
+# Version 6.0
 
 - id: languageCode
   translation: de
@@ -113,7 +113,7 @@
 - id: notFoundText
   translation: Dies könnte ein Problem von unserer Seite sein. Eventuell solltest du nochmal die URL überprüfen.
 
-- id: rss
+- id: subscribeViaRss
   translation: RSS abonnieren
 - id: toAllUpdates
   translation: alle Updates
@@ -163,3 +163,67 @@
 ##
 - id: incidentMaxAgeNotice
   translation: "Keine Vorfälle anzeigen, die älter als {{ .MaxAgeYears }} Jahre sind"
+- id: loading
+  translation: "Wird geladen"
+- id: chart
+  translation: "Diagramm"
+- id: getSupport
+  translation: "Unterstützung erhalten"
+- id: subscribe
+  translation: "Abonnieren"
+- id: subscribeDescription
+  translation: "Abonnieren Sie Updates von dieser Statusseite."
+- id: rss
+  translation: "RSS"
+- id: email
+  translation: "E-Mail"
+- id: discord
+  translation: "Discord"
+- id: slack
+  translation: "Slack"
+- id: webhook
+  translation: "Webhook"
+- id: webhookUrl
+  translation: "Webhook-URL"
+- id: embed
+  translation: "Einbetten"
+- id: embedDescription
+  translation: "Sie können diese Statusseite in Ihre eigene Website oder Anwendung einbetten. Kopieren Sie einfach den folgenden HTML-Snippet und fügen Sie ihn ein, um eine Popup-Nachricht zu erhalten, wenn es Störungen gibt:"
+- id: copy
+  translation: "Kopieren"
+- id: embedDisclaimer
+  translation: "Suchen Sie nach weiteren Informationen zu diesem Einbettungscode und wie Sie ihn verwenden können?"
+- id: learnMore
+  translation: "Hier mehr erfahren"
+- id: pushNotifications
+  translation: "Push-Benachrichtigungen"
+- id: pushNotificationsDescription
+  translation: "Sie können diese Statusseite über Push-Benachrichtigungen über Ihren Browser abonnieren. Sie müssen dies auf jedem Gerät tun, auf dem Sie Benachrichtigungen erhalten möchten. Bitte beachten Sie, dass diese Funktion von der Browserunterstützung abhängig ist und möglicherweise nicht auf allen Geräten wie erwartet funktioniert."
+- id: pushNotificationsDisclaimer
+  translation: "Wir empfehlen, eine andere Benachrichtigungsmethode zu wählen, wenn Sie kritische Updates so schnell wie möglich erhalten möchten."
+- id: API
+  translation: "API"
+- id: APIdescription
+  translation: "Sie können unsere API verwenden, um die Informationen und Updates von dieser Statusseite in Ihre eigene Website oder Anwendung zu integrieren. Stellen Sie einfach eine GET-Anfrage an die folgende URL:"
+- id: APIdisclaimer
+  translation: "Bitte beachten Sie, dass die API möglicherweise einer Ratenbegrenzung unterliegt."
+- id: getAllUpdates
+  translation: "Alle Updates abrufen"
+- id: getSomeUpdates
+  translation: "Updates nur von einigen Systemen abrufen"
+- id: openDropdown
+  translation: "Dropdown öffnen"
+- id: closeDropdown
+  translation: "Dropdown schließen"
+- id: automated
+  translation: "Automatisiert"
+- id: thisPostWasAutomaticallyGenerated
+  translation: "Dieser Beitrag wurde automatisch generiert."
+- id: readDocumentation
+  translation: "Dokumentation lesen"
+- id: copied
+  translation: "Kopiert!"
+- id: copyToClipboard
+  translation: "In die Zwischenablage kopieren"
+- id: open
+  translation: "Öffnen"

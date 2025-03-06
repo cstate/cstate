@@ -78,7 +78,7 @@ languageCode: en
 # than English! When tested with Lithuanian,
 # it would add unnecessary placeholders to
 # values that were intentionally empty.
-defaultContentLanguage: en
+defaultContentLanguage: lt
 
 # What is the hostname or path to the root?
 # Where is the site hosted?
@@ -182,12 +182,14 @@ params:
   # BOOLEAN; `true`, `false`
   enableUptimeHistogram: true
 
-  # TODO:
-  # Monitor bots
+  # Monitor bot
   #
   # If you have a monitor bot, you get access to
   # more features like notifications to Slack,
   # Discord, and more.
+  #
+  # The monitor bot is compatible v6 and up.
+  # It is released here: https://github.com/cstate/monitorbot
   #
   # Default: `false`
   # STRING or BOOLEAN to disable
@@ -341,6 +343,15 @@ params:
   #
   # NUMERIC; Default: `5`
   incidentPostsPerPage: 5
+
+  # Enable custom CSS, JS, HTML
+  #
+  # Edit the files in /layouts/partials/custom/
+  # to customize your status page.
+  #
+  # Default: `true`
+  # BOOLEAN; `true`, `false`
+  enableCustomHTML: true
 
   # Introduced in v6, you can hide
   # incidents that are older than

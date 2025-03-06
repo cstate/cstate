@@ -1,5 +1,5 @@
 # Turkish language file for cState
-# Version 3.0
+# Version 6.0
 
 - id: languageCode
   translation: tr
@@ -114,7 +114,7 @@
 - id: notFoundText
   translation: Belki de aradığınız şeyi başka bir yere taşımışızdır. O şey hiç bulunmamış da olabilir. İki defa dene belki işe yarar?
 
-- id: rss
+- id: subscribeViaRss
   translation: RSS beslemesine abone ol
 - id: toAllUpdates
   translation: bütün güncellemelere
@@ -131,9 +131,99 @@
 - id: newestToOldest
   translation: en yeniden en eskiye
 
-# TODO: Missing translations from v3 to v6
+##
+## v4
+##
+- id: notFoundAffected
+  translation: Bu sistem ya mevcut değil ya da hiç kaydedilmiş bir kesinti yaşamadı.
 
+##
+## v4.1
+##
+
+- id: averageSystemsDowntime
+	translation: Son zamanlarda, ortalama verilere göre, bu sistem yaklaşık olarak
+- id: averageSystemsDowntimeSecondPart
+	translation: dakika boyunca çalışmıyor gibi görünüyor.
+
+##
+## v4.4
+##
+
+- id: in
+  translation: içinde
+- id: weeksAgo
+  translation: " hf"
+- id: yearAgo
+  translation: " yıl"
+
+##
 ## v6
 ##
+
 - id: incidentMaxAgeNotice
-  translation: "Hindi ipinapakita ang mga insidente na higit sa {{ .MaxAgeYears }} taon"
+  translation: "{{ .MaxAgeYears }} yıldan daha eski olaylar gösterilmiyor"
+- id: loading
+  translation: "Yükleniyor"
+- id: chart
+  translation: "Grafik"
+- id: getSupport
+  translation: "Destek alın"
+- id: subscribe
+  translation: "Abone Ol"
+- id: subscribeDescription
+  translation: "Bu durum sayfasından güncellemeler almak için abone olun."
+- id: rss
+  translation: "RSS"
+- id: email
+  translation: "E-posta"
+- id: discord
+  translation: "Discord"
+- id: slack
+  translation: "Slack"
+- id: webhook
+  translation: "Webhook"
+- id: webhookUrl
+  translation: "Webhook URL'si"
+- id: embed
+  translation: "Göm"
+- id: embedDescription
+  translation: "Bu durum sayfasını kendi web sitenize veya uygulamanıza gömebilirsiniz. Herhangi bir aksaklık durumunda açılır bir mesaj almak için aşağıdaki HTML kod parçacığını kopyalayıp yapıştırmanız yeterlidir:"
+- id: copy
+  translation: "Kopyala"
+- id: embedDisclaimer
+  translation: "Bu gömme hakkında daha fazla bilgi ve nasıl kullanabileceğiniz hakkında bilgi mi arıyorsunuz?"
+- id: learnMore
+  translation: "Buradan daha fazla bilgi edinin"
+- id: pushNotifications
+  translation: "Push Bildirimleri"
+- id: pushNotificationsDescription
+  translation: "Tarayıcınız aracılığıyla push bildirimleri yoluyla bu durum sayfasına abone olabilirsiniz. Bildirim almak istediğiniz her cihazda bunu yapmanız gerekecektir. Bu özelliğin tarayıcı desteğine tabi olduğunu ve beklendiği gibi tüm cihazlarda çalışmayabileceğini lütfen unutmayın."
+- id: pushNotificationsDisclaimer
+  translation: "Kritik güncellemelerin mümkün olan en kısa sürede teslim edilmesini istiyorsanız, farklı bir bildirim yöntemi seçmenizi öneririz."
+- id: API
+  translation: "API"
+- id: APIdescription
+  translation: "Bu durum sayfasındaki bilgileri ve güncellemeleri kendi web sitenize veya uygulamanıza entegre etmek için API'mizi kullanabilirsiniz. Aşağıdaki URL'ye bir GET isteği yapmanız yeterlidir:"
+- id: APIdisclaimer
+  translation: "Lütfen API'nin hız sınırlamasına tabi olabileceğini unutmayın."
+- id: getAllUpdates
+  translation: "Tüm güncellemeleri al"
+- id: getSomeUpdates
+  translation: "Yalnızca bazı sistemlerden güncelleme al"
+- id: openDropdown
+  translation: "Açılır menüyü aç"
+- id: closeDropdown
+  translation: "Açılır menüyü kapat"
+- id: automated
+  translation: "Otomatik"
+- id: thisPostWasAutomaticallyGenerated
+  translation: "Bu gönderi otomatik olarak oluşturuldu."
+- id: readDocumentation
+  translation: "Belgeleri oku"
+- id: copied
+  translation: "Kopyalandı!"
+- id: copyToClipboard
+  translation: "Panoya kopyala"
+- id: open
+  translation: "Aç"

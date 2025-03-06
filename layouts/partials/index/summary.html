@@ -77,7 +77,6 @@
 							</svg>
 							{{ T "webhook" }}
 						</li>
-						{{ end }}
 						<li data-option="push">
 							<svg viewBox="0 0 512 512" class="subscribe-dropdown__icon">
 								<path
@@ -86,6 +85,7 @@
 							</svg>
 							{{ T "pushNotifications" }}
 						</li>
+						{{ end }}
 						<li data-option="api">
 							<svg viewBox="0 0 512 512" class="subscribe-dropdown__icon">
 								<path
@@ -154,14 +154,14 @@
 
 		.subscribe-button {
 			padding: 8px 16px;
+			font: inherit;
+			font-size: 15px;
 			border-radius: 4px;
-			font-size: 14px;
 			cursor: pointer;
 			background: rgba(255, 255, 255, 0.2);
 			border: 1px solid rgba(255, 255, 255, 0.25);
 			color: #fff;
 			transition: background 0.1s, opacity 0.1s;
-			/* Faster transition */
 		}
 
 		.subscribe-button:hover {
@@ -179,19 +179,13 @@
 			top: calc(100% + 10px);
 			right: 0;
 			background: #fff;
-			border: 1px solid #ccc;
 			border-radius: 8px;
 			width: 220px;
-			max-height: 300px;
-			/* Limit dropdown height */
 			overflow-y: auto;
-			/* Add scrollbar if needed */
 			opacity: 0;
 			transform: translateY(5px);
 			animation: fadeUp 0.15s ease-out forwards;
-			/* Faster animation with ease-out */
-			box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-			/* more spread out shadow */
+			box-shadow: 0 10px 32px rgba(0, 0, 0, 0.15);
 		}
 
 		.subscribe-dropdown ul {
@@ -204,6 +198,7 @@
 			display: flex;
 			align-items: center;
 			padding: 10px 12px;
+			margin: 4px;
 			font-size: 14px;
 			cursor: pointer;
 			color: #333;
@@ -282,11 +277,11 @@
 			right: 10px;
 			border: none;
 			background: transparent;
-			font-size: 24px;
+			font-size: 20px;
 			line-height: 1;
 			cursor: pointer;
 			color: #444;
-			padding: 4px;
+			padding: 10px;
 			border-radius: 50%;
 		}
 
@@ -301,29 +296,48 @@
 		.subscribe-modal__title {
 			margin: 0 0 16px 0;
 			font-size: 20px;
+			font-weight: bold;
 			color: #333;
 		}
 
 		.subscribe-modal__content {
-			font-size: 14px;
 			color: #555;
 			flex: 1;
-			/* allow content area to expand */
 		}
+
+		.subscribe-modal__content p {
+			margin: 0;
+		}
+
+		.btn {
+			padding: 10px 20px;
+			border-radius: 4px;
+			display: inline-block;
+			border: none;
+			font-weight: bold;
+			cursor: pointer;
+			transition: background 0.1s, opacity 0.1s;
+		}
+
+		.btn--primary {
+			background: #000;
+			color: #fff;
+			border: none;
+		}
+
+		.btn--primary:hover {
+			background: #111;
+		}
+
+		.btn--primary:active {
+			background: #222;
+		}
+
 
 		/* An extra area for disclaimers or buttons, etc. */
 		.subscribe-modal__actions {
 			margin-top: 8px;
-			display: flex;
-			flex-direction: column;
 			gap: 8px;
-		}
-
-		.subscribe-modal__actions button,
-		.subscribe-modal__actions input {
-			padding: 8px;
-			border-radius: 4px;
-			border: 1px solid #ccc;
 		}
 
 		/* Modal fade up animation */
@@ -402,7 +416,7 @@
 							modalContent.innerHTML = `<p>{{ T "subscribeDescription" }}</p>
             <input type="email" placeholder="Email address..." />`;
 							modalActions.innerHTML = `
-            <button>{{ T "subscribe" }}</button>
+            <button class="btn btn--primary">{{ T "subscribe" }}</button>
             <p class="small-text">{{ T "pushNotificationsDisclaimer" }}</p>
           `;
 							break;
@@ -412,7 +426,7 @@
 							modalContent.innerHTML = `<p>{{ T "subscribeDescription" }} (Discord server invitation)</p>`;
 							copyText = 'YOUR_DISCORD_INVITE_LINK'; // Replace with your Discord invite link
 							modalActions.innerHTML = `
-            <button data-copy="${copyText}">{{ T "copy" }}</button>
+            <button class="btn btn--primary" data-copy="${copyText}">{{ T "copy" }}</button>
             <p class="small-text">{{ T "embedDisclaimer" }}</p>
           `;
 							break;
@@ -422,7 +436,7 @@
 							modalContent.innerHTML = `<p>{{ T "subscribeDescription" }} (Slack workspace link)</p>`;
 							copyText = 'YOUR_SLACK_WORKSPACE_LINK'; // Replace with your Slack workspace link
 							modalActions.innerHTML = `
-            <button data-copy="${copyText}">{{ T "copy" }}</button>
+            <button class="btn btn--primary" data-copy="${copyText}">{{ T "copy" }}</button>
             <p class="small-text">{{ T "embedDisclaimer" }}</p>
           `;
 							break;
@@ -432,7 +446,7 @@
 							modalContent.innerHTML = `<p>{{ T "subscribeDescription" }}</p>
             <input type="text" placeholder="{{ T "webhookUrl" }}" />`;
 							modalActions.innerHTML = `
-            <button>{{ T "subscribe" }}</button>
+            <button class="btn btn--primary">{{ T "subscribe" }}</button>
             <p class="small-text">{{ T "APIdisclaimer" }}</p>
           `;
 							break;
@@ -441,7 +455,7 @@
 							modalTitle.textContent = '{{ T "pushNotifications" }}';
 							modalContent.innerHTML = `<p>{{ T "pushNotificationsDescription" }}</p>`;
 							modalActions.innerHTML = `
-            <button>{{ T "subscribe" }}</button>
+            <button class="btn btn--primary">{{ T "subscribe" }}</button>
             <p class="small-text">{{ T "pushNotificationsDisclaimer" }}</p>
           `;
 							break;
@@ -450,7 +464,7 @@
 							modalTitle.textContent = '{{ T "API" }}';
 							modalContent.innerHTML = `<p>{{ T "APIdescription" }} <br /> <code>{{ .Site.BaseURL }}index.json</code></p>`;
 							modalActions.innerHTML = `
-            <a href="https://github.com/cstate/cstate/wiki/API" target="_blank" rel="noopener noreferrer" class="padding-s">{{ T "readDocumentation" }}</a>
+            <a href="https://github.com/cstate/cstate/wiki/API" target="_blank" rel="noopener noreferrer" class="btn btn--primary">{{ T "readDocumentation" }}</a>
             <p>{{ T "APIdisclaimer" }}</p>
           `;
 							break;
@@ -459,7 +473,7 @@
 							modalTitle.textContent = '{{ T "subscribe" }}';
 							modalContent.innerHTML = `<p>{{ T "subscribeDescription" }}</p>`;
 							modalActions.innerHTML = `
-            <button>{{ T "subscribe" }}</button>
+            <button class="btn btn--primary">{{ T "subscribe" }}</button>
             <p class="small-text">{{ T "embedDisclaimer" }}</p>
           `;
 							break;

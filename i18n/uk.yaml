@@ -1,5 +1,5 @@
 # Ukrainian language file for cState
-# Version 4.4
+# Version 6.0
 
 - id: languageCode
   translation: uk
@@ -113,7 +113,7 @@
 - id: notFoundText
   translation: Це може бути проблемою з нашого боку. Можливо, ми перемістили певний ресурс і тепер його немає. Також можливо, що ресурс, який ви намагаєтеся переглянути, порожній. Але ви також не проти ще раз перевірити посилання?
 
-- id: rss
+- id: subscribeViaRss
   translation: Підпишіться через RSS
 - id: toAllUpdates
   translation: на всі оновлення
@@ -160,3 +160,67 @@
 ##
 - id: incidentMaxAgeNotice
   translation: "Не показувати інциденти, яким більше {{ .MaxAgeYears }} років"
+- id: loading
+  translation: "Завантаження"
+- id: chart
+  translation: "Діаграма"
+- id: getSupport
+  translation: "Отримати підтримку"
+- id: subscribe
+  translation: "Підписатися"
+- id: subscribeDescription
+  translation: "Підпишіться на оновлення з цієї сторінки стану."
+- id: rss
+  translation: "RSS"
+- id: email
+  translation: "Електронна пошта"
+- id: discord
+  translation: "Discord"
+- id: slack
+  translation: "Slack"
+- id: webhook
+  translation: "Webhook"
+- id: webhookUrl
+  translation: "URL-адреса вебхука"
+- id: embed
+  translation: "Вставити"
+- id: embedDescription
+  translation: "Ви можете вставити цю сторінку стану на свій власний веб-сайт або в додаток. Просто скопіюйте наступний фрагмент HTML і вставте його, щоб отримати спливаюче повідомлення, якщо є збої:"
+- id: copy
+  translation: "Копіювати"
+- id: embedDisclaimer
+  translation: "Шукаєте більше інформації про це вбудовування та як його можна використовувати?"
+- id: learnMore
+  translation: "Дізнайтеся більше тут"
+- id: pushNotifications
+  translation: "Push-сповіщення"
+- id: pushNotificationsDescription
+  translation: "Ви можете підписатися на цю сторінку стану за допомогою push-сповіщень через свій браузер. Вам потрібно буде зробити це на кожному пристрої, на якому ви хочете отримувати сповіщення. Зверніть увагу, що ця функція залежить від підтримки браузера і може працювати не на всіх пристроях належним чином."
+- id: pushNotificationsDisclaimer
+  translation: "Ми рекомендуємо вибрати інший спосіб сповіщення, якщо вам потрібно, щоб критичні оновлення доставлялися якомога швидше."
+- id: API
+  translation: "API"
+- id: APIdescription
+  translation: "Ви можете використовувати наш API, щоб інтегрувати інформацію та оновлення з цієї сторінки стану у свій власний веб-сайт або додаток. Просто зробіть GET-запит за такою URL-адресою:"
+- id: APIdisclaimer
+  translation: "Зверніть увагу, що API може підлягати обмеженню швидкості."
+- id: getAllUpdates
+  translation: "Отримати всі оновлення"
+- id: getSomeUpdates
+  translation: "Отримувати оновлення лише від деяких систем"
+- id: openDropdown
+  translation: "Відкрити спадне меню"
+- id: closeDropdown
+  translation: "Закрити спадне меню"
+- id: automated
+  translation: "Автоматично"
+- id: thisPostWasAutomaticallyGenerated
+  translation: "Це повідомлення було згенеровано автоматично."
+- id: readDocumentation
+  translation: "Читати документацію"
+- id: copied
+  translation: "Скопійовано!"
+- id: copyToClipboard
+  translation: "Копіювати в буфер обміну"
+- id: open
+  translation: "Відкрити"

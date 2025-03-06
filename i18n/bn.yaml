@@ -1,6 +1,5 @@
 # Bangla language file for cState
-
-# Version 4.4
+# Version 6.0
 
 - id: languageCode
   translation: bn
@@ -116,7 +115,7 @@
 - id: notFoundText
   translation: এটি আমাদের পক্ষ থেকে একটি সমস্যা হতে পারে। সম্ভবত আমরা একটি নির্দিষ্ট রিসোর্স স্থানান্তরিত করেছি এবং এখন এটি চলে গেছে। এটাও সম্ভব যে আপনি যে রিসোর্সটি দেখার চেষ্টা করছেন সেটি খালি। কিন্তু আপনি কি আবার লিঙ্ক চেক করতে আপত্তি করবেন?
 
-- id: rss
+- id: subscribeViaRss
   translation: RSS এর মাধ্যমে সাবস্ক্রাইব করুন
 - id: toAllUpdates
   translation: সব আপডেট
@@ -160,8 +159,71 @@
 - id: yearAgo
   translation: " year"
 
-
 ## v6
 ##
 - id: incidentMaxAgeNotice
   translation: "{{ .MaxAgeYears }} বছর আগে ঘটে যাওয়া ঘটনাগুলি আর দেখানো হবে না"
+- id: loading
+  translation: "লোড হচ্ছে"
+- id: chart
+  translation: "চার্ট"
+- id: getSupport
+  translation: "সহায়তা পান"
+- id: subscribe
+  translation: "সাবস্ক্রাইব"
+- id: subscribeDescription
+  translation: "এই স্ট্যাটাস পেজ থেকে আপডেটের জন্য সাবস্ক্রাইব করুন।"
+- id: rss
+  translation: "আরএসএস"
+- id: email
+  translation: "ইমেল"
+- id: discord
+  translation: "ডিসকর্ড"
+- id: slack
+  translation: "স্ল্যাক"
+- id: webhook
+  translation: "ওয়েবহুক"
+- id: webhookUrl
+  translation: "ওয়েবহুক URL"
+- id: embed
+  translation: "এম্বেড"
+- id: embedDescription
+  translation: "আপনি আপনার নিজের ওয়েবসাইট বা অ্যাপ্লিকেশনে এই স্ট্যাটাস পৃষ্ঠাটি এম্বেড করতে পারেন। বিঘ্ন ঘটলে একটি পপ-আপ বার্তা পেতে নিম্নলিখিত HTML স্নিপেটটি অনুলিপি করে পেস্ট করুন:"
+- id: copy
+  translation: "কপি"
+- id: embedDisclaimer
+  translation: "এই এম্বেড সম্পর্কে আরও তথ্য এবং আপনি কীভাবে এটি ব্যবহার করতে পারেন তা খুঁজছেন?"
+- id: learnMore
+  translation: "এখানে আরও জানুন"
+- id: pushNotifications
+  translation: "পুশ বিজ্ঞপ্তি"
+- id: pushNotificationsDescription
+  translation: "আপনি আপনার ব্রাউজারের মাধ্যমে পুশ বিজ্ঞপ্তির মাধ্যমে এই স্ট্যাটাস পৃষ্ঠাতে সাবস্ক্রাইব করতে পারেন। আপনি যে ডিভাইসগুলিতে বিজ্ঞপ্তি পেতে চান তার প্রত্যেকটিতে আপনাকে এটি করতে হবে। অনুগ্রহ করে মনে রাখবেন যে এই বৈশিষ্ট্যটি ব্রাউজার সমর্থনের অধীন এবং প্রত্যাশিত হিসাবে সমস্ত ডিভাইসে কাজ নাও করতে পারে।"
+- id: pushNotificationsDisclaimer
+  translation: "আপনার যদি যত তাড়াতাড়ি সম্ভব সমালোচনামূলক আপডেট সরবরাহ করার প্রয়োজন হয় তবে আমরা বিজ্ঞপ্তির একটি ভিন্ন পদ্ধতি বেছে নেওয়ার পরামর্শ দিই।"
+- id: API
+  translation: "API"
+- id: APIdescription
+  translation: "আপনি আমাদের API ব্যবহার করে এই স্ট্যাটাস পৃষ্ঠা থেকে তথ্য এবং আপডেটগুলিকে আপনার নিজের ওয়েবসাইট বা অ্যাপ্লিকেশনে সংহত করতে পারেন। নিম্নলিখিত URL-এ একটি GET অনুরোধ করুন:"
+- id: APIdisclaimer
+  translation: "অনুগ্রহ করে মনে রাখবেন যে API হার সীমিত হতে পারে।"
+- id: getAllUpdates
+  translation: "সমস্ত আপডেট পান"
+- id: getSomeUpdates
+  translation: "শুধুমাত্র কিছু সিস্টেম থেকে আপডেট পান"
+- id: openDropdown
+  translation: "ড্রপডাউন খুলুন"
+- id: closeDropdown
+  translation: "ড্রপডাউন বন্ধ করুন"
+- id: automated
+  translation: "স্বয়ংক্রিয়"
+- id: thisPostWasAutomaticallyGenerated
+  translation: "এই পোস্টটি স্বয়ংক্রিয়ভাবে তৈরি হয়েছে।"
+- id: readDocumentation
+  translation: "ডকুমেন্টেশন পড়ুন"
+- id: copied
+  translation: "কপি করা হয়েছে!"
+- id: copyToClipboard
+  translation: "ক্লিপবোর্ডে কপি করুন"
+- id: open
+  translation: "খুলুন"

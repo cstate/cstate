@@ -1,5 +1,5 @@
 # French language file for cState
-# Version 4.4
+# Version 6.0
 
 - id: languageCode
   translation: fr
@@ -115,7 +115,7 @@
 - id: notFoundText
   translation: C'est peut-être une erreur de notre part. Peut-être avons-nous déplacé une certaine ressource, ce qui l'a rendu indisponible. Il est également possible que la ressource que vous essayez de visualiser soit vide. Avez-vous pris le temps de vérifier le lien ?
 
-- id: rss
+- id: subscribeViaRss
   translation: S'abonner via RSS
 - id: toAllUpdates
   translation: à toutes les mises à jour
@@ -164,3 +164,67 @@
 
 - id: incidentMaxAgeNotice
   translation: "Ne pas afficher les incidents datant de plus de {{ .MaxAgeYears }} ans"
+- id: loading
+  translation: "Chargement"
+- id: chart
+  translation: "Graphique"
+- id: getSupport
+  translation: "Obtenir de l'aide"
+- id: subscribe
+  translation: "S'abonner"
+- id: subscribeDescription
+  translation: "Abonnez-vous aux mises à jour de cette page d'état."
+- id: rss
+  translation: "RSS"
+- id: email
+  translation: "E-mail"
+- id: discord
+  translation: "Discord"
+- id: slack
+  translation: "Slack"
+- id: webhook
+  translation: "Webhook"
+- id: webhookUrl
+  translation: "URL du webhook"
+- id: embed
+  translation: "Intégrer"
+- id: embedDescription
+  translation: "Vous pouvez intégrer cette page d'état dans votre propre site Web ou application. Copiez simplement le fragment HTML suivant et collez-le pour obtenir un message contextuel en cas de perturbations :"
+- id: copy
+  translation: "Copier"
+- id: embedDisclaimer
+  translation: "Vous cherchez plus d'informations sur cette intégration et comment vous pouvez l'utiliser ?"
+- id: learnMore
+  translation: "En savoir plus ici"
+- id: pushNotifications
+  translation: "Notifications push"
+- id: pushNotificationsDescription
+  translation: "Vous pouvez vous abonner à cette page d'état via des notifications push via votre navigateur. Vous devrez le faire sur chaque appareil sur lequel vous souhaitez recevoir des notifications. Veuillez noter que cette fonctionnalité est soumise à la prise en charge du navigateur et peut ne pas fonctionner sur tous les appareils comme prévu."
+- id: pushNotificationsDisclaimer
+  translation: "Nous vous recommandons de choisir un autre mode de notification si vous avez besoin que les mises à jour critiques soient livrées le plus tôt possible."
+- id: API
+  translation: "API"
+- id: APIdescription
+  translation: "Vous pouvez utiliser notre API pour intégrer les informations et les mises à jour de cette page d'état dans votre propre site Web ou application. Faites simplement une requête GET à l'URL suivante :"
+- id: APIdisclaimer
+  translation: "Veuillez noter que l'API peut être soumise à une limitation du débit."
+- id: getAllUpdates
+  translation: "Obtenir toutes les mises à jour"
+- id: getSomeUpdates
+  translation: "Obtenir les mises à jour uniquement de certains systèmes"
+- id: openDropdown
+  translation: "Ouvrir le menu déroulant"
+- id: closeDropdown
+  translation: "Fermer le menu déroulant"
+- id: automated
+  translation: "Automatisé"
+- id: thisPostWasAutomaticallyGenerated
+  translation: "Cet article a été généré automatiquement."
+- id: readDocumentation
+  translation: "Lire la documentation"
+- id: copied
+  translation: "Copié !"
+- id: copyToClipboard
+  translation: "Copier dans le presse-papiers"
+- id: open
+  translation: "Ouvrir"

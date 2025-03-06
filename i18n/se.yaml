@@ -1,5 +1,5 @@
 # Swedish language file for cState
-# Version 4.4
+# Version 6.0
 
 - id: languageCode
   translation: se
@@ -113,7 +113,7 @@
 - id: notFoundText
   translation: Detta kan vara ett problem från vår sida. Kanske har vi flyttat en viss resurs och nu är den borta. Det är också möjligt att resursen du försöker visa är tom. Men har du också något emot att dubbelkolla länken?
 
-- id: rss
+- id: subscribeViaRss
   translation: Prenumerera via RSS
 - id: toAllUpdates
   translation: till alla uppdateringar
@@ -155,3 +155,73 @@
   translation: " v"
 - id: yearAgo
   translation: " år"
+
+##
+## v6
+##
+- id: incidentMaxAgeNotice
+  translation: "Visar inte incidenter äldre än {{ .MaxAgeYears }} år"
+- id: loading
+  translation: "Laddar"
+- id: chart
+  translation: "Diagram"
+- id: getSupport
+  translation: "Få support"
+- id: subscribe
+  translation: "Prenumerera"
+- id: subscribeDescription
+  translation: "Prenumerera på uppdateringar från denna statussida."
+- id: rss
+  translation: "RSS"
+- id: email
+  translation: "E-post"
+- id: discord
+  translation: "Discord"
+- id: slack
+  translation: "Slack"
+- id: webhook
+  translation: "Webhook"
+- id: webhookUrl
+  translation: "Webhook-URL"
+- id: embed
+  translation: "Bädda in"
+- id: embedDescription
+  translation: "Du kan bädda in den här statussidan på din egen webbplats eller applikation. Kopiera bara följande HTML-kodavsnitt och klistra in det för att få ett popup-meddelande om det finns störningar:"
+- id: copy
+  translation: "Kopiera"
+- id: embedDisclaimer
+  translation: "Letar du efter mer information om den här inbäddningen och hur du kan använda den?"
+- id: learnMore
+  translation: "Läs mer här"
+- id: pushNotifications
+  translation: "Push-notiser"
+- id: pushNotificationsDescription
+  translation: "Du kan prenumerera på den här statussidan via push-notiser via din webbläsare. Du måste göra detta på alla enheter du vill få notiser på. Observera att den här funktionen är beroende av webbläsarstöd och kanske inte fungerar på alla enheter som förväntat."
+- id: pushNotificationsDisclaimer
+  translation: "Vi rekommenderar att du väljer en annan aviseringsmetod om du behöver kritiska uppdateringar levereras så snart som möjligt."
+- id: API
+  translation: "API"
+- id: APIdescription
+  translation: "Du kan använda vårt API för att integrera informationen och uppdateringarna från denna statussida i din egen webbplats eller applikation. Gör bara en GET-förfrågan till följande URL:"
+- id: APIdisclaimer
+  translation: "Observera att API:et kan vara föremål för hastighetsbegränsning."
+- id: getAllUpdates
+  translation: "Få alla uppdateringar"
+- id: getSomeUpdates
+  translation: "Få endast uppdateringar från vissa system"
+- id: openDropdown
+  translation: "Öppna rullgardinsmenyn"
+- id: closeDropdown
+  translation: "Stäng rullgardinsmenyn"
+- id: automated
+  translation: "Automatiserad"
+- id: thisPostWasAutomaticallyGenerated
+  translation: "Det här inlägget genererades automatiskt."
+- id: readDocumentation
+  translation: "Läs dokumentation"
+- id: copied
+  translation: "Kopierat!"
+- id: copyToClipboard
+  translation: "Kopiera till urklipp"
+- id: open
+  translation: "Öppna"

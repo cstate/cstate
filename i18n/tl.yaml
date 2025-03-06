@@ -1,5 +1,5 @@
 # Tagalog language file for cState
-# Version 4.4
+# Version 6.0
 
 - id: languageCode
   translation: tl
@@ -114,7 +114,7 @@
 - id: notFoundText
   translation: Ito'y maaaring problema sa amin. Maaring may nilipat kami na resors at ngayon ay nawala na ito. Posible din na ang resors na nais mong makita ay walang laman. Pero, ayos lang ba sa iyo ang dobol-check sa link?
 
-- id: rss
+- id: subscribeViaRss
   translation: Mag-subskrayb sa pamamagitan ng RSS
 - id: toAllUpdates
   translation: sa lahat ng mga updeyt
@@ -157,3 +157,74 @@
   translation: " l"
 - id: yearAgo
   translation: " taon"
+
+##
+## v6
+##
+
+- id: incidentMaxAgeNotice
+  translation: "Hindi ipinapakita ang mga insidente na mas matanda sa {{ .MaxAgeYears }} taon"
+- id: loading
+  translation: "Naglo-load"
+- id: chart
+  translation: "Tsart"
+- id: getSupport
+  translation: "Kumuha ng suporta"
+- id: subscribe
+  translation: "Mag-subscribe"
+- id: subscribeDescription
+  translation: "Mag-subscribe sa mga update mula sa pahina ng katayuan na ito."
+- id: rss
+  translation: "RSS"
+- id: email
+  translation: "Email"
+- id: discord
+  translation: "Discord"
+- id: slack
+  translation: "Slack"
+- id: webhook
+  translation: "Webhook"
+- id: webhookUrl
+  translation: "URL ng Webhook"
+- id: embed
+  translation: "I-embed"
+- id: embedDescription
+  translation: "Maaari mong i-embed ang pahina ng katayuan na ito sa iyong sariling website o application. Kopyahin lamang ang sumusunod na snippet ng HTML at i-paste ito upang makakuha ng pop-up na mensahe kung mayroong mga pagkaantala:"
+- id: copy
+  translation: "Kopyahin"
+- id: embedDisclaimer
+  translation: "Naghahanap ng higit pang impormasyon tungkol sa embed na ito at kung paano mo ito magagamit?"
+- id: learnMore
+  translation: "Matuto pa dito"
+- id: pushNotifications
+  translation: "Mga push notification"
+- id: pushNotificationsDescription
+  translation: "Maaari kang mag-subscribe sa pahina ng katayuan na ito sa pamamagitan ng mga push notification sa iyong browser. Kakailanganin mong gawin ito sa bawat device na gusto mong makatanggap ng mga notification. Pakitandaan na ang feature na ito ay napapailalim sa suporta ng browser at maaaring hindi gumana sa lahat ng device gaya ng inaasahan."
+- id: pushNotificationsDisclaimer
+  translation: "Inirerekomenda naming pumili ng ibang paraan ng notification kung kailangan mong maihatid ang mga kritikal na update sa lalong madaling panahon."
+- id: API
+  translation: "API"
+- id: APIdescription
+  translation: "Maaari mong gamitin ang aming API upang isama ang impormasyon at mga update mula sa pahina ng katayuan na ito sa iyong sariling website o application. Gumawa lamang ng kahilingan sa GET sa sumusunod na URL:"
+- id: APIdisclaimer
+  translation: "Pakitandaan na ang API ay maaaring sumailalim sa paglilimita sa rate."
+- id: getAllUpdates
+  translation: "Kunin ang lahat ng update"
+- id: getSomeUpdates
+  translation: "Kumuha ng mga update mula sa ilang system lamang"
+- id: openDropdown
+  translation: "Buksan ang dropdown"
+- id: closeDropdown
+  translation: "Isara ang dropdown"
+- id: automated
+  translation: "Awtomatiko"
+- id: thisPostWasAutomaticallyGenerated
+  translation: "Awtomatikong nabuo ang post na ito."
+- id: readDocumentation
+  translation: "Basahin ang dokumentasyon"
+- id: copied
+  translation: "Kinopya!"
+- id: copyToClipboard
+  translation: "Kopyahin sa clipboard"
+- id: open
+  translation: "Buksan"

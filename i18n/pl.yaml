@@ -1,5 +1,5 @@
 # Polish language file for cState
-# Version 4.4
+# Version 6.0
 
 - id: languageCode
   translation: pl
@@ -20,7 +20,7 @@
 - id: isNotice
   translation: Ogłoszenie
 - id: isOk
-  translation: Wszystkie systemy sprawne 
+  translation: Wszystkie systemy sprawne
 
 # No JS warning
 - id: noScriptingIntro
@@ -115,7 +115,7 @@
 - id: notFoundText
   translation: To może być problem z naszej strony. Być może przenieśliśmy określony zasób i teraz go nie ma. Możliwe jest również, że zasób, który próbujesz wyświetlić, jest pusty. Ale czy masz też coś przeciwko, aby dwukrotnie sprawdzić link?
 
-- id: rss
+- id: subscribeViaRss
   translation: Subskrybuj przez RSS
 - id: toAllUpdates
   translation: wszystkie zdarzenia
@@ -158,3 +158,74 @@
   translation: " tyg"
 - id: yearAgo
   translation: " y"
+
+##
+## v6
+##
+
+- id: incidentMaxAgeNotice
+  translation: "Nie pokazuj zdarzeń starszych niż {{ .MaxAgeYears }} lat"
+- id: loading
+  translation: "Ładowanie"
+- id: chart
+  translation: "Wykres"
+- id: getSupport
+  translation: "Uzyskaj wsparcie"
+- id: subscribe
+  translation: "Subskrybuj"
+- id: subscribeDescription
+  translation: "Subskrybuj aktualizacje ze strony stanu."
+- id: rss
+  translation: "RSS"
+- id: email
+  translation: "E-mail"
+- id: discord
+  translation: "Discord"
+- id: slack
+  translation: "Slack"
+- id: webhook
+  translation: "Webhook"
+- id: webhookUrl
+  translation: "Adres URL elementu webhook"
+- id: embed
+  translation: "Osadź"
+- id: embedDescription
+  translation: "Możesz osadzić tę stronę stanu we własnej witrynie lub aplikacji. Po prostu skopiuj poniższy fragment kodu HTML i wklej go, aby otrzymać wyskakujące okienko w przypadku wystąpienia zakłóceń:"
+- id: copy
+  translation: "Kopiuj"
+- id: embedDisclaimer
+  translation: "Szukasz więcej informacji o tym osadzeniu i jak możesz go użyć?"
+- id: learnMore
+  translation: "Dowiedz się więcej tutaj"
+- id: pushNotifications
+  translation: "Powiadomienia push"
+- id: pushNotificationsDescription
+  translation: "Możesz subskrybować tę stronę stanu za pomocą powiadomień push w przeglądarce. Musisz to zrobić na każdym urządzeniu, na którym chcesz otrzymywać powiadomienia. Pamiętaj, że ta funkcja jest zależna od obsługi przeglądarki i może nie działać na wszystkich urządzeniach zgodnie z oczekiwaniami."
+- id: pushNotificationsDisclaimer
+  translation: "Zalecamy wybranie innej metody powiadomień, jeśli potrzebujesz, aby krytyczne aktualizacje były dostarczane jak najszybciej."
+- id: API
+  translation: "API"
+- id: APIdescription
+  translation: "Możesz użyć naszego API, aby zintegrować informacje i aktualizacje z tej strony stanu z własną witryną lub aplikacją. Po prostu wyślij żądanie GET do następującego adresu URL:"
+- id: APIdisclaimer
+  translation: "Pamiętaj, że API może podlegać ograniczeniom szybkości."
+- id: getAllUpdates
+  translation: "Pobierz wszystkie aktualizacje"
+- id: getSomeUpdates
+  translation: "Pobierz aktualizacje tylko z niektórych systemów"
+- id: openDropdown
+  translation: "Otwórz menu rozwijane"
+- id: closeDropdown
+  translation: "Zamknij menu rozwijane"
+- id: automated
+  translation: "Automatyczne"
+- id: thisPostWasAutomaticallyGenerated
+  translation: "Ten post został wygenerowany automatycznie."
+- id: readDocumentation
+  translation: "Przeczytaj dokumentację"
+- id: copied
+  translation: "Skopiowano!"
+- id: copyToClipboard
+  translation: "Kopiuj do schowka"
+- id: open
+  translation: "Otwórz"
