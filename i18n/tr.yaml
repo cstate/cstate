@@ -142,9 +142,9 @@
 ##
 
 - id: averageSystemsDowntime
-	translation: Son zamanlarda, ortalama verilere göre, bu sistem yaklaşık olarak
+  translation: Son zamanlarda, ortalama verilere göre, bu sistem yaklaşık olarak
 - id: averageSystemsDowntimeSecondPart
-	translation: dakika boyunca çalışmıyor gibi görünüyor.
+  translation: dakika boyunca çalışmıyor gibi görünüyor.
 
 ##
 ## v4.4
