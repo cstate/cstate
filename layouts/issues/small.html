@@ -8,7 +8,7 @@
 <a href="{{ .Permalink }}" class="issue no-underline">
   {{ if .Params.informational }}
 
-  <small class="date float-right {{ cond .Site.Params.useRelativeTime "relative-time" "" }}" title="{{ dateFormat .Site.Params.dateFormat .Params.date }}" data-date="{{ .Date.Format "Jan 2 15:04:05 2006" }}">
+  <small class="date float-right {{ cond .Site.Params.useRelativeTime "relative-time" "" }}" title="{{ dateFormat .Site.Params.dateFormat .Params.date }}" data-date="{{ .Date.Format "2006-01-02T15:04:05Z" }}">
       {{ if .Site.Params.dateFormat }}
         {{ dateFormat .Site.Params.dateFormat .Params.date }}
       {{ else }}
@@ -17,11 +17,11 @@
     </small>
 
     <h3>
-      {{ .Title }} &nbsp;ℹ
+      {{ .Title }}  ℹ
     </h3>
 
   {{ else if .Params.Resolved }}
-    <small class="date float-right {{ cond .Site.Params.useRelativeTime "relative-time" "" }}" title="{{ dateFormat .Site.Params.dateFormat .Params.date }}" data-date="{{ .Date.Format "Jan 2 15:04:05 2006" }}">
+    <small class="date float-right {{ cond .Site.Params.useRelativeTime "relative-time" "" }}" title="{{ dateFormat .Site.Params.dateFormat .Params.date }}" data-date="{{ .Date.Format "2006-01-02T15:04:05Z" }}">
       {{ if .Site.Params.dateFormat }}
         {{ dateFormat .Site.Params.dateFormat .Params.date }}
       {{ else }}
@@ -62,7 +62,7 @@
 
   {{ else }}
   <!-- If not resolved -->
-    <small class="date float-right {{ cond .Site.Params.useRelativeTime "relative-time" "" }}" title="{{ dateFormat .Site.Params.dateFormat .Params.date }}" data-date="{{ .Date.Format "Jan 2 15:04:05 2006" }}">
+    <small class="date float-right {{ cond .Site.Params.useRelativeTime "relative-time" "" }}" title="{{ dateFormat .Site.Params.dateFormat .Params.date }}" data-date="{{ .Date.Format "2006-01-02T15:04:05Z" }}">
 
       {{ if .Date.Before now }}
         {{ if .Site.Params.dateFormat }}
