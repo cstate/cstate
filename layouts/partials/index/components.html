@@ -230,7 +230,17 @@
 			// Example endpoint
 			var endpoint = '{{ .Site.BaseURL }}affected/' + systemName + '/index.json';
 			fetch(endpoint)
-				.then(res => res.json())
+				.then(res => {
+					// Handle different HTTP status codes appropriately
+					if (res.status === 404) {
+						// 404 means no incidents for this system - treat as continuous uptime
+						return { pages: [] };
+					} else if (!res.ok) {
+						// Other HTTP errors (500, 503, etc.) should be treated as actual errors
+						throw new Error('HTTP ' + res.status + ': ' + res.statusText);
+					}
+					return res.json();
+				})
 				.then(data => {
 					histogramDiv.textContent = ''; // Clear "Loading..."
 
@@ -311,8 +321,36 @@
 					}
 				})
 				.catch(err => {
-					histogramDiv.textContent = 'Error loading data for ' + systemName;
-					console.error('Histogram load error:', systemName, err);
+					// Handle different types of errors appropriately
+					if (err.message && err.message.startsWith('HTTP 404')) {
+						// This shouldn't happen since we handle 404s above, but just in case
+						console.warn('Histogram: 404 for', systemName, '- treating as continuous uptime');
+						histogramDiv.textContent = ''; // Clear "Loading..."
+						
+						// Build histogram with all OK status (continuous uptime)
+						var now = new Date();
+						for (var i = DAYS - 1; i >= 0; i--) {
+							var d = new Date(now);
+							d.setDate(d.getDate() - i);
+							var y = d.getFullYear();
+							var m = String(d.getMonth() + 1).padStart(2, '0');
+							var dd = String(d.getDate()).padStart(2, '0');
+							var dateStr = y + '-' + m + '-' + dd;
+							
+							var bar = document.createElement('a');
+							bar.href = '{{ .Site.BaseURL }}/affected/' + systemName;
+							bar.className = 'histogram-bar';
+							bar.setAttribute('data-label', dateStr + ' — ' + '{{ T "thisIsOk" }}');
+							bar.style.backgroundColor = themeOkColor;
+							histogramDiv.appendChild(bar);
+						}
+					} else {
+						// Network errors, server errors (500, 503), or other actual problems
+						console.error('Histogram load error for', systemName + ':', err);
+						histogramDiv.textContent = 'Error loading data for ' + systemName;
+						histogramDiv.style.color = '#999';
+						histogramDiv.style.fontSize = '12px';
+					}
 				});
 		});
 	})();
