@@ -1,0 +1,40 @@
+{{ $recordSections := slice "experiments" "release-notes" "changelog" "roadmap" "evals" "agent-runs" "decisions" "research" }}
+{{ $records := where .Site.RegularPages "Section" "in" $recordSections }}
+{{ if .Site.Params.customTabs }}
+  <nav class="tabs modern-tabs" aria-label="Homepage sections">
+    <div class="contain tabs--inner modern-tabs__inner">
+      <a href="#incidents" class="tab tab--current">
+        {{ T "incidents" }}
+      </a>
+      {{ if $records }}
+        <a href="{{ "records/" | relURL }}" class="tab tab--other">
+          {{ default "Records" (T "records") }}
+        </a>
+      {{ end }}
+
+      {{ range .Site.Params.customTabs }}
+        <a href="{{ .link }}" class="tab tab--other">
+          {{ .name }}
+        </a>
+      {{ end }}
+    </div>
+  </nav>
+{{ else }}
+  {{ if not .Site.Params.disableIncidentHistory }}
+    <section class="contain contain--more modern-history-heading" aria-labelledby="incident-history-title">
+      <div class="modern-history-heading__main">
+        {{ partial "skins/modern/icon" (dict "name" "history" "class" "modern-history-heading__icon") }}
+        <div>
+          <p class="modern-history-heading__kicker">{{ T "incidents" }}</p>
+          <h2 id="incident-history-title">{{ T "incidentHistory" }}</h2>
+        </div>
+      </div>
+      {{ if $records }}
+        <a href="{{ "records/" | relURL }}" class="modern-history-heading__link">
+          {{ partial "skins/modern/icon" (dict "name" "external-link" "class" "modern-link-icon") }}
+          View operational {{ default "records" (T "records" | lower) }}
+        </a>
+      {{ end }}
+    </section>
+  {{ end }}
+{{ end }}

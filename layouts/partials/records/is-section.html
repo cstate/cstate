@@ -1,0 +1,3 @@
+{{- $section := . -}}
+{{- $recordSections := slice "experiments" "release-notes" "changelog" "roadmap" "evals" "agent-runs" "decisions" "research" -}}
+{{- return (in $recordSections $section) -}}

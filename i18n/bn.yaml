@@ -175,6 +175,8 @@
   translation: "এই স্ট্যাটাস পেজ থেকে আপডেটের জন্য সাবস্ক্রাইব করুন।"
 - id: rss
   translation: "আরএসএস"
+- id: atom
+  translation: "Atom"
 - id: email
   translation: "ইমেল"
 - id: discord

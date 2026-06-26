@@ -1,4 +1,4 @@
-{{ $incidents := .Pages }}{{ $active := where $incidents "Params.resolved" "=" false }}{{ $isNotice := where $active "Params.severity" "=" "notice" }}{{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}{{ $isDown := where $active "Params.severity" "=" "down" }}{
+{{ $incidents := where .Pages "Params.section" "issue" }}{{ $active := where $incidents "Params.resolved" "=" false }}{{ $isNotice := where $active "Params.severity" "=" "notice" }}{{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}{{ $isDown := where $active "Params.severity" "=" "down" }}{
   "is": "system",
   "title": "{{ .Title }}",
   "permalink": "{{ .Permalink }}",
@@ -17,6 +17,8 @@
         "affected": [{{ range $i, $e := .Params.Affected }}{{ if $i }}, {{ end }}"{{ . }}"{{ end }}],
         "filename": "{{ .File.LogicalName }}"
       }
+    {{ else if partial "records/is-section.html" .Section }}
+      {{ partial "records/json.html" (dict "page" . "includeBody" false) }}
     {{ else }}
       {
         "is": "page",
@@ -30,7 +32,6 @@
     {{ end }}{{ end }}
   ]
 }
-
 
 
 

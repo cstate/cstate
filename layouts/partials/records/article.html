@@ -1,0 +1,34 @@
+{{- $record := partial "records/normalize.html" . -}}
+<div class="article record record--{{ $record.type }}">
+  <p><small class="faded">{{ $record.label }}</small></p>
+
+  <h1 class="clean">
+    {{ .Title }}
+  </h1>
+
+  <small class="date">
+    {{ if .Site.Params.dateFormat }}
+      {{ dateFormat .Site.Params.dateFormat .Params.date }}
+    {{ else }}
+      {{ .Date.Format "January 2, 2006 at 3:04 PM" }}
+    {{ end }}
+  </small>
+
+  {{ partial "records/related.html" . }}
+
+  {{ if $record.state }}
+    <p>
+      <strong class="{{ if $record.isActive }}ok{{ else }}faded{{ end }}">
+        {{ if and (eq $record.type "experiment") $record.isActive }}
+          This experiment is still running
+        {{ else }}
+          {{ $record.stateLabel }} {{ $record.label }}
+        {{ end }}
+      </strong>
+    </p>
+  {{ end }}
+
+  <hr>
+  <div class="markdown">{{ .Content }}</div>
+</div>
+<div class="padding"></div>

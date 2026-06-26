@@ -1,0 +1,16 @@
+{{- $page := .page -}}
+{{- $includeBody := .includeBody | default false -}}
+{{- $record := partial "records/normalize.html" $page -}}
+{
+  "is": "{{ $record.type }}",
+  "recordType": "{{ $record.type }}",
+  "title": "{{ $page.Title }}",
+  "createdAt": "{{ $page.Date }}",
+  "lastMod": "{{ $page.Lastmod }}",
+  "permalink": "{{ $page.Permalink }}",
+  "state": "{{ $record.state }}",
+  "affected": [{{ range $i, $e := $record.affected }}{{ if $i }}, {{ end }}"{{ . }}"{{ end }}],
+  "filename": "{{ $page.File.LogicalName }}",
+  "summary": {{ jsonify ($page.Params.summary | default $page.Summary) }}{{ if $includeBody }},
+  "body": {{ jsonify $page.Content }}{{ end }}
+}

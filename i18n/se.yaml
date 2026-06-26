@@ -173,6 +173,8 @@
   translation: "Prenumerera på uppdateringar från denna statussida."
 - id: rss
   translation: "RSS"
+- id: atom
+  translation: "Atom"
 - id: email
   translation: "E-post"
 - id: discord

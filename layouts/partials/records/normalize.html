@@ -1,0 +1,49 @@
+{{- $page := . -}}
+{{- $section := $page.Section -}}
+{{- $recordType := $page.Params.recordType | default "" -}}
+{{- if eq $recordType "" -}}
+  {{- if eq $section "experiments" -}}{{- $recordType = "experiment" -}}
+  {{- else if eq $section "release-notes" -}}{{- $recordType = "release-note" -}}
+  {{- else if eq $section "changelog" -}}{{- $recordType = "changelog" -}}
+  {{- else if eq $section "roadmap" -}}{{- $recordType = "roadmap" -}}
+  {{- else if eq $section "evals" -}}{{- $recordType = "eval-report" -}}
+  {{- else if eq $section "agent-runs" -}}{{- $recordType = "agent-run" -}}
+  {{- else if eq $section "decisions" -}}{{- $recordType = "decision" -}}
+  {{- else if eq $section "research" -}}{{- $recordType = "research-note" -}}
+  {{- else if eq $section "issues" -}}{{- $recordType = "incident" -}}
+  {{- else -}}{{- $recordType = $section -}}{{- end -}}
+{{- end -}}
+
+{{- $label := humanize $recordType | title -}}
+{{- $pluralLabel := printf "%ss" $label -}}
+{{- if eq $recordType "experiment" -}}{{- $label = "Experiment" -}}{{- $pluralLabel = "Experiments" -}}{{- end -}}
+{{- if eq $recordType "release-note" -}}{{- $label = "Release Note" -}}{{- $pluralLabel = "Release Notes" -}}{{- end -}}
+{{- if eq $recordType "changelog" -}}{{- $label = "Changelog Entry" -}}{{- $pluralLabel = "Changelog" -}}{{- end -}}
+{{- if eq $recordType "roadmap" -}}{{- $label = "Roadmap Update" -}}{{- $pluralLabel = "Roadmap" -}}{{- end -}}
+{{- if eq $recordType "eval-report" -}}{{- $label = "Eval Report" -}}{{- $pluralLabel = "Eval Reports" -}}{{- end -}}
+{{- if eq $recordType "agent-run" -}}{{- $label = "Agent Run" -}}{{- $pluralLabel = "Agent Runs" -}}{{- end -}}
+{{- if eq $recordType "decision" -}}{{- $label = "Decision Record" -}}{{- $pluralLabel = "Decision Records" -}}{{- end -}}
+{{- if eq $recordType "research-note" -}}{{- $label = "Research Note" -}}{{- $pluralLabel = "Research Notes" -}}{{- end -}}
+{{- if eq $recordType "incident" -}}{{- $label = "Incident" -}}{{- $pluralLabel = "Incidents" -}}{{- end -}}
+
+{{- $state := $page.Params.state | default "" -}}
+{{- if and (eq $state "") (eq ($page.Params.severity | default "") "ongoing") -}}
+  {{- $state = "active" -}}
+{{- end -}}
+
+{{- $stateLabel := "" -}}
+{{- if eq $state "active" -}}{{- $stateLabel = "Active" -}}{{- end -}}
+{{- if eq $state "completed" -}}{{- $stateLabel = "Completed" -}}{{- end -}}
+{{- if eq $state "archived" -}}{{- $stateLabel = "Archived" -}}{{- end -}}
+
+{{- $affected := $page.Params.affected | default (slice) -}}
+{{- return (dict
+  "type" $recordType
+  "label" $label
+  "pluralLabel" $pluralLabel
+  "state" $state
+  "stateLabel" $stateLabel
+  "isActive" (eq $state "active")
+  "affected" $affected
+  "section" $section
+) -}}

@@ -178,6 +178,14 @@
   translation: "Subscribe to updates from this status page."
 - id: rss
   translation: "RSS"
+- id: atom
+  translation: "Atom"
+- id: records
+  translation: "Records"
+- id: related
+  translation: "Related"
+- id: activeRecords
+  translation: "Active records"
 - id: email
   translation: "Email"
 - id: discord

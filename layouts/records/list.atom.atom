@@ -1,0 +1,34 @@
+{{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+{{- $recordSections := slice "experiments" "release-notes" "changelog" "roadmap" "evals" "agent-runs" "decisions" "research" -}}
+{{- $records := sort (where .Site.RegularPages "Section" "in" $recordSections) "Date" "desc" -}}
+{{- $feedUpdated := .Date -}}
+{{- range $records }}{{ if .Lastmod.After $feedUpdated }}{{ $feedUpdated = .Lastmod }}{{ end }}{{ end -}}
+{{- if $feedUpdated.IsZero }}{{ $feedUpdated = now }}{{ end -}}
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>{{ .Title }} on {{ .Site.Title }}</title>
+  <id>{{ .Permalink }}</id>
+  <updated>{{ $feedUpdated.Format "2006-01-02T15:04:05-07:00" | safeHTML }}</updated>
+  <author>
+    <name>{{ .Site.Title }}</name>
+  </author>
+  <generator uri="https://github.com/cstate/cstate">cState</generator>
+  <link href="{{ .Permalink }}" rel="alternate" type="text/html"/>
+  {{ with .OutputFormats.Get "atom" }}
+  {{ printf "<link href=%q rel=\"self\" type=%q/>" .Permalink .MediaType.Type | safeHTML }}
+  {{ end }}
+  {{ range $records }}
+  {{- $record := partial "records/normalize.html" . -}}
+  {{- $entryUpdated := .Lastmod -}}
+  {{- if $entryUpdated.IsZero }}{{ $entryUpdated = .Date }}{{ end -}}
+  <entry>
+    <title>[{{ $record.label }}] {{ .Title }}</title>
+    <id>{{ .Permalink }}</id>
+    <updated>{{ $entryUpdated.Format "2006-01-02T15:04:05-07:00" | safeHTML }}</updated>
+    <published>{{ .Date.Format "2006-01-02T15:04:05-07:00" | safeHTML }}</published>
+    <link href="{{ .Permalink }}" rel="alternate" type="text/html"/>
+    <category term="{{ $record.type }}"/>
+    <summary type="html">{{ .Summary | html }}</summary>
+    <content type="html">{{ .Content | html }}</content>
+  </entry>
+  {{ end }}
+</feed>

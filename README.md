@@ -3,7 +3,7 @@
 <p align="center"><img src="images/cstate-logo-bg.svg?sanitize=true" width="500" height="auto" alt="cState example illustration"></p>
 
 
-> Über fast to load and build, works with legacy browsers such as Internet Explorer, tiny, and simple OSS status page built with Hugo. Completely _free_ with Netlify. Comes with Netlify CMS, read-only API, badges like from shields.io, and other useful features.
+> Publish operational updates from Markdown, humans, or AI agents. cState turns simple `.md` files into static status pages, experiment reports, eval logs, release notes, decision records, research notes, and agent run reports. Git-native, portable, JSON/RSS-ready, and safe for agents to update.
 
 
 <p>
@@ -61,14 +61,14 @@ You can support the creator of this project by starring, sharing, using cState a
 Fast.
 
 * Fast to load. Even on Internet Explorer 8. Incredible browser support. Minimal JS. No CSS dependencies either.
-* Fast to create incidents. Use the command line or setup a CMS like Netlify CMS or Forestry for a no-code experience. See here
+* Fast to create incidents and operational records. Use Markdown, the command line, or a CMS-style admin workflow.
 * Stays fast. Hugo & Golang can build a site with thousands of entries in seconds.
 
 Nice.
 
 * Focused, adaptable design. Auto dark mode. Easy customization from one file (or settings page). Statistical calculations show the key take-away (e.g., time spent fixing an issue).
 * Fit for any language. With built-in support for English, German, French, Italian, Lithuanian, Macedonian, Dutch, Portuguese, Turkish, and Tagalog. See here
-* All incidents, sorted. Link incidents to systems/categories, let users know how long previous downtime took, and more.
+* All incidents and records, sorted. Link incidents, experiments, evals, releases, decisions, and agent reports to systems/categories.
 
 Free.
 
@@ -78,7 +78,7 @@ Free.
 
 **Please note that with all that cState _can_ do, it cannot do automatic monitoring out of the box. [See this thread](https://github.com/cstate/cstate/issues/124)** You can think of the cState status page as an informational hub. Because the software is static, it cannot directly monitor any services in real time.
 
-However, cState is a perfect option for recording incidents because most of the time your services are functioning, so the status page does not need to be updated. By default, the little bit of JavaScript on the page improves the user experience but is not required to see the most vital information.
+However, cState is a perfect option for recording operational updates because most of the time your services are functioning, so the page does not need to be updated. By default, the little bit of JavaScript on the page improves the user experience but is not required to see the most vital information.
 
 There are other commercial options that may update faster because of their architecture, have built-in real-time uptime monitoring, send notifications by email or other means, but cState is not supposed to be better than paid solutions.
 
@@ -122,7 +122,7 @@ All other static site generator platforms require you to follow this instruction
 + Publish directory: **public**
 + Add one build environment variable
   + Key: **HUGO_VERSION**
-  + Value: **0.101.0** (or later)
+  + Value: **0.158.0** (or later)
 
 ### 💚 Netlify and Netlify CMS
 
@@ -146,7 +146,7 @@ You can [make Netlify CMS work on GitLab](https://www.netlifycms.org/docs/gitlab
 
 For this tutorial, it is assumed that you have Hugo and Git installed (check with `hugo version` & `git --version`).
 
-> A minimum version of `0.80` is required for Hugo, starting with v5.
+> A minimum version of `0.158.0` is required for Hugo, starting with v7.
 
 #### I want to use my site in production
 
@@ -262,6 +262,21 @@ We are looking into this...
 ### Is that it?
 
 For this very basic tutorial, yes.
+
+### What else can cState publish?
+
+Incidents still drive the public status summary by default. Other operational records are first-class publishing sections, but they do not change component health unless you customize the theme:
+
+* `content/experiments` for public experiment summaries and rollout tests
+* `content/release-notes` for user-facing release notes
+* `content/changelog` for concise change entries
+* `content/roadmap` for planned operational or product updates
+* `content/evals` for eval and benchmark reports
+* `content/agent-runs` for reports from AI-assisted work
+* `content/decisions` for decision records
+* `content/research` for research notes
+
+Each record can use `title`, `date`, `recordType`, `affected`, optional `state`, and optional `summary` in frontmatter. Supported non-incident states are `active`, `completed`, and `archived`.
 
 ### I have more questions!
 

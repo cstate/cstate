@@ -1,0 +1,57 @@
+{{- $record := partial "records/normalize.html" . -}}
+{{- $icon := "info" -}}
+{{- if eq $record.type "experiment" -}}{{- $icon = "flask" -}}{{- end -}}
+{{- if eq $record.type "release-note" -}}{{- $icon = "bell" -}}{{- end -}}
+{{- if eq $record.type "roadmap" -}}{{- $icon = "history" -}}{{- end -}}
+{{- if eq $record.type "eval-report" -}}{{- $icon = "check-circle" -}}{{- end -}}
+{{- $stateIcon := cond $record.isActive "clock" "check-circle" -}}
+{{- $stateText := "" -}}
+{{- if $record.state -}}
+  {{- if and (eq $record.type "experiment") $record.isActive -}}
+    {{- $stateText = "Experiment running" -}}
+  {{- else -}}
+    {{- $stateText = printf "%s %s" $record.stateLabel $record.label -}}
+  {{- end -}}
+{{- end -}}
+
+<article class="modern-record-detail modern-record-detail--{{ $record.type }}">
+  <header class="modern-record-detail__hero">
+    <div class="modern-record-detail__eyebrow">
+      {{ partial "skins/modern/icon" (dict "name" $icon "class" "modern-record-detail__eyebrow-icon") }}
+      <span>{{ $record.label }}</span>
+    </div>
+
+    <h1 class="modern-record-detail__title">{{ .Title }}</h1>
+
+    <div class="modern-record-detail__meta">
+      <span class="modern-record-detail__meta-item">
+        {{ partial "skins/modern/icon" (dict "name" "clock" "class" "modern-record-detail__meta-icon") }}
+        {{ if .Site.Params.dateFormat }}
+          {{ dateFormat .Site.Params.dateFormat .Params.date }}
+        {{ else }}
+          {{ .Date.Format "January 2, 2006 at 3:04 PM" }}
+        {{ end }}
+      </span>
+
+      {{ if $stateText }}
+        <span class="modern-record-detail__meta-item modern-record-detail__meta-item--state{{ if $record.isActive }} modern-record-detail__meta-item--active{{ end }}">
+          {{ partial "skins/modern/icon" (dict "name" $stateIcon "class" "modern-record-detail__meta-icon") }}
+          {{ $stateText }}
+        </span>
+      {{ end }}
+    </div>
+
+    {{ if $record.affected }}
+      <div class="modern-record-detail__tags" aria-label="Related systems">
+        {{ range $record.affected }}
+          <a href="{{ printf "affected/%s/" (. | urlize) | relURL }}" class="tag modern-record-detail__tag no-underline">{{ . }}</a>
+        {{ end }}
+      </div>
+    {{ end }}
+  </header>
+
+  <div class="modern-record-detail__body markdown">
+    {{ .Content }}
+  </div>
+</article>
+<div class="padding"></div>

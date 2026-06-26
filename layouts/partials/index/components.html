@@ -1,6 +1,11 @@
 {{/* Existing cState references */}}
 {{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
 {{ $active := where $incidents "Params.resolved" "=" false }}
+{{ $recordSections := slice "experiments" "release-notes" "changelog" "roadmap" "evals" "agent-runs" "decisions" "research" }}
+{{ $records := where .Site.RegularPages "Section" "in" $recordSections }}
+{{ $activeRecordsByState := where $records "Params.state" "=" "active" }}
+{{ $activeRecordsBySeverity := where $records "Params.severity" "=" "ongoing" }}
+{{ $activeRecords := union $activeRecordsByState $activeRecordsBySeverity }}
 
 {{ $isNotice := where $active "Params.severity" "=" "notice" }}
 {{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}
@@ -48,38 +53,41 @@
 		{{ end }}
 
 		{{ $categorySystems := where $systems "category" "=" .name }}
-		<div class="components">
-			{{ range $system := $categorySystems }}
-			{{ $activeComponentIssues := where $active "Params.affected" "intersect" (slice $system.name) }}
-			{{ $thisIsNotice := where $activeComponentIssues "Params.severity" "=" "notice" }}
-			{{ $thisIsDisrupted := where $activeComponentIssues "Params.severity" "=" "disrupted" }}
-			{{ $thisIsDown := where $activeComponentIssues "Params.severity" "=" "down" }}
+			<div class="components">
+				{{ range $system := $categorySystems }}
+				{{ $activeComponentIssues := where $active "Params.affected" "intersect" (slice $system.name) }}
+				{{ $thisIsNotice := where $activeComponentIssues "Params.severity" "=" "notice" }}
+				{{ $thisIsDisrupted := where $activeComponentIssues "Params.severity" "=" "disrupted" }}
+				{{ $thisIsDown := where $activeComponentIssues "Params.severity" "=" "down" }}
+				{{ $activeComponentRecords := where $activeRecords "Params.affected" "intersect" (slice $system.name) }}
 
-			<div class="component" id="system-{{ .name | urlize }}"
-				data-status="{{ if $thisIsDown }}down{{ else if $thisIsDisrupted }}disrupted{{ else if $thisIsNotice }}notice{{ else }}ok{{ end }}">
-				<a href="{{ printf "affected/%s/" ($system.name | urlize) | relURL }}" class="no-underline">
-					{{ default $system.name $system.displayName }}
-				</a>
-
-				{{ with $system.description }}
-				<span class="tooltip tooltip--small">
-					&nbsp; <span class="faded">(?)</span>
-					<span class="tooltip__text">{{ . }}</span>
-				</span>
-				{{ end }}
-
-				{{ with $system.link }}
-				<span class="span-icon">
-					<a href="{{ . }}" class="external-link-style">
-						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-							stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
-							<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-							<polyline points="15 3 21 3 21 9"></polyline>
-							<line x1="10" y1="14" x2="21" y2="3"></line>
-						</svg>
+				<div class="component" id="system-{{ .name | urlize }}"
+					data-status="{{ if $thisIsDown }}down{{ else if $thisIsDisrupted }}disrupted{{ else if $thisIsNotice }}notice{{ else }}ok{{ end }}">
+				<div class="component-main">
+					<a href="{{ printf "affected/%s/" ($system.name | urlize) | relURL }}" class="no-underline component-name">
+						{{ default $system.name $system.displayName }}
 					</a>
-				</span>
-				{{ end }}
+
+					{{ with $system.description }}
+					<span class="tooltip tooltip--small">
+						&nbsp; <span class="faded">(?)</span>
+						<span class="tooltip__text">{{ . }}</span>
+					</span>
+					{{ end }}
+
+					{{ with $system.link }}
+					<span class="span-icon">
+						<a href="{{ . }}" class="external-link-style">
+							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+								stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+								<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+								<polyline points="15 3 21 3 21 9"></polyline>
+								<line x1="10" y1="14" x2="21" y2="3"></line>
+							</svg>
+						</a>
+					</span>
+					{{ end }}
+				</div>
 
 				<span class="component-status">
 					{{ if $thisIsDown }}
@@ -88,16 +96,26 @@
 					{{ T "thisIsDisrupted" }}
 					{{ else if $thisIsNotice }}
 					{{ T "thisIsNotice" }}
-					{{ else }}
-					{{ T "thisIsOk" }}
-					{{ end }}
-				</span>
+						{{ else }}
+						{{ T "thisIsOk" }}
+						{{ end }}
+					</span>
 
-				{{ if $uptimeHistogramEnabled }}
-					{{ if ne $system.histogram false }}
-					<div class="histogram-container">
-						<!-- A quick loading text, removed once data is fetched -->
-						<div id="histogram-{{ .name | urlize }}" class="histogram">{{ T "laoding" }} {{ .name }} {{ T "chart" }}</div>
+					{{ if $activeComponentRecords }}
+					<div class="component-records">
+						<small class="faded">{{ default "Active records" (T "activeRecords") }}:</small>
+						{{ range $activeComponentRecords }}
+							{{ $record := partial "records/normalize.html" . }}
+							<a href="{{ .RelPermalink }}" class="tag no-underline">{{ $record.label }}</a>
+						{{ end }}
+					</div>
+					{{ end }}
+
+					{{ if $uptimeHistogramEnabled }}
+						{{ if ne $system.histogram false }}
+						<div class="histogram-container">
+							<!-- A quick loading text, removed once data is fetched -->
+							<div id="histogram-{{ .name | urlize }}" class="histogram">{{ T "laoding" }} {{ .name }} {{ T "chart" }}</div>
 					</div>
 					{{ end }}
 				{{ end }}

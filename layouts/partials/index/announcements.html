@@ -10,9 +10,9 @@
 {{ if or ($active) ($pinned) }}
   <div class="announcement-box" style="border-bottom: 0">
     {{ range $active }}
-      <div class="padding">
+      <div class="padding announcement-item">
         <p>
-          <a href="{{ .RelPermalink }}"><strong class="bold">{{ .Title }} →</strong></a>
+          <a href="{{ .RelPermalink }}" class="announcement-link"><strong class="bold">{{ .Title }} →</strong></a>
         </p>
 
         <p><small>
@@ -31,9 +31,9 @@
     
     {{ range $pinned }}
       {{ if .Params.informational }}
-      <div class="padding">
+      <div class="padding announcement-item">
         <p>
-          <a href="{{ .RelPermalink }}"><strong class="bold">{{ .Title }} →</strong></a>
+          <a href="{{ .RelPermalink }}" class="announcement-link"><strong class="bold">{{ .Title }} →</strong></a>
         </p>
 
         <p><small>

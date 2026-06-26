@@ -17,6 +17,8 @@
         "affected": [{{ range $i, $e := .Params.Affected }}{{ if $i }}, {{ end }}"{{ . }}"{{ end }}],
         "filename": "{{ .File.LogicalName }}"
       }
+    {{ else if partial "records/is-section.html" .Section }}
+      {{ partial "records/json.html" (dict "page" . "includeBody" false) }}
     {{ else }}
       {
         "is": "page",

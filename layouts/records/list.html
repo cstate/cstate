@@ -1,0 +1,35 @@
+{{ partial "meta" . }}
+  <body class="default list records-list {{ partial "body-class" . }}">
+    <header>
+      <div class="contain center">
+        <a href="{{ .Site.BaseURL }}">← {{ T "goBack" }} <em>{{ .Site.Title }}</em></a>
+        <div class="padding"></div><div class="padding"></div>
+
+        <h1 class="clean">{{ .Title | default "Records" }}</h1>
+        {{ with .Content }}
+          <div class="archive__head">{{ . }}</div>
+        {{ end }}
+      </div>
+    </header>
+
+    <div class="contain contain--more" id="records">
+      {{ $recordSections := slice "experiments" "release-notes" "changelog" "roadmap" "evals" "agent-runs" "decisions" "research" }}
+      {{ $records := sort (where .Site.RegularPages "Section" "in" $recordSections) "Date" "desc" }}
+      {{ if not $records }}
+        <div class="padding"></div>
+        <h3>No records yet</h3>
+        <p>This site does not have any published operational records.</p>
+      {{ else }}
+        <small class="faded">{{ len $records }} records, {{ T "newestToOldest" }}</small>
+        <div class="padding"></div>
+        {{ range $records }}
+          {{ partial "records/card.html" . }}
+        {{ end }}
+      {{ end }}
+      <div class="padding"></div>
+    </div>
+
+    {{ partial "js" . }}
+    {{ partial "footer" . }}
+  </body>
+</html>

@@ -1,0 +1,9 @@
+{{- $record := partial "records/normalize.html" . -}}
+{{- if $record.affected -}}
+<p><small>
+  <span class="faded">{{ default "Related" (T "related") }}:</span>
+  {{ range $record.affected }}
+    <a href="{{ printf "affected/%s/" (. | urlize) | relURL }}" class="tag no-underline">{{ . }}</a>
+  {{ end }}
+</small></p>
+{{- end -}}

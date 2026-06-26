@@ -65,8 +65,7 @@ collections:
         name: "affected"
         widget: "list"
         summary: "{{fields.individualaffected}}"
-        field:
-        - { label: "Affected System", name: "individualaffected", widget: "string" }
+        field: { label: "Affected System", name: "individualaffected", widget: "string" }
         required: false
       - label: "Severity ⚠"
         name: "severity"
@@ -148,9 +147,9 @@ collections:
             - { label: "🇷🇴 Română", value: "ro" }
             - { label: "🇷🇺 Русский", value: "ru" }
             - { label: "🇷🇴 Română", value: "ro" }
-          - label: 'Site language in code for html[lang]'
-            hint: 'Use the ISO 639-1 defined abbreviations. Examples: en, lt, de. Fully explained here: https://github.com/cstate/cstate/wiki/Customization#changing-site-language'
-            name: 'languageCode'
+          - label: 'Site locale for html[lang]'
+            hint: 'Use a language tag. Examples: en, en-US, lt, de. Fully explained here: https://gohugo.io/configuration/languages/#locale'
+            name: 'locale'
             widget: 'string'
             default: 'en'
           - label: 'Base URL / Hostname'
@@ -186,21 +185,43 @@ collections:
                 name: section
                 widget: "list"
                 allow_add: false
-                default: ['html', 'json', 'rss']
+                default: ['html', 'json', 'rss', 'atom']
               - label: "home"
                 name: home
                 widget: "list"
                 allow_add: false
-                default: ['html', 'json', 'rss', 'svg']
+                default: ['html', 'json', 'rss', 'atom', 'svg']
               - label: "term"
                 name: term
                 widget: "list"
                 allow_add: false
-                default: ['html', 'json', 'rss']
+                default: ['html', 'json', 'rss', 'atom']
+          - label: "Media types (Do not touch!)"
+            name: mediaTypes
+            widget: "hidden"
+            fields:
+              - label: "application/atom+xml"
+                name: "application/atom+xml"
+                fields:
+                - label: "suffixes"
+                  name: suffixes
+                  widget: "list"
+                  allow_add: false
+                  default: ['atom']
           - label: "Output formats (Do not touch!)"
             name: outputFormats
             widget: "hidden"
             fields:
+              - label: "atom"
+                name: atom
+                fields:
+                - label: "mediaType"
+                  name: mediaType
+                  default: "application/atom+xml"
+                - label: "noUgly"
+                  name: noUgly
+                  widget: "boolean"
+                  default: true
               - label: "svg"
                 name: svg
                 fields:
@@ -307,6 +328,14 @@ collections:
                 widget: 'boolean'
                 required: false
                 default: false
+              - label: 'Visual skin'
+                hint: 'Classic keeps the original minimal style. Modern adds rounded corners, subtle shadows, and newer CSS effects.'
+                name: 'skin'
+                widget: 'select'
+                default: 'modern'
+                options:
+                  - { label: "Modern", value: "modern" }
+                  - { label: "Classic", value: "classic" }
               - label: 'Logo image'
                 hint: 'Upload your logo here. If the logo option is switched off, this will not show.'
                 name: 'logo'

@@ -1,9 +1,9 @@
-{{ $incidents := where .Site.RegularPages "Params.section" "issue" }}{{ $active := where $incidents "Params.resolved" "=" false }}{{ $isNotice := where $active "Params.severity" "=" "notice" }}{{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}{{ $isDown := where $active "Params.severity" "=" "down" }}{
+{{ $incidents := where .Site.RegularPages "Params.section" "issue" }}{{ $active := where $incidents "Params.resolved" "=" false }}{{ $isNotice := where $active "Params.severity" "=" "notice" }}{{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}{{ $isDown := where $active "Params.severity" "=" "down" }}{{ $recordSections := slice "experiments" "release-notes" "changelog" "roadmap" "evals" "agent-runs" "decisions" "research" }}{{ $records := sort (where .Site.RegularPages "Section" "in" $recordSections) "Date" "desc" }}{{ $activeRecordsByState := where $records "Params.state" "=" "active" }}{{ $activeRecordsBySeverity := where $records "Params.severity" "=" "ongoing" }}{{ $activeRecords := union $activeRecordsByState $activeRecordsBySeverity }}{
   "is": "index",
-  "cStateVersion": "6.0.1",
+  "cStateVersion": "7.0",
   "apiVersion": "2.0",
   "title": "{{ .Site.Title }}",
-  "languageCodeHTML": "{{ .Site.LanguageCode }}",
+  "languageCodeHTML": "{{ .Site.Language.Locale }}",
   "languageCode": "{{ T "languageCode" }}",
   "baseURL": "{{ .Site.BaseURL }}",
   "description": "{{ .Site.Params.Description }}",
@@ -30,15 +30,16 @@
         "affected": [{{ range $i, $e := .Params.Affected }}{{ if $i }}, {{ end }}"{{ . }}"{{ end }}],
         "filename": "{{ .File.LogicalName }}"
       }{{ end }}
-  ]{{ end }},
-  "systems": [
+	  ]{{ end }},
+	  "records": [{{ range $i, $e := $records }}{{ if $i }},{{ end }}{{ partial "records/json.html" (dict "page" . "includeBody" false) }}{{ end }}],
+	  "systems": [
     {{ range $i, $e := .Site.Params.systems }}{{ if $i }},{{ end }}
       {
         "name": "{{ .name }}",{{ if .description }}
         "description": "{{ .description }}",{{ end }}
         "category": "{{ .category }}",
-        {{ $activeComponentIssues := where $active "Params.affected" "intersect" (slice .name) }}{{ $thisIsNotice := where $activeComponentIssues "Params.severity" "=" "notice" }}{{ $thisIsDisrupted := where $activeComponentIssues "Params.severity" "=" "disrupted" }}{{ $thisIsDown := where $activeComponentIssues "Params.severity" "=" "down" }}
-        "status": {{ if $thisIsDown }}"down"{{ else }}{{ if $thisIsDisrupted }}"disrupted"{{ else }}{{ if $thisIsNotice }}"notice"{{ else }}"ok"{{ end }}{{ end }}{{ end }},
+	        {{ $activeComponentIssues := where $active "Params.affected" "intersect" (slice .name) }}{{ $thisIsNotice := where $activeComponentIssues "Params.severity" "=" "notice" }}{{ $thisIsDisrupted := where $activeComponentIssues "Params.severity" "=" "disrupted" }}{{ $thisIsDown := where $activeComponentIssues "Params.severity" "=" "down" }}{{ $activeComponentRecords := where $activeRecords "Params.affected" "intersect" (slice .name) }}
+	        "status": {{ if $thisIsDown }}"down"{{ else }}{{ if $thisIsDisrupted }}"disrupted"{{ else }}{{ if $thisIsNotice }}"notice"{{ else }}"ok"{{ end }}{{ end }}{{ end }},
         {{ if not $activeComponentIssues }}
         "unresolvedIssues": []
         {{ else }}
@@ -57,8 +58,9 @@
               "filename": "{{ .File.LogicalName }}"
             }
           {{ end }}
-        ]{{ end }}
-      }{{ end }}
+	        ]{{ end }},
+	        "activeRecords": [{{ range $i, $e := $activeComponentRecords }}{{ if $i }},{{ end }}{{ partial "records/json.html" (dict "page" . "includeBody" false) }}{{ end }}]
+	      }{{ end }}
   ],
   {{ if .Site.Params.customTabs }}
   "tabs": [{{ range $i, $e := .Site.Params.customTabs }}{{ if $i }},{{ end }}
