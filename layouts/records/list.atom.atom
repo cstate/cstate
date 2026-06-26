@@ -1,5 +1,5 @@
 {{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
-{{- $recordSections := slice "experiments" "release-notes" "changelog" "roadmap" "evals" "agent-runs" "decisions" "research" -}}
+{{- $recordSections := partial "records/sections.html" . -}}
 {{- $records := sort (where .Site.RegularPages "Section" "in" $recordSections) "Date" "desc" -}}
 {{- $feedUpdated := .Date -}}
 {{- range $records }}{{ if .Lastmod.After $feedUpdated }}{{ $feedUpdated = .Lastmod }}{{ end }}{{ end -}}

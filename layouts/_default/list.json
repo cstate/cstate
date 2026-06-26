@@ -6,13 +6,16 @@
   "pages": [{{ range $i, $e := .Pages }}{{ if $i }},{{ end }}{{ if eq .Section "issues" }}
       {
         "is": "issue",
+        "kind": "{{ .Params.recordKind | default (.Params.kind | default (cond .Params.informational "announcement" "incident")) }}",
         "title": "{{ .Title }}",
         "createdAt": "{{ .Date }}",
         "lastMod": "{{ .Lastmod }}",
         "permalink": "{{ .Permalink }}",
         "severity": "{{ .Params.severity }}",
+        "statusImpact": "{{ .Params.severity | default "none" }}",
         "resolved": {{ if .Params.resolved }}true{{ else }}false{{ end }},
         "informational": {{ if .Params.informational }}true{{ else }}false{{ end }},
+        "pin": {{ if .Params.pin }}true{{ else }}false{{ end }},
         "resolvedAt": "{{ .Params.resolvedWhen }}",
         "affected": [{{ range $i, $e := .Params.Affected }}{{ if $i }}, {{ end }}"{{ . }}"{{ end }}],
         "filename": "{{ .File.LogicalName }}"

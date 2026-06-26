@@ -1,12 +1,12 @@
 {{ partial "meta" . }}
   <body class="default single {{ partial "body-class" . }}">
     <div class="contain">
-      <a href="{{ .Site.BaseURL }}">← {{ T "goBack" }} <em>{{ .Site.Title }}</em></a>
+      <a href="{{ .Site.BaseURL }}"><span aria-hidden="true">←</span><span>{{ printf "%s %s" (T "goBack") .Site.Title }}</span></a>
       
       <div class="padding"></div>
 
       {{ if partial "records/is-section.html" .Section }}
-        {{ $skin := .Site.Params.skin | default "classic" | urlize }}
+        {{ $skin := .Site.Params.skin | default "modern" | urlize }}
         {{ $skinRecordArticle := printf "partials/skins/%s/records/article.html" $skin }}
         {{ if templates.Exists $skinRecordArticle }}
           {{ partial (printf "skins/%s/records/article.html" $skin) . }}

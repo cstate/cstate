@@ -3,7 +3,7 @@ public/
 exampleSite/themes/
 .hugo_build.lock
 exampleSite/.hugo_build.lock
+output/
 
-!.DS_Store
-!**/.DS_Store
+.DS_Store
 PRD_internal.md

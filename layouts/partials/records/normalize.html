@@ -1,29 +1,23 @@
 {{- $page := . -}}
 {{- $section := $page.Section -}}
 {{- $recordType := $page.Params.recordType | default "" -}}
+{{- $metadata := partial "records/metadata.html" (dict "page" $page "section" $section "recordType" $recordType) -}}
 {{- if eq $recordType "" -}}
-  {{- if eq $section "experiments" -}}{{- $recordType = "experiment" -}}
-  {{- else if eq $section "release-notes" -}}{{- $recordType = "release-note" -}}
-  {{- else if eq $section "changelog" -}}{{- $recordType = "changelog" -}}
-  {{- else if eq $section "roadmap" -}}{{- $recordType = "roadmap" -}}
-  {{- else if eq $section "evals" -}}{{- $recordType = "eval-report" -}}
-  {{- else if eq $section "agent-runs" -}}{{- $recordType = "agent-run" -}}
-  {{- else if eq $section "decisions" -}}{{- $recordType = "decision" -}}
-  {{- else if eq $section "research" -}}{{- $recordType = "research-note" -}}
-  {{- else if eq $section "issues" -}}{{- $recordType = "incident" -}}
-  {{- else -}}{{- $recordType = $section -}}{{- end -}}
+  {{- with $metadata.recordType -}}
+    {{- $recordType = . -}}
+  {{- else -}}
+    {{- if eq $section "issues" -}}
+      {{- $recordType = "incident" -}}
+    {{- else -}}
+      {{- $recordType = $section -}}
+    {{- end -}}
+  {{- end -}}
 {{- end -}}
 
 {{- $label := humanize $recordType | title -}}
 {{- $pluralLabel := printf "%ss" $label -}}
-{{- if eq $recordType "experiment" -}}{{- $label = "Experiment" -}}{{- $pluralLabel = "Experiments" -}}{{- end -}}
-{{- if eq $recordType "release-note" -}}{{- $label = "Release Note" -}}{{- $pluralLabel = "Release Notes" -}}{{- end -}}
-{{- if eq $recordType "changelog" -}}{{- $label = "Changelog Entry" -}}{{- $pluralLabel = "Changelog" -}}{{- end -}}
-{{- if eq $recordType "roadmap" -}}{{- $label = "Roadmap Update" -}}{{- $pluralLabel = "Roadmap" -}}{{- end -}}
-{{- if eq $recordType "eval-report" -}}{{- $label = "Eval Report" -}}{{- $pluralLabel = "Eval Reports" -}}{{- end -}}
-{{- if eq $recordType "agent-run" -}}{{- $label = "Agent Run" -}}{{- $pluralLabel = "Agent Runs" -}}{{- end -}}
-{{- if eq $recordType "decision" -}}{{- $label = "Decision Record" -}}{{- $pluralLabel = "Decision Records" -}}{{- end -}}
-{{- if eq $recordType "research-note" -}}{{- $label = "Research Note" -}}{{- $pluralLabel = "Research Notes" -}}{{- end -}}
+{{- with $metadata.label -}}{{- $label = . -}}{{- end -}}
+{{- with $metadata.pluralLabel -}}{{- $pluralLabel = . -}}{{- end -}}
 {{- if eq $recordType "incident" -}}{{- $label = "Incident" -}}{{- $pluralLabel = "Incidents" -}}{{- end -}}
 
 {{- $state := $page.Params.state | default "" -}}
@@ -36,14 +30,37 @@
 {{- if eq $state "completed" -}}{{- $stateLabel = "Completed" -}}{{- end -}}
 {{- if eq $state "archived" -}}{{- $stateLabel = "Archived" -}}{{- end -}}
 
+{{- $kind := $page.Params.recordKind | default ($page.Params.kind | default "") -}}
+{{- if eq $kind "" -}}
+  {{- if eq $recordType "incident" -}}
+    {{- if $page.Params.informational -}}
+      {{- $kind = "announcement" -}}
+    {{- else -}}
+      {{- $kind = "incident" -}}
+    {{- end -}}
+  {{- else -}}
+    {{- $kind = $recordType -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $severity := $page.Params.severity | default "" -}}
+{{- $statusImpact := $severity | default "none" -}}
+{{- if eq $statusImpact "ongoing" -}}
+  {{- $statusImpact = "none" -}}
+{{- end -}}
+
 {{- $affected := $page.Params.affected | default (slice) -}}
 {{- return (dict
   "type" $recordType
+  "kind" $kind
   "label" $label
   "pluralLabel" $pluralLabel
   "state" $state
   "stateLabel" $stateLabel
   "isActive" (eq $state "active")
+  "severity" $severity
+  "statusImpact" $statusImpact
+  "isPinned" ($page.Params.pin | default false)
   "affected" $affected
   "section" $section
 ) -}}

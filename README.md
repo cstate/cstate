@@ -11,7 +11,7 @@
 <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/cstate/cstate?label=Star%20Repo&style=social">
 <a href="https://github.com/ivbeg/awesome-status-pages"><img src="https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg" alt="Awesome status page" /></a></p>
 
-**[VISIT THE CSTATE WEBSITE HERE](https://cstate.netlify.app)**
+**[VISIT THE CSTATE WEBSITE HERE](https://cstate.uncascade.com)**
 
 You can support the creator of this project by starring, sharing, using cState and/or [financially supporting the author](https://github.com/sponsors/mistermantas). Thank you!
 
@@ -239,7 +239,7 @@ Time to break that down.
 `date`: An ISO-8601 formatted date. Does not include time zone. This is when you first discovered the issue. *(required)*
 `resolved`: Whether issue should affect overall status. Either `true` or `false`. *(boolean, required)*
 `resolvedWhen`: An ISO-8601 formatted date. Does not include time zone. This is when downtime stopped. You may set the time that downtime ended without completely resolving the issue (thus leaving time for monitoring).
-`severity`: If an issue is not resolved, it will have an applied severity. There are 3 levels of severity: `notice`, `disrupted`, and `down`. If there are multiple issues, the status page will take the appearance of the more drastic issue (such as `disrupted` instead of `notice`). *(required)*
+`severity`: If an issue is not resolved, it will have an applied severity. There are 3 levels of severity: `notice`, `disrupted`, and `down`. If there are multiple issues, the status page will take the appearance of the more drastic issue (such as `disrupted` instead of `notice`). For non-incident records, `severity` is optional and defaults to `none`; `notice` can surface an active experiment without changing operational status. *(required for unresolved incidents)*
 `affected`. Add the items that were present in the config file which should alter the status of each individual system (component). *(array, required)*
 `section`. This must be `issue`, so that Hugo treats it as one. *(required)*
 
@@ -265,7 +265,7 @@ For this very basic tutorial, yes.
 
 ### What else can cState publish?
 
-Incidents still drive the public status summary by default. Other operational records are first-class publishing sections, but they do not change component health unless you customize the theme:
+Incidents still drive outage severity. Experiments and other records can add a separate notice layer, so a system can stay operational while showing that an experiment is running or starting soon:
 
 * `content/experiments` for public experiment summaries and rollout tests
 * `content/release-notes` for user-facing release notes
@@ -276,7 +276,7 @@ Incidents still drive the public status summary by default. Other operational re
 * `content/decisions` for decision records
 * `content/research` for research notes
 
-Each record can use `title`, `date`, `recordType`, `affected`, optional `state`, and optional `summary` in frontmatter. Supported non-incident states are `active`, `completed`, and `archived`.
+Each record can use `title`, `date`, `recordType`, `recordKind`, `affected`, optional `state`, optional `severity`, optional `pin`, and optional `summary` in frontmatter. Supported non-incident states are `active`, `completed`, and `archived`. Use `severity: notice` for an experiment that should appear beside affected components, and `pin: true` for a global homepage notice.
 
 ### I have more questions!
 

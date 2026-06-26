@@ -429,13 +429,13 @@
 					let copyText = ''; // Initialize copyText here
 
 					switch (chosen) {
-						case 'rss':
-							modalTitle.textContent = '{{ T "rss" }}';
-							modalContent.innerHTML = `<p>{{ T "subscribeDescription" }}</p>`;
-							modalActions.innerHTML = `
-							<a href="{{ .Site.BaseURL }}/index.xml" target="_blank" rel="noopener noreferrer" class="padding-s">{{ T "open" }}</a>
-          `;
-							break;
+							case 'rss':
+								modalTitle.textContent = '{{ T "rss" }}';
+								modalContent.innerHTML = `<p>{{ T "subscribeDescription" }}</p>`;
+								modalActions.innerHTML = `
+								{{ with .Site.Home.OutputFormats.Get "rss" }}<a href="{{ .Permalink }}" target="_blank" rel="noopener noreferrer" class="padding-s">{{ T "open" }}</a>{{ end }}
+	          `;
+								break;
 
 						case 'email':
 							modalTitle.textContent = '{{ T "email" }}';

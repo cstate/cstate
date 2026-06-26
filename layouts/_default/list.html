@@ -4,7 +4,7 @@
 <body class="default list {{ partial "body-class" . }}">
 	<header>
 		<div class="contain center">
-			<a href="{{ .Site.BaseURL }}">← {{ T "goBack" }} <em>{{ .Site.Title }}</em></a>
+			<a href="{{ .Site.BaseURL }}"><span aria-hidden="true">←</span><span>{{ printf "%s %s" (T "goBack") .Site.Title }}</span></a>
 			<div class="padding"></div><div class="padding"></div>
 
 			<h1 class="clean">

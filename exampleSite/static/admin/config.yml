@@ -1,32 +1,181 @@
-# This is the main configuration file for Netlify CMS.
-# Netlify CMS is used as the admin panel for cState.
+# This is the main configuration file for Decap CMS.
+# Decap CMS is used as the admin panel for cState.
 #
 # While some settings here can be kept as is, you may
 # want to change some for a more customized solution.
 #
 # You can look at what each option does and how to
-# toggle between them on the Netlify CMS repo docs:
+# toggle between them in the Decap CMS docs:
 #
-# https://github.com/netlify/netlify-cms/blob/master/docs/quick-start.md
+# https://decapcms.org/docs/configuration-options/
 
 local_backend: true
 
 backend:
-  name: github
+  name: git-gateway
 media_folder: "static/img"
 public_folder: "/img"
 site_url: ../
 logo_url: https://raw.githubusercontent.com/cstate/cstate/master/images/cstate-logo-bg.svg
+admin_locale: auto
 
-# Do not change this unless you know what you are doing!
+admin_translations:
+  lt:
+    collections:
+      issues:
+        label: Incidentai
+        singular: Incidentas
+      pages:
+        label: Puslapiai
+        singular: Puslapis
+      settings:
+        label: Nustatymai
+      record-pages:
+        label: Įrašų puslapiai
+        singular: Įrašų puslapis
+      experiments:
+        label: Eksperimentai
+        singular: Eksperimentas
+      release-notes:
+        label: Laidos pastabos
+        singular: Laidos pastaba
+      changelog:
+        label: Pakeitimų žurnalas
+        singular: Pakeitimo įrašas
+      roadmap:
+        label: Planas
+        singular: Plano įrašas
+      evals:
+        label: Vertinimų ataskaitos
+        singular: Vertinimo ataskaita
+      agent-runs:
+        label: Agentų darbai
+        singular: Agento darbas
+      decisions:
+        label: Sprendimų įrašai
+        singular: Sprendimo įrašas
+      research:
+        label: Tyrimų pastabos
+        singular: Tyrimo pastaba
+    fields:
+      recordType: Įrašo tipas
+      recordKind: Tipas
+      title: Pavadinimas
+      date: Data ir laikas
+      state: Būsena
+      draft: Juodraštis
+      affected: Paveiktos sistemos
+      affectedSingular: paveiktą sistemą
+      summary: Santrauka
+      body: Turinys
+      resolved: Pažymėti kaip išspręstą
+      informational: Informacinis įrašas
+      pin: Prisegti puslapio viršuje
+      recordSeverityHint: Naudokite notice, kai įrašas turi būti rodomas prie susijusių komponentų.
+      recordPinHint: Prisegti įrašai gali būti rodomi pagrindinio puslapio pranešimų juostoje.
+      resolvedWhen: Pabaigos data ir laikas
+      severity: Svarba
+      description: Aprašymas
+    filters:
+      active: Aktyvūs
+      completed: Užbaigti
+      archived: Archyvuoti
+      pinned: Prisegti
+      drafts: Juodraščiai
+      activeIssues: Aktyvūs neišspręsti incidentai
+      resolvedIssues: Išspręsti incidentai
+      informationalPosts: Informaciniai įrašai
+      published: Paskelbti
+      severityDown: Aukšta svarba
+      severityDisrupted: Vidutinė svarba
+      severityNotice: Žema svarba
+    options:
+      active: aktyvus
+      completed: užbaigtas
+      archived: archyvuotas
+      incident: Incidentas
+      announcement: Pranešimas
+      maintenance: Priežiūra
+      down: Aukšta
+      disrupted: Vidutinė
+      notice: Žema
+      none: Nėra
+    preview:
+      unresolvedIssue: Šis incidentas dar neišspręstas.
+      resolvedIssue: Šis incidentas išspręstas.
+      activeState: aktyvus
+    bodyDefaults:
+      issue: "*Tiriama* - Tikriname pranešimus apie poveikį ir nustatome paveiktas sistemas. Atnaujinsime šį puslapį, kai patvirtinsime mastą ir laiką."
+      experiment: "## Kas pasikeitė?\n\nAprašykite eksperimentą ir kas gali jį pastebėti.\n\n## Kodėl tai darome?\n\nPaaiškinkite tikslą ir laukiamą rezultatą.\n\n## Į ką verta atkreipti dėmesį?\n\nNurodykite žinomas rizikas, pranešimo kanalus arba sėkmės kriterijus."
+      release-note: "Aprašykite naudotojams aktualų pakeitimą, migracijos pastabą arba diegimo informaciją."
+      changelog: "Trumpai aprašykite pakeitimą operaciniu formatu."
+      roadmap: "Aprašykite planuojamą darbą, dabartinę būseną ir kitą numatomą atnaujinimą."
+      eval-report: "## Tikslas\n\nAprašykite, kas buvo vertinama.\n\n## Rezultatas\n\nApibendrinkite rezultatą ir ar jis atitiko priėmimo kriterijus.\n\n## Tolesni veiksmai\n\nIšvardykite tolesnius veiksmus."
+      agent-run: "## Atliktas darbas\n\nApibendrinkite, ką agentas pakeitė arba ištyrė.\n\n## Patikra\n\nIšvardykite komandas, patikras arba žinomus blokatorius.\n\n## Tolesni veiksmai\n\nIšvardykite tolesnius veiksmus."
+      decision: "## Sprendimas\n\nĮvardykite sprendimą.\n\n## Kontekstas\n\nPaaiškinkite kompromisą.\n\n## Pasekmės\n\nIšvardykite, kas keičiasi dėl šio sprendimo."
+      research-note: "## Klausimas\n\nĮvardykite tyrimo klausimą.\n\n## Įžvalgos\n\nApibendrinkite, kas buvo išmokta.\n\n## Šaltiniai\n\nIšvardykite šaltinius arba pagrindžiančią medžiagą."
+
+record_sections:
+  - section: experiments
+    recordType: experiment
+    recordKind: experiment
+    label: Experiment
+    pluralLabel: Experiments
+    stateDefault: active
+    severityDefault: none
+    pinDefault: false
+  - section: release-notes
+    recordType: release-note
+    recordKind: release-note
+    label: Release Note
+    pluralLabel: Release Notes
+    state: false
+  - section: changelog
+    recordType: changelog
+    recordKind: changelog
+    label: Changelog Entry
+    pluralLabel: Changelog
+    state: false
+  - section: roadmap
+    recordType: roadmap
+    recordKind: roadmap
+    label: Roadmap Update
+    pluralLabel: Roadmap
+    stateDefault: active
+  - section: evals
+    recordType: eval-report
+    recordKind: eval-report
+    label: Eval Report
+    pluralLabel: Eval Reports
+    stateDefault: completed
+  - section: agent-runs
+    recordType: agent-run
+    recordKind: agent-run
+    label: Agent Run
+    pluralLabel: Agent Runs
+    stateDefault: completed
+  - section: decisions
+    recordType: decision
+    recordKind: decision
+    label: Decision Record
+    pluralLabel: Decision Records
+    stateDefault: completed
+  - section: research
+    recordType: research-note
+    recordKind: research-note
+    label: Research Note
+    pluralLabel: Research Notes
+    stateDefault: completed
+
 collections:
   - name: "issues"
     label: "Incidents"
     label_singular: "Incident"
-    description: "📚 Welcome to the cState admin panel! Here you can create new incidents or manage existing ones. Go ahead and give it a shot."
     folder: "content/issues"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{title}}"
+    sortable_fields: ["date", "title", "severity", "resolved", "commit_date"]
     view_filters:
       - label: Active (unresolved) issues
         field: resolved
@@ -51,40 +200,51 @@ collections:
         pattern: 'disrupted'
       - label: "Low severity (announcement)"
         field: severity
-        pattern: 'announcement'
+        pattern: 'notice'
     fields:
       - {label: "Mark as incident", name: "section", widget: "hidden", default: "issue"}
+      - label: "Kind"
+        name: "recordKind"
+        widget: "select"
+        default: "incident"
+        required: false
+        options:
+          - { label: "Incident", value: "incident" }
+          - { label: "Announcement", value: "announcement" }
+          - { label: "Maintenance", value: "maintenance" }
       - {label: "Title", name: "title", widget: "string"}
-      - {label: "Start date & time (your time) ⌚", name: "date", widget: "datetime"}
-      - {label: "Mark as resolved ✔", name: "resolved", widget: "boolean", required: false, default: false}
-      - {label: "Hide this from the site (make it a draft) 👀", name: "draft", widget: "boolean", required: false, default: false}
-      - {label: "Mark as informational ℹ", name: "informational", widget: "boolean", required: false, default: false}
+      - {label: "Start date and time", name: "date", widget: "datetime", default: "{{now}}"}
+      - {label: "Mark as resolved", name: "resolved", widget: "boolean", required: false, default: false}
+      - {label: "Draft", name: "draft", widget: "boolean", required: false, default: false}
+      - {label: "Informational post", name: "informational", widget: "boolean", required: false, default: false}
       - {label: "Pin to top of page", name: "pin", widget: "boolean", required: false, default: false}
-      - {label: "End date & time (your time) ⌛", name: "resolvedWhen", widget: "datetime", required: false}
-      - label: "Affected systems (use exact name, separated by commas) 🧐"
+      - {label: "End date and time", name: "resolvedWhen", widget: "datetime", required: false}
+      - label: "Affected systems"
         name: "affected"
         widget: "list"
         summary: "{{fields.individualaffected}}"
         field: { label: "Affected System", name: "individualaffected", widget: "string" }
         required: false
-      - label: "Severity ⚠"
+      - label: "Severity"
         name: "severity"
         widget: "select"
+        default: "disrupted"
         options:
-          - { label: "High (Down) ◼ ", value: "down" }
-          - { label: "Medium (Disrupted) ▲", value: "disrupted" }
-          - { label: "Low (Announcement) ◆", value: "notice" }
-      - label: "Markdown body (sequence of events, description, post-mortem)"
+          - { label: "High (down)", value: "down" }
+          - { label: "Medium (disrupted)", value: "disrupted" }
+          - { label: "Low (notice)", value: "notice" }
+      - label: "Body"
         name: "body"
         widget: "markdown"
-        default: "*Investigating* - We are investigating a potential issue that might affect the uptime of one our of services. We are sorry for any inconvenience this may cause you. This incident post will be updated once we have more information."
+        default: "*Investigating* - We are checking reports of impact and confirming affected systems. We will update this page as soon as we have verified scope and timing."
   - name: "pages"
     label: "Pages"
     label_singular: "Page"
-    description: "📜 Create and manage pages (not connected or related to issues). Good for things like about pages, SLAs, ways of contact, and so forth."
     folder: "content/pages"
     create: true
     slug: "{{slug}}"
+    summary: "{{title}}"
+    sortable_fields: ["title", "commit_date"]
     view_filters:
       - label: Drafts
         field: draft
@@ -101,7 +261,6 @@ collections:
         widget: "markdown"
   - name: "settings"
     label: "Settings"
-    description: "⚠ Please be warned that by editing settings from Netlify CMS you are _OVERWRITING_ what you have in the original Git repository, meaning any CURRENT SETTINGS OR COMMENTS left will be deleted."
     delete: false # Prevent users from deleting documents in this collection
     editor:
       preview: false

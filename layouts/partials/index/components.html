@@ -1,7 +1,7 @@
 {{/* Existing cState references */}}
 {{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
 {{ $active := where $incidents "Params.resolved" "=" false }}
-{{ $recordSections := slice "experiments" "release-notes" "changelog" "roadmap" "evals" "agent-runs" "decisions" "research" }}
+{{ $recordSections := partial "records/sections.html" . }}
 {{ $records := where .Site.RegularPages "Section" "in" $recordSections }}
 {{ $activeRecordsByState := where $records "Params.state" "=" "active" }}
 {{ $activeRecordsBySeverity := where $records "Params.severity" "=" "ongoing" }}
@@ -21,6 +21,13 @@
 	{{ range $categories }}
 	<div class="category {{ if .closed }}category--closed{{ else }}category--open{{ end }}{{ if not .untitled }} category--titled{{ end }}"
 		id="{{ .name | urlize }}">
+		{{ $categorySystems := where $systems "category" "=" .name }}
+		{{ $categoryAffected := slice .name }}
+		{{ range $categorySystems }}
+			{{ $categoryAffected = $categoryAffected | append .name }}
+		{{ end }}
+		{{ $categoryExperiments := partial "experiments/for-affected.html" (dict "page" $ "affected" $categoryAffected) }}
+		{{ $skin := $.Site.Params.skin | default "modern" | urlize }}
 		{{ if not .untitled }}
 		<div class="bold padding clicky category__head" onclick="toggleCategoryHead(this)">
 			<span class="hide-without-js">
@@ -47,12 +54,20 @@
 			</span>
 			{{ end }}
 			<span class="category-status"></span>
+			{{ if ne $categoryExperiments.status "none" }}
+				<a href="{{ $categoryExperiments.href }}" class="category-experiment category-experiment--{{ $categoryExperiments.status }} no-underline" title="{{ $categoryExperiments.label }}" aria-label="{{ $categoryExperiments.label }}" onclick="event.stopPropagation()">
+					{{ if eq $skin "modern" }}
+						{{ partial "skins/modern/icon" (dict "name" "flask" "class" "category-experiment__icon" "label" $categoryExperiments.label) }}
+					{{ else }}
+						<span aria-hidden="true">[exp]</span>
+					{{ end }}
+				</a>
+			{{ end }}
 		</div>
 		{{ else }}
 		<div class="padding"></div>
 		{{ end }}
 
-		{{ $categorySystems := where $systems "category" "=" .name }}
 			<div class="components">
 				{{ range $system := $categorySystems }}
 				{{ $activeComponentIssues := where $active "Params.affected" "intersect" (slice $system.name) }}
@@ -60,9 +75,12 @@
 				{{ $thisIsDisrupted := where $activeComponentIssues "Params.severity" "=" "disrupted" }}
 				{{ $thisIsDown := where $activeComponentIssues "Params.severity" "=" "down" }}
 				{{ $activeComponentRecords := where $activeRecords "Params.affected" "intersect" (slice $system.name) }}
+				{{ $activeComponentRecords = where $activeComponentRecords "Section" "!=" "experiments" }}
+				{{ $componentExperiments := partial "experiments/for-affected.html" (dict "page" $ "affected" (slice $system.name)) }}
 
 				<div class="component" id="system-{{ .name | urlize }}"
-					data-status="{{ if $thisIsDown }}down{{ else if $thisIsDisrupted }}disrupted{{ else if $thisIsNotice }}notice{{ else }}ok{{ end }}">
+					data-status="{{ if $thisIsDown }}down{{ else if $thisIsDisrupted }}disrupted{{ else if $thisIsNotice }}notice{{ else }}ok{{ end }}"
+					data-experiment-status="{{ $componentExperiments.status }}">
 				<div class="component-main">
 					<a href="{{ printf "affected/%s/" ($system.name | urlize) | relURL }}" class="no-underline component-name">
 						{{ default $system.name $system.displayName }}
@@ -90,15 +108,26 @@
 				</div>
 
 				<span class="component-status">
-					{{ if $thisIsDown }}
-					{{ T "thisIsDown" }}
-					{{ else if $thisIsDisrupted }}
-					{{ T "thisIsDisrupted" }}
-					{{ else if $thisIsNotice }}
-					{{ T "thisIsNotice" }}
-						{{ else }}
-						{{ T "thisIsOk" }}
-						{{ end }}
+					<span>
+						{{ if $thisIsDown }}
+						{{ T "thisIsDown" }}
+						{{ else if $thisIsDisrupted }}
+						{{ T "thisIsDisrupted" }}
+						{{ else if $thisIsNotice }}
+						{{ T "thisIsNotice" }}
+							{{ else }}
+							{{ T "thisIsOk" }}
+							{{ end }}
+					</span>
+					{{ if ne $componentExperiments.status "none" }}
+						<a href="{{ $componentExperiments.href }}" class="component-experiment component-experiment--{{ $componentExperiments.status }} no-underline" title="{{ $componentExperiments.label }}" aria-label="{{ $componentExperiments.label }}">
+							{{ if eq $skin "modern" }}
+								{{ partial "skins/modern/icon" (dict "name" "flask" "class" "component-experiment__icon" "label" $componentExperiments.label) }}
+							{{ else }}
+								<span aria-hidden="true">[exp]</span>
+							{{ end }}
+						</a>
+					{{ end }}
 					</span>
 
 					{{ if $activeComponentRecords }}

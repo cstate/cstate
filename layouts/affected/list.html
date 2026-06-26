@@ -2,10 +2,11 @@
 {{ $title := .Title }}
 
 <body class="default list affected-list {{ partial "body-class" . }}">
-	{{ if eq (.Site.Params.skin | default "classic" | urlize) "modern" }}
-		{{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
-		{{ $active := where $incidents "Params.resolved" "=" false }}
-		{{ $componentIssues := where $active "Params.affected" "intersect" (slice $title) }}
+		{{ if eq (.Site.Params.skin | default "modern" | urlize) "modern" }}
+			{{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
+			{{ $active := where $incidents "Params.resolved" "=" false }}
+			{{ $componentExperiments := partial "experiments/for-affected.html" (dict "page" . "affected" (slice $title)) }}
+			{{ $componentIssues := where $active "Params.affected" "intersect" (slice $title) }}
 		{{ $isDown := where $componentIssues "Params.severity" "=" "down" }}
 		{{ $isDisrupted := where $componentIssues "Params.severity" "=" "disrupted" }}
 		{{ $isMaintenance := where $componentIssues "Params.severity" "=" "notice" }}
@@ -28,13 +29,18 @@
 		{{ $incidents := .Pages }}
 		<header class="modern-component-page modern-component-page--{{ $status }}">
 			<div class="contain contain--more">
-				<a href="{{ .Site.BaseURL }}" class="modern-component-page__back">← {{ T "goBack" }} <em>{{ .Site.Title }}</em></a>
+				<a href="{{ .Site.BaseURL }}" class="modern-component-page__back"><span aria-hidden="true">←</span><span>{{ printf "%s %s" (T "goBack") .Site.Title }}</span></a>
 
-				<section class="modern-component-page__hero">
-					<div class="modern-component-page__status modern-component-page__status--{{ $status }}">
-						{{ partial "skins/modern/icon" (dict "name" $statusIcon "class" "modern-component-page__status-icon") }}
-						<span>{{ $statusText }}</span>
-					</div>
+					<section class="modern-component-page__hero">
+						<div class="modern-component-page__status modern-component-page__status--{{ $status }}">
+							{{ partial "skins/modern/icon" (dict "name" $statusIcon "class" "modern-component-page__status-icon") }}
+							<span>{{ $statusText }}</span>
+							{{ if ne $componentExperiments.status "none" }}
+								<a href="{{ $componentExperiments.href }}" class="component-experiment component-experiment--{{ $componentExperiments.status }} no-underline" title="{{ $componentExperiments.label }}" aria-label="{{ $componentExperiments.label }}">
+									{{ partial "skins/modern/icon" (dict "name" "flask" "class" "component-experiment__icon" "label" $componentExperiments.label) }}
+								</a>
+							{{ end }}
+						</div>
 					<h1 class="modern-component-page__title">{{ $title }}</h1>
 
 					{{ range .Site.Params.systems }}
@@ -101,7 +107,7 @@
 	{{ else }}
 	<header>
 		<div class="contain">
-			<a href="{{ .Site.BaseURL }}">← {{ T "goBack" }} <em>{{ .Site.Title }}</em></a>
+			<a href="{{ .Site.BaseURL }}"><span aria-hidden="true">←</span><span>{{ printf "%s %s" (T "goBack") .Site.Title }}</span></a>
 			<div class="padding"></div>
 			<div class="padding"></div>
 
@@ -113,6 +119,7 @@
 			{{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
 			{{ $active := where $incidents "Params.resolved" "=" false }}
 			{{ $componentIssues := where $active "Params.affected" "intersect" (slice $title) }}
+			{{ $componentExperiments := partial "experiments/for-affected.html" (dict "page" . "affected" (slice $title)) }}
 
 			{{ $isDown := where $componentIssues "Params.severity" "=" "down" }}
 			{{ $isDisrupted := where $componentIssues "Params.severity" "=" "disrupted" }}
@@ -124,10 +131,13 @@
 			<strong style="color: {{ .Site.Params.disrupted }}">▲ {{ T "thisIsDisrupted" }}</strong>
 			{{ else if gt (len $isMaintenance) 0 }}
 			<strong style="color: {{ .Site.Params.notice }}">◆ {{ T "thisIsMaintenance" }}</strong>
-			{{ else }}
-			<strong style="color: {{ .Site.Params.ok }}">◆ {{ T "thisIsOk" }}</strong>
-			{{ end }}
-			<div class="padding-s"></div>
+				{{ else }}
+				<strong style="color: {{ .Site.Params.ok }}">◆ {{ T "thisIsOk" }}</strong>
+				{{ end }}
+				{{ if ne $componentExperiments.status "none" }}
+				<a href="{{ $componentExperiments.href }}" class="component-experiment component-experiment--{{ $componentExperiments.status }} no-underline" title="{{ $componentExperiments.label }}" aria-label="{{ $componentExperiments.label }}"><span aria-hidden="true">[exp]</span></a>
+				{{ end }}
+				<div class="padding-s"></div>
 			<!-- Status Marker End -->
 
 			{{ range .Site.Params.systems }}

@@ -2,7 +2,7 @@
   <body class="default list records-list {{ partial "body-class" . }}">
     <header>
       <div class="contain center">
-        <a href="{{ .Site.BaseURL }}">← {{ T "goBack" }} <em>{{ .Site.Title }}</em></a>
+        <a href="{{ .Site.BaseURL }}"><span aria-hidden="true">←</span><span>{{ printf "%s %s" (T "goBack") .Site.Title }}</span></a>
         <div class="padding"></div><div class="padding"></div>
 
         <h1 class="clean">{{ .Title | default "Records" }}</h1>
@@ -13,7 +13,7 @@
     </header>
 
     <div class="contain contain--more" id="records">
-      {{ $recordSections := slice "experiments" "release-notes" "changelog" "roadmap" "evals" "agent-runs" "decisions" "research" }}
+      {{ $recordSections := partial "records/sections.html" . }}
       {{ $records := sort (where .Site.RegularPages "Section" "in" $recordSections) "Date" "desc" }}
       {{ if not $records }}
         <div class="padding"></div>

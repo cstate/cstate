@@ -1,4 +1,4 @@
-{{- $recordSections := slice "experiments" "release-notes" "changelog" "roadmap" "evals" "agent-runs" "decisions" "research" -}}
+{{- $recordSections := partial "records/sections.html" . -}}
 {{- $records := sort (where .Site.RegularPages "Section" "in" $recordSections) "Date" "desc" -}}
 {
   "is": "records",

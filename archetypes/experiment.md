@@ -2,7 +2,10 @@
 title:
 date:
 recordType: experiment
+recordKind: experiment
 state: active
+severity: none
+pin: false
 affected:
 ---
 

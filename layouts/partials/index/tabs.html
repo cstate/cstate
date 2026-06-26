@@ -1,4 +1,4 @@
-{{ $recordSections := slice "experiments" "release-notes" "changelog" "roadmap" "evals" "agent-runs" "decisions" "research" }}
+{{ $recordSections := partial "records/sections.html" . }}
 {{ $records := where .Site.RegularPages "Section" "in" $recordSections }}
 {{ if .Site.Params.customTabs }}
   <div class="tabs">

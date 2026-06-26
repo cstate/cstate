@@ -3,8 +3,11 @@
 {{ $active := where $allActive "Params.pin" "!=" false }}
 {{ $informationals := where $allPosts "Params.informational" "=" true }}
 {{ $pinned := where $informationals "Params.pin" "=" true }}
+{{ $recordSections := partial "records/sections.html" . }}
+{{ $records := where .Site.RegularPages "Section" "in" $recordSections }}
+{{ $pinnedRecords := where $records "Params.pin" "=" true }}
 
-{{ if or ($active) ($pinned) }}
+{{ if or ($active) ($pinned) ($pinnedRecords) }}
   <div class="announcement-box announcement-box--modern">
     {{ range $active }}
       <article class="announcement-item">
@@ -38,6 +41,24 @@
           </div>
         </article>
       {{ end }}
+    {{ end }}
+
+    {{ range $pinnedRecords }}
+      {{ $record := partial "records/normalize.html" . }}
+      <article class="announcement-item announcement-item--record announcement-item--{{ $record.kind }}">
+        <div class="announcement-item__meta">
+          <span class="tag no-underline">{{ $record.label }}</span>
+          {{ range $record.affected }}
+            <a href="{{ printf "affected/%s/" (. | urlize) | relURL }}" class="tag no-underline">{{ . }}</a>
+          {{ end }}
+        </div>
+        <h2 class="announcement-item__title">
+          <a href="{{ .RelPermalink }}">{{ .Title }} →</a>
+        </h2>
+        <div class="announcement-item__body">
+          {{ .Content | safeHTML | truncate 500 "…" }}
+        </div>
+      </article>
     {{ end }}
   </div>
 {{ end }}

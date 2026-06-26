@@ -2,7 +2,10 @@
 title: Search relevance rollout experiment
 date: 2026-05-09 09:00:00
 recordType: experiment
+recordKind: experiment
 state: active
+severity: notice
+pin: true
 affected:
   - API
 summary: Testing a search relevance update with a limited traffic slice.

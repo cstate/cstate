@@ -1,18 +1,26 @@
-{{ $incidents := where .Pages "Params.section" "issue" }}{{ $active := where $incidents "Params.resolved" "=" false }}{{ $isNotice := where $active "Params.severity" "=" "notice" }}{{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}{{ $isDown := where $active "Params.severity" "=" "down" }}{
+{{ $incidents := where .Pages "Params.section" "issue" }}{{ $active := where $incidents "Params.resolved" "=" false }}{{ $isNotice := where $active "Params.severity" "=" "notice" }}{{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}{{ $isDown := where $active "Params.severity" "=" "down" }}{{ $componentExperiments := partial "experiments/for-affected.html" (dict "page" . "affected" (slice .Title)) }}{
   "is": "system",
   "title": "{{ .Title }}",
   "permalink": "{{ .Permalink }}",
-  "status": {{ if $isDown }}"down",{{ else }}{{ if $isDisrupted }}"disrupted",{{ else }}{{ if $isNotice }}"notice",{{ else }}"ok",{{ end }}{{ end }}{{ end }} 
+  "status": {{ if $isDown }}"down",{{ else }}{{ if $isDisrupted }}"disrupted",{{ else }}{{ if $isNotice }}"notice",{{ else }}"ok",{{ end }}{{ end }}{{ end }}
+  "experimentStatus": "{{ $componentExperiments.status }}",
+  "runningExperimentCount": {{ len $componentExperiments.running }},
+  "startingSoonExperimentCount": {{ len $componentExperiments.startingSoon }},
+  "experimentsUrl": "{{ $componentExperiments.href }}",
+  "experiments": [{{ range $i, $e := $componentExperiments.visible }}{{ if $i }},{{ end }}{{ partial "records/json.html" (dict "page" . "includeBody" false) }}{{ end }}],
   "pages": [{{ range $i, $e := .Pages }}{{ if $i }},{{ end }}{{ if eq .Section "issues" }}
       {
         "is": "issue",
+        "kind": "{{ .Params.recordKind | default (.Params.kind | default (cond .Params.informational "announcement" "incident")) }}",
         "title": "{{ .Title }}",
         "createdAt": "{{ .Date }}",
         "lastMod": "{{ .Lastmod }}",
         "permalink": "{{ .Permalink }}",
         "severity": "{{ .Params.severity }}",
+        "statusImpact": "{{ .Params.severity | default "none" }}",
         "resolved": {{ if .Params.resolved }}true{{ else }}false{{ end }},
         "informational": {{ if .Params.informational }}true{{ else }}false{{ end }},
+        "pin": {{ if .Params.pin }}true{{ else }}false{{ end }},
         "resolvedAt": "{{ .Params.resolvedWhen }}",
         "affected": [{{ range $i, $e := .Params.Affected }}{{ if $i }}, {{ end }}"{{ . }}"{{ end }}],
         "filename": "{{ .File.LogicalName }}"
@@ -32,7 +40,4 @@
     {{ end }}{{ end }}
   ]
 }
-
-
-
 

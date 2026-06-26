@@ -303,7 +303,7 @@ params:
   #
   # Default: `modern`
   # STRING; `classic`, `modern`
-  skin: classic
+  skin: modern
 
   # Should we show the logo or the title
   # of the status page?
