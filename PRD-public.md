@@ -1,7 +1,7 @@
 # cState PRD: Product Research, Competitive Positioning, and Next Product Direction
 
-Status: Draft  
-Date: 2026-03-23  
+Status: Draft
+Date: 2026-03-23
 Scope: cState core product, ecosystem, market position, and recommended next phase
 
 ## Executive Summary

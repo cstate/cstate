@@ -1,3 +1,8 @@
+{{- $brandColor := partial "color/normalize.html" (dict "color" .Site.Params.brand "fallback" "#0a0c0f") -}}
+{{- $okColor := partial "color/normalize.html" (dict "color" .Site.Params.ok "fallback" "#008000") -}}
+{{- $disruptedColor := partial "color/normalize.html" (dict "color" .Site.Params.disrupted "fallback" "#cc4400") -}}
+{{- $downColor := partial "color/normalize.html" (dict "color" .Site.Params.down "fallback" "#e60000") -}}
+{{- $noticeColor := partial "color/normalize.html" (dict "color" .Site.Params.notice "fallback" "#24478f") -}}
 <!DOCTYPE html>
 <html lang="{{ .Site.Language.Locale }}" class="no-js">
   <head>
@@ -13,13 +18,13 @@
     {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
     {{ end -}}
     <meta name="generator" content="cState v7.0 - https://github.com/cstate/cstate">
-    <meta name="theme-color" content="{{ .Site.Params.brand }}">
+    <meta name="theme-color" content="{{ $brandColor.css }}">
     <script>
-    var themeBrandColor = '{{ .Site.Params.brand }}';
-    var themeOkColor = '{{ .Site.Params.ok }}';
-    var themeNoticeColor = '{{ .Site.Params.notice }}';
-    var themeDisruptedColor = '{{ .Site.Params.disrupted }}';
-    var themeDownColor = '{{ .Site.Params.down }}';
+    var themeBrandColor = '{{ $brandColor.css }}';
+    var themeOkColor = '{{ $okColor.css }}';
+    var themeNoticeColor = '{{ $noticeColor.css }}';
+    var themeDisruptedColor = '{{ $disruptedColor.css }}';
+    var themeDownColor = '{{ $downColor.css }}';
 
 
     </script>
@@ -118,9 +123,9 @@
 
     .clean { margin: 0; }
 
-    .ok { color: {{ .Site.Params.ok }}; }
-    .warning { color: {{ .Site.Params.disrupted }}; }
-    .error { color: {{ .Site.Params.down }}; }
+    .ok { color: {{ $okColor.css }}; }
+    .warning { color: {{ $disruptedColor.css }}; }
+    .error { color: {{ $downColor.css }}; }
 
     .contain {
       max-width: 640px;
@@ -214,7 +219,7 @@
 
     .header {
       padding: 8px 0;
-      background: {{ .Site.Params.brand }};
+      background: {{ $brandColor.css }};
     }
 
     .header a {
@@ -237,6 +242,10 @@
     .header__logo--small img {
       height: auto;
       width: 160px;
+    }
+
+    .header__brand-text {
+      display: none;
     }
 
     .header--large { padding: 16px; }
@@ -402,9 +411,9 @@
     }
 
     .record-card__state.ok {
-      border-color: {{ .Site.Params.ok }};
+      border-color: {{ $okColor.css }};
       background: #f4fff4;
-      color: {{ .Site.Params.ok }};
+      color: {{ $okColor.css }};
     }
 
     .record-card__state.faded {
@@ -450,48 +459,27 @@
      * Specific to the status
      */
 
-{{- $ok := .Site.Params.ok -}}
-{{- $okR := (printf "0x%s" (substr $ok 1 2) | int) -}}
-{{- $okG := (printf "0x%s" (substr $ok 3 2) | int) -}}
-{{- $okB := (printf "0x%s" (substr $ok 5 2) | int) -}}
-
-{{- $disrupted := .Site.Params.disrupted -}}
-{{- $disruptedR := (printf "0x%s" (substr $disrupted 1 2) | int) -}}
-{{- $disruptedG := (printf "0x%s" (substr $disrupted 3 2) | int) -}}
-{{- $disruptedB := (printf "0x%s" (substr $disrupted 5 2) | int) -}}
-
-{{- $down := .Site.Params.down -}}
-{{- $downR := (printf "0x%s" (substr $down 1 2) | int) -}}
-{{- $downG := (printf "0x%s" (substr $down 3 2) | int) -}}
-{{- $downB := (printf "0x%s" (substr $down 5 2) | int) -}}
-
-{{- $notice := .Site.Params.notice -}}
-{{- $noticeR := (printf "0x%s" (substr $notice 1 2) | int) -}}
-{{- $noticeG := (printf "0x%s" (substr $notice 3 2) | int) -}}
-{{- $noticeB := (printf "0x%s" (substr $notice 5 2) | int) -}}
-
-
 .status-ok .summary {
-  background: {{ .Site.Params.ok }};
-  box-shadow: 0 0 20px rgba({{ $okR }}, {{ $okG }}, {{ $okB }}, 0.3);
+  background: {{ $okColor.css }};
+  box-shadow: 0 0 20px rgba({{ $okColor.r }}, {{ $okColor.g }}, {{ $okColor.b }}, 0.3);
 	border-radius: 4px;
 }
 
 .status-disrupted .summary,
 .change-header-color.status-disrupted .header {
-  background: rgba({{ $disruptedR }}, {{ $disruptedG }}, {{ $disruptedB }}, 1);
+  background: {{ $disruptedColor.css }};
 
-  box-shadow: 0 0 20px rgba({{ $disruptedR }}, {{ $disruptedG }}, {{ $disruptedB }}, 0.3);
+  box-shadow: 0 0 20px rgba({{ $disruptedColor.r }}, {{ $disruptedColor.g }}, {{ $disruptedColor.b }}, 0.3);
 }
 
 .status-down .summary,
 .change-header-color.status-down .header {
-  background: rgba({{ $downR }}, {{ $downG }}, {{ $downB }}, 1);
+  background: {{ $downColor.css }};
 }
 
 .status-notice .summary,
 .change-header-color.status-notice .header {
-  background: rgba({{ $noticeR }}, {{ $noticeG }}, {{ $noticeB }}, 1);
+  background: {{ $noticeColor.css }};
 }
 
 
@@ -499,9 +487,9 @@
       padding: 16px;
     }
 
-    .status-disrupted .announcement-box { border: 2px solid {{ .Site.Params.disrupted }}; }
-    .status-down .announcement-box { border: 2px solid {{ .Site.Params.down }}; }
-    .status-notice .announcement-box { border: 2px solid {{ .Site.Params.notice }}; }
+    .status-disrupted .announcement-box { border: 2px solid {{ $disruptedColor.css }}; }
+    .status-down .announcement-box { border: 2px solid {{ $downColor.css }}; }
+    .status-notice .announcement-box { border: 2px solid {{ $noticeColor.css }}; }
     .status-disrupted .announcement-box,
     .status-down .announcement-box,
     .status-notice .announcement-box { border-top: 0; }
@@ -519,7 +507,7 @@
       padding: 1px 4px;
       border: 1px solid currentColor;
       border-radius: 3px;
-      color: {{ .Site.Params.notice }};
+      color: {{ $noticeColor.css }};
       font-size: 12px;
       font-weight: bold;
       line-height: 1.2;
@@ -532,16 +520,16 @@
 
     .component[data-status="ok"] .component-status,
     .category__head[data-status="ok"] .category-status
-    { color: {{ .Site.Params.ok }}; }
+    { color: {{ $okColor.css }}; }
     .component[data-status="disrupted"] .component-status,
     .category__head[data-status="disrupted"] .category-status
-    { color: {{ .Site.Params.disrupted }}; }
+    { color: {{ $disruptedColor.css }}; }
     .component[data-status="notice"] .component-status,
     .category__head[data-status="notice"] .category-status
-    { color: {{ .Site.Params.notice }}; }
+    { color: {{ $noticeColor.css }}; }
     .component[data-status="down"] .component-status,
     .category__head[data-status="down"] .category-status
-    { color: {{ .Site.Params.down }}; }
+    { color: {{ $downColor.css }}; }
 
     /**
      * Skins
@@ -551,8 +539,8 @@
      */
 
     .skin-modern {
-      --status-color: {{ .Site.Params.ok }};
-      --status-shadow: rgba({{ $okR }}, {{ $okG }}, {{ $okB }}, 0.16);
+      --status-color: {{ $okColor.css }};
+      --status-shadow: rgba({{ $okColor.r }}, {{ $okColor.g }}, {{ $okColor.b }}, 0.16);
       background: #f4f7fa;
       color: #364152;
       font-family: "Figtree", BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -560,23 +548,23 @@
     }
 
     .skin-modern.status-ok {
-      --status-color: {{ .Site.Params.ok }};
-      --status-shadow: rgba({{ $okR }}, {{ $okG }}, {{ $okB }}, 0.16);
+      --status-color: {{ $okColor.css }};
+      --status-shadow: rgba({{ $okColor.r }}, {{ $okColor.g }}, {{ $okColor.b }}, 0.16);
     }
 
     .skin-modern.status-disrupted {
-      --status-color: {{ .Site.Params.disrupted }};
-      --status-shadow: rgba({{ $disruptedR }}, {{ $disruptedG }}, {{ $disruptedB }}, 0.16);
+      --status-color: {{ $disruptedColor.css }};
+      --status-shadow: rgba({{ $disruptedColor.r }}, {{ $disruptedColor.g }}, {{ $disruptedColor.b }}, 0.16);
     }
 
     .skin-modern.status-down {
-      --status-color: {{ .Site.Params.down }};
-      --status-shadow: rgba({{ $downR }}, {{ $downG }}, {{ $downB }}, 0.16);
+      --status-color: {{ $downColor.css }};
+      --status-shadow: rgba({{ $downColor.r }}, {{ $downColor.g }}, {{ $downColor.b }}, 0.16);
     }
 
     .skin-modern.status-notice {
-      --status-color: {{ .Site.Params.notice }};
-      --status-shadow: rgba({{ $noticeR }}, {{ $noticeG }}, {{ $noticeB }}, 0.16);
+      --status-color: {{ $noticeColor.css }};
+      --status-shadow: rgba({{ $noticeColor.r }}, {{ $noticeColor.g }}, {{ $noticeColor.b }}, 0.16);
     }
 
     .skin-modern h1,
@@ -608,20 +596,56 @@
     }
 
     .skin-modern .header {
-      background: #fff;
-      border-bottom: 1px solid #dce4ee;
-      box-shadow: none;
+      background: #101828;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 12px 32px rgba(16, 24, 40, 0.12);
     }
 
     .skin-modern .header .contain,
     .skin-modern .header .contain--more {
+      display: flex;
+      align-items: center;
       margin-top: 0;
       margin-bottom: 0;
+      min-height: 56px;
     }
 
     .skin-modern .header--large {
       padding-top: 18px;
       padding-bottom: 18px;
+    }
+
+    .skin-modern .header__logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      max-width: 100%;
+      border-bottom: 0;
+      color: #fff;
+      font-variant: normal;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .skin-modern .header__logo img,
+    .skin-modern .header__logo--small img {
+      display: block;
+      width: auto;
+      max-width: 160px;
+      max-height: 38px;
+      object-fit: contain;
+    }
+
+    .skin-modern .header__brand-text {
+      display: block;
+      min-width: 0;
+      max-width: min(360px, calc(100vw - 220px));
+      overflow: hidden;
+      color: #fff;
+      font-size: 15px;
+      letter-spacing: 0;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .skin-modern .footer {
@@ -652,28 +676,28 @@
     }
 
     .skin-modern.status-ok .summary {
-      --status-color: {{ .Site.Params.ok }};
+      --status-color: {{ $okColor.css }};
     }
 
     .skin-modern.status-disrupted .summary,
     .skin-modern.change-header-color.status-disrupted .header {
-      --status-color: {{ .Site.Params.disrupted }};
+      --status-color: {{ $disruptedColor.css }};
     }
 
     .skin-modern.status-down .summary,
     .skin-modern.change-header-color.status-down .header {
-      --status-color: {{ .Site.Params.down }};
+      --status-color: {{ $downColor.css }};
     }
 
     .skin-modern.status-notice .summary,
     .skin-modern.change-header-color.status-notice .header {
-      --status-color: {{ .Site.Params.notice }};
+      --status-color: {{ $noticeColor.css }};
     }
 
     .skin-modern.change-header-color.status-disrupted .header,
     .skin-modern.change-header-color.status-down .header,
     .skin-modern.change-header-color.status-notice .header {
-      background: #fff;
+      background: #101828;
     }
 
     .skin-modern .status-text {
@@ -788,6 +812,15 @@
       overflow: hidden;
     }
 
+    .skin-modern .record-announcement-box {
+      margin-top: 14px;
+      border: 1px solid #d9e1ea;
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+      overflow: hidden;
+    }
+
     .skin-modern.status-disrupted .announcement-box,
     .skin-modern.status-down .announcement-box,
     .skin-modern.status-notice .announcement-box {
@@ -802,6 +835,17 @@
 
     .skin-modern .announcement-item:last-child {
       border-bottom: 0;
+    }
+
+    .skin-modern .record-announcement-box .announcement-item {
+      border-left-color: #2563eb;
+    }
+
+    .skin-modern .record-announcement-box .tag:first-child {
+      border-color: rgba(37, 99, 235, 0.2);
+      background: rgba(37, 99, 235, 0.08);
+      color: #1d4ed8;
+      font-weight: 700;
     }
 
     .skin-modern .announcement-item__title {
@@ -887,7 +931,7 @@
       border: 1px solid rgba(36, 71, 143, 0.22);
       border-radius: 999px;
       background: rgba(36, 71, 143, 0.08);
-      color: {{ .Site.Params.notice }};
+      color: {{ $noticeColor.css }};
       transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
     }
 
@@ -1970,19 +2014,19 @@
     }
 
     .skin-modern .modern-incident__status--down {
-      color: {{ .Site.Params.down }};
+      color: {{ $downColor.css }};
     }
 
     .skin-modern .modern-incident__status--disrupted {
-      color: {{ .Site.Params.disrupted }};
+      color: {{ $disruptedColor.css }};
     }
 
     .skin-modern .modern-incident__status--notice {
-      color: {{ .Site.Params.notice }};
+      color: {{ $noticeColor.css }};
     }
 
     .skin-modern .modern-incident__status--resolved {
-      color: {{ .Site.Params.ok }};
+      color: {{ $okColor.css }};
     }
 
     .skin-modern .category__head {
@@ -2176,9 +2220,9 @@
     }
 
     .skin-modern .record-card__state.ok {
-      border-color: rgba({{ $okR }}, {{ $okG }}, {{ $okB }}, 0.24);
-      background: rgba({{ $okR }}, {{ $okG }}, {{ $okB }}, 0.08);
-      color: {{ .Site.Params.ok }};
+      border-color: rgba({{ $okColor.r }}, {{ $okColor.g }}, {{ $okColor.b }}, 0.24);
+      background: rgba({{ $okColor.r }}, {{ $okColor.g }}, {{ $okColor.b }}, 0.08);
+      color: {{ $okColor.css }};
     }
 
     .skin-modern .record-card__state.faded {
@@ -2242,7 +2286,7 @@
     }
 
     .skin-modern .modern-component-page__hero {
-      --component-color: {{ .Site.Params.ok }};
+      --component-color: {{ $okColor.css }};
       display: grid;
       gap: 18px;
       padding: 34px 38px;
@@ -2255,15 +2299,15 @@
     }
 
     .skin-modern .modern-component-page--down .modern-component-page__hero {
-      --component-color: {{ .Site.Params.down }};
+      --component-color: {{ $downColor.css }};
     }
 
     .skin-modern .modern-component-page--disrupted .modern-component-page__hero {
-      --component-color: {{ .Site.Params.disrupted }};
+      --component-color: {{ $disruptedColor.css }};
     }
 
     .skin-modern .modern-component-page--notice .modern-component-page__hero {
-      --component-color: {{ .Site.Params.notice }};
+      --component-color: {{ $noticeColor.css }};
     }
 
     .skin-modern .modern-component-page__status {
@@ -2531,17 +2575,17 @@
 
     .skin-modern.issue-severity-notice,
     .skin-modern.issue-severity-notice .modern-issue-detail {
-      --status-color: {{ .Site.Params.notice }};
+      --status-color: {{ $noticeColor.css }};
     }
 
     .skin-modern.issue-severity-disrupted,
     .skin-modern.issue-severity-disrupted .modern-issue-detail {
-      --status-color: {{ .Site.Params.disrupted }};
+      --status-color: {{ $disruptedColor.css }};
     }
 
     .skin-modern.issue-severity-down,
     .skin-modern.issue-severity-down .modern-issue-detail {
-      --status-color: {{ .Site.Params.down }};
+      --status-color: {{ $downColor.css }};
     }
 
     .skin-modern .modern-record-detail {
@@ -2617,7 +2661,7 @@
     }
 
     .skin-modern .modern-record-detail__meta-item--active {
-      color: {{ .Site.Params.ok }};
+      color: {{ $okColor.css }};
     }
 
     .skin-modern .modern-record-detail__meta-icon {

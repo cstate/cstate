@@ -23,6 +23,14 @@
         {{ with $.Site.Home.OutputFormats.Get "atom" }}
           <a href="{{ .Permalink }}">{{ partial "skins/modern/icon" (dict "name" "atom" "class" "modern-link-icon") }}{{ T "atom" }}</a>
         {{ end }}
+        {{ if not .IsHome }}
+          {{ with .OutputFormats.Get "rss" }}
+            <a href="{{ .Permalink }}" title="{{ T "rss" }} {{ T "onlyThisFeed" }} ({{ $.Title }})">{{ partial "skins/modern/icon" (dict "name" "rss" "class" "modern-link-icon") }}{{ $.Title }} {{ T "rss" }}</a>
+          {{ end }}
+          {{ with .OutputFormats.Get "atom" }}
+            <a href="{{ .Permalink }}" title="{{ T "atom" }} {{ T "onlyThisFeed" }} ({{ $.Title }})">{{ partial "skins/modern/icon" (dict "name" "atom" "class" "modern-link-icon") }}{{ $.Title }} {{ T "atom" }}</a>
+          {{ end }}
+        {{ end }}
       {{ end }}
       <a href="https://github.com/cstate/cstate">{{ partial "skins/modern/icon" (dict "name" "external-link" "class" "modern-link-icon") }}{{ T "poweredBy" }} cState</a>
     </nav>

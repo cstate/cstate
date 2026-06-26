@@ -10,7 +10,7 @@
 {{ $pinnedRecords := where $records "Params.pin" "=" true }}
 
 
-{{ if or ($active) ($pinned) ($pinnedRecords) }}
+{{ if or ($active) ($pinned) }}
   <div class="announcement-box" style="border-bottom: 0">
     {{ range $active }}
       <div class="padding announcement-item">
@@ -54,6 +54,11 @@
       {{ end }}
     {{ end }}
 
+  </div>
+{{ end }}
+
+{{ if $pinnedRecords }}
+  <div class="record-announcement-box">
     {{ range $pinnedRecords }}
       {{ $record := partial "records/normalize.html" . }}
       <div class="padding announcement-item">
@@ -67,11 +72,7 @@
           <a href="{{ printf "affected/%s/" (. | urlize) | relURL }}" class="tag no-underline">{{ . }}</a>
           {{ end }}
         </small></p>
-
-        {{ .Content | safeHTML | truncate 500 "…" }}
-        <p></p>
       </div>
-      <hr class="clean announcement-box">
     {{ end }}
   </div>
-{{ end }} 
+{{ end }}

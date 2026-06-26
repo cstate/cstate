@@ -1,0 +1,41 @@
+name: Release checks
+
+on:
+  pull_request:
+    branches:
+      - master
+      - v7
+  push:
+    branches:
+      - master
+      - v7
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: 0.158.0
+          extended: true
+
+      - name: Build example site
+        run: |
+          rm -rf /tmp/cstate-v7-build
+          hugo \
+            --source exampleSite \
+            --themesDir ../.. \
+            --theme cstate \
+            --destination /tmp/cstate-v7-build \
+            --cleanDestinationDir \
+            --printPathWarnings \
+            --printI18nWarnings
+
+      - name: Verify generated records and URLs
+        run: CSTATE_BUILD_DIR=/tmp/cstate-v7-build node scripts/verify-record-sections.mjs

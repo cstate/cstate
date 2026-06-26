@@ -7,7 +7,7 @@
 {{ $records := where .Site.RegularPages "Section" "in" $recordSections }}
 {{ $pinnedRecords := where $records "Params.pin" "=" true }}
 
-{{ if or ($active) ($pinned) ($pinnedRecords) }}
+{{ if or ($active) ($pinned) }}
   <div class="announcement-box announcement-box--modern">
     {{ range $active }}
       <article class="announcement-item">
@@ -43,6 +43,11 @@
       {{ end }}
     {{ end }}
 
+  </div>
+{{ end }}
+
+{{ if $pinnedRecords }}
+  <div class="record-announcement-box">
     {{ range $pinnedRecords }}
       {{ $record := partial "records/normalize.html" . }}
       <article class="announcement-item announcement-item--record announcement-item--{{ $record.kind }}">
@@ -55,9 +60,6 @@
         <h2 class="announcement-item__title">
           <a href="{{ .RelPermalink }}">{{ .Title }} →</a>
         </h2>
-        <div class="announcement-item__body">
-          {{ .Content | safeHTML | truncate 500 "…" }}
-        </div>
       </article>
     {{ end }}
   </div>

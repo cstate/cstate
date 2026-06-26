@@ -23,7 +23,7 @@
 			{{ $statusIcon = "alert-circle" }}
 		{{ else if gt (len $isMaintenance) 0 }}
 			{{ $status = "notice" }}
-			{{ $statusText = T "thisIsMaintenance" }}
+			{{ $statusText = T "thisIsNotice" }}
 			{{ $statusIcon = "info" }}
 		{{ end }}
 		{{ $incidents := .Pages }}
@@ -130,7 +130,7 @@
 			{{ else if gt (len $isDisrupted) 0 }}
 			<strong style="color: {{ .Site.Params.disrupted }}">▲ {{ T "thisIsDisrupted" }}</strong>
 			{{ else if gt (len $isMaintenance) 0 }}
-			<strong style="color: {{ .Site.Params.notice }}">◆ {{ T "thisIsMaintenance" }}</strong>
+			<strong style="color: {{ .Site.Params.notice }}">◆ {{ T "thisIsNotice" }}</strong>
 				{{ else }}
 				<strong style="color: {{ .Site.Params.ok }}">◆ {{ T "thisIsOk" }}</strong>
 				{{ end }}

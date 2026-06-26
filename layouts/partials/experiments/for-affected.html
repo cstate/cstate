@@ -22,15 +22,18 @@
   {{- $visible = $visibleStartingSoon -}}
 {{- end -}}
 {{- $href := "experiments/" | relURL -}}
+{{- $url := "experiments/" | absURL -}}
 {{- if eq (len $visible) 1 -}}
   {{- range $visible -}}
     {{- $href = .RelPermalink -}}
+    {{- $url = .Permalink -}}
   {{- end -}}
 {{- end -}}
 {{- return (dict
   "status" $status
   "label" $label
   "href" $href
+  "url" $url
   "running" $visibleRunning
   "startingSoon" $visibleStartingSoon
   "allRunning" $running
