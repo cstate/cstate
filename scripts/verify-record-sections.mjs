@@ -144,6 +144,16 @@ assert.equal(
   'experiment',
   'affected/api visible experiment should expose the experiment record type'
 );
+assert.match(
+  indexHtml,
+  /Search relevance rollout experiment/,
+  'generated homepage should show operational records in the history stream'
+);
+assert.doesNotMatch(
+  indexHtml,
+  /Testing a search relevance update with a limited traffic slice\./,
+  'generated homepage record cards should stay compact'
+);
 
 assert.doesNotMatch(
   indexHtml,

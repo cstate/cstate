@@ -2,31 +2,52 @@
 
 ## v7.0
 
+**v7 is a major product update for cState.** The release keeps the static, Hugo-based architecture that makes cState cheap to host, portable, and easy to own, then expands what a status page can publish around incidents.
+
+**The headline change is operational publishing.** cState can now publish experiments, release notes, roadmap updates, eval reports, agent run reports, decision records, research notes, and changelog entries beside traditional incidents. Incidents still drive outage state. The new records give teams a cleaner way to show what is changing, what is being tested, and what operators should know without turning every update into downtime.
+
+**The default experience feels current again.** The new modern skin refreshes the homepage, components, incident pages, feeds, subscribe surfaces, footers, and record pages. The classic skin remains available for sites that need the older minimal presentation.
+
+**Strategically, v7 moves cState further into the status-page-as-code lane:** static by default, Git-native, readable by humans and tools, and easier to integrate into product surfaces through JSON, RSS, Atom, badges, and embeds.
+
 ### Added
 
-- Added skins, with the new `modern` skin becoming the default experience for cState sites. This is a complete redesign for default users, while `classic` remains available for sites that want the old minimal look.
-- Added operational record content types beyond incidents: experiments, release notes, changelog entries, roadmap updates, eval reports, agent run reports, decision records, and research notes.
-- Added archetypes, example content, record list/detail templates, JSON output, RSS output, and Atom output for the new record sections.
-- Added Atom feed support alongside RSS feeds. cState now generates Atom feeds with the `application/atom+xml` media type and exposes Atom feed links in feed discovery and subscribe UI. Thanks to @ghost for the suggestion in #341.
-- Added explicit record semantics for `recordKind`, `severity`, and `pin`. Records can identify whether they are an `experiment`, `announcement`, `maintenance`, or another operational entry while keeping `severity` as the status-impact marker. JSON still exposes this as `kind`.
-- Redesigned and gave more attention to the cState marketing website. Visit it at https://cstate.uncascade.com.
+- **Skins:** added the new `modern` skin as the default experience for cState sites, while `classic` remains available for sites that want the older minimal look.
+- **Operational record types:** added experiments, release notes, changelog entries, roadmap updates, eval reports, agent run reports, decision records, and research notes.
+- **Record publishing:** added archetypes, example content, record list/detail templates, JSON output, RSS output, and Atom output for the new record sections.
+- **Atom feeds:** added Atom support alongside RSS feeds. cState now generates Atom feeds with the `application/atom+xml` media type and exposes Atom feed links in feed discovery and subscribe UI. Thanks to @ghost for the suggestion in #341.
+- **Record semantics:** added explicit support for `recordKind`, `severity`, and `pin`. Records can identify whether they are an `experiment`, `announcement`, `maintenance`, or another operational entry while keeping `severity` as the status-impact marker. JSON still exposes this as `kind`.
+- **Experiment notices:** added component and category notices for active or starting-soon experiment records, while leaving the system status unchanged.
+- **Pinned record announcements:** added a homepage path for surfacing an experiment, release note, or operational update globally without creating an incident.
+- **Per-page feeds:** added RSS and Atom links in the modern footer when a page exposes its own feeds.
+- **Release checks:** added a workflow for v7 and `master` that builds the example site with Hugo and verifies generated records, URLs, JSON, and template placeholders.
+- **cState website:** redesigned and gave more attention to the cState marketing website. Visit it at https://cstate.uncascade.com.
 
 ### Changed
 
-- Reworked the default site presentation around the new modern skin, including status summary, incidents, components, tabs, footer, issue detail pages, and subscribe UI.
-- Expanded the API/index JSON output so operational records can be consumed alongside incident and component data. Record JSON now includes `kind`, `severity`, `statusImpact`, and `pin`.
-- Updated README positioning around operational publishing from Markdown, humans, and AI agents.
-- Updated the example Hugo config and templates for Hugo v0.158.0+: use `locale` instead of `languageCode`, and `.Site.Language.Locale` instead of `.Site.LanguageCode`.
+- **Modern skin:** reworked the default site presentation, including status summary, incidents, components, tabs, footer, issue detail pages, and subscribe UI.
+- **Homepage clarity:** gave current status, active incidents, component health, experiment context, and pinned records distinct visual roles.
+- **API/index JSON:** expanded output so operational records can be consumed alongside incident and component data. Record JSON now includes `kind`, `severity`, `statusImpact`, and `pin`.
+- **Affected-system JSON:** exposed experiment status, visible experiments, running experiment counts, and absolute experiment URLs.
+- **Component histograms:** components without history now render a stable all-OK view when history JSON is absent.
+- **Theme colors:** normalized configured colors before rendering CSS, JavaScript color variables, and status shadows. Short hex values and missing values are handled with safer fallbacks.
+- **Pinned records:** separated pinned operational records from incident announcements, with shorter homepage cards that point to the full record.
+- **README positioning:** updated the product framing around operational publishing from Markdown, humans, and AI agents.
+- **Hugo v0.158.0+ compatibility:** updated the example config and templates to replace `languageCode` with `locale`, and replace `.Site.LanguageCode` with `.Site.Language.Locale`.
 
 ### Upgrade notes
 
-- Existing sites that stay on older Hugo versions can keep their old `languageCode` config.
-- If you upgrade the Hugo dependency to v0.158.0 or later, regardless of which cState version you are on, update your site config from `languageCode` to `locale` to avoid Hugo deprecation warnings. Upgrading cState at the same time is recommended so the theme templates use Hugo's new language APIs too.
+- **Older Hugo sites:** existing sites that stay on older Hugo versions can keep their old `languageCode` config.
+- **Hugo v0.158.0 or later:** update your site config from `languageCode` to `locale` to avoid Hugo deprecation warnings. Upgrading cState at the same time is recommended so the theme templates use Hugo's new language APIs too.
 
 ### Fixed
 
-- Fixed unreadable text selection colors in dark mode by adding a dedicated high-contrast dark-mode selection style. Reported by @bbhtt in #353 and addressed in #354.
-- Fixed the remaining homepage RSS subscribe link to use Hugo output formats instead of manually joining `baseURL` and `/index.xml`, avoiding the double-slash 404 reported by @anarcat in #357 and addressed in #358.
+- **Dark-mode selection:** fixed unreadable text selection colors by adding a dedicated high-contrast dark-mode selection style. Reported by @bbhtt in #353 and addressed in #354.
+- **Homepage RSS link:** fixed the remaining subscribe link to use Hugo output formats for the feed URL, avoiding the double-slash 404 reported by @anarcat in #357 and addressed in #358.
+- **Notice wording:** fixed templates that still referenced the old maintenance translation key.
+- **Histogram loading text:** fixed typoed loading translation usage in component histograms.
+- **Optional JSON fields:** fixed `severity` and `resolvedAt` output so missing values do not leak Hugo `<no value>` placeholders.
+- **Experiment URLs:** fixed generated JSON so API consumers receive absolute URLs where expected.
 
 ## How to use the new features
 

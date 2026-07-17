@@ -1,0 +1,31 @@
+{{ $recordSections := partial "records/sections.html" . }}
+{{ $records := where .Site.RegularPages "Section" "in" $recordSections }}
+{{ $pinnedRecords := where $records "Params.pin" "=" true }}
+
+{{ if $pinnedRecords }}
+  <section class="modern-operational-records" aria-labelledby="operational-records-title">
+    <div class="modern-operational-records__head">
+      <h2 id="operational-records-title">Operational {{ default "records" (T "records" | lower) }}</h2>
+      <a href="{{ "records/" | relURL }}" class="modern-operational-records__link">
+        View all {{ default "records" (T "records" | lower) }}
+      </a>
+    </div>
+
+    <div class="record-announcement-box">
+      {{ range $pinnedRecords }}
+        {{ $record := partial "records/normalize.html" . }}
+        <article class="announcement-item announcement-item--record announcement-item--{{ $record.kind }}">
+          <div class="announcement-item__meta">
+            <span class="tag no-underline">{{ $record.label }}</span>
+            {{ range $record.affected }}
+              <a href="{{ printf "affected/%s/" (. | urlize) | relURL }}" class="tag no-underline">{{ . }}</a>
+            {{ end }}
+          </div>
+          <h2 class="announcement-item__title">
+            <a href="{{ .RelPermalink }}">{{ .Title }} →</a>
+          </h2>
+        </article>
+      {{ end }}
+    </div>
+  </section>
+{{ end }}

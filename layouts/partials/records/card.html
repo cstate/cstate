@@ -1,13 +1,21 @@
 {{- $record := partial "records/normalize.html" . -}}
-<a href="{{ .Permalink }}" class="issue record record-card record--{{ $record.type }} no-underline">
+<a href="{{ .Permalink }}" class="issue record record-card record--{{ $record.type }} no-underline" data-history-item data-history-kind="record" data-history-type="{{ $record.type }}" data-history-date="{{ .Date.Format "2006-01-02" }}">
+  {{- $icon := "file-text" -}}
+  {{- if eq $record.type "experiment" -}}{{- $icon = "flask" -}}{{- end -}}
+  {{- if eq $record.type "release-note" -}}{{- $icon = "megaphone" -}}{{- end -}}
+  {{- if eq $record.type "changelog" -}}{{- $icon = "activity" -}}{{- end -}}
+  {{- if eq $record.type "roadmap" -}}{{- $icon = "map" -}}{{- end -}}
+  {{- if eq $record.type "eval-report" -}}{{- $icon = "sparkles" -}}{{- end -}}
+  {{- if eq $record.type "agent-run" -}}{{- $icon = "bot" -}}{{- end -}}
+  {{- if eq $record.type "decision" -}}{{- $icon = "scale" -}}{{- end -}}
+  {{- if eq $record.type "research-note" -}}{{- $icon = "book-open" -}}{{- end -}}
+  <span class="record-card__icon" aria-label="{{ $record.label }}">
+    {{ partial "skins/modern/icon" (dict "name" $icon "class" "record-card__icon-svg") }}
+    {{ partial "history/icon-tooltip.html" (dict "title" $record.label "detail" $record.stateLabel) }}
+  </span>
   <span class="record-card__main">
+    <span class="sr-only">{{ if $record.state }}{{ $record.stateLabel }} {{ end }}{{ $record.label }}</span>
     <span class="record-card__title">{{ .Title }}</span>
-
-    {{ if $record.state }}
-      <span class="record-card__state {{ if $record.isActive }}ok{{ else }}faded{{ end }}">{{ $record.stateLabel }} {{ $record.label }}</span>
-    {{ else }}
-      <span class="record-card__state faded">{{ $record.label }}</span>
-    {{ end }}
 
     {{ if $record.affected }}
       <span class="record-card__related">
@@ -17,10 +25,6 @@
           {{ end }}
         </span>
       </span>
-    {{ end }}
-
-    {{ with (.Params.summary | default .Summary) }}
-      <span class="record-card__summary faded">{{ . | plainify | truncate 200 }}</span>
     {{ end }}
   </span>
 

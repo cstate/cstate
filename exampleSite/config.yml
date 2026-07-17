@@ -182,6 +182,13 @@ params:
   # BOOLEAN; `true`, `false`
   enableUptimeHistogram: true
 
+  # Show uptime percentage beside each component status.
+  # Set to `true` to hide it.
+  #
+  # Default: `false`
+  # BOOLEAN; `true`, `false`
+  hideComponentUptimePercent: false
+
   # Monitor bot
   #
   # If you have a monitor bot, you get access to
@@ -351,8 +358,15 @@ params:
 
   # Incident posts shown on homepage
   #
-  # NUMERIC; Default: `5`
-  incidentPostsPerPage: 5
+  # NUMERIC; Default: `10`
+  incidentPostsPerPage: 10
+
+  # Homepage history layout
+  # `combined` lists incidents and operational records together.
+  # `separate` keeps incident history first and operational records below pagination.
+  #
+  # STRING; Default: `combined`
+  homepageHistoryMode: combined
 
   # Enable custom CSS, JS, HTML
   #

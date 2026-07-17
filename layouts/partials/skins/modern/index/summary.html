@@ -5,25 +5,24 @@
 {{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}
 {{ $isDown := where $active "Params.severity" "=" "down" }}
 {{ $statusText := T "isOk" }}
-{{ $statusKicker := T "thisIsOk" }}
+{{ $statusIcon := "check-circle" }}
 {{ if $isDown }}
   {{ $statusText = T "isDown" }}
-  {{ $statusKicker = T "thisIsDown" }}
+  {{ $statusIcon = "x-circle" }}
 {{ else if $isDisrupted }}
   {{ $statusText = T "isDisrupted" }}
-  {{ $statusKicker = T "thisIsDisrupted" }}
+  {{ $statusIcon = "alert-circle" }}
 {{ else if $isNotice }}
   {{ $statusText = T "isNotice" }}
-  {{ $statusKicker = T "thisIsNotice" }}
+  {{ $statusIcon = "info" }}
 {{ end }}
 
 <section class="modern-status summary" aria-label="{{ $statusText }}">
   <div class="modern-status__main">
     <div class="modern-status__mark" aria-hidden="true">
-      {{ partial "skins/modern/icon" (dict "name" (cond $isDown "x-circle" (cond $isDisrupted "alert-circle" (cond $isNotice "info" "check-circle"))) "class" "modern-status__icon") }}
+      {{ partial "skins/modern/icon" (dict "name" $statusIcon "class" "modern-status__icon") }}
     </div>
     <div class="modern-status__copy">
-      <p class="modern-status__kicker">{{ $statusKicker }}</p>
       <h1 class="modern-status__title">{{ $statusText }}</h1>
       <div class="modern-status__updated clicky relative-time" onclick="location.reload()" data-time-prefix="{{ T "lastChecked" }} "></div>
     </div>

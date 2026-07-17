@@ -1,0 +1,60 @@
+{
+  "is": "index",
+  "cStateVersion": "7.0",
+  "apiVersion": "2.1",
+  "summaryStatus": "disrupted",
+  "records": [
+    {
+      "is": "experiment",
+      "recordType": "experiment",
+      "kind": "experiment",
+      "title": "Search rollout",
+      "state": "active",
+      "severity": "notice",
+      "statusImpact": "notice",
+      "pin": true,
+      "affected": ["API"],
+      "permalink": "https://status.example.com/experiments/search-rollout/",
+      "summary": "Testing search ranking with a small traffic slice."
+    }
+  ],
+  "systems": [
+    {
+      "name": "API",
+      "status": "disrupted",
+      "unresolvedIssues": [
+        {
+          "is": "issue",
+          "kind": "incident",
+          "title": "API DNS resolution error",
+          "severity": "disrupted",
+          "statusImpact": "disrupted",
+          "resolved": false,
+          "pin": true,
+          "affected": ["API"],
+          "permalink": "https://status.example.com/issues/api-dns-resolution-error/"
+        }
+      ],
+      "activeRecords": [],
+      "experimentStatus": "running",
+      "runningExperimentCount": 1,
+      "startingSoonExperimentCount": 0,
+      "experimentsUrl": "https://status.example.com/experiments/search-rollout/",
+      "experiments": [
+        {
+          "is": "experiment",
+          "recordType": "experiment",
+          "kind": "experiment",
+          "title": "Search rollout",
+          "state": "active",
+          "severity": "notice",
+          "statusImpact": "notice",
+          "pin": true,
+          "affected": ["API"],
+          "permalink": "https://status.example.com/experiments/search-rollout/",
+          "summary": "Testing search ranking with a small traffic slice."
+        }
+      ]
+    }
+  ]
+}

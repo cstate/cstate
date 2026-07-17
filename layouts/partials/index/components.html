@@ -12,6 +12,8 @@
 {{ $isDown := where $active "Params.severity" "=" "down" }}
 
 {{ $uptimeHistogramEnabled := .Site.Params.enableUptimeHistogram }}
+{{ $hideComponentUptimePercent := .Site.Params.hideComponentUptimePercent | default false }}
+{{ $showComponentUptimePercent := not $hideComponentUptimePercent }}
 
 <!-- The main categories layout -->
 <div class="categories">
@@ -46,12 +48,21 @@
 					</svg>
 				</span>
 			</span>
-			<b>{{ .name }}</b>
-			{{ with .description }}
-			<span class="tooltip tooltip--small">
-				&nbsp; <span class="faded">(?)</span>
-				<span class="tooltip__text">{{ . }}</span>
-			</span>
+			{{ if and (eq $skin "modern") .description }}
+				<span class="component-title-tooltip category-title-tooltip">
+					<b>{{ .name }}</b>
+					<span class="component-title-tooltip__text">{{ .description | markdownify }}</span>
+				</span>
+			{{ else }}
+				<b>{{ .name }}</b>
+			{{ end }}
+			{{ if ne $skin "modern" }}
+				{{ with .description }}
+				<span class="tooltip tooltip--small">
+					&nbsp; <span class="faded">(?)</span>
+					<span class="tooltip__text">{{ . }}</span>
+				</span>
+				{{ end }}
 			{{ end }}
 			<span class="category-status"></span>
 			{{ if ne $categoryExperiments.status "none" }}
@@ -78,39 +89,110 @@
 				{{ $activeComponentRecords = where $activeComponentRecords "Section" "!=" "experiments" }}
 				{{ $componentPages := where $.Site.RegularPages "Params.affected" "intersect" (slice $system.name) }}
 				{{ $componentExperiments := partial "experiments/for-affected.html" (dict "page" $ "affected" (slice $system.name)) }}
+				{{ $hasHistogram := and $uptimeHistogramEnabled (ne $system.histogram false) }}
 
-				<div class="component" id="system-{{ .name | urlize }}"
+				<div class="component {{ if $hasHistogram }}component--with-histogram{{ else }}component--without-histogram{{ end }}" id="system-{{ .name | urlize }}"
 					data-status="{{ if $thisIsDown }}down{{ else if $thisIsDisrupted }}disrupted{{ else if $thisIsNotice }}notice{{ else }}ok{{ end }}"
 					data-experiment-status="{{ $componentExperiments.status }}"
 					data-has-history="{{ if $componentPages }}true{{ else }}false{{ end }}">
 				<div class="component-main">
-					<a href="{{ printf "affected/%s/" ($system.name | urlize) | relURL }}" class="no-underline component-name">
-						{{ default $system.name $system.displayName }}
-					</a>
+					<span class="component-title-row">
+						{{ if and (eq $skin "modern") $system.description }}
+							<span class="component-title-tooltip">
+								<a href="{{ printf "affected/%s/" ($system.name | urlize) | relURL }}" class="no-underline component-name">
+									{{ default $system.name $system.displayName }}
+								</a>
+								<span class="component-title-tooltip__text">{{ $system.description | markdownify }}</span>
+							</span>
+						{{ else }}
+							<a href="{{ printf "affected/%s/" ($system.name | urlize) | relURL }}" class="no-underline component-name">
+								{{ default $system.name $system.displayName }}
+							</a>
+						{{ end }}
 
-					{{ with $system.description }}
-					<span class="tooltip tooltip--small">
-						&nbsp; <span class="faded">(?)</span>
-						<span class="tooltip__text">{{ . }}</span>
+						{{ if ne $skin "modern" }}
+							{{ with $system.description }}
+							<span class="tooltip tooltip--small">
+								&nbsp; <span class="faded">(?)</span>
+								<span class="tooltip__text">{{ . }}</span>
+							</span>
+							{{ end }}
+						{{ end }}
+
+						{{ with $system.link }}
+							<a href="{{ . }}" class="external-link-style component-external-link" aria-label="{{ default $system.name $system.displayName }} external link">
+								{{ if eq $skin "modern" }}
+									{{ partial "skins/modern/icon" (dict "name" "external-link" "class" "component-external-link__icon") }}
+								{{ else }}
+									<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+										stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+										<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+										<polyline points="15 3 21 3 21 9"></polyline>
+										<line x1="10" y1="14" x2="21" y2="3"></line>
+									</svg>
+								{{ end }}
+							</a>
+						{{ end }}
 					</span>
-					{{ end }}
-
-					{{ with $system.link }}
-					<span class="span-icon">
-						<a href="{{ . }}" class="external-link-style">
-							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-								stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
-								<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-								<polyline points="15 3 21 3 21 9"></polyline>
-								<line x1="10" y1="14" x2="21" y2="3"></line>
-							</svg>
-						</a>
+					{{ if and (eq $skin "modern") (not $hasHistogram) }}
+					<span class="component-status component-status--inline">
+						<span class="component-status-text">
+							{{ if $thisIsDown }}
+							{{ T "thisIsDown" }}
+							{{ else if $thisIsDisrupted }}
+							{{ T "thisIsDisrupted" }}
+							{{ else if $thisIsNotice }}
+							{{ T "thisIsNotice" }}
+							{{ else }}
+							{{ T "thisIsOk" }}
+							{{ end }}
+						</span>
 					</span>
 					{{ end }}
 				</div>
 
+				{{ if eq $skin "modern" }}
+					{{ if or $activeComponentRecords (ne $componentExperiments.status "none") }}
+					<div class="component-records">
+						{{ if ne $componentExperiments.status "none" }}
+							<a href="{{ $componentExperiments.href }}" class="tag component-record-tag component-record-tag--experiment no-underline" title="{{ $componentExperiments.label }}" aria-label="{{ $componentExperiments.label }}">
+								{{ partial "skins/modern/icon" (dict "name" "flask" "class" "component-record-tag__icon") }}
+								<span>{{ $componentExperiments.label }}</span>
+							</a>
+						{{ end }}
+						{{ range $activeComponentRecords }}
+							{{ $record := partial "records/normalize.html" . }}
+							<a href="{{ .RelPermalink }}" class="tag component-record-tag no-underline">{{ $record.label }}</a>
+						{{ end }}
+					</div>
+					{{ end }}
+
+					{{ if $hasHistogram }}
+					<div class="component-health">
+						{{ if $showComponentUptimePercent }}
+						<span class="component-uptime" hidden></span>
+						{{ end }}
+						<span class="component-status">
+							<span class="component-status-text">
+								{{ if $thisIsDown }}
+								{{ T "thisIsDown" }}
+								{{ else if $thisIsDisrupted }}
+								{{ T "thisIsDisrupted" }}
+								{{ else if $thisIsNotice }}
+								{{ T "thisIsNotice" }}
+								{{ else }}
+								{{ T "thisIsOk" }}
+								{{ end }}
+							</span>
+						</span>
+					</div>
+					{{ end }}
+				{{ else }}
 				<span class="component-status">
-					<span>
+					{{ if and $showComponentUptimePercent $hasHistogram }}
+					<span class="component-uptime" hidden></span>
+					{{ end }}
+					<span class="component-status-text">
 						{{ if $thisIsDown }}
 						{{ T "thisIsDown" }}
 						{{ else if $thisIsDisrupted }}
@@ -129,10 +211,11 @@
 								<span aria-hidden="true">[exp]</span>
 							{{ end }}
 						</a>
-					{{ end }}
+						{{ end }}
 					</span>
+				{{ end }}
 
-					{{ if $activeComponentRecords }}
+					{{ if and (ne $skin "modern") $activeComponentRecords }}
 					<div class="component-records">
 						<small class="faded">{{ default "Active records" (T "activeRecords") }}:</small>
 						{{ range $activeComponentRecords }}
@@ -142,14 +225,12 @@
 					</div>
 					{{ end }}
 
-					{{ if $uptimeHistogramEnabled }}
-						{{ if ne $system.histogram false }}
+					{{ if $hasHistogram }}
 						<div class="histogram-container">
 							<!-- A quick loading text, removed once data is fetched -->
 							<div id="histogram-{{ .name | urlize }}" class="histogram">{{ T "loading" }} {{ .name }} {{ T "chart" }}</div>
 					</div>
 					{{ end }}
-				{{ end }}
 
 				{{ with $system.partial }}
 				<div>
@@ -198,8 +279,9 @@
 
 
 
-{{ if $uptimeHistogramEnabled }}
+{{ if or $uptimeHistogramEnabled $showComponentUptimePercent }}
 <!-- HISTOGRAM STYLES -->
+{{ if $uptimeHistogramEnabled }}
 <style>
 	.histogram-container {
 		width: 100%;
@@ -210,6 +292,9 @@
 		display: flex;
 		flex-wrap: nowrap;
 		align-items: flex-end;
+		--tooltip-ok: {{ .Site.Params.ok }};
+		--tooltip-disrupted: {{ .Site.Params.disrupted }};
+		--tooltip-down: {{ .Site.Params.down }};
 		/* 50 bars in total. We'll just always build 60. */
 		height: 30px;
 		/* slightly shorter */
@@ -228,29 +313,108 @@
 		transition: background-color 0.2s;
 	}
 
-	.histogram-bar:hover::after {
-		display: block;
-	}
+		.histogram-bar:hover,
+		.histogram-bar:focus-visible {
+			filter: brightness(0.96);
+			outline: none;
+		}
 
-	.histogram-bar::after {
-		content: attr(data-label);
-		position: absolute;
-		bottom: 100%;
-		left: 50%;
-		transform: translateX(-50%);
-		border-radius: 4px;
-		box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-		color: #fff;
-		background-color: #000;
-		padding: 2px 6px;
-		font-size: 12px;
-		border-radius: 3px;
-		display: none;
-		pointer-events: none;
-		white-space: nowrap;
-	}
+		.histogram-tooltip {
+			position: absolute;
+			z-index: 20;
+			bottom: calc(100% + 10px);
+			left: 50%;
+			display: block;
+			width: max-content;
+			min-width: 190px;
+			max-width: 260px;
+			padding: 10px 12px;
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			border-radius: 10px;
+			box-shadow: 0 18px 42px rgba(15, 23, 42, 0.28);
+			color: #fff;
+			background: #111827;
+			font-size: 12px;
+			line-height: 1.35;
+			opacity: 0;
+			pointer-events: none;
+			text-align: left;
+			transform: translate(-50%, 6px);
+			transition: opacity 0.16s ease, transform 0.16s ease, visibility 0.16s ease;
+			visibility: hidden;
+			white-space: normal;
+		}
 
-	/* Show all 50 on desktop; only 30 on mobile/tablet (max-width: 640px) */
+		.histogram-tooltip::after {
+			content: "";
+			position: absolute;
+			top: 100%;
+			left: 50%;
+			width: 10px;
+			height: 10px;
+			background: #111827;
+			transform: translate(-50%, -5px) rotate(45deg);
+		}
+
+		.histogram-bar:hover .histogram-tooltip,
+		.histogram-bar:focus-visible .histogram-tooltip {
+			opacity: 1;
+			transform: translate(-50%, 0);
+			visibility: visible;
+		}
+
+		.histogram-tooltip__date {
+			display: block;
+			margin-bottom: 6px;
+			color: rgba(255, 255, 255, 0.72);
+			font-size: 11px;
+			font-weight: 700;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+		}
+
+		.histogram-tooltip__status {
+			display: flex;
+			gap: 7px;
+			align-items: center;
+			color: #fff;
+			font-weight: 800;
+		}
+
+		.histogram-tooltip__dot {
+			width: 8px;
+			height: 8px;
+			border-radius: 999px;
+			background: currentColor;
+			box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.08);
+		}
+
+		.histogram-tooltip__status--ok {
+			color: var(--tooltip-ok, #008000);
+		}
+
+		.histogram-tooltip__status--disrupted {
+			color: var(--tooltip-disrupted, #cc7a00);
+		}
+
+		.histogram-tooltip__status--down {
+			color: var(--tooltip-down, #e60000);
+		}
+
+		.histogram-tooltip__detail {
+			display: block;
+			margin-top: 6px;
+			color: rgba(255, 255, 255, 0.8);
+		}
+
+		@media (max-width: 640px) {
+			.histogram-tooltip {
+				min-width: 170px;
+				max-width: min(230px, calc(100vw - 56px));
+			}
+		}
+
+		/* Show all 50 on desktop; only 30 on mobile/tablet (max-width: 640px) */
 	@media (max-width: 640px) {
 		/* Hide the oldest 20 bars from the left, keep the newest 30 bars on the right */
 		.histogram-bar:nth-child(-n+20) {
@@ -258,6 +422,7 @@
 		}
 	}
 </style>
+{{ end }}
 
 <!-- HISTOGRAM SCRIPT -->
 <script>
@@ -265,9 +430,95 @@
 	var themeOkColor = '{{ .Site.Params.ok }}';
 	var themeDisruptedColor = '{{ .Site.Params.disrupted }}';
 	var themeDownColor = '{{ .Site.Params.down }}';
+	var showComponentUptimePercent = {{ if $showComponentUptimePercent }}true{{ else }}false{{ end }};
 
 	// We'll always build 60 bars
 	const DAYS = 60;
+
+	function formatUptimePercentage(value) {
+		if (value >= 99.995) return '100%';
+		var precision = value >= 99.9 ? 2 : 1;
+		return value.toFixed(precision).replace(/\.0$/, '') + '%';
+	}
+
+	function renderUptimePercentage(component, dayStats) {
+		if (!showComponentUptimePercent) return;
+		var uptimeSpan = component.querySelector('.component-uptime');
+		if (!uptimeSpan || !dayStats.length) return;
+
+		var okDays = dayStats.filter(function (day) {
+			return day.worstSeverity === 'ok';
+		}).length;
+		var uptime = (okDays / dayStats.length) * 100;
+		var formatted = formatUptimePercentage(uptime);
+		uptimeSpan.textContent = formatted;
+		uptimeSpan.setAttribute('aria-label', formatted + ' uptime');
+		uptimeSpan.hidden = false;
+	}
+
+	function buildOkDayStats() {
+		var dayStats = [];
+		for (var i = 0; i < DAYS; i++) {
+			dayStats.push({ worstSeverity: 'ok' });
+		}
+		return dayStats;
+	}
+
+	function formatHistogramDate(dateStr) {
+		var date = new Date(dateStr + 'T00:00:00Z');
+		return date.toLocaleDateString(undefined, {
+			month: 'short',
+			day: 'numeric',
+			year: 'numeric',
+			timeZone: 'UTC'
+		});
+	}
+
+	function getHistogramDetail(severity, incidentTitles) {
+		if (severity === 'ok') return 'No incidents recorded';
+		if (incidentTitles && incidentTitles.length === 1) return incidentTitles[0];
+		if (incidentTitles && incidentTitles.length > 1) {
+			return incidentTitles[0] + ' +' + (incidentTitles.length - 1) + ' more';
+		}
+		return 'Incident activity recorded';
+	}
+
+	function setHistogramTooltip(bar, dateStr, severity, labelText, incidentTitles) {
+		var formattedDate = formatHistogramDate(dateStr);
+		var detailText = getHistogramDetail(severity, incidentTitles || []);
+		var plainLabel = formattedDate + ' — ' + labelText + ' — ' + detailText;
+
+		bar.setAttribute('data-label', plainLabel);
+		bar.setAttribute('aria-label', plainLabel);
+
+		var tooltip = document.createElement('span');
+		tooltip.className = 'histogram-tooltip';
+		tooltip.setAttribute('aria-hidden', 'true');
+
+		var date = document.createElement('span');
+		date.className = 'histogram-tooltip__date';
+		date.textContent = formattedDate;
+
+		var status = document.createElement('span');
+		status.className = 'histogram-tooltip__status histogram-tooltip__status--' + severity;
+
+		var dot = document.createElement('span');
+		dot.className = 'histogram-tooltip__dot';
+
+		var statusText = document.createElement('span');
+		statusText.textContent = labelText;
+
+		var detail = document.createElement('span');
+		detail.className = 'histogram-tooltip__detail';
+		detail.textContent = detailText;
+
+		status.appendChild(dot);
+		status.appendChild(statusText);
+		tooltip.appendChild(date);
+		tooltip.appendChild(status);
+		tooltip.appendChild(detail);
+		bar.appendChild(tooltip);
+	}
 
 	function renderOkHistogram(histogramDiv, componentPath) {
 		var now = new Date();
@@ -281,7 +532,7 @@
 			var bar = document.createElement('a');
 			bar.href = componentPath;
 			bar.className = 'histogram-bar';
-			bar.setAttribute('data-label', dateStr + ' — ' + '{{ T "thisIsOk" }}');
+			setHistogramTooltip(bar, dateStr, 'ok', '{{ T "thisIsOk" }}', []);
 			bar.style.backgroundColor = themeOkColor;
 			histogramDiv.appendChild(bar);
 		}
@@ -292,13 +543,17 @@
 		components.forEach(function (component) {
 			var systemName = component.id.replace('system-', '');
 			var histogramDiv = document.getElementById('histogram-' + systemName);
-			if (!histogramDiv) return;
+			var uptimeSpan = component.querySelector('.component-uptime');
+			if (!histogramDiv && !uptimeSpan) return;
 
 			var componentPath = '{{ "affected/" | relURL }}' + systemName + '/';
 			var endpoint = componentPath + 'index.json';
 			if (component.dataset.hasHistory !== 'true') {
-				histogramDiv.textContent = '';
-				renderOkHistogram(histogramDiv, componentPath);
+				if (histogramDiv) {
+					histogramDiv.textContent = '';
+					renderOkHistogram(histogramDiv, componentPath);
+				}
+				renderUptimePercentage(component, buildOkDayStats());
 				return;
 			}
 			fetch(endpoint)
@@ -314,7 +569,9 @@
 					return res.json();
 				})
 				.then(data => {
-					histogramDiv.textContent = ''; // Clear "Loading..."
+					if (histogramDiv) {
+						histogramDiv.textContent = ''; // Clear "Loading..."
+					}
 
 					// We'll keep track of each day with a "worstSeverity" = "ok" / "disrupted" / "down"
 					var now = new Date();
@@ -326,11 +583,12 @@
 						var m = String(d.getMonth() + 1).padStart(2, '0');
 						var dd = String(d.getDate()).padStart(2, '0');
 						var dateStr = y + '-' + m + '-' + dd;
-						dayStats.push({
-							dateStr: dateStr,
-							worstSeverity: 'ok' /* by default */
-						});
-					}
+							dayStats.push({
+								dateStr: dateStr,
+								worstSeverity: 'ok',
+								incidentTitles: []
+							});
+						}
 
 					var incidents = data.pages || [];
 					incidents.forEach(incident => {
@@ -356,11 +614,17 @@
 								} else if (severity === 'disrupted' && ds.worstSeverity !== 'down') {
 									ds.worstSeverity = 'disrupted';
 								}
+								if (incident.title && ds.incidentTitles.indexOf(incident.title) === -1) {
+									ds.incidentTitles.push(incident.title);
+								}
 							}
 						});
 					});
 
+					renderUptimePercentage(component, dayStats);
+
 					// Now build 60 bars, from oldest on the left to newest on the right
+					if (!histogramDiv) return;
 					for (let i = dayStats.length - 1; i >= 0; i--) {
 						let ds = dayStats[i];
 						let bar = document.createElement('a');
@@ -377,8 +641,7 @@
 							labelText = '{{ T "thisIsOk" }}';          // e.g. "Operational"
 						}
 
-						// Full tooltip: dateStr + localized severity
-						bar.setAttribute('data-label', ds.dateStr + ' — ' + labelText);
+						setHistogramTooltip(bar, ds.dateStr, ds.worstSeverity, labelText, ds.incidentTitles);
 
 						// Assign color by worstSeverity
 						if (ds.worstSeverity === 'down') {
@@ -397,14 +660,19 @@
 					if (err.message && err.message.startsWith('HTTP 404')) {
 						// This shouldn't happen since we handle 404s above, but just in case
 						console.warn('Histogram: 404 for', systemName, '- treating as continuous uptime');
-						histogramDiv.textContent = ''; // Clear "Loading..."
-						renderOkHistogram(histogramDiv, componentPath);
+						if (histogramDiv) {
+							histogramDiv.textContent = ''; // Clear "Loading..."
+							renderOkHistogram(histogramDiv, componentPath);
+						}
+						renderUptimePercentage(component, buildOkDayStats());
 					} else {
 						// Network errors, server errors (500, 503), or other actual problems
 						console.error('Histogram load error for', systemName + ':', err);
-						histogramDiv.textContent = 'Error loading data for ' + systemName;
-						histogramDiv.style.color = '#999';
-						histogramDiv.style.fontSize = '12px';
+						if (histogramDiv) {
+							histogramDiv.textContent = 'Error loading data for ' + systemName;
+							histogramDiv.style.color = '#999';
+							histogramDiv.style.fontSize = '12px';
+						}
 					}
 				});
 		});

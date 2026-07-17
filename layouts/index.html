@@ -39,7 +39,13 @@
   <!-- All incidents + pagination -->
   {{ if not .Site.Params.disableIncidentHistory }}
     <div class="contain contain--more" id="incidents">
-	  {{ partial "skin-partial" (dict "page" . "name" "index/incidents") }}
+      {{ $historyMode := .Site.Params.homepageHistoryMode | default "combined" | urlize }}
+      {{ if eq $historyMode "separate" }}
+	    {{ partial "skin-partial" (dict "page" . "name" "index/incidents") }}
+	    {{ partial "skin-partial" (dict "page" . "name" "index/records") }}
+      {{ else }}
+	    {{ partial "skin-partial" (dict "page" . "name" "index/history") }}
+      {{ end }}
       <div class="padding"></div>
     </div>
   {{ end }}

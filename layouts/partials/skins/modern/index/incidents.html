@@ -12,9 +12,12 @@
       {{ $icon := "info" }}
       {{ $statusClass := "notice" }}
       {{ $statusText := T "thisIsNotice" }}
+      {{ $tooltipTitle := T "thisIsNotice" }}
+      {{ $tooltipDetail := "" }}
       {{ if .Params.Resolved }}
         {{ $icon = "check-circle" }}
         {{ $statusClass = "resolved" }}
+        {{ $tooltipTitle = T "resolved" }}
         {{ $t := (time .Params.ResolvedWhen) }}
         {{ $timeDiff := (sub $t.Unix .Date.Unix) }}
         {{ $days := div $timeDiff 86400 }}
@@ -26,20 +29,30 @@
         {{ else }}
           {{ $statusText = printf "%s %s%s%dm" (T "resolvedAfter") (cond (gt $days 0) (printf "%dd " $days) "") (cond (gt $hours 0) (printf "%dh " $hours) "") $minutes }}
         {{ end }}
+        {{ $tooltipDetail = $statusText }}
       {{ else if eq .Params.severity "down" }}
         {{ $icon = "x-circle" }}
         {{ $statusClass = "down" }}
         {{ $statusText = printf "%s - %s" (T "thisIsDown") (T "downtimeOngoing") }}
+        {{ $tooltipTitle = T "thisIsDown" }}
+        {{ $tooltipDetail = T "downtimeOngoing" }}
       {{ else if eq .Params.severity "disrupted" }}
         {{ $icon = "alert-circle" }}
         {{ $statusClass = "disrupted" }}
         {{ $statusText = printf "%s - %s" (T "thisIsDisrupted") (T "downtimeOngoing") }}
+        {{ $tooltipTitle = T "thisIsDisrupted" }}
+        {{ $tooltipDetail = T "downtimeOngoing" }}
 	      {{ else if .Params.informational }}
 	        {{ $statusClass = "informational" }}
 	        {{ $statusText = "Informational" }}
+	        {{ $tooltipTitle = "Informational" }}
 	      {{ end }}
 
-	      <a href="{{ .Permalink }}" class="issue modern-incident no-underline">
+	      <a href="{{ .Permalink }}" class="issue modern-incident no-underline" data-history-item data-history-kind="incident" data-history-type="incident" data-history-date="{{ .Date.Format "2006-01-02" }}">
+	        <span class="modern-incident__mark modern-incident__mark--{{ $statusClass }}" aria-label="Incident">
+	          {{ partial "skins/modern/icon" (dict "name" $icon "class" "modern-incident__mark-icon") }}
+	          {{ partial "history/icon-tooltip.html" (dict "title" $tooltipTitle "detail" $tooltipDetail) }}
+	        </span>
 	        <span class="modern-incident__content">
 	          {{ if .Params.informational }}
 	            <span class="modern-incident__badge modern-incident__badge--info">Informational</span>
@@ -47,7 +60,6 @@
 	          <span class="modern-incident__title">{{ .Title }}</span>
 	          {{ if not .Params.informational }}
 	            <span class="modern-incident__status modern-incident__status--{{ $statusClass }}">
-	              {{ partial "skins/modern/icon" (dict "name" $icon "class" "modern-incident__icon") }}
 	              {{ $statusText }}
 	            </span>
 	          {{ end }}
