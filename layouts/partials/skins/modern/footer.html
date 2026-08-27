@@ -1,0 +1,44 @@
+{{ if .Site.Params.enableCustomHTML }}
+  {{ partial "custom/above-footer" . }}
+{{ end }}
+
+<footer class="footer modern-footer">
+  <div class="contain contain--more modern-footer__inner">
+    <a href="{{ .Site.BaseURL }}" class="modern-footer__brand no-underline">
+      {{ if .Site.Params.useLogo }}
+        <img src="{{ relURL .Site.Params.logo }}" alt="{{ .Site.Title }}">
+      {{ else }}
+        <span>{{ .Site.Title }}</span>
+      {{ end }}
+    </a>
+
+    <p class="modern-footer__description">{{ .Site.Params.description | markdownify }}</p>
+
+    <nav class="modern-footer__links" aria-label="Footer">
+      <a href="#">{{ partial "skins/modern/icon" (dict "name" "arrow-up" "class" "modern-link-icon") }}{{ T "backToTop" }}</a>
+      {{ if not .Site.Params.disableIncidentHistory }}
+        {{ with $.Site.Home.OutputFormats.Get "rss" }}
+          <a href="{{ .Permalink }}">{{ partial "skins/modern/icon" (dict "name" "rss" "class" "modern-link-icon") }}{{ T "rss" }}</a>
+        {{ end }}
+        {{ with $.Site.Home.OutputFormats.Get "atom" }}
+          <a href="{{ .Permalink }}">{{ partial "skins/modern/icon" (dict "name" "atom" "class" "modern-link-icon") }}{{ T "atom" }}</a>
+        {{ end }}
+        {{ if not .IsHome }}
+          {{ with .OutputFormats.Get "rss" }}
+            <a href="{{ .Permalink }}" title="{{ T "rss" }} {{ T "onlyThisFeed" }} ({{ $.Title }})">{{ partial "skins/modern/icon" (dict "name" "rss" "class" "modern-link-icon") }}{{ $.Title }} {{ T "rss" }}</a>
+          {{ end }}
+          {{ with .OutputFormats.Get "atom" }}
+            <a href="{{ .Permalink }}" title="{{ T "atom" }} {{ T "onlyThisFeed" }} ({{ $.Title }})">{{ partial "skins/modern/icon" (dict "name" "atom" "class" "modern-link-icon") }}{{ $.Title }} {{ T "atom" }}</a>
+          {{ end }}
+        {{ end }}
+      {{ end }}
+      <a href="https://github.com/cstate/cstate">{{ partial "skins/modern/icon" (dict "name" "external-link" "class" "modern-link-icon") }}{{ T "poweredBy" }} cState</a>
+    </nav>
+
+    <small class="modern-footer__meta">&copy; {{ .Site.Title }}, {{ now.Year }}</small>
+  </div>
+</footer>
+
+{{ if .Site.Params.enableCustomHTML }}
+  {{ partial "custom/below-footer" . }}
+{{ end }}

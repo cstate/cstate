@@ -176,6 +176,8 @@
   translation: "Mag-subscribe sa mga update mula sa pahina ng katayuan na ito."
 - id: rss
   translation: "RSS"
+- id: atom
+  translation: "Atom"
 - id: email
   translation: "Email"
 - id: discord

@@ -1,0 +1,8 @@
+{{- $recordSections := partial "records/sections.html" . -}}
+{{- $records := sort (where .Site.RegularPages "Section" "in" $recordSections) "Date" "desc" -}}
+{
+  "is": "records",
+  "title": "{{ .Title }}",
+  "baseURL": "{{ .Site.BaseURL }}",
+  "pages": [{{ range $i, $e := $records }}{{ if $i }},{{ end }}{{ partial "records/json.html" (dict "page" . "includeBody" false) }}{{ end }}]
+}

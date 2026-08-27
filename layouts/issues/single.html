@@ -7,13 +7,19 @@
 {{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}
 {{ $isDown := where $active "Params.severity" "=" "down" }}
 
-  <body class="issues single">
+  <body class="issues single issue-severity-{{ .Params.severity | default "notice" | urlize }} {{ partial "body-class" . }}">
     <div class="contain">
-      <a href="{{ .Site.BaseURL }}">← {{ T "goBack" }} <em>{{ .Site.Title }}</em></a>
+      <a href="{{ .Site.BaseURL }}"><span aria-hidden="true">←</span><span>{{ printf "%s %s" (T "goBack") .Site.Title }}</span></a>
     </div>
 
     <div class="contain">
-      {{ .Render "issue" }}
+      {{ $skin := .Site.Params.skin | default "modern" | urlize }}
+      {{ $skinIssue := printf "partials/skins/%s/issues/issue.html" $skin }}
+      {{ if templates.Exists $skinIssue }}
+        {{ partial (printf "skins/%s/issues/issue.html" $skin) . }}
+      {{ else }}
+        {{ .Render "issue" }}
+      {{ end }}
     </div>
 
     {{ if .Site.Params.enableLastMod }}

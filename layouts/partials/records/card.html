@@ -1,0 +1,34 @@
+{{- $record := partial "records/normalize.html" . -}}
+<a href="{{ .Permalink }}" class="issue record record-card record--{{ $record.type }} no-underline">
+  <span class="record-card__main">
+    <span class="record-card__title">{{ .Title }}</span>
+
+    {{ if $record.state }}
+      <span class="record-card__state {{ if $record.isActive }}ok{{ else }}faded{{ end }}">{{ $record.stateLabel }} {{ $record.label }}</span>
+    {{ else }}
+      <span class="record-card__state faded">{{ $record.label }}</span>
+    {{ end }}
+
+    {{ if $record.affected }}
+      <span class="record-card__related">
+        <span class="record-card__tags">
+          {{ range $record.affected }}
+            <span class="tag no-underline">{{ . }}</span>
+          {{ end }}
+        </span>
+      </span>
+    {{ end }}
+
+    {{ with (.Params.summary | default .Summary) }}
+      <span class="record-card__summary faded">{{ . | plainify | truncate 200 }}</span>
+    {{ end }}
+  </span>
+
+  <small class="date record-card__date {{ cond .Site.Params.useRelativeTime "relative-time" "" }}" title="{{ dateFormat .Site.Params.dateFormat .Params.date }}" data-date="{{ .Date.Format "2006-01-02T15:04:05Z" }}">
+    {{ if .Site.Params.dateFormat }}
+      {{ dateFormat .Site.Params.dateFormat .Params.date }}
+    {{ else }}
+      {{ .Date.Format "January 2, 2006 at 3:04 PM" }}
+    {{ end }}
+  </small>
+</a>

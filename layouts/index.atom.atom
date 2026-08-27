@@ -1,0 +1,38 @@
+{{ if not .Site.Params.disableIncidentHistory }}
+{{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+{{- $incidents := sort (where .Site.RegularPages "Params.section" "issue") "Date" "desc" }}
+{{- $feedUpdated := .Date }}
+{{- if .Lastmod.After $feedUpdated }}{{ $feedUpdated = .Lastmod }}{{ end }}
+{{- range $incidents }}
+  {{- if .Lastmod.After $feedUpdated }}{{ $feedUpdated = .Lastmod }}{{ end }}
+{{- end }}
+{{- if $feedUpdated.IsZero }}{{ $feedUpdated = now }}{{ end }}
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>{{ if eq .Title .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{ . }} on {{ end }}{{ .Site.Title }}{{ end }}</title>
+  <id>{{ .Permalink }}</id>
+  <updated>{{ $feedUpdated.Format "2006-01-02T15:04:05-07:00" | safeHTML }}</updated>
+  <author>
+    <name>{{ .Site.Title }}</name>
+  </author>
+  <generator uri="https://github.com/cstate/cstate">cState</generator>
+  <link href="{{ .Permalink }}" rel="alternate" type="text/html"/>
+  {{ with .OutputFormats.Get "atom" }}
+  {{ printf "<link href=%q rel=\"self\" type=%q/>" .Permalink .MediaType.Type | safeHTML }}
+  {{ end }}
+  {{ range $incidents }}
+  {{- $entryUpdated := .Lastmod }}
+  {{- if $entryUpdated.IsZero }}{{ $entryUpdated = .Date }}{{ end }}
+  {{- if $entryUpdated.IsZero }}{{ $entryUpdated = now }}{{ end }}
+  <entry>
+    <title>{{ if .Params.resolved }}[{{ T "resolved" }}] {{ end }}{{ .Title }}</title>
+    <id>{{ .Permalink }}</id>
+    <updated>{{ $entryUpdated.Format "2006-01-02T15:04:05-07:00" | safeHTML }}</updated>
+    <published>{{ .Date.Format "2006-01-02T15:04:05-07:00" | safeHTML }}</published>
+    <link href="{{ .Permalink }}" rel="alternate" type="text/html"/>
+    {{ with .Params.resolvedWhen }}<category term="{{ . }}"/>{{ end }}
+    <summary type="html">{{ .Summary | html }}</summary>
+    <content type="html">{{ .Content | html }}</content>
+  </entry>
+  {{ end }}
+</feed>
+{{ end }}

@@ -1,9 +1,16 @@
+{{ $recordSections := partial "records/sections.html" . }}
+{{ $records := where .Site.RegularPages "Section" "in" $recordSections }}
 {{ if .Site.Params.customTabs }}
   <div class="tabs">
     <div class="contain tabs--inner">
       <a href="#incidents" class="tab tab--current">
         {{ T "incidents" }}
       </a>
+      {{ if $records }}
+        <a href="{{ "records/" | relURL }}" class="tab tab--other">
+          {{ default "Records" (T "records") }}
+        </a>
+      {{ end }}
 
       {{ range .Site.Params.customTabs }}
         <a href="{{ .link }}" class="tab tab--other">
@@ -16,6 +23,9 @@
   {{ if not .Site.Params.disableIncidentHistory }}
     <div class="contain contain--more">
       <h2 class="center">{{ T "incidentHistory" }}</h2>
+      {{ if $records }}
+        <p class="center"><a href="{{ "records/" | relURL }}">View operational {{ default "records" (T "records" | lower) }}</a></p>
+      {{ end }}
       <hr class="clean">
     </div>
   {{ end }}

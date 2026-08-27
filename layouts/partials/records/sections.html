@@ -1,0 +1,8 @@
+{{- $definitions := partial "records/definitions.html" . -}}
+{{- $sections := slice -}}
+{{- range $definitions -}}
+  {{- with .section -}}
+    {{- $sections = $sections | append . -}}
+  {{- end -}}
+{{- end -}}
+{{- return $sections -}}

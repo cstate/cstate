@@ -7,7 +7,7 @@
 {{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}
 {{ $isDown := where $active "Params.severity" "=" "down" }}
 
-  <body class="status-homepage status-{{ if $isDown }}down{{ else }}{{ if $isDisrupted}}disrupted{{ else }}{{ if $isNotice }}notice{{ else }}ok{{ end }}{{ end }}{{ end }} {{ if not .Site.Params.alwaysKeepBrandColor }}change-header-color{{ end }}">
+  <body class="status-homepage status-{{ if $isDown }}down{{ else }}{{ if $isDisrupted}}disrupted{{ else }}{{ if $isNotice }}notice{{ else }}ok{{ end }}{{ end }}{{ end }} {{ if not .Site.Params.alwaysKeepBrandColor }}change-header-color{{ end }} {{ partial "body-class" . }}">
     {{ partial "header" . }}
 
     <!-- Main -->
@@ -16,16 +16,16 @@
       {{ partial "index/noscript" . }}
 
       <!-- "All systems operational" (or not) banner -->
-      {{ partial "index/summary" . }}
+      {{ partial "skin-partial" (dict "page" . "name" "index/summary") }}
 
       <!-- Announcement box (title and short summary) -->
-      {{ partial "index/announcements" . }}
+      {{ partial "skin-partial" (dict "page" . "name" "index/announcements") }}
 
       <!-- Auto refresh -->
       {{ partial "index/autorefresh" . }}
 
       <!-- Individual component info -->
-      {{ partial "index/components" . }}
+      {{ partial "skin-partial" (dict "page" . "name" "index/components") }}
 
       {{ if .Site.Params.enableCustomHTML }}
         {{ partial "custom/homepage-summary" . }}
@@ -34,12 +34,12 @@
     </div>
 
   <!-- Custom tabs -->
-  {{ partial "index/tabs" . }}
+  {{ partial "skin-partial" (dict "page" . "name" "index/tabs") }}
 
   <!-- All incidents + pagination -->
   {{ if not .Site.Params.disableIncidentHistory }}
     <div class="contain contain--more" id="incidents">
-	  {{ partial "index/incidents" . }}
+	  {{ partial "skin-partial" (dict "page" . "name" "index/incidents") }}
       <div class="padding"></div>
     </div>
   {{ end }}

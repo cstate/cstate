@@ -43,7 +43,7 @@
 
 # What is your status page called?
 # Shows up in the browser bar and meta tags
-title: Eggsample Status
+title: Uncascade Demo Status
 
 # Should posts, which have a publish date
 # from the future, be built? Useful for
@@ -53,18 +53,18 @@ title: Eggsample Status
 # BOOLEAN; `true`, `false`
 buildFuture: true
 
-# What language do you want to use for the
+# What locale do you want to use for the
 # html[lang] definition?
 #
 # Does not change language of site
 # itself.
 #
 # Default: `en`
-# ISO 639-1 defines abbreviations.
+# Use a language tag such as `en`, `en-US`,
+# `lt`, or `de`.
 #
-# See:  https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
-# Also: https://www.w3schools.com/tags/ref_language_codes.asp
-languageCode: en
+# See: https://gohugo.io/configuration/languages/#locale
+locale: en
 
 # What translation file should cState use?
 # You can also define whether missing
@@ -89,15 +89,15 @@ defaultContentLanguage: en
 # version 3. If you are just testing,
 # localhost should automatically work.
 #
-# Example:
-# baseUrl: https://status.example.com/
+# Demo:
+# baseUrl: https://status.uncascade.com/
 #
 # For testing:
 # baseUrl: http://localhost
 #
 # Broken example:
 # baseUrl: /
-baseURL: https://example.com
+baseURL: https://status.uncascade.com
 
 # For features like Last modified, you
 # need to use a Git repository. If you
@@ -167,7 +167,7 @@ params:
       description: The web frontend for the application.
       category: Uncategorized
       histogram: false # explicitly disable histogram for this system
-      link: https://example.com/
+      link: https://uncascade.com/
     - name: API
       description: The guts of the application.
       category: Uncategorized
@@ -295,6 +295,16 @@ params:
   # BOOLEAN; `true`, `false`
   disableDarkMode: false
 
+  # Which visual skin should cState use?
+  #
+  # `modern` is the redesigned default skin with softer surfaces,
+  # rounded corners, subtle shadows, and newer CSS effects.
+  # `classic` keeps the original minimal style.
+  #
+  # Default: `modern`
+  # STRING; `classic`, `modern`
+  skin: modern
+
   # Should we show the logo or the title
   # of the status page?
   #
@@ -310,13 +320,13 @@ params:
   #
   # Recommended: png, bmp, jpg, or gif
   # for best browser support!
-  logo: logo.png
+  logo: https://uncascade.com/logo.svg
 
   # This is the description that is shown
   # on the footer and meta tags.
   #
   # Default: We continuously monitor the status of our services and if there are any interruptions, a note will be posted here.
-  description: We continuously monitor the status of our services and if there are any interruptions, a note will be posted here.
+  description: We continuously monitor the status of our services and post updates when needed.
 
   # Tabs on homepage
   # Uncomment to enable.
@@ -325,7 +335,7 @@ params:
   # customTabs:
   #  -
   #    name: Name
-  #    link: https://example.com
+  #    link: https://uncascade.com
 
   # Disable complex server-side
   # calculations that may impact
@@ -380,12 +390,12 @@ params:
   #
   # Defaults:
   #
-  # brand: "#0a0c0f"
+  # brand: "#0500FF"
   # ok: "#008000"
   # disrupted: "#cc4400"
   # down: "#e60000"
   # notice: "#24478f"
-  brand: "#0a0c0f"
+  brand: "#0500FF"
   ok: "#008000"
   disrupted: "#cc4400"
   down: "#e60000"
@@ -450,18 +460,29 @@ outputs:
     - html
     - json
     - rss
+    - atom
   home:
     - html
     - json
     - rss
+    - atom
     - svg
   term:
     - html
     - json
     - rss
+    - atom
     - svg
 
+mediaTypes:
+  application/atom+xml:
+    suffixes:
+      - atom
+
 outputFormats:
+  atom:
+    mediaType: application/atom+xml
+    noUgly: true
   svg:
     isPlainText: true
     mediaType: image/svg+xml

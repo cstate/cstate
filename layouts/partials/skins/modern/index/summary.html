@@ -1,0 +1,140 @@
+{{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
+{{ $active := where $incidents "Params.resolved" "=" false }}
+
+{{ $isNotice := where $active "Params.severity" "=" "notice" }}
+{{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}
+{{ $isDown := where $active "Params.severity" "=" "down" }}
+{{ $statusText := T "isOk" }}
+{{ $statusKicker := T "thisIsOk" }}
+{{ if $isDown }}
+  {{ $statusText = T "isDown" }}
+  {{ $statusKicker = T "thisIsDown" }}
+{{ else if $isDisrupted }}
+  {{ $statusText = T "isDisrupted" }}
+  {{ $statusKicker = T "thisIsDisrupted" }}
+{{ else if $isNotice }}
+  {{ $statusText = T "isNotice" }}
+  {{ $statusKicker = T "thisIsNotice" }}
+{{ end }}
+
+<section class="modern-status summary" aria-label="{{ $statusText }}">
+  <div class="modern-status__main">
+    <div class="modern-status__mark" aria-hidden="true">
+      {{ partial "skins/modern/icon" (dict "name" (cond $isDown "x-circle" (cond $isDisrupted "alert-circle" (cond $isNotice "info" "check-circle"))) "class" "modern-status__icon") }}
+    </div>
+    <div class="modern-status__copy">
+      <p class="modern-status__kicker">{{ $statusKicker }}</p>
+      <h1 class="modern-status__title">{{ $statusText }}</h1>
+      <div class="modern-status__updated clicky relative-time" onclick="location.reload()" data-time-prefix="{{ T "lastChecked" }} "></div>
+    </div>
+  </div>
+
+  <div class="modern-status__aside">
+    <div class="subscribe-wrapper modern-subscribe">
+      <button class="subscribe-button modern-subscribe__button" aria-haspopup="true" aria-expanded="false" aria-label="{{ T "openDropdown" }}">
+        {{ T "subscribe" }}
+      </button>
+      <div class="subscribe-dropdown modern-subscribe__dropdown hidden" aria-label="{{ T "closeDropdown" }}">
+        <ul>
+          {{ with .Site.Home.OutputFormats.Get "rss" }}
+            <li><a href="{{ .Permalink }}" target="_blank" rel="noopener noreferrer">{{ T "rss" }}</a></li>
+          {{ end }}
+          {{ with .Site.Home.OutputFormats.Get "atom" }}
+            <li><a href="{{ .Permalink }}" target="_blank" rel="noopener noreferrer">{{ T "atom" }}</a></li>
+          {{ end }}
+          {{ if .Site.Params.monitorBot }}
+            <li data-option="email">{{ T "email" }}</li>
+            <li data-option="discord">{{ T "discord" }}</li>
+            <li data-option="slack">{{ T "slack" }}</li>
+            <li data-option="webhook">{{ T "webhook" }}</li>
+            <li data-option="push">{{ T "pushNotifications" }}</li>
+          {{ end }}
+          <li data-option="api">{{ T "API" }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="modal-overlay" class="modern-modal-overlay hidden"></div>
+<div class="subscribe-modal modern-subscribe-modal hidden" role="dialog" aria-modal="true">
+  <button class="subscribe-modal__close modern-subscribe-modal__close" aria-label="{{ T "closeDropdown" }}">×</button>
+  <h2 class="subscribe-modal__title"></h2>
+  <div class="subscribe-modal__content"></div>
+  <div class="subscribe-modal__actions"></div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const subscribeButton = document.querySelector('.modern-subscribe .subscribe-button');
+    const subscribeDropdown = document.querySelector('.modern-subscribe .subscribe-dropdown');
+    const subscribeModal = document.querySelector('.subscribe-modal');
+    const modalCloseBtn = document.querySelector('.subscribe-modal__close');
+    const modalTitle = document.querySelector('.subscribe-modal__title');
+    const modalContent = document.querySelector('.subscribe-modal__content');
+    const modalActions = document.querySelector('.subscribe-modal__actions');
+    const modalOverlay = document.getElementById('modal-overlay');
+
+    if (!subscribeButton || !subscribeDropdown || !subscribeModal || !modalOverlay || !modalCloseBtn) return;
+
+    function showModal() {
+      modalOverlay.classList.remove('hidden');
+      subscribeModal.classList.remove('hidden');
+      document.body.classList.add('modal-open');
+    }
+
+    function hideModal() {
+      modalOverlay.classList.add('hidden');
+      subscribeModal.classList.add('hidden');
+      document.body.classList.remove('modal-open');
+    }
+
+    function setModal(title, content, action) {
+      modalTitle.textContent = title;
+      modalContent.innerHTML = content;
+      modalActions.innerHTML = action || '';
+      showModal();
+    }
+
+    subscribeButton.addEventListener('click', function (event) {
+      event.stopPropagation();
+      const isHidden = subscribeDropdown.classList.contains('hidden');
+      subscribeDropdown.classList.toggle('hidden', !isHidden);
+      subscribeButton.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+    });
+
+    subscribeDropdown.addEventListener('click', function (event) {
+      const item = event.target.closest('li[data-option]');
+      if (!item) return;
+
+      subscribeDropdown.classList.add('hidden');
+      subscribeButton.setAttribute('aria-expanded', 'false');
+
+      switch (item.getAttribute('data-option')) {
+        case 'email':
+          setModal('{{ T "email" }}', '<p>{{ T "subscribeDescription" }}</p><input type="email" placeholder="Email address..." />', '<button class="btn btn--primary">{{ T "subscribe" }}</button><p class="small-text">{{ T "pushNotificationsDisclaimer" }}</p>');
+          break;
+        case 'webhook':
+          setModal('{{ T "webhook" }}', '<p>{{ T "subscribeDescription" }}</p><input type="text" placeholder="{{ T "webhookUrl" }}" />', '<button class="btn btn--primary">{{ T "subscribe" }}</button><p class="small-text">{{ T "APIdisclaimer" }}</p>');
+          break;
+        case 'push':
+          setModal('{{ T "pushNotifications" }}', '<p>{{ T "pushNotificationsDescription" }}</p>', '<button class="btn btn--primary">{{ T "subscribe" }}</button><p class="small-text">{{ T "pushNotificationsDisclaimer" }}</p>');
+          break;
+        case 'api':
+          setModal('{{ T "API" }}', '<p>{{ T "APIdescription" }}<br><code>{{ .Site.BaseURL }}index.json</code></p>', '<a href="https://github.com/cstate/cstate/wiki/API" target="_blank" rel="noopener noreferrer" class="btn btn--primary">{{ T "readDocumentation" }}</a><p>{{ T "APIdisclaimer" }}</p>');
+          break;
+        default:
+          setModal(item.textContent.trim(), '<p>{{ T "subscribeDescription" }}</p>', '<button class="btn btn--primary">{{ T "copy" }}</button><p class="small-text">{{ T "embedDisclaimer" }}</p>');
+      }
+    });
+
+    modalCloseBtn.addEventListener('click', hideModal);
+    modalOverlay.addEventListener('click', hideModal);
+    document.addEventListener('click', function (event) {
+      if (!subscribeButton.contains(event.target) && !subscribeDropdown.contains(event.target)) {
+        subscribeDropdown.classList.add('hidden');
+        subscribeButton.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+</script>

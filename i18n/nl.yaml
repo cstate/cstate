@@ -173,6 +173,8 @@
   translation: "Abonneer je op updates van deze statuspagina."
 - id: rss
   translation: "RSS"
+- id: atom
+  translation: "Atom"
 - id: email
   translation: "E-mail"
 - id: discord

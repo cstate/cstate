@@ -1,0 +1,3 @@
+{{- $page := . -}}
+{{- $definitions := $page.Site.Params.recordSections | default $page.Site.Data.record_sections.sections | default (slice) -}}
+{{- return $definitions -}}

@@ -1,10 +1,113 @@
 {{ partial "meta" . }}
 {{ $title := .Title }}
 
-<body class="default list">
+<body class="default list affected-list {{ partial "body-class" . }}">
+		{{ if eq (.Site.Params.skin | default "modern" | urlize) "modern" }}
+			{{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
+			{{ $active := where $incidents "Params.resolved" "=" false }}
+			{{ $componentExperiments := partial "experiments/for-affected.html" (dict "page" . "affected" (slice $title)) }}
+			{{ $componentIssues := where $active "Params.affected" "intersect" (slice $title) }}
+		{{ $isDown := where $componentIssues "Params.severity" "=" "down" }}
+		{{ $isDisrupted := where $componentIssues "Params.severity" "=" "disrupted" }}
+		{{ $isMaintenance := where $componentIssues "Params.severity" "=" "notice" }}
+		{{ $status := "ok" }}
+		{{ $statusText := T "thisIsOk" }}
+		{{ $statusIcon := "check-circle" }}
+		{{ if gt (len $isDown) 0 }}
+			{{ $status = "down" }}
+			{{ $statusText = T "thisIsDown" }}
+			{{ $statusIcon = "x-circle" }}
+		{{ else if gt (len $isDisrupted) 0 }}
+			{{ $status = "disrupted" }}
+			{{ $statusText = T "thisIsDisrupted" }}
+			{{ $statusIcon = "alert-circle" }}
+		{{ else if gt (len $isMaintenance) 0 }}
+			{{ $status = "notice" }}
+			{{ $statusText = T "thisIsNotice" }}
+			{{ $statusIcon = "info" }}
+		{{ end }}
+		{{ $incidents := .Pages }}
+		<header class="modern-component-page modern-component-page--{{ $status }}">
+			<div class="contain contain--more">
+				<a href="{{ .Site.BaseURL }}" class="modern-component-page__back"><span aria-hidden="true">←</span><span>{{ printf "%s %s" (T "goBack") .Site.Title }}</span></a>
+
+					<section class="modern-component-page__hero">
+						<div class="modern-component-page__status modern-component-page__status--{{ $status }}">
+							{{ partial "skins/modern/icon" (dict "name" $statusIcon "class" "modern-component-page__status-icon") }}
+							<span>{{ $statusText }}</span>
+							{{ if ne $componentExperiments.status "none" }}
+								<a href="{{ $componentExperiments.href }}" class="component-experiment component-experiment--{{ $componentExperiments.status }} no-underline" title="{{ $componentExperiments.label }}" aria-label="{{ $componentExperiments.label }}">
+									{{ partial "skins/modern/icon" (dict "name" "flask" "class" "component-experiment__icon" "label" $componentExperiments.label) }}
+								</a>
+							{{ end }}
+						</div>
+					<h1 class="modern-component-page__title">{{ $title }}</h1>
+
+					{{ range .Site.Params.systems }}
+						{{ if eq .name $title }}
+							{{ with .description }}
+								<div class="modern-component-page__description">{{ . | markdownify }}</div>
+							{{ end }}
+						{{ end }}
+					{{ end }}
+
+					{{ if .Content }}
+						<div class="modern-component-page__note">
+							{{ .Content }}
+						</div>
+					{{ end }}
+
+					<p class="modern-component-page__meta">{{ len .Pages }} {{ T "entries" }}, {{ T "newestToOldest" }}</p>
+
+					{{ if not .Site.Params.disableComplexCalculations }}
+						{{ $resolved := first 5 (where (where .Pages "Params.section" "issue") "Params.resolved" "=" true) }}
+						{{ if gt (len $resolved) 0 }}
+							{{ $.Scratch.Set "counter" 0 }}
+							{{ range $resolved }}
+								{{ $t := (time .Params.ResolvedWhen) }}
+								{{ $timeDiff := (sub $t.Unix .Date.Unix) }}
+								{{ $diffInMin := (div $timeDiff 60) }}
+								{{ $.Scratch.Set "counter" (add ($.Scratch.Get "counter") $diffInMin) }}
+							{{ end }}
+							<p class="modern-component-page__insight">{{ T "averageSystemsDowntime" }} {{ div ($.Scratch.Get "counter") (len $resolved) }} {{ T "averageSystemsDowntimeSecondPart" }}</p>
+						{{ end }}
+					{{ end }}
+				</section>
+			</div>
+		</header>
+
+		<div class="contain contain--more modern-component-page__incidents" id="incidents">
+			{{ if not $incidents }}
+				<section class="modern-empty-history">
+					<h3>{{ T "calmBeforeTheStorm" }}</h3>
+					<p>{{ T "noIncidentsDesc" }}</p>
+				</section>
+			{{ else }}
+				<div class="modern-incident-list">
+					{{ $paginator := .Paginate $incidents .Site.Params.incidentPostsPerPage }}
+					{{ range $paginator.Pages }}
+						{{ .Render "small" }}
+					{{ end }}
+				</div>
+
+				{{ if gt $paginator.TotalPages 1 }}
+					<div class="modern-history-more">
+						{{ if $paginator.HasPrev }}
+							<a href="{{ $paginator.Prev.URL }}#incidents" class="next-link">← {{ T "prev" }}</a>
+						{{ end }}
+						<span class="faded">{{ $paginator.PageNumber }} / {{ $paginator.TotalPages }}</span>
+						{{ if $paginator.HasNext }}
+							<a href="{{ $paginator.Next.URL }}#incidents" class="next-link">{{ T "next" }} →</a>
+						{{ end }}
+					</div>
+				{{ end }}
+			{{ end }}
+			<div class="padding"></div>
+		</div>
+	{{ else }}
 	<header>
 		<div class="contain">
-			<a href="{{ .Site.BaseURL }}">← {{ T "goBack" }} <em>{{ .Site.Title }}</em></a>
+			<a href="{{ .Site.BaseURL }}"><span aria-hidden="true">←</span><span>{{ printf "%s %s" (T "goBack") .Site.Title }}</span></a>
 			<div class="padding"></div>
 			<div class="padding"></div>
 
@@ -16,6 +119,7 @@
 			{{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
 			{{ $active := where $incidents "Params.resolved" "=" false }}
 			{{ $componentIssues := where $active "Params.affected" "intersect" (slice $title) }}
+			{{ $componentExperiments := partial "experiments/for-affected.html" (dict "page" . "affected" (slice $title)) }}
 
 			{{ $isDown := where $componentIssues "Params.severity" "=" "down" }}
 			{{ $isDisrupted := where $componentIssues "Params.severity" "=" "disrupted" }}
@@ -26,11 +130,14 @@
 			{{ else if gt (len $isDisrupted) 0 }}
 			<strong style="color: {{ .Site.Params.disrupted }}">▲ {{ T "thisIsDisrupted" }}</strong>
 			{{ else if gt (len $isMaintenance) 0 }}
-			<strong style="color: {{ .Site.Params.notice }}">◆ {{ T "thisIsMaintenance" }}</strong>
-			{{ else }}
-			<strong style="color: {{ .Site.Params.ok }}">◆ {{ T "thisIsOk" }}</strong>
-			{{ end }}
-			<div class="padding-s"></div>
+			<strong style="color: {{ .Site.Params.notice }}">◆ {{ T "thisIsNotice" }}</strong>
+				{{ else }}
+				<strong style="color: {{ .Site.Params.ok }}">◆ {{ T "thisIsOk" }}</strong>
+				{{ end }}
+				{{ if ne $componentExperiments.status "none" }}
+				<a href="{{ $componentExperiments.href }}" class="component-experiment component-experiment--{{ $componentExperiments.status }} no-underline" title="{{ $componentExperiments.label }}" aria-label="{{ $componentExperiments.label }}"><span aria-hidden="true">[exp]</span></a>
+				{{ end }}
+				<div class="padding-s"></div>
 			<!-- Status Marker End -->
 
 			{{ range .Site.Params.systems }}
@@ -52,7 +159,7 @@
 			{{ if not .Site.Params.disableComplexCalculations }}
 			<p class="bold">
 				<em>
-					{{ $resolved := first 5 (where .Pages "Params.resolved" "=" true) }}
+						{{ $resolved := first 5 (where (where .Pages "Params.section" "issue") "Params.resolved" "=" true) }}
 					{{ if gt $resolved 0 }}
 					{{ $.Scratch.Set "counter" 0 }}
 					{{ range $resolved }}
@@ -123,6 +230,7 @@
 		{{ end }}
 		<div class="padding"></div>
 	</div>
+	{{ end }}
 
 	{{ partial "js" . }}
 	{{ partial "footer" . }}

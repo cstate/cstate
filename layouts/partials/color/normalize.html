@@ -1,0 +1,32 @@
+{{- $color := printf "%v" (.color | default "") -}}
+{{- $fallback := printf "%v" (.fallback | default "#000000") -}}
+{{- $color = replaceRE "^\\s+|\\s+$" "" $color -}}
+{{- $fallback = replaceRE "^\\s+|\\s+$" "" $fallback -}}
+{{- if eq $color "" -}}
+  {{- $color = $fallback -}}
+{{- end -}}
+
+{{- $rawHex := replaceRE "^#" "" $color -}}
+{{- $isShortHex := gt (len (findRE "(?i)^[0-9a-f]{3}$" $rawHex)) 0 -}}
+{{- $isLongHex := gt (len (findRE "(?i)^[0-9a-f]{6}$" $rawHex)) 0 -}}
+{{- $hex := $rawHex -}}
+{{- $css := $color -}}
+{{- if $isShortHex -}}
+  {{- $hex = printf "%s%s%s%s%s%s" (substr $rawHex 0 1) (substr $rawHex 0 1) (substr $rawHex 1 1) (substr $rawHex 1 1) (substr $rawHex 2 1) (substr $rawHex 2 1) -}}
+  {{- $css = printf "#%s" $rawHex -}}
+{{- else if $isLongHex -}}
+  {{- $css = printf "#%s" $rawHex -}}
+{{- else -}}
+  {{- $fallbackHex := replaceRE "^#" "" $fallback -}}
+  {{- if gt (len (findRE "(?i)^[0-9a-f]{3}$" $fallbackHex)) 0 -}}
+    {{- $fallbackHex = printf "%s%s%s%s%s%s" (substr $fallbackHex 0 1) (substr $fallbackHex 0 1) (substr $fallbackHex 1 1) (substr $fallbackHex 1 1) (substr $fallbackHex 2 1) (substr $fallbackHex 2 1) -}}
+  {{- end -}}
+  {{- $hex = $fallbackHex -}}
+{{- end -}}
+
+{{- return (dict
+  "css" $css
+  "r" (printf "0x%s" (substr $hex 0 2) | int)
+  "g" (printf "0x%s" (substr $hex 2 2) | int)
+  "b" (printf "0x%s" (substr $hex 4 2) | int)
+) -}}

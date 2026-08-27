@@ -178,6 +178,8 @@
   translation: "Gaukite žinutes, kai šis puslapis atsinaujina su nauja informacija."
 - id: rss
   translation: "RSS"
+- id: atom
+  translation: "Atom"
 - id: email
   translation: "El. paštas"
 - id: discord

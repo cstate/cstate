@@ -175,6 +175,8 @@
   translation: "Bu durum sayfasından güncellemeler almak için abone olun."
 - id: rss
   translation: "RSS"
+- id: atom
+  translation: "Atom"
 - id: email
   translation: "E-posta"
 - id: discord

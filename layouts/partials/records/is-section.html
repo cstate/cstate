@@ -1,0 +1,3 @@
+{{- $section := . -}}
+{{- $recordSections := partial "records/sections.html" site.Home -}}
+{{- return (in $recordSections $section) -}}

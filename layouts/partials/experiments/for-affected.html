@@ -1,0 +1,42 @@
+{{- $page := .page -}}
+{{- $affected := .affected | default (slice) -}}
+{{- $experiments := where $page.Site.RegularPages "Section" "experiments" -}}
+{{- $related := where $experiments "Params.affected" "intersect" $affected -}}
+{{- $runningByState := where $related "Params.state" "in" (slice "active" "running") -}}
+{{- $runningBySeverity := where $related "Params.severity" "=" "ongoing" -}}
+{{- $running := union $runningByState $runningBySeverity -}}
+{{- $startingByState := where $related "Params.state" "in" (slice "starting-soon" "starting soon" "planned") -}}
+{{- $future := where (where $related "Params.state" "!=" "active") "Date" "gt" now -}}
+{{- $startingSoon := union $startingByState $future -}}
+{{- $visibleRunning := where $running "Params.severity" "=" "notice" -}}
+{{- $visibleStartingSoon := where $startingSoon "Params.severity" "=" "notice" -}}
+{{- $visible := $visibleRunning -}}
+{{- $status := "none" -}}
+{{- $label := "No experiments" -}}
+{{- if gt (len $visibleRunning) 0 -}}
+  {{- $status = "running" -}}
+  {{- $label = cond (eq (len $visibleRunning) 1) "Experiment running" (printf "%d experiments running" (len $visibleRunning)) -}}
+{{- else if gt (len $visibleStartingSoon) 0 -}}
+  {{- $status = "starting-soon" -}}
+  {{- $label = cond (eq (len $visibleStartingSoon) 1) "Experiment starting soon" (printf "%d experiments starting soon" (len $visibleStartingSoon)) -}}
+  {{- $visible = $visibleStartingSoon -}}
+{{- end -}}
+{{- $href := "experiments/" | relURL -}}
+{{- $url := "experiments/" | absURL -}}
+{{- if eq (len $visible) 1 -}}
+  {{- range $visible -}}
+    {{- $href = .RelPermalink -}}
+    {{- $url = .Permalink -}}
+  {{- end -}}
+{{- end -}}
+{{- return (dict
+  "status" $status
+  "label" $label
+  "href" $href
+  "url" $url
+  "running" $visibleRunning
+  "startingSoon" $visibleStartingSoon
+  "allRunning" $running
+  "allStartingSoon" $startingSoon
+  "visible" $visible
+) -}}

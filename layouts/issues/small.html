@@ -5,6 +5,59 @@
 {{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}
 {{ $isDown := where $active "Params.severity" "=" "down" }}
 
+{{ if eq (.Site.Params.skin | default "modern" | urlize) "modern" }}
+  {{ $icon := "info" }}
+  {{ $statusClass := "notice" }}
+  {{ $statusText := T "thisIsNotice" }}
+  {{ if .Params.Resolved }}
+    {{ $icon = "check-circle" }}
+    {{ $statusClass = "resolved" }}
+    {{ $t := (time .Params.ResolvedWhen) }}
+    {{ $timeDiff := (sub $t.Unix .Date.Unix) }}
+    {{ $days := div $timeDiff 86400 }}
+    {{ $remainingSeconds := mod $timeDiff 86400 }}
+    {{ $hours := div $remainingSeconds 3600 }}
+    {{ $minutes := div (mod $remainingSeconds 3600) 60 }}
+    {{ if lt $timeDiff 60 }}
+      {{ $statusText = printf "%s %s" (T "resolved") (T "inUnderAMinute") }}
+    {{ else }}
+      {{ $statusText = printf "%s %s%s%dm" (T "resolvedAfter") (cond (gt $days 0) (printf "%dd " $days) "") (cond (gt $hours 0) (printf "%dh " $hours) "") $minutes }}
+      {{ if eq .Params.severity "down" }}
+        {{ $statusText = printf "%s %s" $statusText (T "ofDowntime") }}
+      {{ end }}
+    {{ end }}
+  {{ else if eq .Params.severity "down" }}
+    {{ $icon = "x-circle" }}
+    {{ $statusClass = "down" }}
+    {{ $statusText = printf "%s - %s" (T "thisIsDown") (T "downtimeOngoing") }}
+  {{ else if eq .Params.severity "disrupted" }}
+    {{ $icon = "alert-circle" }}
+    {{ $statusClass = "disrupted" }}
+    {{ $statusText = printf "%s - %s" (T "thisIsDisrupted") (T "downtimeOngoing") }}
+  {{ end }}
+
+  <a href="{{ .Permalink }}" class="issue modern-incident modern-incident--archive no-underline">
+    <span class="modern-incident__content">
+      {{ if .Params.informational }}
+        <span class="modern-incident__badge modern-incident__badge--info">Informational</span>
+      {{ end }}
+      <span class="modern-incident__title">{{ .Title }}</span>
+      {{ if not .Params.informational }}
+        <span class="modern-incident__status modern-incident__status--{{ $statusClass }}">
+          {{ partial "skins/modern/icon" (dict "name" $icon "class" "modern-incident__icon") }}
+          {{ $statusText }}
+        </span>
+      {{ end }}
+    </span>
+    <small class="date modern-incident__date {{ cond .Site.Params.useRelativeTime "relative-time" "" }}" title="{{ dateFormat .Site.Params.dateFormat .Params.date }}" data-date="{{ .Date.Format "2006-01-02T15:04:05Z" }}">
+      {{ if .Site.Params.dateFormat }}
+        {{ dateFormat .Site.Params.dateFormat .Params.date }}
+      {{ else }}
+        {{ .Date.Format "January 2, 2006 at 3:04 PM" }}
+      {{ end }}
+    </small>
+  </a>
+{{ else }}
 <a href="{{ .Permalink }}" class="issue no-underline">
   {{ if .Params.informational }}
 
@@ -111,3 +164,4 @@
 
   {{ end }}
 </a>
+{{ end }}

@@ -1,3 +1,8 @@
+{{- $skin := .Site.Params.skin | default "modern" | urlize -}}
+{{- $skinFooter := printf "partials/skins/%s/footer.html" $skin -}}
+{{- if templates.Exists $skinFooter -}}
+  {{ partial (printf "skins/%s/footer.html" $skin) . }}
+{{- else -}}
 {{ if .Site.Params.enableCustomHTML }}
   {{ partial "custom/above-footer" . }}
 {{ end }}
@@ -19,13 +24,19 @@
       <p class="hinted">
         <small>
           ⚡
-          {{ T "subscribeViaRss" }} —
+          {{ T "subscribe" }} —
           {{ with $.Site.Home.OutputFormats.Get "rss" }}
-            <a href="{{ .Permalink }}" class="no-underline">{{ T "toAllUpdates" }}</a>
+            <a href="{{ .Permalink }}" class="no-underline">{{ T "rss" }} {{ T "toAllUpdates" }}</a>
+          {{ end }}
+          {{ with $.Site.Home.OutputFormats.Get "atom" }}
+            / <a href="{{ .Permalink }}" class="no-underline">{{ T "atom" }} {{ T "toAllUpdates" }}</a>
           {{ end }}
           {{ if not .IsHome }}
           {{ with .OutputFormats.Get "rss" }}
-            {{ T "or" }} <a href="{{ .Permalink }}" class="no-underline">{{ T "onlyThisFeed" }} ({{ $.Title }})</a>
+            {{ T "or" }} <a href="{{ .Permalink }}" class="no-underline">{{ T "rss" }} {{ T "onlyThisFeed" }} ({{ $.Title }})</a>
+          {{ end }}
+          {{ with .OutputFormats.Get "atom" }}
+            / <a href="{{ .Permalink }}" class="no-underline">{{ T "atom" }} {{ T "onlyThisFeed" }} ({{ $.Title }})</a>
           {{ end }}
           {{ end }}
         </small>
@@ -37,3 +48,4 @@
 {{ if .Site.Params.enableCustomHTML }}
   {{ partial "custom/below-footer" . }}
 {{ end }}
+{{- end -}}

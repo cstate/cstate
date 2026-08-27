@@ -1,0 +1,66 @@
+{{- $page := . -}}
+{{- $section := $page.Section -}}
+{{- $recordType := $page.Params.recordType | default "" -}}
+{{- $metadata := partial "records/metadata.html" (dict "page" $page "section" $section "recordType" $recordType) -}}
+{{- if eq $recordType "" -}}
+  {{- with $metadata.recordType -}}
+    {{- $recordType = . -}}
+  {{- else -}}
+    {{- if eq $section "issues" -}}
+      {{- $recordType = "incident" -}}
+    {{- else -}}
+      {{- $recordType = $section -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $label := humanize $recordType | title -}}
+{{- $pluralLabel := printf "%ss" $label -}}
+{{- with $metadata.label -}}{{- $label = . -}}{{- end -}}
+{{- with $metadata.pluralLabel -}}{{- $pluralLabel = . -}}{{- end -}}
+{{- if eq $recordType "incident" -}}{{- $label = "Incident" -}}{{- $pluralLabel = "Incidents" -}}{{- end -}}
+
+{{- $state := $page.Params.state | default "" -}}
+{{- if and (eq $state "") (eq ($page.Params.severity | default "") "ongoing") -}}
+  {{- $state = "active" -}}
+{{- end -}}
+
+{{- $stateLabel := "" -}}
+{{- if eq $state "active" -}}{{- $stateLabel = "Active" -}}{{- end -}}
+{{- if eq $state "completed" -}}{{- $stateLabel = "Completed" -}}{{- end -}}
+{{- if eq $state "archived" -}}{{- $stateLabel = "Archived" -}}{{- end -}}
+
+{{- $kind := $page.Params.recordKind | default ($page.Params.kind | default "") -}}
+{{- if eq $kind "" -}}
+  {{- if eq $recordType "incident" -}}
+    {{- if $page.Params.informational -}}
+      {{- $kind = "announcement" -}}
+    {{- else -}}
+      {{- $kind = "incident" -}}
+    {{- end -}}
+  {{- else -}}
+    {{- $kind = $recordType -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $severity := $page.Params.severity | default "" -}}
+{{- $statusImpact := $severity | default "none" -}}
+{{- if eq $statusImpact "ongoing" -}}
+  {{- $statusImpact = "none" -}}
+{{- end -}}
+
+{{- $affected := $page.Params.affected | default (slice) -}}
+{{- return (dict
+  "type" $recordType
+  "kind" $kind
+  "label" $label
+  "pluralLabel" $pluralLabel
+  "state" $state
+  "stateLabel" $stateLabel
+  "isActive" (eq $state "active")
+  "severity" $severity
+  "statusImpact" $statusImpact
+  "isPinned" ($page.Params.pin | default false)
+  "affected" $affected
+  "section" $section
+) -}}

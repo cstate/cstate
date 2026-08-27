@@ -1,0 +1,15 @@
+{{- if partial "records/is-section.html" .Section -}}
+  {{ partial "records/card.html" . }}
+{{- else -}}
+<a href="{{ .Permalink }}" class="issue no-underline">
+  <small class="date float-right {{ cond .Site.Params.useRelativeTime "relative-time" "" }}" title="{{ dateFormat .Site.Params.dateFormat .Params.date }}" data-date="{{ .Date.Format "2006-01-02T15:04:05Z" }}">
+    {{ if .Site.Params.dateFormat }}
+      {{ dateFormat .Site.Params.dateFormat .Params.date }}
+    {{ else }}
+      {{ .Date.Format "January 2, 2006 at 3:04 PM" }}
+    {{ end }}
+  </small>
+  <h3>{{ .Title }}</h3>
+  <span class="faded">{{ .Summary | plainify | truncate 200 }}</span>
+</a>
+{{- end -}}

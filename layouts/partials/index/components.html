@@ -1,6 +1,11 @@
 {{/* Existing cState references */}}
 {{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
 {{ $active := where $incidents "Params.resolved" "=" false }}
+{{ $recordSections := partial "records/sections.html" . }}
+{{ $records := where .Site.RegularPages "Section" "in" $recordSections }}
+{{ $activeRecordsByState := where $records "Params.state" "=" "active" }}
+{{ $activeRecordsBySeverity := where $records "Params.severity" "=" "ongoing" }}
+{{ $activeRecords := union $activeRecordsByState $activeRecordsBySeverity }}
 
 {{ $isNotice := where $active "Params.severity" "=" "notice" }}
 {{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}
@@ -16,6 +21,13 @@
 	{{ range $categories }}
 	<div class="category {{ if .closed }}category--closed{{ else }}category--open{{ end }}{{ if not .untitled }} category--titled{{ end }}"
 		id="{{ .name | urlize }}">
+		{{ $categorySystems := where $systems "category" "=" .name }}
+		{{ $categoryAffected := slice .name }}
+		{{ range $categorySystems }}
+			{{ $categoryAffected = $categoryAffected | append .name }}
+		{{ end }}
+		{{ $categoryExperiments := partial "experiments/for-affected.html" (dict "page" $ "affected" $categoryAffected) }}
+		{{ $skin := $.Site.Params.skin | default "modern" | urlize }}
 		{{ if not .untitled }}
 		<div class="bold padding clicky category__head" onclick="toggleCategoryHead(this)">
 			<span class="hide-without-js">
@@ -42,62 +54,99 @@
 			</span>
 			{{ end }}
 			<span class="category-status"></span>
+			{{ if ne $categoryExperiments.status "none" }}
+				<a href="{{ $categoryExperiments.href }}" class="category-experiment category-experiment--{{ $categoryExperiments.status }} no-underline" title="{{ $categoryExperiments.label }}" aria-label="{{ $categoryExperiments.label }}" onclick="event.stopPropagation()">
+					{{ if eq $skin "modern" }}
+						{{ partial "skins/modern/icon" (dict "name" "flask" "class" "category-experiment__icon" "label" $categoryExperiments.label) }}
+					{{ else }}
+						<span aria-hidden="true">[exp]</span>
+					{{ end }}
+				</a>
+			{{ end }}
 		</div>
 		{{ else }}
 		<div class="padding"></div>
 		{{ end }}
 
-		{{ $categorySystems := where $systems "category" "=" .name }}
-		<div class="components">
-			{{ range $system := $categorySystems }}
-			{{ $activeComponentIssues := where $active "Params.affected" "intersect" (slice $system.name) }}
-			{{ $thisIsNotice := where $activeComponentIssues "Params.severity" "=" "notice" }}
-			{{ $thisIsDisrupted := where $activeComponentIssues "Params.severity" "=" "disrupted" }}
-			{{ $thisIsDown := where $activeComponentIssues "Params.severity" "=" "down" }}
+			<div class="components">
+				{{ range $system := $categorySystems }}
+				{{ $activeComponentIssues := where $active "Params.affected" "intersect" (slice $system.name) }}
+				{{ $thisIsNotice := where $activeComponentIssues "Params.severity" "=" "notice" }}
+				{{ $thisIsDisrupted := where $activeComponentIssues "Params.severity" "=" "disrupted" }}
+				{{ $thisIsDown := where $activeComponentIssues "Params.severity" "=" "down" }}
+				{{ $activeComponentRecords := where $activeRecords "Params.affected" "intersect" (slice $system.name) }}
+				{{ $activeComponentRecords = where $activeComponentRecords "Section" "!=" "experiments" }}
+				{{ $componentPages := where $.Site.RegularPages "Params.affected" "intersect" (slice $system.name) }}
+				{{ $componentExperiments := partial "experiments/for-affected.html" (dict "page" $ "affected" (slice $system.name)) }}
 
-			<div class="component" id="system-{{ .name | urlize }}"
-				data-status="{{ if $thisIsDown }}down{{ else if $thisIsDisrupted }}disrupted{{ else if $thisIsNotice }}notice{{ else }}ok{{ end }}">
-				<a href="{{ printf "affected/%s/" ($system.name | urlize) | relURL }}" class="no-underline">
-					{{ default $system.name $system.displayName }}
-				</a>
-
-				{{ with $system.description }}
-				<span class="tooltip tooltip--small">
-					&nbsp; <span class="faded">(?)</span>
-					<span class="tooltip__text">{{ . }}</span>
-				</span>
-				{{ end }}
-
-				{{ with $system.link }}
-				<span class="span-icon">
-					<a href="{{ . }}" class="external-link-style">
-						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-							stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
-							<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-							<polyline points="15 3 21 3 21 9"></polyline>
-							<line x1="10" y1="14" x2="21" y2="3"></line>
-						</svg>
+				<div class="component" id="system-{{ .name | urlize }}"
+					data-status="{{ if $thisIsDown }}down{{ else if $thisIsDisrupted }}disrupted{{ else if $thisIsNotice }}notice{{ else }}ok{{ end }}"
+					data-experiment-status="{{ $componentExperiments.status }}"
+					data-has-history="{{ if $componentPages }}true{{ else }}false{{ end }}">
+				<div class="component-main">
+					<a href="{{ printf "affected/%s/" ($system.name | urlize) | relURL }}" class="no-underline component-name">
+						{{ default $system.name $system.displayName }}
 					</a>
-				</span>
-				{{ end }}
+
+					{{ with $system.description }}
+					<span class="tooltip tooltip--small">
+						&nbsp; <span class="faded">(?)</span>
+						<span class="tooltip__text">{{ . }}</span>
+					</span>
+					{{ end }}
+
+					{{ with $system.link }}
+					<span class="span-icon">
+						<a href="{{ . }}" class="external-link-style">
+							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+								stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-external-link">
+								<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+								<polyline points="15 3 21 3 21 9"></polyline>
+								<line x1="10" y1="14" x2="21" y2="3"></line>
+							</svg>
+						</a>
+					</span>
+					{{ end }}
+				</div>
 
 				<span class="component-status">
-					{{ if $thisIsDown }}
-					{{ T "thisIsDown" }}
-					{{ else if $thisIsDisrupted }}
-					{{ T "thisIsDisrupted" }}
-					{{ else if $thisIsNotice }}
-					{{ T "thisIsNotice" }}
-					{{ else }}
-					{{ T "thisIsOk" }}
+					<span>
+						{{ if $thisIsDown }}
+						{{ T "thisIsDown" }}
+						{{ else if $thisIsDisrupted }}
+						{{ T "thisIsDisrupted" }}
+						{{ else if $thisIsNotice }}
+						{{ T "thisIsNotice" }}
+							{{ else }}
+							{{ T "thisIsOk" }}
+							{{ end }}
+					</span>
+					{{ if ne $componentExperiments.status "none" }}
+						<a href="{{ $componentExperiments.href }}" class="component-experiment component-experiment--{{ $componentExperiments.status }} no-underline" title="{{ $componentExperiments.label }}" aria-label="{{ $componentExperiments.label }}">
+							{{ if eq $skin "modern" }}
+								{{ partial "skins/modern/icon" (dict "name" "flask" "class" "component-experiment__icon" "label" $componentExperiments.label) }}
+							{{ else }}
+								<span aria-hidden="true">[exp]</span>
+							{{ end }}
+						</a>
 					{{ end }}
-				</span>
+					</span>
 
-				{{ if $uptimeHistogramEnabled }}
-					{{ if ne $system.histogram false }}
-					<div class="histogram-container">
-						<!-- A quick loading text, removed once data is fetched -->
-						<div id="histogram-{{ .name | urlize }}" class="histogram">{{ T "laoding" }} {{ .name }} {{ T "chart" }}</div>
+					{{ if $activeComponentRecords }}
+					<div class="component-records">
+						<small class="faded">{{ default "Active records" (T "activeRecords") }}:</small>
+						{{ range $activeComponentRecords }}
+							{{ $record := partial "records/normalize.html" . }}
+							<a href="{{ .RelPermalink }}" class="tag no-underline">{{ $record.label }}</a>
+						{{ end }}
+					</div>
+					{{ end }}
+
+					{{ if $uptimeHistogramEnabled }}
+						{{ if ne $system.histogram false }}
+						<div class="histogram-container">
+							<!-- A quick loading text, removed once data is fetched -->
+							<div id="histogram-{{ .name | urlize }}" class="histogram">{{ T "loading" }} {{ .name }} {{ T "chart" }}</div>
 					</div>
 					{{ end }}
 				{{ end }}
@@ -220,6 +269,24 @@
 	// We'll always build 60 bars
 	const DAYS = 60;
 
+	function renderOkHistogram(histogramDiv, componentPath) {
+		var now = new Date();
+		for (var i = DAYS - 1; i >= 0; i--) {
+			var d = new Date(now);
+			d.setDate(d.getDate() - i);
+			var y = d.getFullYear();
+			var m = String(d.getMonth() + 1).padStart(2, '0');
+			var dd = String(d.getDate()).padStart(2, '0');
+			var dateStr = y + '-' + m + '-' + dd;
+			var bar = document.createElement('a');
+			bar.href = componentPath;
+			bar.className = 'histogram-bar';
+			bar.setAttribute('data-label', dateStr + ' — ' + '{{ T "thisIsOk" }}');
+			bar.style.backgroundColor = themeOkColor;
+			histogramDiv.appendChild(bar);
+		}
+	}
+
 	(function () {
 		var components = document.querySelectorAll('.component');
 		components.forEach(function (component) {
@@ -227,8 +294,13 @@
 			var histogramDiv = document.getElementById('histogram-' + systemName);
 			if (!histogramDiv) return;
 
-			// Example endpoint
-			var endpoint = '{{ .Site.BaseURL }}affected/' + systemName + '/index.json';
+			var componentPath = '{{ "affected/" | relURL }}' + systemName + '/';
+			var endpoint = componentPath + 'index.json';
+			if (component.dataset.hasHistory !== 'true') {
+				histogramDiv.textContent = '';
+				renderOkHistogram(histogramDiv, componentPath);
+				return;
+			}
 			fetch(endpoint)
 				.then(res => {
 					// Handle different HTTP status codes appropriately
@@ -292,7 +364,7 @@
 					for (let i = dayStats.length - 1; i >= 0; i--) {
 						let ds = dayStats[i];
 						let bar = document.createElement('a');
-						bar.href = '{{ .Site.BaseURL }}/affected/' + systemName;
+						bar.href = componentPath;
 						bar.className = 'histogram-bar';
 
 						// Determine localized label from severity
@@ -326,24 +398,7 @@
 						// This shouldn't happen since we handle 404s above, but just in case
 						console.warn('Histogram: 404 for', systemName, '- treating as continuous uptime');
 						histogramDiv.textContent = ''; // Clear "Loading..."
-						
-						// Build histogram with all OK status (continuous uptime)
-						var now = new Date();
-						for (var i = DAYS - 1; i >= 0; i--) {
-							var d = new Date(now);
-							d.setDate(d.getDate() - i);
-							var y = d.getFullYear();
-							var m = String(d.getMonth() + 1).padStart(2, '0');
-							var dd = String(d.getDate()).padStart(2, '0');
-							var dateStr = y + '-' + m + '-' + dd;
-							
-							var bar = document.createElement('a');
-							bar.href = '{{ .Site.BaseURL }}/affected/' + systemName;
-							bar.className = 'histogram-bar';
-							bar.setAttribute('data-label', dateStr + ' — ' + '{{ T "thisIsOk" }}');
-							bar.style.backgroundColor = themeOkColor;
-							histogramDiv.appendChild(bar);
-						}
+						renderOkHistogram(histogramDiv, componentPath);
 					} else {
 						// Network errors, server errors (500, 503), or other actual problems
 						console.error('Histogram load error for', systemName + ':', err);
