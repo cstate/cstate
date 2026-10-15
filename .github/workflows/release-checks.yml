@@ -51,3 +51,10 @@ jobs:
           node scripts/verify-bugfixes.mjs
           node scripts/verify-status-tool.mjs
           node scripts/verify-v7-features.mjs
+
+      - name: Verify history filters and record defaults in Chromium
+        run: |
+          browser_tools="$RUNNER_TEMP/cstate-browser-tools"
+          npm install --prefix "$browser_tools" --no-save --package-lock=false playwright@1.62.1
+          "$browser_tools/node_modules/.bin/playwright" install --with-deps chromium
+          CSTATE_PLAYWRIGHT_MODULE="$browser_tools/node_modules/playwright" node scripts/verify-v7-review.mjs

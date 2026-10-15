@@ -46,9 +46,10 @@
               {{ range partial "records/definitions.html" . }}
                 {{ $sectionRecords := where $records "Section" .section }}
                 {{ if $sectionRecords }}
+                  {{ $record := partial "records/normalize.html" (index $sectionRecords 0) }}
                   <label class="modern-history-filter__option">
-                    <input type="checkbox" value="{{ .recordType }}" checked data-history-type-filter>
-                    <span>{{ .label }}</span>
+                    <input type="checkbox" value="{{ $record.type }}" checked data-history-type-filter>
+                    <span>{{ $record.label }}</span>
                   </label>
                 {{ end }}
               {{ end }}

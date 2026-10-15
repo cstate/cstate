@@ -1,0 +1,10 @@
+{{- $sections := partial "records/sections.html" . -}}
+{{- $records := where .Site.RegularPages "Section" "in" $sections -}}
+{{- $active := slice -}}
+{{- range $records -}}
+  {{- $record := partial "records/normalize.html" . -}}
+  {{- if $record.isActive -}}
+    {{- $active = $active | append . -}}
+  {{- end -}}
+{{- end -}}
+{{- return $active -}}

@@ -1,10 +1,3 @@
-{{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
-{{ $active := where (where $incidents "Params.resolved" "=" false) "Params.informational" "!=" true }}
-
-{{ $isNotice := where $active "Params.severity" "=" "notice" }}
-{{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}
-{{ $isDown := where $active "Params.severity" "=" "down" }}
-
 {{ if eq (.Site.Params.skin | default "modern" | urlize) "modern" }}
   {{ $icon := "info-mark" }}
   {{ $statusClass := "notice" }}

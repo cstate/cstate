@@ -179,7 +179,8 @@ assert.ok(
 
 const combinedHistoryStart = indexHtml.indexOf('modern-incident-list--combined');
 const combinedHistoryEnd = indexHtml.indexOf('modern-history-more', combinedHistoryStart);
-const combinedHistoryHtml = indexHtml.slice(combinedHistoryStart, combinedHistoryEnd);
+const combinedHistoryHtml = indexHtml.slice(combinedHistoryStart, combinedHistoryEnd)
+  .replace(/<template[^>]*data-history-overflow[^>]*>[\s\S]*?<\/template>/g, '');
 assert.equal(
   (combinedHistoryHtml.match(/data-history-item/g) || []).length,
   10,

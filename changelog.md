@@ -2,6 +2,9 @@
 
 ### Additional v7 fixes and integrations (2026-10-15)
 
+- Fixed combined-history filters searching only the initial display window; matching entries are now selected from the complete history before applying the page limit.
+- Used normalized active defaults in component selectors and experiment counts, with explicit completed/archived states taking precedence over legacy severity hints.
+- Preserved configured record labels across cards, details, feeds, and filters while retaining translations for default labels.
 - Fixed quoted and escaped text throughout incident, page, system, and homepage JSON APIs (#373); corrected custom-tab URLs (#372).
 - Preserved subdirectory hosting in the classic homepage history link (#374).
 - Grouped monthly archives by year and month and applied the same calendar-safe age cutoff as yearly archives (#371).

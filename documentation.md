@@ -48,6 +48,15 @@ node scripts/verify-status-tool.mjs
 node scripts/verify-v7-features.mjs
 ```
 
+Browser regression checks cover history filtering before the display limit, normalized active-record selectors, and configured versus translated labels:
+
+```bash
+browser_tools="$(mktemp -d)"
+npm install --prefix "$browser_tools" --no-save --package-lock=false playwright@1.62.1
+"$browser_tools/node_modules/.bin/playwright" install chromium
+CSTATE_PLAYWRIGHT_MODULE="$browser_tools/node_modules/playwright" node scripts/verify-v7-review.mjs
+```
+
 ## Ecosystem verification
 
 Run the package-defined tests from each sibling repository root. Each v7 compatibility verifier reads `cstate/test/fixtures/v7-index.json` by default and may be pointed elsewhere with `CSTATE_V7_FIXTURE`.

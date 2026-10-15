@@ -26,6 +26,12 @@
   {{- with T $pluralLabelKey -}}{{- $pluralLabel = . -}}{{- end -}}
 {{- end -}}
 
+{{/* Site-configured labels take precedence over the built-in translations. */}}
+{{- if $page.Site.Params.recordSections -}}
+  {{- with $metadata.label -}}{{- $label = . -}}{{- end -}}
+  {{- with $metadata.pluralLabel -}}{{- $pluralLabel = . -}}{{- end -}}
+{{- end -}}
+
 {{- $state := $page.Params.state | default "" -}}
 {{- if and (eq $state "") (eq ($page.Params.severity | default "") "ongoing") -}}
   {{- $state = "active" -}}

@@ -12,7 +12,7 @@
 {{ else }}
   <p class="modern-history-empty" data-history-empty hidden>{{ T "noMatchingHistory" }}</p>
 
-  <div class="modern-incident-list modern-incident-list--combined" data-history-list>
+  <div class="modern-incident-list modern-incident-list--combined" data-history-list data-history-limit="{{ $postsPerPage }}">
     {{ range first $postsPerPage $history }}
       {{ if eq .Params.section "issue" }}
         {{ .Render "small" }}
@@ -20,6 +20,16 @@
         {{ partial "records/card.html" . }}
       {{ end }}
     {{ end }}
+    {{/* Keep older entries available to filters without expanding the initial list. */}}
+    <template data-history-overflow>
+      {{ range after $postsPerPage $history }}
+        {{ if eq .Params.section "issue" }}
+          {{ .Render "small" }}
+        {{ else }}
+          {{ partial "records/card.html" . }}
+        {{ end }}
+      {{ end }}
+    </template>
   </div>
 
   {{ if gt (len $history) $postsPerPage }}
@@ -38,6 +48,11 @@
       if (!root || !list) return;
 
       var items = Array.prototype.slice.call(list.querySelectorAll('[data-history-item]'));
+      var overflow = list.querySelector('[data-history-overflow]');
+      if (overflow && overflow.content) {
+        items = items.concat(Array.prototype.slice.call(overflow.content.querySelectorAll('[data-history-item]')));
+      }
+      var limit = Number(list.getAttribute('data-history-limit')) || items.length;
       var typeInputs = Array.prototype.slice.call(root.querySelectorAll('[data-history-type-filter]'));
       var timeSelect = root.querySelector('[data-history-time-filter]');
       var countLabel = root.querySelector('[data-history-filter-count]');
@@ -88,10 +103,15 @@
         items.forEach(function (item) {
           var matchesType = types.indexOf(item.getAttribute('data-history-type')) !== -1;
           var matchesTime = itemWithinRange(item, days);
-          var shouldShow = matchesType && matchesTime;
+          var shouldShow = matchesType && matchesTime && visible < limit;
           item.hidden = !shouldShow;
           item.classList.toggle('history-item--hidden', !shouldShow);
-          if (shouldShow) visible += 1;
+          if (shouldShow) {
+            list.appendChild(item);
+            visible += 1;
+          } else if (item.parentNode === list) {
+            list.removeChild(item);
+          }
         });
 
         updateCount(types);

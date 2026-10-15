@@ -2,14 +2,17 @@
 {{- $affected := .affected | default (slice) -}}
 {{- $experiments := where $page.Site.RegularPages "Section" "experiments" -}}
 {{- $related := where $experiments "Params.affected" "intersect" $affected -}}
-{{- $started := where $related "Date" "le" now -}}
-{{- $runningByState := where $started "Params.state" "in" (slice "active" "running") -}}
-{{- $runningBySeverity := where $started "Params.severity" "=" "ongoing" -}}
-{{- $running := union $runningByState $runningBySeverity -}}
-{{- $startingByState := where $related "Params.state" "in" (slice "starting-soon" "starting soon" "planned") -}}
-{{- $futureCandidates := where $related "Params.state" "not in" (slice "completed" "archived") -}}
-{{- $future := where $futureCandidates "Date" "gt" now -}}
-{{- $startingSoon := union $startingByState $future -}}
+{{- $running := slice -}}
+{{- $startingSoon := slice -}}
+{{- range $related -}}
+  {{- $record := partial "records/normalize.html" . -}}
+  {{- $terminal := in (slice "completed" "archived") $record.state -}}
+  {{- if and (not $terminal) (or (.Date.After now) (in (slice "starting-soon" "starting soon" "planned") $record.state)) -}}
+    {{- $startingSoon = $startingSoon | append . -}}
+  {{- else if and (not (.Date.After now)) (in (slice "active" "running") $record.state) -}}
+    {{- $running = $running | append . -}}
+  {{- end -}}
+{{- end -}}
 {{- $visibleRunning := where $running "Params.severity" "=" "notice" -}}
 {{- $visibleStartingSoon := where $startingSoon "Params.severity" "=" "notice" -}}
 {{- $visible := $visibleRunning -}}

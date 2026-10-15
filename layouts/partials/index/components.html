@@ -1,11 +1,7 @@
 {{/* Existing cState references */}}
 {{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
 {{ $active := where (where $incidents "Params.resolved" "=" false) "Params.informational" "!=" true }}
-{{ $recordSections := partial "records/sections.html" . }}
-{{ $records := where .Site.RegularPages "Section" "in" $recordSections }}
-{{ $activeRecordsByState := where $records "Params.state" "=" "active" }}
-{{ $activeRecordsBySeverity := where $records "Params.severity" "=" "ongoing" }}
-{{ $activeRecords := union $activeRecordsByState $activeRecordsBySeverity }}
+{{ $activeRecords := partial "records/active.html" . }}
 
 {{ $isNotice := where $active "Params.severity" "=" "notice" }}
 {{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}
