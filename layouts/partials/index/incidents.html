@@ -27,7 +27,7 @@
 {{ if gt (len $incidents) $postsPerPage }}
 <hr>
 <div class="right">
-	<a href="/issues/" class="next-link">
+	<a href="{{ "issues/" | relURL }}" class="next-link">
 		{{ T "next" }} &nbsp; &rarr;
 	</a>
 </div>

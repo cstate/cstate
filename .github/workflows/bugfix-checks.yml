@@ -1,0 +1,27 @@
+name: v6 regression checks
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master, 'codex/v6.*']
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        hugo: ['0.80.0', '0.101.0', '0.158.0', '0.167.0']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: ${{ matrix.hugo }}
+          extended: true
+      - run: node scripts/verify-bugfixes.mjs

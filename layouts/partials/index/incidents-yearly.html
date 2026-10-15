@@ -3,33 +3,8 @@ Template to display incidents grouped by year, excluding those older than a spec
 correctly.
 */}}
 
-{{/* Step 1: Retrieve all incidents */}}
-{{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
-
-{{/* Step 2: Attempt to retrieve and cast maximum age in years from config */}}
-{{/*
-- Cast to integer
-- If casting fails (e.g., non-numeric value), set to 0
-*/}}
+{{ $displayIncidents := partial "incidents-for-archive.html" . }}
 {{ $maxAgeYears := .Site.Params.incidentMaxAgeYears | int }}
-
-{{/* Step 3: Initialize a variable to hold incidents to display */}}
-{{ $displayIncidents := $incidents }}
-
-{{/* Step 4: Conditionally filter incidents if $maxAgeYears is greater than 0 */}}
-{{ if gt $maxAgeYears 0 }}
-{{/* Calculate the cutoff date */}}
-{{ $currentDate := now }}
-{{ $cutoffYear := sub $currentDate.Year $maxAgeYears }}
-{{ $cutoffDateString := printf "%d-%02d-%02d" $cutoffYear $currentDate.Month $currentDate.Day }}
-{{ $cutoffDate := $cutoffDateString | time }}
-
-{{/* Filter incidents to include only those newer than the cutoff date */}}
-{{ $filteredIncidents := where $incidents "Date" "ge" $cutoffDate }}
-
-{{/* Update $displayIncidents to the filtered list */}}
-{{ $displayIncidents = $filteredIncidents }}
-{{ end }}
 
 {{/* Step 5: Check if there are any incidents to display */}}
 {{ if not $displayIncidents }}

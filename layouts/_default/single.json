@@ -1,8 +1,8 @@
 {
   "is": "page",
-  "title": "{{ .Title }}",
-  "createdAt": "{{ .Date }}",
-  "filename": "{{ .File.LogicalName }}",
-  "permalink": "{{ .Permalink }}",
+  "title": {{ .Title | default "" | jsonify }},
+  "createdAt": {{ printf "%v" .Date | jsonify }},
+  "filename": {{ .File.LogicalName | default "" | jsonify }},
+  "permalink": {{ .Permalink | default "" | jsonify }},
   "body": {{ jsonify .Content }}
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.LanguageCode }}" class="no-js">
+<html lang="{{ partial "locale.html" . }}" class="no-js">
   <head>
     <!-- Basics -->
     <meta charset="utf-8">
@@ -12,7 +12,7 @@
     {{ range .AlternativeOutputFormats -}}
     {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
     {{ end -}}
-    <meta name="generator" content="cState v6.0.1 - https://github.com/cstate/cstate">
+    <meta name="generator" content="cState v6.0.2 - https://github.com/cstate/cstate">
     <meta name="theme-color" content="{{ .Site.Params.brand }}">
     <script>
     var themeBrandColor = '{{ .Site.Params.brand }}';

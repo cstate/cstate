@@ -1,0 +1,5 @@
+{{- if eq .Params.section "issue" -}}
+  {{ partial "issues/small.html" . }}
+{{- else -}}
+  <a href="{{ .Permalink }}" class="issue no-underline"><h3>{{ .Title }}</h3></a>
+{{- end -}}

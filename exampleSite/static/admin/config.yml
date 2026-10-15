@@ -150,7 +150,7 @@ collections:
             - { label: "🇷🇴 Română", value: "ro" }
           - label: 'Site language in code for html[lang]'
             hint: 'Use the ISO 639-1 defined abbreviations. Examples: en, lt, de. Fully explained here: https://github.com/cstate/cstate/wiki/Customization#changing-site-language'
-            name: 'languageCode'
+            name: 'locale'
             widget: 'string'
             default: 'en'
           - label: 'Base URL / Hostname'

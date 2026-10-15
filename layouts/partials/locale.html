@@ -1,0 +1,8 @@
+{{- $version := split hugo.Version "." -}}
+{{- $locale := "" -}}
+{{- if or (ge (int (index $version 0)) 1) (ge (int (index $version 1)) 158) -}}
+  {{- $locale = .Site.Language.Locale -}}
+{{- else -}}
+  {{- $locale = .Site.LanguageCode | default .Site.Language.Lang -}}
+{{- end -}}
+{{- return $locale -}}

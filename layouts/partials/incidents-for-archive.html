@@ -1,0 +1,8 @@
+{{- $incidents := where .Site.RegularPages "Params.section" "issue" -}}
+{{- $maxAgeYears := .Site.Params.incidentMaxAgeYears | int -}}
+{{- if gt $maxAgeYears 0 -}}
+  {{- $today := time (now.Format "2006-01-02") -}}
+  {{- $cutoff := $today.AddDate (int (sub 0 $maxAgeYears)) 0 0 -}}
+  {{- $incidents = where $incidents "Date" "ge" $cutoff -}}
+{{- end -}}
+{{- return $incidents -}}

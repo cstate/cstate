@@ -1,17 +1,17 @@
 {{ $incidents := where .Site.RegularPages "Params.section" "issue" }}{{ $active := where $incidents "Params.resolved" "=" false }}{{ $isNotice := where $active "Params.severity" "=" "notice" }}{{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}{{ $isDown := where $active "Params.severity" "=" "down" }}{
   "is": "index",
-  "cStateVersion": "6.0.1",
+  "cStateVersion": "6.0.2",
   "apiVersion": "2.0",
-  "title": "{{ .Site.Title }}",
-  "languageCodeHTML": "{{ .Site.LanguageCode }}",
-  "languageCode": "{{ T "languageCode" }}",
-  "baseURL": "{{ .Site.BaseURL }}",
-  "description": "{{ .Site.Params.Description }}",
+  "title": {{ .Site.Title | default "" | jsonify }},
+  "languageCodeHTML": {{ partial "locale.html" . | default "" | jsonify }},
+  "languageCode": {{ T "languageCode" | default "" | jsonify }},
+  "baseURL": {{ .Site.BaseURL | default "" | jsonify }},
+  "description": {{ .Site.Params.Description | default "" | jsonify }},
   "summaryStatus": {{ if $isDown }}"down",{{ else }}{{ if $isDisrupted }}"disrupted",{{ else }}{{ if $isNotice }}"notice",{{ else }}"ok",{{ end }}{{ end }}{{ end }}
   "categories": [{{ range $i, $e := .Site.Params.categories }}{{ if $i }},{{ end }}
       {
-        "name": "{{ .name }}",{{ if .description }}
-        "description": "{{ .description }}",{{ end }}
+        "name": {{ .name | default "" | jsonify }},{{ if .description }}
+        "description": {{ .description | default "" | jsonify }},{{ end }}
         "hideTitle": {{ if .untitled }}true{{ else }}false{{ end }},
         "closedByDefault": {{ if .closed }}true{{ else }}false{{ end }}
       }
@@ -23,20 +23,20 @@
   "pinnedIssues": [{{ range $i, $e := $pinnedIssues }}{{ if $i }},{{ end }}
       {
         "is": "issue",
-        "title": "{{ .Title }}",
-        "createdAt": "{{ .Date }}",
-        "lastMod": "{{ .Lastmod }}",
-        "permalink": "{{ .Permalink }}",
-        "affected": [{{ range $i, $e := .Params.Affected }}{{ if $i }}, {{ end }}"{{ . }}"{{ end }}],
-        "filename": "{{ .File.LogicalName }}"
+        "title": {{ .Title | default "" | jsonify }},
+        "createdAt": {{ printf "%v" .Date | jsonify }},
+        "lastMod": {{ printf "%v" .Lastmod | jsonify }},
+        "permalink": {{ .Permalink | default "" | jsonify }},
+        "affected": [{{ range $i, $e := .Params.Affected }}{{ if $i }}, {{ end }}{{ . | default "" | jsonify }}{{ end }}],
+        "filename": {{ .File.LogicalName | default "" | jsonify }}
       }{{ end }}
   ]{{ end }},
   "systems": [
     {{ range $i, $e := .Site.Params.systems }}{{ if $i }},{{ end }}
       {
-        "name": "{{ .name }}",{{ if .description }}
-        "description": "{{ .description }}",{{ end }}
-        "category": "{{ .category }}",
+        "name": {{ .name | default "" | jsonify }},{{ if .description }}
+        "description": {{ .description | default "" | jsonify }},{{ end }}
+        "category": {{ .category | default "" | jsonify }},
         {{ $activeComponentIssues := where $active "Params.affected" "intersect" (slice .name) }}{{ $thisIsNotice := where $activeComponentIssues "Params.severity" "=" "notice" }}{{ $thisIsDisrupted := where $activeComponentIssues "Params.severity" "=" "disrupted" }}{{ $thisIsDown := where $activeComponentIssues "Params.severity" "=" "down" }}
         "status": {{ if $thisIsDown }}"down"{{ else }}{{ if $thisIsDisrupted }}"disrupted"{{ else }}{{ if $thisIsNotice }}"notice"{{ else }}"ok"{{ end }}{{ end }}{{ end }},
         {{ if not $activeComponentIssues }}
@@ -45,16 +45,16 @@
         "unresolvedIssues": [{{ range $i, $e := $activeComponentIssues }}{{ if $i }},{{ end }}
             {
               "is": "issue",
-              "title": "{{ .Title }}",
-              "createdAt": "{{ .Date }}",
-              "lastMod": "{{ .Lastmod }}",
-              "permalink": "{{ .Permalink }}",
-              "severity": "{{ .Params.severity }}",
+              "title": {{ .Title | default "" | jsonify }},
+              "createdAt": {{ printf "%v" .Date | jsonify }},
+              "lastMod": {{ printf "%v" .Lastmod | jsonify }},
+              "permalink": {{ .Permalink | default "" | jsonify }},
+              "severity": {{ .Params.severity | default "" | jsonify }},
               "resolved": {{ if .Params.resolved }}true{{ else }}false{{ end }},
               "informational": {{ if .Params.informational }}true{{ else }}false{{ end }},
-              "resolvedAt": "{{ .Params.resolvedWhen }}",
-              "affected": [{{ range $i, $e := .Params.Affected }}{{ if $i }}, {{ end }}"{{ . }}"{{ end }}],
-              "filename": "{{ .File.LogicalName }}"
+              "resolvedAt": {{ .Params.resolvedWhen | default "" | jsonify }},
+              "affected": [{{ range $i, $e := .Params.Affected }}{{ if $i }}, {{ end }}{{ . | default "" | jsonify }}{{ end }}],
+              "filename": {{ .File.LogicalName | default "" | jsonify }}
             }
           {{ end }}
         ]{{ end }}
@@ -63,21 +63,21 @@
   {{ if .Site.Params.customTabs }}
   "tabs": [{{ range $i, $e := .Site.Params.customTabs }}{{ if $i }},{{ end }}
       {
-        "name": "{{ .name }}",
-        "link": "{{ .description }}"
+        "name": {{ .name | default "" | jsonify }},
+        "link": {{ .link | default "" | jsonify }}
       }
     {{ end }}
   ],{{ end }}
 
-  "buildDate": "{{ now.Format "2006-01-02" }}",
-  "buildTime": "{{ now.Format "15:04" }}",
-  "buildTimezone": "{{ now.Format "MST" }}",
-  "colorBrand": "{{ .Site.Params.Brand }}",
-  "colorOk": "{{ .Site.Params.Ok }}",
-  "colorDisrupted": "{{ .Site.Params.Disrupted }}",
-  "colorDown": "{{ .Site.Params.Down }}",
-  "colorNotice": "{{ .Site.Params.Notice }}",
-  "alwaysKeepBrandColor": "{{ .Site.Params.alwaysKeepBrandColor }}",
-  "logo": "{{ .Site.Params.logo | absURL }}",
-  "googleAnalytics": "{{ .Site.Params.googleAnalytics }}"
+  "buildDate": {{ now.Format "2006-01-02" | default "" | jsonify }},
+  "buildTime": {{ now.Format "15:04" | default "" | jsonify }},
+  "buildTimezone": {{ now.Format "MST" | default "" | jsonify }},
+  "colorBrand": {{ .Site.Params.Brand | default "" | jsonify }},
+  "colorOk": {{ .Site.Params.Ok | default "" | jsonify }},
+  "colorDisrupted": {{ .Site.Params.Disrupted | default "" | jsonify }},
+  "colorDown": {{ .Site.Params.Down | default "" | jsonify }},
+  "colorNotice": {{ .Site.Params.Notice | default "" | jsonify }},
+  "alwaysKeepBrandColor": {{ printf "%v" .Site.Params.alwaysKeepBrandColor | jsonify }},
+  "logo": {{ .Site.Params.logo | absURL | default "" | jsonify }},
+  "googleAnalytics": {{ .Site.Params.googleAnalytics | default "" | jsonify }}
 }

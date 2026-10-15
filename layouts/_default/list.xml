@@ -6,7 +6,7 @@
     <link>{{ .Permalink }}</link>
     <description>{{ T "incidentHistory" }}</description>
     <generator>github.com/cstate</generator>
-    {{ with .Site.LanguageCode }}<language>{{.}}</language>{{end}}
+    {{ with partial "locale.html" . }}<language>{{.}}</language>{{end}}
     {{ if not .Date.IsZero }}
     <lastBuildDate>{{ .Date.Format "2006-01-02T15:04:05-07:00" | safeHTML }}</lastBuildDate>
     <updated>{{ .Date.Format "2006-01-02T15:04:05-07:00" | safeHTML }}</updated>
