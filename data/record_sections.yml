@@ -1,0 +1,33 @@
+sections:
+  - section: experiments
+    recordType: experiment
+    label: Experiment
+    pluralLabel: Experiments
+  - section: release-notes
+    recordType: release-note
+    label: Release Note
+    pluralLabel: Release Notes
+  - section: changelog
+    recordType: changelog
+    label: Changelog Entry
+    pluralLabel: Changelog
+  - section: roadmap
+    recordType: roadmap
+    label: Roadmap Update
+    pluralLabel: Roadmap
+  - section: evals
+    recordType: eval-report
+    label: Eval Report
+    pluralLabel: Eval Reports
+  - section: agent-runs
+    recordType: agent-run
+    label: Agent Run
+    pluralLabel: Agent Runs
+  - section: decisions
+    recordType: decision
+    label: Decision Record
+    pluralLabel: Decision Records
+  - section: research
+    recordType: research-note
+    label: Research Note
+    pluralLabel: Research Notes

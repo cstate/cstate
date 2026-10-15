@@ -7,4 +7,5 @@ resolvedWhen:
 severity:
 affected:
 section: issue
+recordKind: incident
 ---

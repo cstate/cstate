@@ -178,6 +178,14 @@
   translation: "Subscribe to updates from this status page."
 - id: rss
   translation: "RSS"
+- id: atom
+  translation: "Atom"
+- id: records
+  translation: "Records"
+- id: related
+  translation: "Related"
+- id: activeRecords
+  translation: "Active records"
 - id: email
   translation: "Email"
 - id: discord
@@ -230,3 +238,107 @@
   translation: "Copy to clipboard"
 - id: open
   translation: "Open"
+
+## v7 operational records
+- id: history
+  translation: "History"
+- id: filter
+  translation: "Filter"
+- id: all
+  translation: "All"
+- id: historyTypes
+  translation: "History types"
+- id: timeRange
+  translation: "Time range"
+- id: allTime
+  translation: "All time"
+- id: last30Days
+  translation: "30 days"
+- id: last90Days
+  translation: "90 days"
+- id: lastYear
+  translation: "1 year"
+- id: noMatchingHistory
+  translation: "No matching history."
+- id: operationalRecords
+  translation: "Operational records"
+- id: viewAllRecords
+  translation: "View all records"
+- id: pinned
+  translation: "Pinned"
+- id: noRecordsYet
+  translation: "No records yet"
+- id: noPublishedRecords
+  translation: "This site does not have any published operational records."
+- id: noPublishedRecordsInSection
+  translation: "This section does not have any published operational records."
+- id: recordCount
+  translation: "{{ .Count }} records"
+- id: recordStateActive
+  translation: "Active"
+- id: recordStateCompleted
+  translation: "Completed"
+- id: recordStateArchived
+  translation: "Archived"
+- id: noExperiments
+  translation: "No experiments"
+- id: experimentRunning
+  translation: "Experiment running"
+- id: experimentsRunning
+  translation: "{{ .Count }} experiments running"
+- id: experimentStartingSoon
+  translation: "Experiment starting soon"
+- id: experimentsStartingSoon
+  translation: "{{ .Count }} experiments starting soon"
+- id: informational
+  translation: "Informational"
+- id: affectedSystems
+  translation: "Affected systems"
+- id: calendarEvent
+  translation: "Calendar event"
+- id: addToCalendar
+  translation: "Add this period to your calendar"
+- id: calendarDownloadDescription
+  translation: "Download an event file for this maintenance window."
+- id: downloadCalendarEvent
+  translation: "Download event (.ics)"
+- id: event
+  translation: "Event"
+- id: reminder
+  translation: "Reminder"
+- id: recordType_incident
+  translation: "Incident"
+- id: recordType_incident_plural
+  translation: "Incidents"
+- id: recordType_experiment
+  translation: "Experiment"
+- id: recordType_experiment_plural
+  translation: "Experiments"
+- id: recordType_release-note
+  translation: "Release note"
+- id: recordType_release-note_plural
+  translation: "Release notes"
+- id: recordType_changelog
+  translation: "Changelog entry"
+- id: recordType_changelog_plural
+  translation: "Changelog"
+- id: recordType_roadmap
+  translation: "Roadmap update"
+- id: recordType_roadmap_plural
+  translation: "Roadmap"
+- id: recordType_eval-report
+  translation: "Eval report"
+- id: recordType_eval-report_plural
+  translation: "Eval reports"
+- id: recordType_agent-run
+  translation: "Agent run"
+- id: recordType_agent-run_plural
+  translation: "Agent runs"
+- id: recordType_decision
+  translation: "Decision record"
+- id: recordType_decision_plural
+  translation: "Decision records"
+- id: recordType_research-note
+  translation: "Research note"
+- id: recordType_research-note_plural
+  translation: "Research notes"

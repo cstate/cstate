@@ -8,6 +8,7 @@
     <a href="{{ .Site.BaseURL }}" class="header__logo">
       {{ if .Site.Params.useLogo }}
         <img src="{{ relURL .Site.Params.logo }}" alt="{{ .Site.Title }}">
+        <span class="header__brand-text">{{ .Site.Title }}</span>
           {{ else }}
         <h1>{{ .Site.Title }}</h1>
       {{ end }}
@@ -20,6 +21,7 @@
     <a href="{{ .Site.BaseURL }}" class="header__logo header__logo--small">
       {{ if .Site.Params.useLogo }}
         <img src="{{ relURL .Site.Params.logo }}" alt="{{ .Site.Title }}">
+        <span class="header__brand-text">{{ .Site.Title }}</span>
           {{ else }}
         <h1>{{ .Site.Title }}</h1>
       {{ end }}

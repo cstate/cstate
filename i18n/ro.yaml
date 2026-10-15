@@ -119,6 +119,8 @@
 
 - id: rss
   translation: Abonează-te la RSS
+- id: atom
+  translation: "Atom"
 - id: toAllUpdates
   translation: la toate actualizările
 - id: or

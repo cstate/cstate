@@ -1,9 +1,17 @@
+{{ $recordSections := partial "records/sections.html" . }}
+{{ $records := where .Site.RegularPages "Section" "in" $recordSections }}
+{{ $historyMode := .Site.Params.homepageHistoryMode | default "combined" | urlize }}
 {{ if .Site.Params.customTabs }}
   <div class="tabs">
     <div class="contain tabs--inner">
       <a href="#incidents" class="tab tab--current">
-        {{ T "incidents" }}
+        {{ if eq $historyMode "separate" }}{{ T "incidents" }}{{ else }}{{ T "history" }}{{ end }}
       </a>
+      {{ if and $records (eq $historyMode "separate") }}
+        <a href="{{ "records/" | relURL }}" class="tab tab--other">
+          {{ default "Records" (T "records") }}
+        </a>
+      {{ end }}
 
       {{ range .Site.Params.customTabs }}
         <a href="{{ .link }}" class="tab tab--other">
@@ -15,7 +23,10 @@
 {{ else }}
   {{ if not .Site.Params.disableIncidentHistory }}
     <div class="contain contain--more">
-      <h2 class="center">{{ T "incidentHistory" }}</h2>
+      <h2 class="center">{{ if eq $historyMode "separate" }}{{ T "incidentHistory" }}{{ else }}{{ T "history" }}{{ end }}</h2>
+      {{ if and $records (eq $historyMode "separate") }}
+        <p class="center"><a href="{{ "records/" | relURL }}">{{ T "viewAllRecords" }}</a></p>
+      {{ end }}
       <hr class="clean">
     </div>
   {{ end }}

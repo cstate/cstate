@@ -1,3 +1,6 @@
+{{- if partial "records/is-section.html" .Section -}}
+{{ partial "records/json.html" (dict "page" . "includeBody" true) }}
+{{- else -}}
 {
   "is": "page",
   "title": "{{ .Title }}",
@@ -6,3 +9,4 @@
   "permalink": "{{ .Permalink }}",
   "body": {{ jsonify .Content }}
 }
+{{- end -}}

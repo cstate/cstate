@@ -1,0 +1,12 @@
+{{- $title := .title | default "" -}}
+{{- $detail := .detail | default "" -}}
+{{- if or $title $detail -}}
+  <span class="history-icon-tooltip" aria-hidden="true">
+    {{- with $title -}}
+      <span class="history-icon-tooltip__title">{{ . }}</span>
+    {{- end -}}
+    {{- with $detail -}}
+      <span class="history-icon-tooltip__detail">{{ . }}</span>
+    {{- end -}}
+  </span>
+{{- end -}}

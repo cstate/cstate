@@ -5,10 +5,10 @@
   "createdAt": "{{ .Date }}",
   "lastMod": "{{ .Lastmod }}",
   "permalink": "{{ .Permalink }}",
-  "severity": "{{ .Params.severity }}",
+  "severity": {{ .Params.severity | default "" | jsonify }},
   "resolved": {{ if .Params.resolved }}true{{ else }}false{{ end }},
   "informational": {{ if .Params.informational }}true{{ else }}false{{ end }},
-  "resolvedAt": "{{ .Params.resolvedWhen }}",
+  "resolvedAt": {{ .Params.resolvedWhen | default "" | jsonify }},
   "affected": [{{ range $i, $e := .Params.Affected }}{{ if $i }}, {{ end }}"{{ . }}"{{ end }}],
   "filename": "{{ .File.LogicalName }}"
 }

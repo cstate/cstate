@@ -8,20 +8,28 @@
 <div class="summary status-box">
 	<div class="summary-flex">
 		<div class="status-text">
-			<strong>
-				{{ if $isDown }}
-				{{ T "isDown" }}
-				{{ else if $isDisrupted }}
-				{{ T "isDisrupted" }}
-				{{ else if $isNotice }}
-				{{ T "isNotice" }}
-				{{ else }}
-				{{ T "isOk" }}
-				{{ end }}
-			</strong>
-			<div class="summary__date clicky relative-time" onclick="location.reload()" data-time-prefix="{{ T "lastChecked" }} "
-      ></div>
+			<span class="status-indicator" aria-hidden="true"></span>
+			<div class="status-copy">
+				<span class="modern-status-eyebrow">Live status</span>
+				<strong>
+					{{ if $isDown }}
+					{{ T "isDown" }}
+					{{ else if $isDisrupted }}
+					{{ T "isDisrupted" }}
+					{{ else if $isNotice }}
+					{{ T "isNotice" }}
+					{{ else }}
+					{{ T "isOk" }}
+					{{ end }}
+				</strong>
+				<div class="summary__date clicky relative-time" onclick="location.reload()" data-time-prefix="{{ T "lastChecked" }} "
+	      ></div>
+			</div>
     </div>
+		<div class="modern-status-meta" aria-hidden="true">
+			<span>{{ len $active }} {{ T "incidents" }}</span>
+			<span>{{ len .Site.Params.systems }} monitored components</span>
+		</div>
 
     <!-- Subscribe button (no icon) -->
     <div class=" subscribe-wrapper">
@@ -30,7 +38,8 @@
 				</button>
 				<div class="subscribe-dropdown hidden" aria-label="{{ T "closeDropdown" }}">
 					<ul>
-						<a href="{{ .Site.BaseURL }}/index.xml" target="_blank" rel="noopener noreferrer">
+						{{ with .Site.Home.OutputFormats.Get "rss" }}
+						<a href="{{ .Permalink }}" target="_blank" rel="noopener noreferrer">
 						<li>
 							<svg viewBox="0 0 512 512" class="subscribe-dropdown__icon">
 								<path d="M108.56 342.78a60.34 60.34 0 1 0 60.56 60.44 60.63 60.63 0 0 0-60.56-60.44Z">
@@ -44,6 +53,21 @@
 							</svg>
 							{{ T "rss" }}
 						</li></a>
+						{{ end }}
+						{{ with .Site.Home.OutputFormats.Get "atom" }}
+						<a href="{{ .Permalink }}" target="_blank" rel="noopener noreferrer">
+						<li>
+							<svg viewBox="0 0 24 24" class="subscribe-dropdown__icon" aria-hidden="true">
+								<g fill="none" stroke="#999" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+									<ellipse cx="12" cy="12" rx="9" ry="3.5"></ellipse>
+									<ellipse cx="12" cy="12" rx="9" ry="3.5" transform="rotate(60 12 12)"></ellipse>
+									<ellipse cx="12" cy="12" rx="9" ry="3.5" transform="rotate(120 12 12)"></ellipse>
+								</g>
+								<circle cx="12" cy="12" r="1.7" fill="#999"></circle>
+							</svg>
+							{{ T "atom" }}
+						</li></a>
+						{{ end }}
 						{{ if .Site.Params.monitorBot }}
 						<li data-option="email">
 							<svg viewBox="0 0 512 512" class="subscribe-dropdown__icon">
@@ -119,14 +143,7 @@
 			flex-direction: column;
 			border-radius: 4px;
 			position: relative;
-
-			background: {
-					{
-					.Site.Params.ok
-				}
-			}
-
-			;
+			background: {{ .Site.Params.ok }};
 		}
 
 		.summary-flex {
@@ -138,6 +155,15 @@
 		.status-text {
 			font-size: 20px;
 			font-weight: bold;
+		}
+
+		.status-indicator {
+			display: none;
+		}
+
+		.modern-status-eyebrow,
+		.modern-status-meta {
+			display: none;
 		}
 
 		.summary__date {
@@ -403,13 +429,13 @@
 					let copyText = ''; // Initialize copyText here
 
 					switch (chosen) {
-						case 'rss':
-							modalTitle.textContent = '{{ T "rss" }}';
-							modalContent.innerHTML = `<p>{{ T "subscribeDescription" }}</p>`;
-							modalActions.innerHTML = `
-							<a href="{{ .Site.BaseURL }}/index.xml" target="_blank" rel="noopener noreferrer" class="padding-s">{{ T "open" }}</a>
-          `;
-							break;
+							case 'rss':
+								modalTitle.textContent = '{{ T "rss" }}';
+								modalContent.innerHTML = `<p>{{ T "subscribeDescription" }}</p>`;
+								modalActions.innerHTML = `
+								{{ with .Site.Home.OutputFormats.Get "rss" }}<a href="{{ .Permalink }}" target="_blank" rel="noopener noreferrer" class="padding-s">{{ T "open" }}</a>{{ end }}
+	          `;
+								break;
 
 						case 'email':
 							modalTitle.textContent = '{{ T "email" }}';

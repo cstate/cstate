@@ -1,0 +1,11 @@
+{{- $ctx := . -}}
+{{- $page := $ctx.page -}}
+{{- $section := $ctx.section | default "" -}}
+{{- $recordType := $ctx.recordType | default "" -}}
+{{- $metadata := dict -}}
+{{- range partial "records/definitions.html" $page -}}
+  {{- if or (and $section (eq .section $section)) (and $recordType (eq .recordType $recordType)) -}}
+    {{- $metadata = . -}}
+  {{- end -}}
+{{- end -}}
+{{- return $metadata -}}

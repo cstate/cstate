@@ -1,0 +1,32 @@
+{{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
+{{ $recordSections := partial "records/sections.html" . }}
+{{ $records := where .Site.RegularPages "Section" "in" $recordSections }}
+{{ $history := sort (union $incidents $records) "Date" "desc" }}
+{{ $postsPerPage := .Site.Params.incidentPostsPerPage | default 10 }}
+
+{{ if not $history }}
+<div class="padding"></div>
+<h3>{{ T "calmBeforeTheStorm" }}</h3>
+<p>{{ T "noIncidentsDesc" }}</p>
+<div class="padding"></div>
+<div class="padding"></div>
+<div class="padding"></div>
+{{ else }}
+{{ range first $postsPerPage $history }}
+  {{ if eq .Params.section "issue" }}
+    {{ .Render "small" }}
+  {{ else }}
+    {{ partial "records/card.html" . }}
+  {{ end }}
+{{ end }}
+
+{{ if gt (len $history) $postsPerPage }}
+<hr>
+<div class="right history-archive-links">
+  <a href="{{ "issues/" | relURL }}" class="next-link">{{ T "incidents" }} &nbsp;&rarr;</a>
+  {{ if $records }}
+    <a href="{{ "records/" | relURL }}" class="next-link">{{ default "Records" (T "records") }} &nbsp;&rarr;</a>
+  {{ end }}
+</div>
+{{ end }}
+{{ end }}

@@ -177,6 +177,8 @@
   translation: "このステータスページの更新を購読します。"
 - id: rss
   translation: "RSS"
+- id: atom
+  translation: "Atom"
 - id: email
   translation: "メール"
 - id: discord

@@ -1,0 +1,230 @@
+{{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
+{{ $active := where $incidents "Params.resolved" "=" false }}
+
+{{ $isNotice := where $active "Params.severity" "=" "notice" }}
+{{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}
+{{ $isDown := where $active "Params.severity" "=" "down" }}
+{{ $statusText := T "isOk" }}
+{{ $statusIcon := "check" }}
+{{ if $isDown }}
+  {{ $statusText = T "isDown" }}
+  {{ $statusIcon = "x" }}
+{{ else if $isDisrupted }}
+  {{ $statusText = T "isDisrupted" }}
+  {{ $statusIcon = "alert-triangle" }}
+{{ else if $isNotice }}
+  {{ $statusText = T "isNotice" }}
+  {{ $statusIcon = "info-mark" }}
+{{ end }}
+
+<section class="modern-status summary" aria-label="{{ $statusText }}">
+  <div class="modern-status__main">
+    <div class="modern-status__mark" aria-hidden="true">
+      {{ partial "skins/modern/icon" (dict "name" $statusIcon "class" "modern-status__icon") }}
+    </div>
+    <div class="modern-status__copy">
+      <h1 class="modern-status__title">{{ $statusText }}</h1>
+      <div class="modern-status__updated clicky relative-time" onclick="location.reload()" data-time-prefix="{{ T "lastChecked" }} "></div>
+    </div>
+  </div>
+
+  <div class="modern-status__aside">
+    <div class="subscribe-wrapper modern-subscribe">
+      <button type="button" class="subscribe-button modern-subscribe__button" id="modern-subscribe-toggle" aria-expanded="false" aria-controls="modern-subscribe-options">
+        {{ T "subscribe" }}
+      </button>
+      <div class="subscribe-dropdown modern-subscribe__dropdown" id="modern-subscribe-options" role="group" aria-labelledby="modern-subscribe-toggle" hidden>
+        <ul>
+          {{ with .Site.Home.OutputFormats.Get "rss" }}
+            <li><a href="{{ .Permalink }}" target="_blank" rel="noopener noreferrer">{{ T "rss" }}</a></li>
+          {{ end }}
+          {{ with .Site.Home.OutputFormats.Get "atom" }}
+            <li><a href="{{ .Permalink }}" target="_blank" rel="noopener noreferrer">{{ T "atom" }}</a></li>
+          {{ end }}
+          {{ if .Site.Params.monitorBot }}
+            <li><button type="button" data-option="email">{{ T "email" }}</button></li>
+            <li><button type="button" data-option="discord">{{ T "discord" }}</button></li>
+            <li><button type="button" data-option="slack">{{ T "slack" }}</button></li>
+            <li><button type="button" data-option="webhook">{{ T "webhook" }}</button></li>
+            <li><button type="button" data-option="push">{{ T "pushNotifications" }}</button></li>
+          {{ end }}
+          <li><button type="button" data-option="api">{{ T "API" }}</button></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="modal-overlay" class="modern-modal-overlay" hidden></div>
+<div class="subscribe-modal modern-subscribe-modal" id="modern-subscribe-modal" role="dialog" aria-modal="true" aria-labelledby="modern-subscribe-modal-title" aria-describedby="modern-subscribe-modal-content" tabindex="-1" hidden>
+  <button type="button" class="subscribe-modal__close modern-subscribe-modal__close" aria-label="{{ T "closeDropdown" }}">×</button>
+  <h2 class="subscribe-modal__title" id="modern-subscribe-modal-title"></h2>
+  <div class="subscribe-modal__content" id="modern-subscribe-modal-content"></div>
+  <div class="subscribe-modal__actions"></div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const subscribeButton = document.querySelector('.modern-subscribe .subscribe-button');
+    const subscribeDropdown = document.querySelector('.modern-subscribe .subscribe-dropdown');
+    const subscribeWrapper = document.querySelector('.modern-subscribe');
+    const subscribeModal = document.querySelector('.subscribe-modal');
+    const modalCloseBtn = document.querySelector('.subscribe-modal__close');
+    const modalTitle = document.querySelector('.subscribe-modal__title');
+    const modalContent = document.querySelector('.subscribe-modal__content');
+    const modalActions = document.querySelector('.subscribe-modal__actions');
+    const modalOverlay = document.getElementById('modal-overlay');
+
+    if (!subscribeButton || !subscribeDropdown || !subscribeWrapper || !subscribeModal || !modalOverlay || !modalCloseBtn) return;
+
+    // The status stack is intentionally isolated; portal the dialog so it can cover the full page.
+    document.body.appendChild(modalOverlay);
+    document.body.appendChild(subscribeModal);
+
+    function subscribeItems() {
+      return Array.prototype.slice.call(subscribeDropdown.querySelectorAll('a[href], button:not([disabled])'));
+    }
+
+    function setSubscribeOpen(isOpen, options) {
+      subscribeDropdown.hidden = !isOpen;
+      subscribeButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+
+      if (isOpen && options && options.focusItem) {
+        const items = subscribeItems();
+        const item = options.focusLast ? items[items.length - 1] : items[0];
+        if (item) window.requestAnimationFrame(function () { item.focus(); });
+      }
+
+      if (!isOpen && options && options.restoreFocus) {
+        subscribeButton.focus();
+      }
+    }
+
+    function showModal() {
+      modalOverlay.hidden = false;
+      subscribeModal.hidden = false;
+      document.body.classList.add('modal-open');
+      window.requestAnimationFrame(function () { modalCloseBtn.focus(); });
+    }
+
+    function hideModal(options) {
+      modalOverlay.hidden = true;
+      subscribeModal.hidden = true;
+      document.body.classList.remove('modal-open');
+      if (!options || options.restoreFocus !== false) subscribeButton.focus();
+    }
+
+    function setModal(title, content, action) {
+      modalTitle.textContent = title;
+      modalContent.innerHTML = content;
+      modalActions.innerHTML = action || '';
+      showModal();
+    }
+
+    subscribeButton.addEventListener('click', function () {
+      setSubscribeOpen(subscribeDropdown.hidden);
+    });
+
+    subscribeDropdown.addEventListener('click', function (event) {
+      const link = event.target.closest('a[href]');
+      if (link) {
+        setSubscribeOpen(false);
+        return;
+      }
+
+      const item = event.target.closest('button[data-option]');
+      if (!item) return;
+      setSubscribeOpen(false);
+
+      switch (item.getAttribute('data-option')) {
+        case 'email':
+          setModal('{{ T "email" }}', '<p>{{ T "subscribeDescription" }}</p><label class="sr-only" for="modern-subscribe-email">{{ T "email" }}</label><input id="modern-subscribe-email" type="email" autocomplete="email" placeholder="Email address..." />', '<button type="button" class="btn btn--primary">{{ T "subscribe" }}</button><p class="small-text">{{ T "pushNotificationsDisclaimer" }}</p>');
+          break;
+        case 'webhook':
+          setModal('{{ T "webhook" }}', '<p>{{ T "subscribeDescription" }}</p><label class="sr-only" for="modern-subscribe-webhook">{{ T "webhook" }}</label><input id="modern-subscribe-webhook" type="url" inputmode="url" placeholder="{{ T "webhookUrl" }}" />', '<button type="button" class="btn btn--primary">{{ T "subscribe" }}</button><p class="small-text">{{ T "APIdisclaimer" }}</p>');
+          break;
+        case 'push':
+          setModal('{{ T "pushNotifications" }}', '<p>{{ T "pushNotificationsDescription" }}</p>', '<button type="button" class="btn btn--primary">{{ T "subscribe" }}</button><p class="small-text">{{ T "pushNotificationsDisclaimer" }}</p>');
+          break;
+        case 'api':
+          setModal('{{ T "API" }}', '<p>{{ T "APIdescription" }}<br><code>{{ .Site.BaseURL }}index.json</code></p>', '<a href="https://github.com/cstate/cstate/wiki/API" target="_blank" rel="noopener noreferrer" class="btn btn--primary">{{ T "readDocumentation" }}</a><p>{{ T "APIdisclaimer" }}</p>');
+          break;
+        default:
+          setModal(item.textContent.trim(), '<p>{{ T "subscribeDescription" }}</p>', '<button type="button" class="btn btn--primary">{{ T "copy" }}</button><p class="small-text">{{ T "embedDisclaimer" }}</p>');
+      }
+    });
+
+    subscribeWrapper.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && !subscribeDropdown.hidden) {
+        event.preventDefault();
+        event.stopPropagation();
+        setSubscribeOpen(false, { restoreFocus: true });
+        return;
+      }
+
+      if (event.target === subscribeButton && (event.key === 'ArrowDown' || event.key === 'ArrowUp')) {
+        event.preventDefault();
+        setSubscribeOpen(true, {
+          focusItem: true,
+          focusLast: event.key === 'ArrowUp'
+        });
+        return;
+      }
+
+      if (!subscribeDropdown.contains(event.target) || !['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) return;
+      const items = subscribeItems();
+      const currentIndex = items.indexOf(document.activeElement);
+      if (currentIndex === -1 || !items.length) return;
+      event.preventDefault();
+      let nextIndex = currentIndex;
+      if (event.key === 'ArrowDown') nextIndex = (currentIndex + 1) % items.length;
+      if (event.key === 'ArrowUp') nextIndex = (currentIndex - 1 + items.length) % items.length;
+      if (event.key === 'Home') nextIndex = 0;
+      if (event.key === 'End') nextIndex = items.length - 1;
+      items[nextIndex].focus();
+    });
+
+    subscribeWrapper.addEventListener('focusout', function (event) {
+      if (!subscribeWrapper.contains(event.relatedTarget)) {
+        setSubscribeOpen(false);
+      }
+    });
+
+    modalCloseBtn.addEventListener('click', function () { hideModal(); });
+    modalOverlay.addEventListener('click', function () { hideModal(); });
+
+    document.addEventListener('pointerdown', function (event) {
+      if (!subscribeWrapper.contains(event.target)) {
+        setSubscribeOpen(false);
+      }
+    }, true);
+
+    document.addEventListener('keydown', function (event) {
+      if (subscribeModal.hidden) return;
+
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        hideModal();
+        return;
+      }
+
+      if (event.key !== 'Tab') return;
+      const focusable = Array.prototype.slice.call(subscribeModal.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'));
+      if (!focusable.length) {
+        event.preventDefault();
+        subscribeModal.focus();
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+  });
+</script>

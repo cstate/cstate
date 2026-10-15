@@ -172,6 +172,8 @@
   translation: "Підпишіться на оновлення з цієї сторінки стану."
 - id: rss
   translation: "RSS"
+- id: atom
+  translation: "Atom"
 - id: email
   translation: "Електронна пошта"
 - id: discord

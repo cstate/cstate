@@ -1,10 +1,10 @@
 {{ partial "meta" . }}
 {{ $title := .Title }}
 
-<body class="default list">
+<body class="default list {{ partial "body-class" . }}">
 	<header>
 		<div class="contain center">
-			<a href="{{ .Site.BaseURL }}">← {{ T "goBack" }} <em>{{ .Site.Title }}</em></a>
+			<a href="{{ .Site.BaseURL }}"><span aria-hidden="true">←</span><span>{{ printf "%s %s" (T "goBack") .Site.Title }}</span></a>
 			<div class="padding"></div><div class="padding"></div>
 
 			<h1 class="clean">
@@ -14,11 +14,21 @@
 					{{ $title }}
 				{{ end }}
 			</h1>
+			{{ if partial "records/is-section.html" .Section }}
+				{{ with .Content }}
+					<div class="archive__head">{{ . }}</div>
+				{{ end }}
+			{{ end }}
 
 		</div>
 	</header>
 
-	{{ if not .Site.Params.disableIncidentHistory }}
+	{{ if partial "records/is-section.html" .Section }}
+	<div class="contain contain--more" id="records">
+		{{ partial "records/list.html" . }}
+		<div class="padding"></div>
+	</div>
+	{{ else if not .Site.Params.disableIncidentHistory }}
 	<div class="contain contain--more" id="incidents">
 		{{  if eq .Site.Params.incidentHistoryFormat "monthly" }}
 		{{ partial "index/incidents-monthly" . }}

@@ -1,12 +1,12 @@
 ---
-title: Example Page
-description: This is an example page that demonstrates the capabilities of a Markdown page in cState.
+title: Uncascade Demo Page
+description: This page demonstrates the Markdown publishing capabilities of Uncascade Demo Status.
 ---
 
 Title here!
 ===========
 
-This is an example page that demonstrates the capabilities of a Markdown page in cState.
+This page demonstrates the Markdown publishing capabilities of Uncascade Demo Status.
 
 You can use HTML if the file extension is `.html`, but this one is `.md`.
 

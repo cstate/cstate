@@ -1,0 +1,9 @@
+{{- $page := .page -}}
+{{- $name := .name -}}
+{{- $skin := $page.Site.Params.skin | default "modern" | urlize -}}
+{{- $skinPath := printf "skins/%s/%s.html" $skin $name -}}
+{{- if templates.Exists (printf "partials/%s" $skinPath) -}}
+  {{- partial $skinPath $page -}}
+{{- else -}}
+  {{- partial $name $page -}}
+{{- end -}}

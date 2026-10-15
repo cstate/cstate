@@ -1,0 +1,151 @@
+{
+  "is": "index",
+  "cStateVersion": "7.0",
+  "apiVersion": "2.1",
+  "summaryStatus": "disrupted",
+  "records": [
+    {
+      "is": "experiment",
+      "recordType": "experiment",
+      "kind": "experiment",
+      "title": "Search rollout",
+      "state": "active",
+      "severity": "notice",
+      "statusImpact": "notice",
+      "pin": true,
+      "affected": ["API"],
+      "permalink": "https://status.example.com/experiments/search-rollout/",
+      "summary": "Testing search ranking with a small traffic slice."
+    },
+    {
+      "is": "release-note",
+      "recordType": "release-note",
+      "kind": "release-note",
+      "title": "Notification controls",
+      "state": "completed",
+      "severity": "none",
+      "statusImpact": "none",
+      "pin": false,
+      "affected": ["Website"],
+      "permalink": "https://status.example.com/release-notes/notification-controls/",
+      "summary": "New notification controls are available."
+    },
+    {
+      "is": "changelog",
+      "recordType": "changelog",
+      "kind": "changelog",
+      "title": "API cache tuning",
+      "state": "completed",
+      "severity": "none",
+      "statusImpact": "none",
+      "pin": false,
+      "affected": ["API"],
+      "permalink": "https://status.example.com/changelog/api-cache-tuning/",
+      "summary": "Cache behavior was tuned."
+    },
+    {
+      "is": "roadmap",
+      "recordType": "roadmap",
+      "kind": "roadmap",
+      "title": "Status API v2",
+      "state": "active",
+      "severity": "none",
+      "statusImpact": "none",
+      "pin": false,
+      "affected": ["API"],
+      "permalink": "https://status.example.com/roadmap/status-api-v2/",
+      "summary": "The next API revision is in progress."
+    },
+    {
+      "is": "eval-report",
+      "recordType": "eval-report",
+      "kind": "eval-report",
+      "title": "Support bot evaluation",
+      "state": "completed",
+      "severity": "none",
+      "statusImpact": "none",
+      "pin": false,
+      "affected": ["Website"],
+      "permalink": "https://status.example.com/evals/support-bot/",
+      "summary": "The support bot evaluation completed."
+    },
+    {
+      "is": "agent-run",
+      "recordType": "agent-run",
+      "kind": "agent-run",
+      "title": "Documentation agent run",
+      "state": "completed",
+      "severity": "none",
+      "statusImpact": "none",
+      "pin": false,
+      "affected": [],
+      "permalink": "https://status.example.com/agent-runs/documentation/",
+      "summary": "Documentation checks completed."
+    },
+    {
+      "is": "decision",
+      "recordType": "decision",
+      "kind": "decision",
+      "title": "Static-first publishing",
+      "state": "completed",
+      "severity": "none",
+      "statusImpact": "none",
+      "pin": false,
+      "affected": [],
+      "permalink": "https://status.example.com/decisions/static-first/",
+      "summary": "Static-first publishing remains the default."
+    },
+    {
+      "is": "research-note",
+      "recordType": "research-note",
+      "kind": "research-note",
+      "title": "Agent publishing research",
+      "state": "archived",
+      "severity": "none",
+      "statusImpact": "none",
+      "pin": false,
+      "affected": [],
+      "permalink": "https://status.example.com/research/agent-publishing/",
+      "summary": "Research findings were archived."
+    }
+  ],
+  "systems": [
+    {
+      "name": "API",
+      "status": "disrupted",
+      "unresolvedIssues": [
+        {
+          "is": "issue",
+          "kind": "incident",
+          "title": "API DNS resolution error",
+          "severity": "disrupted",
+          "statusImpact": "disrupted",
+          "resolved": false,
+          "pin": true,
+          "affected": ["API"],
+          "permalink": "https://status.example.com/issues/api-dns-resolution-error/"
+        }
+      ],
+      "activeRecords": [],
+      "experimentStatus": "running",
+      "runningExperimentCount": 1,
+      "startingSoonExperimentCount": 0,
+      "experimentsUrl": "https://status.example.com/experiments/search-rollout/",
+      "experiments": [
+        {
+          "is": "experiment",
+          "recordType": "experiment",
+          "kind": "experiment",
+          "title": "Search rollout",
+          "state": "active",
+          "severity": "notice",
+          "statusImpact": "notice",
+          "pin": true,
+          "affected": ["API"],
+          "permalink": "https://status.example.com/experiments/search-rollout/",
+          "summary": "Testing search ranking with a small traffic slice."
+        }
+      ]
+    }
+  ]
+}

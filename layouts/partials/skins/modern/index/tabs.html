@@ -1,0 +1,68 @@
+{{ $recordSections := partial "records/sections.html" . }}
+{{ $records := where .Site.RegularPages "Section" "in" $recordSections }}
+{{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
+{{ $history := union $incidents $records }}
+{{ $historyMode := .Site.Params.homepageHistoryMode | default "combined" | urlize }}
+{{ if .Site.Params.customTabs }}
+  <nav class="tabs modern-tabs" aria-label="Homepage sections">
+    <div class="contain tabs--inner modern-tabs__inner">
+      <a href="#incidents" class="tab tab--current">
+        {{ if eq $historyMode "separate" }}{{ T "incidents" }}{{ else }}{{ T "history" }}{{ end }}
+      </a>
+      {{ if and $records (eq $historyMode "separate") }}
+        <a href="{{ "records/" | relURL }}" class="tab tab--other">
+          {{ default "Records" (T "records") }}
+        </a>
+      {{ end }}
+
+      {{ range .Site.Params.customTabs }}
+        <a href="{{ .link }}" class="tab tab--other">
+          {{ .name }}
+        </a>
+      {{ end }}
+    </div>
+  </nav>
+{{ else }}
+  {{ if not .Site.Params.disableIncidentHistory }}
+    <section class="contain contain--more modern-history-heading" aria-labelledby="incident-history-title">
+      <div class="modern-history-heading__main">
+        <h2 id="incident-history-title">{{ if eq $historyMode "separate" }}{{ T "incidentHistory" }}{{ else }}{{ T "history" }}{{ end }}</h2>
+      </div>
+      {{ if and $history (eq $historyMode "combined") }}
+        <div class="modern-history-controls" data-history-controls>
+          <details class="modern-history-filter" data-history-filter>
+            <summary class="modern-history-filter__summary" id="modern-history-filter-toggle" role="button" aria-expanded="false" aria-controls="modern-history-filter-menu">
+              <span>{{ T "filter" }}</span>
+              <span class="modern-history-filter__count" data-history-filter-count data-history-all-label="{{ T "all" }}" aria-live="polite">{{ T "all" }}</span>
+              {{ partial "skins/modern/icon" (dict "name" "chevron-down" "class" "modern-history-filter__chevron") }}
+            </summary>
+            <div class="modern-history-filter__menu" id="modern-history-filter-menu" role="group" aria-label="{{ T "historyTypes" }}">
+              {{ if $incidents }}
+                <label class="modern-history-filter__option">
+                  <input type="checkbox" value="incident" checked data-history-type-filter>
+                  <span>{{ T "incidents" }}</span>
+                </label>
+              {{ end }}
+              {{ range partial "records/definitions.html" . }}
+                {{ $sectionRecords := where $records "Section" .section }}
+                {{ if $sectionRecords }}
+                  <label class="modern-history-filter__option">
+                    <input type="checkbox" value="{{ .recordType }}" checked data-history-type-filter>
+                    <span>{{ .label }}</span>
+                  </label>
+                {{ end }}
+              {{ end }}
+            </div>
+          </details>
+          <label class="sr-only" for="modern-history-time-filter">{{ T "timeRange" }}</label>
+          <select class="modern-history-time" id="modern-history-time-filter" data-history-time-filter>
+            <option value="all">{{ T "allTime" }}</option>
+            <option value="30">{{ T "last30Days" }}</option>
+            <option value="90">{{ T "last90Days" }}</option>
+            <option value="365">{{ T "lastYear" }}</option>
+          </select>
+        </div>
+      {{ end }}
+    </section>
+  {{ end }}
+{{ end }}

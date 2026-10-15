@@ -176,6 +176,8 @@
   translation: "Претплатете се на ажурирања од оваа страница за статус."
 - id: rss
   translation: "RSS"
+- id: atom
+  translation: "Atom"
 - id: email
   translation: "Е-пошта"
 - id: discord

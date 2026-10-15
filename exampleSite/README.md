@@ -1,6 +1,8 @@
-# cState Site v6.0
+# cState Site v7.0
 
-This is the default cState status page website directory/folder.
+This is the default cState operational publishing website directory/folder.
+
+cState publishes status pages, experiment reports, eval logs, release notes, decision records, research notes, and agent run reports from Markdown.
 
 * Example site repository link (you are here): https://github.com/cstate/example
 * Main cState source code repository: https://github.com/cstate/cstate

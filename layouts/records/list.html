@@ -1,0 +1,35 @@
+{{ partial "meta" . }}
+  <body class="default list records-list {{ partial "body-class" . }}">
+    <header>
+      <div class="contain center">
+        <a href="{{ .Site.BaseURL }}"><span aria-hidden="true">←</span><span>{{ printf "%s %s" (T "goBack") .Site.Title }}</span></a>
+        <div class="padding"></div><div class="padding"></div>
+
+        <h1 class="clean">{{ .Title | default (T "records") }}</h1>
+        {{ with .Content }}
+          <div class="archive__head">{{ . }}</div>
+        {{ end }}
+      </div>
+    </header>
+
+    <div class="contain contain--more" id="records">
+      {{ $recordSections := partial "records/sections.html" . }}
+      {{ $records := sort (where .Site.RegularPages "Section" "in" $recordSections) "Date" "desc" }}
+      {{ if not $records }}
+        <div class="padding"></div>
+        <h3>{{ T "noRecordsYet" }}</h3>
+        <p>{{ T "noPublishedRecords" }}</p>
+      {{ else }}
+        <small class="faded">{{ T "recordCount" (dict "Count" (len $records)) }}, {{ T "newestToOldest" }}</small>
+        <div class="padding"></div>
+        {{ range $records }}
+          {{ partial "records/card.html" . }}
+        {{ end }}
+      {{ end }}
+      <div class="padding"></div>
+    </div>
+
+    {{ partial "js" . }}
+    {{ partial "footer" . }}
+  </body>
+</html>

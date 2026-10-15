@@ -7,17 +7,444 @@
   </head>
   <body>
     <!--
-    To easily manage your status on Netlify,
-    much like on WordPress, you need to keep
-    this directory. Platforms which do not
-    support Netlify CMS do not need this
-    /admin/ directory.
+    To manage your status page with Decap CMS,
+    keep this directory. Platforms which do not
+    support Decap CMS do not need this /admin/
+    directory.
     -->
 
     <script>console.log('You are using cState. The version can be looked at from the console on the homepage or incidents view. https://github.com/cstate')</script>
 
-	<script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <script>window.CMS_MANUAL_INIT = true;</script>
+    <script src="https://unpkg.com/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+          <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <script>
+      var recordLabels = {};
+      var activeAdminLocale = "en";
+      var activeAdminTranslations = {};
+      var localeOverrides = {
+        lt: {
+          editor: {
+            editorWidgets: {
+              list: {
+                add: "Pridėti %{item}",
+                addType: "Pridėti %{item}"
+              }
+            }
+          }
+        }
+      };
+
+      var supportedAdminLocales = [
+        "cs", "da", "de", "en", "es", "ca", "fr", "fa", "gr", "hu",
+        "it", "lt", "ja", "nl", "nb_no", "nn_no", "pl", "pt", "ro",
+        "ru", "sv", "th", "tr", "uk", "vi", "zh_Hant", "ko", "hr",
+        "sl", "bg", "mk", "zh_Hans", "he", "ua", "sr_Cyrl", "sk"
+      ];
+
+      var adminLocaleAliases = {
+        "se": "sv",
+        "ua": "uk",
+        "zh-tw": "zh_Hant",
+        "zh-hk": "zh_Hant",
+        "zh-cn": "zh_Hans",
+        "zh-sg": "zh_Hans",
+        "nb": "nb_no",
+        "nn": "nn_no",
+        "sr": "sr_Cyrl"
+      };
+
+      var builtInAdminTranslations = {
+        en: {
+          collections: {
+            issues: { label: "Incidents", singular: "Incident" },
+            pages: { label: "Pages", singular: "Page" },
+            settings: { label: "Settings" },
+            "record-pages": { label: "Record Index Pages", singular: "Record Index Page" }
+          },
+          fields: {
+            recordType: "Record type",
+            recordKind: "Kind",
+            title: "Title",
+            date: "Date and time",
+            state: "State",
+            draft: "Draft",
+            affected: "Affected systems",
+            summary: "Summary",
+            body: "Body",
+            resolved: "Mark as resolved",
+            informational: "Informational post",
+            pin: "Pin to top of page",
+            recordSeverityHint: "Use notice when this record should appear beside affected components.",
+            recordPinHint: "Pinned records can appear in the homepage announcement band.",
+            resolvedWhen: "End date and time",
+            severity: "Severity",
+            description: "Description"
+          },
+          filters: {
+            active: "Active",
+            completed: "Completed",
+            archived: "Archived",
+            pinned: "Pinned",
+            drafts: "Drafts",
+            activeIssues: "Active unresolved incidents",
+            resolvedIssues: "Resolved incidents",
+            informationalPosts: "Informational posts",
+            published: "Published",
+            severityDown: "High severity",
+            severityDisrupted: "Medium severity",
+            severityNotice: "Low severity"
+          },
+          options: {
+            active: "active",
+            completed: "completed",
+            archived: "archived",
+            incident: "Incident",
+            announcement: "Announcement",
+            maintenance: "Maintenance",
+            down: "High",
+            disrupted: "Medium",
+            notice: "Low",
+            none: "none"
+          },
+          preview: {
+            unresolvedIssue: "This incident has not yet been resolved.",
+            resolvedIssue: "This incident has been resolved.",
+            activeState: "active"
+          },
+          bodyDefaults: {
+            issue: "*Investigating* - We are checking reports of impact and confirming affected systems. We will update this page as soon as we have verified scope and timing."
+          }
+        }
+              };
+
+      function deepMerge(target, source) {
+        var output = Object.assign({}, target || {});
+        Object.keys(source || {}).forEach(function(key) {
+          var value = source[key];
+          if (value && typeof value === "object" && !Array.isArray(value)) {
+            output[key] = deepMerge(output[key], value);
+          } else {
+            output[key] = value;
+          }
+        });
+        return output;
+      }
+
+      function getPath(obj, path) {
+        return path.split(".").reduce(function(current, part) {
+          return current && current[part] !== undefined ? current[part] : undefined;
+        }, obj);
+      }
+
+      function t(path, fallback) {
+        var translated = getPath(activeAdminTranslations, path);
+        return translated === undefined ? fallback : translated;
+      }
+
+      function normalizeAdminLocale(locale) {
+        if (!locale) return "en";
+        var normalized = String(locale).replace("_", "-").toLowerCase();
+        var exactAlias = adminLocaleAliases[normalized];
+        if (exactAlias) return exactAlias;
+
+        var exact = supportedAdminLocales.find(function(candidate) {
+          return candidate.toLowerCase() === normalized;
+        });
+        if (exact) return exact;
+
+        var base = normalized.split("-")[0];
+        return adminLocaleAliases[base] || (supportedAdminLocales.indexOf(base) !== -1 ? base : "en");
+      }
+
+      function requestedAdminLocale(config) {
+        var params = new URLSearchParams(window.location.search);
+        var requested = params.get("locale") || params.get("admin_locale") || config.admin_locale || config.locale || "auto";
+        if (requested !== "auto") return requested;
+
+        var languages = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || "en"];
+        return languages[0] || "en";
+      }
+
+      function configureAdminLocale(config) {
+        activeAdminLocale = normalizeAdminLocale(requestedAdminLocale(config));
+        var localeBase = activeAdminLocale.split("_")[0];
+        var configuredTranslations = config.admin_translations || {};
+        activeAdminTranslations = deepMerge(
+          deepMerge(builtInAdminTranslations.en, builtInAdminTranslations[localeBase] || {}),
+          configuredTranslations[activeAdminLocale] || configuredTranslations[localeBase] || {}
+        );
+        config.locale = activeAdminLocale;
+        delete config.admin_locale;
+        delete config.admin_translations;
+      }
+
+      function registerLocaleOverride(locale) {
+        var override = localeOverrides[locale];
+        if (!override || locale === "en") return Promise.resolve();
+
+        return import("https://unpkg.com/decap-cms-locales@3.7.0/dist/esm/" + locale + "/index.js")
+          .then(function(localeModule) {
+            CMS.registerLocale(locale, deepMerge(localeModule.default || {}, override));
+          })
+          .catch(function(error) {
+            console.warn("Could not load Decap locale override for " + locale + ".", error);
+          });
+      }
+
+      function stateDefaultFor(recordType) {
+        if (recordType === "experiment" || recordType === "roadmap") return "active";
+        return "completed";
+      }
+
+      function bodyDefaultFor(recordType) {
+        var bodyDefaults = {
+          "experiment": "## What changed?\n\nDescribe the experiment and who may notice it.\n\n## Why are we running it?\n\nExplain the goal and expected outcome.\n\n## What should people watch for?\n\nList known risks, reporting channels, or success criteria.",
+          "release-note": "Describe the user-facing change, migration note, or rollout detail.",
+          "changelog": "Describe the change in a concise operational format.",
+          "roadmap": "Describe the planned work, current status, and expected next update.",
+          "eval-report": "## Goal\n\nDescribe what was evaluated.\n\n## Result\n\nSummarize the outcome and whether it met the acceptance criteria.\n\n## Follow-up\n\nList follow-up actions.",
+          "agent-run": "## Work completed\n\nSummarize what the agent changed or investigated.\n\n## Verification\n\nList commands, checks, or known blockers.\n\n## Next steps\n\nList follow-up actions.",
+          "decision": "## Decision\n\nState the decision.\n\n## Context\n\nExplain the tradeoff.\n\n## Consequences\n\nList what changes because of this decision.",
+          "research-note": "## Question\n\nState the research question.\n\n## Findings\n\nSummarize what was learned.\n\n## Sources\n\nList sources or supporting material."
+        };
+        return t("bodyDefaults." + recordType, bodyDefaults[recordType] || "Describe the record.");
+      }
+
+      function sectionLabel(section) {
+        return t("collections." + section.section + ".singular", section.label || section.recordType || section.section);
+      }
+
+      function sectionPluralLabel(section) {
+        return t("collections." + section.section + ".label", section.pluralLabel || section.label || section.section);
+      }
+
+      function hasRecordTypeField(collection) {
+        return (collection.fields || []).some(function(field) {
+          return field.name === "recordType";
+        });
+      }
+
+      function buildAffectedField() {
+        return {
+          label: t("fields.affected", "Affected systems"),
+          name: "affected",
+          widget: "list",
+          label_singular: t("fields.affectedSingular", "affected system"),
+          summary: "{{fields.individualaffected}}",
+          field: { label: t("fields.affected", "Affected system"), name: "individualaffected", widget: "string" },
+          required: false
+        };
+      }
+
+      function buildRecordCollection(section) {
+        var recordType = section.recordType || section.section;
+        var recordKind = section.recordKind || recordType;
+        var supportsState = section.state !== false;
+        var fields = [
+          { label: t("fields.recordType", "Record type"), name: "recordType", widget: "hidden", default: recordType },
+          { label: t("fields.recordKind", "Kind"), name: "recordKind", widget: "hidden", default: recordKind },
+          { label: t("fields.title", "Title"), name: "title", widget: "string" },
+          { label: t("fields.date", "Date and time"), name: "date", widget: "datetime", default: section.dateDefault || "{{now}}" }
+        ];
+
+        if (supportsState) {
+          fields.push({
+            label: t("fields.state", "State"),
+            name: "state",
+            widget: "select",
+            default: section.stateDefault || stateDefaultFor(recordType),
+            options: section.stateOptions || [
+              { label: t("options.active", "active"), value: "active" },
+              { label: t("options.completed", "completed"), value: "completed" },
+              { label: t("options.archived", "archived"), value: "archived" }
+            ]
+          });
+        }
+
+        fields = fields.concat([
+          { label: t("fields.draft", "Draft"), name: "draft", widget: "boolean", required: false, default: false },
+          {
+            label: t("fields.severity", "Visibility"),
+            name: "severity",
+            widget: "select",
+            default: section.severityDefault !== undefined ? section.severityDefault : "none",
+            options: section.severityOptions || [
+              { label: t("options.none", "none"), value: "none" },
+              { label: t("options.notice", "notice"), value: "notice" }
+            ],
+            hint: t("fields.recordSeverityHint", "Use notice when this record should appear beside affected components.")
+          },
+          {
+            label: t("fields.pin", "Pin to homepage"),
+            name: "pin",
+            widget: "boolean",
+            required: false,
+            default: section.pinDefault !== undefined ? section.pinDefault : false,
+            hint: t("fields.recordPinHint", "Pinned records can appear in the homepage announcement band.")
+          },
+          buildAffectedField(),
+          { label: t("fields.summary", "Summary"), name: "summary", widget: "text", required: false },
+          { label: t("fields.body", "Body"), name: "body", widget: "markdown", default: section.bodyDefault || bodyDefaultFor(recordType) }
+        ]);
+
+        var viewFilters = supportsState ? [
+          { label: t("filters.active", "Active"), field: "state", pattern: "active" },
+          { label: t("filters.completed", "Completed"), field: "state", pattern: "completed" },
+          { label: t("filters.archived", "Archived"), field: "state", pattern: "archived" },
+          { label: t("filters.severityNotice", "Notice"), field: "severity", pattern: "notice" },
+          { label: t("filters.pinned", "Pinned"), field: "pin", pattern: true },
+          { label: t("filters.drafts", "Drafts"), field: "draft", pattern: true }
+        ] : [
+          { label: t("filters.severityNotice", "Notice"), field: "severity", pattern: "notice" },
+          { label: t("filters.pinned", "Pinned"), field: "pin", pattern: true },
+          { label: t("filters.drafts", "Drafts"), field: "draft", pattern: true }
+        ];
+
+        return {
+          name: section.section,
+          label: sectionPluralLabel(section),
+          label_singular: sectionLabel(section),
+          folder: "content/" + section.section,
+          filter: { field: "recordType", value: recordType },
+          create: true,
+          slug: "{{year}}-{{month}}-{{day}}-{{slug}}",
+          summary: "{{title}}",
+          sortable_fields: supportsState ? ["date", "title", "state", "severity", "pin", "commit_date"] : ["date", "title", "severity", "pin", "commit_date"],
+          view_filters: viewFilters,
+          fields: fields
+        };
+      }
+
+      function buildRecordPagesCollection(recordSections) {
+        var pageFields = [
+          { label: t("fields.title", "Title"), name: "title", widget: "string" },
+          { label: t("fields.description", "Description"), name: "description", widget: "string", required: false },
+          { label: t("fields.body", "Body"), name: "body", widget: "markdown", required: false }
+        ];
+
+        return {
+          name: "record-pages",
+          label: t("collections.record-pages.label", "Record Index Pages"),
+          label_singular: t("collections.record-pages.singular", "Record Index Page"),
+          delete: false,
+          editor: { preview: false },
+          files: [{
+            name: "records",
+            label: t("collections.record-pages.all", "All Records"),
+            file: "content/records/_index.md",
+            fields: pageFields
+          }].concat(recordSections.map(function(section) {
+            return {
+              name: section.section,
+              label: sectionPluralLabel(section),
+              file: "content/" + section.section + "/_index.md",
+              fields: pageFields
+            };
+          }))
+        };
+      }
+
+      function buildCollections(configCollections, recordSections) {
+        var baseCollections = (configCollections || []).filter(function(collection) {
+          return collection.name !== "record-pages" && !hasRecordTypeField(collection);
+        }).map(translateBaseCollection);
+        var insertAt = baseCollections.findIndex(function(collection) {
+          return collection.name === "pages";
+        });
+        if (insertAt === -1) insertAt = baseCollections.length;
+
+        var generatedCollections = recordSections.map(buildRecordCollection);
+        if (recordSections.length) {
+          generatedCollections.push(buildRecordPagesCollection(recordSections));
+        }
+
+        return baseCollections.slice(0, insertAt).concat(generatedCollections, baseCollections.slice(insertAt));
+      }
+
+      function configureRecordPreviews(recordSections) {
+        recordLabels = {};
+        recordSections.forEach(function(section) {
+          recordLabels[section.recordType || section.section] = sectionLabel(section);
+        });
+      }
+
+      function translateBaseCollection(collection) {
+        var translatedCollection = Object.assign({}, collection);
+        var collectionTranslation = getPath(activeAdminTranslations, "collections." + collection.name) || {};
+
+        if (collectionTranslation.label) translatedCollection.label = collectionTranslation.label;
+        if (collectionTranslation.singular) translatedCollection.label_singular = collectionTranslation.singular;
+
+        if (collection.name === "issues") {
+          translatedCollection.view_filters = [
+            { label: t("filters.activeIssues", "Active unresolved incidents"), field: "resolved", pattern: false },
+            { label: t("filters.resolvedIssues", "Resolved incidents"), field: "resolved", pattern: true },
+            { label: t("filters.informationalPosts", "Informational posts"), field: "informational", pattern: true },
+            { label: t("filters.drafts", "Drafts"), field: "draft", pattern: true },
+            { label: t("filters.published", "Published"), field: "draft", pattern: false },
+            { label: t("filters.severityDown", "High severity"), field: "severity", pattern: "down" },
+            { label: t("filters.severityDisrupted", "Medium severity"), field: "severity", pattern: "disrupted" },
+            { label: t("filters.severityNotice", "Low severity"), field: "severity", pattern: "notice" }
+          ];
+        }
+
+        if (collection.name === "pages") {
+          translatedCollection.view_filters = [
+            { label: t("filters.drafts", "Drafts"), field: "draft", pattern: true },
+            { label: t("filters.published", "Published"), field: "draft", pattern: false }
+          ];
+        }
+
+        if (collection.name === "issues" || collection.name === "pages") {
+          translatedCollection.fields = (collection.fields || []).map(function(field) {
+            return translateField(field, collection.name);
+          });
+        }
+
+        return translatedCollection;
+      }
+
+      function translateField(field, collectionName) {
+        var translatedField = Object.assign({}, field);
+        var label = field.name ? t("fields." + field.name, field.label) : field.label;
+        if (label) translatedField.label = label;
+
+        if (field.name === "recordKind") {
+          translatedField.options = [
+            { label: t("options.incident", "Incident"), value: "incident" },
+            { label: t("options.announcement", "Announcement"), value: "announcement" },
+            { label: t("options.maintenance", "Maintenance"), value: "maintenance" }
+          ];
+        }
+
+        if (field.name === "severity") {
+          translatedField.options = [
+            { label: t("options.down", "High"), value: "down" },
+            { label: t("options.disrupted", "Medium"), value: "disrupted" },
+            { label: t("options.notice", "Low"), value: "notice" }
+          ];
+        }
+
+        if (collectionName === "issues" && field.name === "body") {
+          translatedField.default = t("bodyDefaults.issue", field.default);
+        }
+
+        if (field.name === "affected") {
+          translatedField.label_singular = t("fields.affectedSingular", "affected system");
+        }
+
+        if (field.field) {
+          translatedField.field = translateField(field.field, collectionName);
+        }
+        if (field.fields) {
+          translatedField.fields = field.fields.map(function(childField) {
+            return translateField(childField, collectionName);
+          });
+        }
+        return translatedField;
+      }
+
       var IssuePreview = createClass({
         render: function() {
           var entry = this.props.entry;
@@ -26,11 +453,11 @@
           var layoutPostDateEnd = entry.getIn(['data', 'resolvedWhen']);
 
           var resultOfStateProps = {"class": "warning"};
-          var resultOfState = 'This incident has not yet been resolved.';
+          var resultOfState = t("preview.unresolvedIssue", "This incident has not yet been resolved.");
 
           if (entry.getIn(['data', 'resolved']) === true) {
             var resultOfStateProps = {"class": "green"};
-            var resultOfState = 'This incident has been resolved.';
+            var resultOfState = t("preview.resolvedIssue", "This incident has been resolved.");
           }
 
           if (entry.getIn(['data', 'informational']) === true) {
@@ -49,6 +476,31 @@
         }
       });
       CMS.registerPreviewTemplate("issues", IssuePreview, { raw: true });
+
+      var RecordPreview = createClass({
+        render: function() {
+          var entry = this.props.entry;
+          var recordType = entry.getIn(['data', 'recordType']);
+          var state = entry.getIn(['data', 'state']);
+          var summary = entry.getIn(['data', 'summary']);
+          var affected = entry.getIn(['data', 'affected']);
+          var affectedList = affected && affected.toJS ? affected.toJS() : [];
+          var label = recordLabels[recordType] || "Operational Record";
+
+          return h('div', {},
+            h('small', {}, label),
+            h('h1', {}, entry.getIn(['data', 'title'])),
+            state ? h('p', {}, h('strong', {"className": state === "active" ? "green" : "faded"}, t("options." + state, state) + " " + label)) : null,
+            affectedList && affectedList.length ? h('p', {},
+              affectedList.map(function(item) {
+                return h('span', {"className": "tag"}, item);
+              })
+            ) : null,
+            summary ? h('p', {"className": "summary"}, summary) : null,
+            h('div', {"className": "text"}, this.props.widgetFor('body'))
+          );
+        }
+      });
 
       const previewStyles = `
         html,
@@ -75,6 +527,22 @@
           display: block;
         }
 
+        .summary {
+          max-width: 680px;
+          color: #555;
+          font-size: 18px;
+        }
+
+        .tag {
+          display: inline-block;
+          margin: 0 8px 8px 0;
+          padding: 3px 8px;
+          border: 1px solid #d8d8d8;
+          border-radius: 999px;
+          color: #444;
+          font-size: 13px;
+        }
+
         .text {
           padding-top: 12px;
           border-top: 1px solid #ccc;
@@ -83,8 +551,34 @@
         .green { color: #228B22; }
         .red { color: #DC143C; }
         .warning { color: #EE7600; }
+        .faded { color: #666; }
       `;
       CMS.registerPreviewStyle(previewStyles, { raw: true });
+
+      fetch("config.yml")
+        .then(function(response) {
+          if (!response.ok) throw new Error("Could not load Decap config.");
+          return response.text();
+        })
+        .then(function(configText) {
+          var config = jsyaml.load(configText);
+          var recordSections = config.record_sections || [];
+          configureAdminLocale(config);
+          delete config.record_sections;
+          configureRecordPreviews(recordSections);
+          recordSections.forEach(function(section) {
+            CMS.registerPreviewTemplate(section.section, RecordPreview, { raw: true });
+          });
+          config.collections = buildCollections(config.collections, recordSections);
+          config.load_config_file = false;
+          return registerLocaleOverride(activeAdminLocale).then(function() {
+            CMS.init({ config: config });
+          });
+        })
+        .catch(function(error) {
+          console.error(error);
+          document.body.innerHTML = "<p>Could not load the CMS configuration.</p>";
+        });
     </script>
   </body>
 </html>

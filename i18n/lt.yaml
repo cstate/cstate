@@ -178,6 +178,8 @@
   translation: "Gaukite žinutes, kai šis puslapis atsinaujina su nauja informacija."
 - id: rss
   translation: "RSS"
+- id: atom
+  translation: "Atom"
 - id: email
   translation: "El. paštas"
 - id: discord
@@ -230,3 +232,113 @@
   translation: "Kopijuoti į iškarpinę"
 - id: open
   translation: "Atidaryti"
+
+## v7 veiklos įrašai
+- id: records
+  translation: "Įrašai"
+- id: related
+  translation: "Susiję"
+- id: activeRecords
+  translation: "Aktyvūs įrašai"
+- id: history
+  translation: "Istorija"
+- id: filter
+  translation: "Filtruoti"
+- id: all
+  translation: "Visi"
+- id: historyTypes
+  translation: "Istorijos tipai"
+- id: timeRange
+  translation: "Laikotarpis"
+- id: allTime
+  translation: "Visas laikas"
+- id: last30Days
+  translation: "30 dienų"
+- id: last90Days
+  translation: "90 dienų"
+- id: lastYear
+  translation: "1 metai"
+- id: noMatchingHistory
+  translation: "Nėra atitinkančių įrašų."
+- id: operationalRecords
+  translation: "Veiklos įrašai"
+- id: viewAllRecords
+  translation: "Peržiūrėti visus įrašus"
+- id: pinned
+  translation: "Prisegta"
+- id: noRecordsYet
+  translation: "Įrašų dar nėra"
+- id: noPublishedRecords
+  translation: "Ši svetainė neturi paskelbtų veiklos įrašų."
+- id: noPublishedRecordsInSection
+  translation: "Ši skiltis neturi paskelbtų veiklos įrašų."
+- id: recordCount
+  translation: "Įrašų: {{ .Count }}"
+- id: recordStateActive
+  translation: "Aktyvus"
+- id: recordStateCompleted
+  translation: "Baigtas"
+- id: recordStateArchived
+  translation: "Archyvuotas"
+- id: noExperiments
+  translation: "Eksperimentų nėra"
+- id: experimentRunning
+  translation: "Vyksta eksperimentas"
+- id: experimentsRunning
+  translation: "Vyksta eksperimentai: {{ .Count }}"
+- id: experimentStartingSoon
+  translation: "Eksperimentas netrukus prasidės"
+- id: experimentsStartingSoon
+  translation: "Netrukus prasidės eksperimentai: {{ .Count }}"
+- id: informational
+  translation: "Informacinis"
+- id: affectedSystems
+  translation: "Paveiktos sistemos"
+- id: calendarEvent
+  translation: "Kalendoriaus įvykis"
+- id: addToCalendar
+  translation: "Pridėti šį laikotarpį į kalendorių"
+- id: calendarDownloadDescription
+  translation: "Atsisiųskite šio priežiūros laikotarpio įvykio failą."
+- id: downloadCalendarEvent
+  translation: "Atsisiųsti įvykį (.ics)"
+- id: event
+  translation: "Įvykis"
+- id: reminder
+  translation: "Priminimas"
+- id: recordType_incident
+  translation: "Incidentas"
+- id: recordType_incident_plural
+  translation: "Incidentai"
+- id: recordType_experiment
+  translation: "Eksperimentas"
+- id: recordType_experiment_plural
+  translation: "Eksperimentai"
+- id: recordType_release-note
+  translation: "Laidos pastaba"
+- id: recordType_release-note_plural
+  translation: "Laidų pastabos"
+- id: recordType_changelog
+  translation: "Pakeitimų įrašas"
+- id: recordType_changelog_plural
+  translation: "Pakeitimai"
+- id: recordType_roadmap
+  translation: "Plano atnaujinimas"
+- id: recordType_roadmap_plural
+  translation: "Planas"
+- id: recordType_eval-report
+  translation: "Vertinimo ataskaita"
+- id: recordType_eval-report_plural
+  translation: "Vertinimo ataskaitos"
+- id: recordType_agent-run
+  translation: "Agento vykdymas"
+- id: recordType_agent-run_plural
+  translation: "Agentų vykdymai"
+- id: recordType_decision
+  translation: "Sprendimo įrašas"
+- id: recordType_decision_plural
+  translation: "Sprendimų įrašai"
+- id: recordType_research-note
+  translation: "Tyrimo pastaba"
+- id: recordType_research-note_plural
+  translation: "Tyrimų pastabos"

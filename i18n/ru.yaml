@@ -178,6 +178,8 @@
   translation: "Подпишитесь на обновления с этой страницы состояния."
 - id: rss
   translation: "RSS"
+- id: atom
+  translation: "Atom"
 - id: email
   translation: "Электронная почта"
 - id: discord
