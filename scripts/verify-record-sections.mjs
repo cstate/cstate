@@ -202,6 +202,7 @@ assert.ok(
   Math.abs(availabilityContext.calculateAvailabilityPercentage(oneHourDown, windowStart, windowEnd) - 99.9305555556) < 1e-8,
   'one hour of downtime in 60 days should reduce availability by one hour, not one full day'
 );
+assert.equal(availabilityContext.calculateAvailabilityPercentage([{...oneHourDown[0], informational:true}], windowStart, windowEnd), 100, 'informational posts must not reduce availability');
 const overlappingOutages = [
   ...oneHourDown,
   { severity: 'down', createdAt: '2026-02-01T00:30:00Z', resolved: true, resolvedAt: '2026-02-01T01:30:00Z' },

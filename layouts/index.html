@@ -1,7 +1,7 @@
 {{ partial "meta" . }}
 
 {{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
-{{ $active := where $incidents "Params.resolved" "=" false }}
+{{ $active := where (where $incidents "Params.resolved" "=" false) "Params.informational" "!=" true }}
 {{ $skin := .Site.Params.skin | default "modern" | urlize }}
 
 {{ $isNotice := where $active "Params.severity" "=" "notice" }}

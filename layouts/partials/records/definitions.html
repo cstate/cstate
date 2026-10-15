@@ -1,3 +1,3 @@
 {{- $page := . -}}
-{{- $definitions := $page.Site.Params.recordSections | default $page.Site.Data.record_sections.sections | default (slice) -}}
+{{- $definitions := $page.Site.Params.recordSections | default hugo.Data.record_sections.sections | default (slice) -}}
 {{- return $definitions -}}

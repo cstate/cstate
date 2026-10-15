@@ -1,5 +1,5 @@
 {{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
-{{ $active := where $incidents "Params.resolved" "=" false }}
+{{ $active := where (where $incidents "Params.resolved" "=" false) "Params.informational" "!=" true }}
 
 {{ $isNotice := where $active "Params.severity" "=" "notice" }}
 {{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}
@@ -27,7 +27,7 @@
 {{ if gt (len $incidents) $postsPerPage }}
 <hr>
 <div class="right">
-	<a href="/issues/" class="next-link">
+	<a href="{{ "issues/" | relURL }}" class="next-link">
 		{{ T "next" }} &nbsp; &rarr;
 	</a>
 </div>

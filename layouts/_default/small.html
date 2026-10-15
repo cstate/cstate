@@ -1,4 +1,6 @@
-{{- if partial "records/is-section.html" .Section -}}
+{{- if eq .Params.section "issue" -}}
+  {{ partial "issues/small.html" . }}
+{{- else if partial "records/is-section.html" .Section -}}
   {{ partial "records/card.html" . }}
 {{- else -}}
 <a href="{{ .Permalink }}" class="issue no-underline">

@@ -4,7 +4,7 @@
 <body class="default list affected-list {{ partial "body-class" . }}">
 		{{ if eq (.Site.Params.skin | default "modern" | urlize) "modern" }}
 			{{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
-			{{ $active := where $incidents "Params.resolved" "=" false }}
+			{{ $active := where (where $incidents "Params.resolved" "=" false) "Params.informational" "!=" true }}
 			{{ $componentExperiments := partial "experiments/for-affected.html" (dict "page" . "affected" (slice $title)) }}
 			{{ $componentIssues := where $active "Params.affected" "intersect" (slice $title) }}
 		{{ $isDown := where $componentIssues "Params.severity" "=" "down" }}
@@ -117,7 +117,7 @@
 			<div class="padding-s"></div>
 			{{/* Collect all unresolved incidents for this component */}}
 			{{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
-			{{ $active := where $incidents "Params.resolved" "=" false }}
+			{{ $active := where (where $incidents "Params.resolved" "=" false) "Params.informational" "!=" true }}
 			{{ $componentIssues := where $active "Params.affected" "intersect" (slice $title) }}
 			{{ $componentExperiments := partial "experiments/for-affected.html" (dict "page" . "affected" (slice $title)) }}
 

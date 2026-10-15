@@ -1,14 +1,14 @@
 {
   "is": "issue",
-  "title": "{{ .Title }}",
+  "title": {{ .Title | default "" | jsonify }},
   "body": {{ jsonify .Content }},
-  "createdAt": "{{ .Date }}",
-  "lastMod": "{{ .Lastmod }}",
-  "permalink": "{{ .Permalink }}",
+  "createdAt": {{ printf "%v" .Date | jsonify }},
+  "lastMod": {{ printf "%v" .Lastmod | jsonify }},
+  "permalink": {{ .Permalink | default "" | jsonify }},
   "severity": {{ .Params.severity | default "" | jsonify }},
   "resolved": {{ if .Params.resolved }}true{{ else }}false{{ end }},
   "informational": {{ if .Params.informational }}true{{ else }}false{{ end }},
   "resolvedAt": {{ .Params.resolvedWhen | default "" | jsonify }},
-  "affected": [{{ range $i, $e := .Params.Affected }}{{ if $i }}, {{ end }}"{{ . }}"{{ end }}],
-  "filename": "{{ .File.LogicalName }}"
+  "affected": [{{ range $i, $e := .Params.Affected }}{{ if $i }}, {{ end }}{{ . | default "" | jsonify }}{{ end }}],
+  "filename": {{ .File.LogicalName | default "" | jsonify }}
 }

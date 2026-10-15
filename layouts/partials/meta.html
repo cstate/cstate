@@ -15,7 +15,7 @@
     <title>{{ if eq  .Title  .Site.Title }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{.}} | {{ end }}{{ .Site.Title }}{{ end }}</title>
     <link rel="canonical" href="{{ .Permalink }}">
     {{ range .AlternativeOutputFormats -}}
-    {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+    {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink ($.Site.Title | htmlEscape) | safeHTML }}
     {{ end -}}
     <meta name="generator" content="cState v7.0 - https://github.com/cstate/cstate">
     <meta name="theme-color" content="{{ $brandColor.css }}">
@@ -4297,6 +4297,14 @@
         }
       }
     {{ end }}
+
+    /* Each announcement carries its own severity, independent of the page. */
+    .announcement-box--down { --announcement-color: {{ $downColor.css }}; }
+    .announcement-box--disrupted { --announcement-color: {{ $disruptedColor.css }}; }
+    .announcement-box--notice, .announcement-box--informational { --announcement-color: {{ $noticeColor.css }}; }
+    body .announcement-box[data-announcement-severity] { border: 1px solid var(--announcement-color); margin-bottom: 12px; }
+    .skin-modern .announcement-box[data-announcement-severity] .announcement-item { border-left-color: var(--announcement-color); }
+    .announcement-severity { color: var(--announcement-color); font-weight: 700; }
     </style>
     {{ if .Site.Params.enableCustomHTML }}
       {{ partial "custom/meta" . }}

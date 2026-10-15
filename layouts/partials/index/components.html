@@ -1,6 +1,6 @@
 {{/* Existing cState references */}}
 {{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
-{{ $active := where $incidents "Params.resolved" "=" false }}
+{{ $active := where (where $incidents "Params.resolved" "=" false) "Params.informational" "!=" true }}
 {{ $recordSections := partial "records/sections.html" . }}
 {{ $records := where .Site.RegularPages "Section" "in" $recordSections }}
 {{ $activeRecordsByState := where $records "Params.state" "=" "active" }}
@@ -471,6 +471,7 @@
 		if (!(windowDuration > 0)) return 100;
 
 		var outages = (incidents || []).filter(function (incident) {
+			if (incident.informational) return false;
 			return String(incident.severity || '').toLowerCase() === 'down';
 		}).map(function (incident) {
 			var incidentStart = new Date(incident.createdAt).getTime();
@@ -651,7 +652,7 @@
 							});
 						}
 
-					var incidents = data.pages || [];
+					var incidents = (data.pages || []).filter(function (entry) { return entry.is === 'issue' && !entry.informational; });
 					incidents.forEach(incident => {
 						var severity = (incident.severity || '').toLowerCase();
 						// If it's not "down" or "disrupted," no need to color the day as special

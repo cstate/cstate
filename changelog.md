@@ -1,5 +1,17 @@
 # Changelog
 
+### Additional v7 fixes and integrations (2026-10-15)
+
+- Fixed quoted and escaped text throughout incident, page, system, and homepage JSON APIs (#373); corrected custom-tab URLs (#372).
+- Preserved subdirectory hosting in the classic homepage history link (#374).
+- Grouped monthly archives by year and month and applied the same calendar-safe age cutoff as yearly archives (#371).
+- Added a default compact incident view for affected archives without changing record rendering, including Hugo 0.167 compatibility (#370).
+- Kept the existing locale migration, RSS URL fix, Atom feeds, experiments, operational records, and modern skin (#355, #357, #341, #288).
+- Added separate, severity-ordered notices and excluded informational announcements from operational status and availability (#283).
+- Added a dependency-free reporting web component, Hugo shortcode, example page, Markdown export, and GitHub/GitLab editor handoff (#348).
+- Added checksum-verified, multi-platform container builds and a release-triggered GHCR publication workflow (#344).
+- Added generated-output regression checks, reporting round-trip tests, Atom validation, and a Hugo 0.158/0.167 CI matrix.
+
 ## v7.0
 
 **v7 is a major product update for cState.** The release keeps the static, Hugo-based architecture that makes cState cheap to host, portable, and easy to own, then expands what a status page can publish around incidents.

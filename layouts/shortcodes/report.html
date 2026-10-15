@@ -1,0 +1,3 @@
+<cstate-status-tool base="{{ .Site.BaseURL }}"{{ with .Get "repository" }} repository="{{ . }}"{{ end }}{{ with .Get "provider" }} provider="{{ . }}"{{ end }}{{ with .Get "branch" }} branch="{{ . }}"{{ end }}{{ with .Get "labels" }} labels="{{ . }}"{{ end }}></cstate-status-tool>
+<script type="module" src="{{ "cstate-status-tool.mjs" | relURL }}"></script>
+<noscript>Enable JavaScript to prepare an update, or create an incident Markdown file in your repository.</noscript>

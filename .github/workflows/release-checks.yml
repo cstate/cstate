@@ -13,6 +13,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        hugo: ['0.158.0', '0.167.0']
     steps:
       - uses: actions/checkout@v4
 
@@ -22,7 +25,7 @@ jobs:
 
       - uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: 0.158.0
+          hugo-version: ${{ matrix.hugo }}
           extended: true
 
       - name: Build example site
@@ -42,3 +45,9 @@ jobs:
 
       - name: Verify v7 API contract
         run: CSTATE_BUILD_DIR=/tmp/cstate-v7-build node scripts/verify-v7-contract.mjs
+
+      - name: Verify issue regressions and reporting
+        run: |
+          node scripts/verify-bugfixes.mjs
+          node scripts/verify-status-tool.mjs
+          node scripts/verify-v7-features.mjs

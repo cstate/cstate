@@ -1,5 +1,5 @@
 {{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
-{{ $active := where $incidents "Params.resolved" "=" false }}
+{{ $active := where (where $incidents "Params.resolved" "=" false) "Params.informational" "!=" true }}
 
 {{ $isNotice := where $active "Params.severity" "=" "notice" }}
 {{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}

@@ -1,0 +1,10 @@
+{{- $issues := where .Site.RegularPages "Params.section" "issue" -}}
+{{- $incidents := where $issues "Params.informational" "!=" true -}}
+{{- $active := where (where (where $incidents "Params.resolved" "=" false) "Params.informational" "!=" true) "Params.pin" "!=" false -}}
+{{- $sorted := slice -}}
+{{- range slice "down" "disrupted" "notice" -}}
+  {{- $sorted = $sorted | append (where $active "Params.severity" "=" .) -}}
+{{- end -}}
+{{- $sorted = $sorted | append (where $active "Params.severity" "not in" (slice "down" "disrupted" "notice")) -}}
+{{- $sorted = $sorted | append (where (where $issues "Params.informational" "=" true) "Params.pin" "=" true) -}}
+{{- return $sorted -}}

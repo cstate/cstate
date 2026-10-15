@@ -1,23 +1,20 @@
-WORK_DIR="/app"
-SRC_DIR="/cstate"
+#!/bin/sh
+set -eu
 
-echo "[CSTATE-DOCKER] Initialising container..."
-
-# Check if the working dir is empty, if it is we'll need to copy
-# the files in from src directory (usually /cstate)
-if ! [ "$(ls -A $WORK_DIR)" ]; then
-    # First run, copy cstate's files in.
-    echo "[CSTATE-DOCKER] Copying cState into staging area. First Start."
-    cp -R $SRC_DIR/* $WORK_DIR
+CSTATE_SITE_DIR="${CSTATE_SITE_DIR:-/app}"
+mkdir -p "$CSTATE_SITE_DIR"
+if [ -z "$(ls -A "$CSTATE_SITE_DIR")" ]; then
+    echo "[cState] Initializing the example site."
+    cp -R /cstate/. "$CSTATE_SITE_DIR/"
 fi
 
-cd $WORK_DIR
-
-# Build the hugo site
-echo "[CSTATE-DOCKER] Running hugo build service..."
-hugo
-
-# Copy built files into NGINX directory
-cp -r /$WORK_DIR/public/* /usr/share/nginx/html
-
-echo "[CSTATE-DOCKER] Initialisation complete."
+# Build directly into NGINX output so removed pages cannot survive a restart.
+# The theme comes from this image; mounted site content and layout overrides persist.
+set -- hugo --source "$CSTATE_SITE_DIR" --themesDir /cstate/themes --theme cstate \
+    --destination /usr/share/nginx/html --cleanDestinationDir
+if [ -n "${CSTATE_BASE_URL:-}" ]; then
+    set -- "$@" --baseURL "$CSTATE_BASE_URL"
+fi
+echo "[cState] Building the status page."
+"$@"
+echo "[cState] Ready."
