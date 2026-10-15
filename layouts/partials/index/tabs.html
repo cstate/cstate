@@ -5,7 +5,7 @@
   <div class="tabs">
     <div class="contain tabs--inner">
       <a href="#incidents" class="tab tab--current">
-        {{ if eq $historyMode "separate" }}{{ T "incidents" }}{{ else }}History{{ end }}
+        {{ if eq $historyMode "separate" }}{{ T "incidents" }}{{ else }}{{ T "history" }}{{ end }}
       </a>
       {{ if and $records (eq $historyMode "separate") }}
         <a href="{{ "records/" | relURL }}" class="tab tab--other">
@@ -23,9 +23,9 @@
 {{ else }}
   {{ if not .Site.Params.disableIncidentHistory }}
     <div class="contain contain--more">
-      <h2 class="center">{{ if eq $historyMode "separate" }}{{ T "incidentHistory" }}{{ else }}History{{ end }}</h2>
+      <h2 class="center">{{ if eq $historyMode "separate" }}{{ T "incidentHistory" }}{{ else }}{{ T "history" }}{{ end }}</h2>
       {{ if and $records (eq $historyMode "separate") }}
-        <p class="center"><a href="{{ "records/" | relURL }}">View operational {{ default "records" (T "records" | lower) }}</a></p>
+        <p class="center"><a href="{{ "records/" | relURL }}">{{ T "viewAllRecords" }}</a></p>
       {{ end }}
       <hr class="clean">
     </div>

@@ -1,5 +1,7 @@
 # Plan: Make Pinned Records Work as Real Global Notices
 
+> Implemented on 2026-07-18. Retained as the original problem statement.
+
 ## Problem
 
 `pin: true` is documented as the global homepage notice path for experiments and other records, but the current homepage rendering only shows a label, title, and affected tags for pinned records. It does not show `summary` or a body excerpt.

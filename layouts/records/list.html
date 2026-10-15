@@ -5,7 +5,7 @@
         <a href="{{ .Site.BaseURL }}"><span aria-hidden="true">←</span><span>{{ printf "%s %s" (T "goBack") .Site.Title }}</span></a>
         <div class="padding"></div><div class="padding"></div>
 
-        <h1 class="clean">{{ .Title | default "Records" }}</h1>
+        <h1 class="clean">{{ .Title | default (T "records") }}</h1>
         {{ with .Content }}
           <div class="archive__head">{{ . }}</div>
         {{ end }}
@@ -17,10 +17,10 @@
       {{ $records := sort (where .Site.RegularPages "Section" "in" $recordSections) "Date" "desc" }}
       {{ if not $records }}
         <div class="padding"></div>
-        <h3>No records yet</h3>
-        <p>This site does not have any published operational records.</p>
+        <h3>{{ T "noRecordsYet" }}</h3>
+        <p>{{ T "noPublishedRecords" }}</p>
       {{ else }}
-        <small class="faded">{{ len $records }} records, {{ T "newestToOldest" }}</small>
+        <small class="faded">{{ T "recordCount" (dict "Count" (len $records)) }}, {{ T "newestToOldest" }}</small>
         <div class="padding"></div>
         {{ range $records }}
           {{ partial "records/card.html" . }}

@@ -1,0 +1,68 @@
+{{- $eventTitle := .Title | default (T "event") | plainify -}}
+{{- $eventDescription := .Content | default "" | plainify -}}
+<script>
+  (function () {
+    const eventTitle = {{ $eventTitle | jsonify | safeJS }};
+    const eventDescription = {{ $eventDescription | jsonify | safeJS }};
+    const eventStart = {{ .Date | jsonify | safeJS }};
+    const endDateRaw = {{ (.Params.resolvedWhen | default "") | jsonify | safeJS }};
+    const eventLocation = {{ .Site.BaseURL | jsonify | safeJS }};
+    const reminderText = {{ T "reminder" | jsonify | safeJS }};
+    const button = document.getElementById("addToCalendarBtn");
+    if (!button) return;
+
+    function toICSDate(value) {
+      return new Date(value).toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+    }
+
+    function escapeICSText(value) {
+      return String(value || "")
+        .replace(/\\/g, "\\\\")
+        .replace(/\r\n|\r|\n/g, "\\n")
+        .replace(/;/g, "\\;")
+        .replace(/,/g, "\\,");
+    }
+
+    function downloadICS() {
+      let eventEnd = endDateRaw;
+      if (!eventEnd.trim()) {
+        const fallbackEnd = new Date(eventStart);
+        fallbackEnd.setHours(fallbackEnd.getHours() + 1);
+        eventEnd = fallbackEnd.toISOString();
+      }
+
+      const timestamp = new Date().toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+      const icsData = [
+        "BEGIN:VCALENDAR",
+        "VERSION:2.0",
+        "PRODID:-//cState//EN",
+        "BEGIN:VEVENT",
+        `UID:${Date.now()}@cstate`,
+        `DTSTAMP:${timestamp}`,
+        `DTSTART:${toICSDate(eventStart)}`,
+        `DTEND:${toICSDate(eventEnd)}`,
+        `SUMMARY:${escapeICSText(eventTitle)}`,
+        `LOCATION:${escapeICSText(eventLocation)}`,
+        `DESCRIPTION:${escapeICSText(eventDescription)}`,
+        "BEGIN:VALARM",
+        "ACTION:DISPLAY",
+        `DESCRIPTION:${escapeICSText(reminderText)}`,
+        "TRIGGER:-PT1H",
+        "END:VALARM",
+        "END:VEVENT",
+        "END:VCALENDAR"
+      ].join("\r\n");
+
+      const blobUrl = URL.createObjectURL(new Blob([icsData], { type: "text/calendar;charset=utf-8" }));
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.download = (eventTitle.replace(/[^\w\s-]/g, "").trim() || "event") + ".ics";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(blobUrl);
+    }
+
+    button.addEventListener("click", downloadICS);
+  })();
+</script>

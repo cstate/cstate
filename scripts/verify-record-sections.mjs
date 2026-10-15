@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import assert from 'node:assert/strict';
+import vm from 'node:vm';
 
 const buildDir = process.env.CSTATE_BUILD_DIR || '/tmp/cstate-v7-build';
 const expectedSections = [
@@ -25,6 +26,12 @@ assert.match(adminConfig, /severityDefault: none/);
 assert.match(adminConfig, /pinDefault: false/);
 assert.match(adminConfig, /recordSeverityHint/);
 assert.match(adminConfig, /recordPinHint/);
+const canonicalFixture = JSON.parse(fs.readFileSync('test/fixtures/v7-index.json', 'utf-8'));
+const canonicalRecordTypes = [...new Set(canonicalFixture.records.map((record) => record.recordType))].sort();
+const decapRecordTypes = [...adminConfig.matchAll(/^    recordType: ([\w-]+)$/gm)].map((match) => match[1]).sort();
+const decapRecordKinds = [...adminConfig.matchAll(/^    recordKind: ([\w-]+)$/gm)].map((match) => match[1]).sort();
+assert.deepEqual(decapRecordTypes, canonicalRecordTypes, 'Decap record types should match the canonical v7 fixture');
+assert.deepEqual(decapRecordKinds, canonicalRecordTypes, 'Decap record kinds should match the canonical v7 fixture');
 
 const adminIndex = fs.readFileSync('exampleSite/static/admin/index.html', 'utf-8');
 assert.match(adminIndex, /name: "recordKind"/);
@@ -91,16 +98,16 @@ for (const file of listFiles(buildDir).filter((file) => file.endsWith('.json')))
   assert.doesNotMatch(content, /<no value>/, `${file} should not leak Hugo <no value> placeholders`);
 }
 
-assert.deepEqual(records.pages.map((page) => page.recordType), [
+assert.deepEqual([...new Set(records.pages.map((page) => page.recordType))].sort(), [
+	'agent-run',
+	'changelog',
+	'decision',
+	'eval-report',
   'experiment',
   'release-note',
-  'changelog',
-  'roadmap',
-  'eval-report',
-  'agent-run',
-  'decision',
   'research-note',
-]);
+	'roadmap',
+].sort());
 assert.equal(index.records.length, records.pages.length);
 
 for (const category of index.categories || []) {
@@ -116,8 +123,13 @@ for (const category of index.categories || []) {
 for (const system of index.systems || []) {
   assert.equal(
     system.runningExperimentCount,
-    (system.experiments || []).filter((experiment) => experiment.state === 'active').length,
+    system.experimentStatus === 'running' ? (system.experiments || []).length : 0,
     `${system.name} has inconsistent visible running experiment count`
+  );
+  assert.equal(
+    system.startingSoonExperimentCount,
+    system.experimentStatus === 'starting-soon' ? (system.experiments || []).length : 0,
+    `${system.name} has inconsistent scheduled experiment count`
   );
 
   if (system.experimentsUrl) {
@@ -129,13 +141,19 @@ for (const system of index.systems || []) {
   }
 }
 
+const mediaProxy = index.systems.find((system) => system.name === 'Media Proxy');
+assert.equal(mediaProxy.experimentStatus, 'starting-soon', 'future active experiment should be scheduled');
+assert.equal(mediaProxy.runningExperimentCount, 0, 'future active experiment must not count as running');
+assert.equal(mediaProxy.startingSoonExperimentCount, 1, 'future active experiment should count as starting soon');
+assert.match(indexHtml, /Experiment starting soon/, 'future active experiment should use scheduled UI copy');
+
 assert.match(
   affectedApi.experimentsUrl,
   /^https?:\/\//,
   'affected/api experimentsUrl should be absolute in affected API JSON'
 );
 assert.equal(
-  affectedApi.experiments.filter((experiment) => experiment.state === 'active').length,
+  affectedApi.experimentStatus === 'running' ? affectedApi.experiments.length : 0,
   affectedApi.runningExperimentCount,
   'affected/api has inconsistent visible running experiment count'
 );
@@ -149,11 +167,59 @@ assert.match(
   /Search relevance rollout experiment/,
   'generated homepage should show operational records in the history stream'
 );
-assert.doesNotMatch(
-  indexHtml,
-  /Testing a search relevance update with a limited traffic slice\./,
-  'generated homepage record cards should stay compact'
+assert.equal(
+  indexHtml.match(/Testing a search relevance update with a limited traffic slice\./g)?.length,
+  1,
+  'the pinned notice should show its summary once without expanding the compact history card'
 );
+assert.ok(
+  indexHtml.indexOf('<section class="modern-operational-records"') < indexHtml.indexOf(' id="system-'),
+  'pinned records should appear before components independently of history mode'
+);
+
+const combinedHistoryStart = indexHtml.indexOf('modern-incident-list--combined');
+const combinedHistoryEnd = indexHtml.indexOf('modern-history-more', combinedHistoryStart);
+const combinedHistoryHtml = indexHtml.slice(combinedHistoryStart, combinedHistoryEnd);
+assert.equal(
+  (combinedHistoryHtml.match(/data-history-item/g) || []).length,
+  10,
+  'modern combined history should honor incidentPostsPerPage'
+);
+
+assert.doesNotMatch(indexHtml, /fonts\.googleapis\.com|fonts\.gstatic\.com/, 'default pages must not request Google Fonts');
+
+const componentsTemplate = fs.readFileSync('layouts/partials/index/components.html', 'utf-8');
+const availabilitySource = componentsTemplate.match(
+  /\/\/ availability-calculation:start\n([\s\S]*?)\n\s*\/\/ availability-calculation:end/
+)?.[1];
+assert.ok(availabilitySource, 'availability calculation source markers should be present');
+const availabilityContext = {};
+vm.runInNewContext(`${availabilitySource}; this.calculateAvailabilityPercentage = calculateAvailabilityPercentage;`, availabilityContext);
+const windowStart = new Date('2026-01-01T00:00:00Z');
+const windowEnd = new Date('2026-03-02T00:00:00Z');
+const oneHourDown = [{ severity: 'down', createdAt: '2026-02-01T00:00:00Z', resolved: true, resolvedAt: '2026-02-01T01:00:00Z' }];
+assert.ok(
+  Math.abs(availabilityContext.calculateAvailabilityPercentage(oneHourDown, windowStart, windowEnd) - 99.9305555556) < 1e-8,
+  'one hour of downtime in 60 days should reduce availability by one hour, not one full day'
+);
+const overlappingOutages = [
+  ...oneHourDown,
+  { severity: 'down', createdAt: '2026-02-01T00:30:00Z', resolved: true, resolvedAt: '2026-02-01T01:30:00Z' },
+];
+assert.ok(
+  Math.abs(availabilityContext.calculateAvailabilityPercentage(overlappingOutages, windowStart, windowEnd) - 99.8958333333) < 1e-8,
+  'overlapping downtime must be merged rather than counted twice'
+);
+
+const recordsJsonTemplate = fs.readFileSync('layouts/records/list.json', 'utf-8');
+assert.match(recordsJsonTemplate, /\.Title \| jsonify/, 'record endpoint titles must use JSON encoding');
+
+const calendarHtml = fs.readFileSync(
+  path.join(buildDir, 'issues', '2024-02-24-maintenance-window', 'index.html'),
+  'utf-8'
+);
+assert.doesNotMatch(calendarHtml, /const eventDescription = "\\"/, 'calendar descriptions must not be JSON encoded twice');
+assert.match(calendarHtml, /function escapeICSText/, 'calendar fields must be escaped for ICS text values');
 
 assert.doesNotMatch(
   indexHtml,

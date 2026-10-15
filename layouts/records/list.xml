@@ -5,7 +5,7 @@
   <channel>
     <title>{{ .Title }} on {{ .Site.Title }}</title>
     <link>{{ .Permalink }}</link>
-    <description>Operational records</description>
+    <description>{{ T "operationalRecords" }}</description>
     <generator>github.com/cstate</generator>
     {{ with .OutputFormats.Get "RSS" }}
       {{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}

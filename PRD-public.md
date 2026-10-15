@@ -254,7 +254,7 @@ That is a good position. It is differentiated. It is defensible. It also means c
 - No enterprise controls such as SSO, RBAC, or audit workflows
 - Setup is split across repo, example site, CMS config, wiki, CLI, and monitorbot
 - Example CMS/admin path appears fragile and adds setup risk
-- No visible automated test suite in this repo
+- Automated release checks now cover the example Hugo build, generated record sections and URLs, the v7 JSON contract, availability math, history limits, calendar encoding, and default third-party requests; broader visual and legacy-template coverage is still limited
 
 ### Strategic implication
 
@@ -413,8 +413,8 @@ The read-only API is already a genuine strength. It should be easier to consume 
 
 Requirements:
 
-- Add snapshot or fixture-based tests for generated HTML/JSON outputs
-- Add smoke test for example site build
+- Extend the existing fixture-backed HTML/JSON checks to more legacy configuration combinations
+- Extend the existing example-site smoke build with visual regression coverage
 - Add release checklist and compatibility matrix
 - Consolidate docs so users do not have to jump across README, wiki, and example files for basic setup
 

@@ -1,5 +1,7 @@
 # Plan: Add a Shared v7 Contract and Ecosystem CI
 
+> Implemented on 2026-07-18. Retained as the original problem statement.
+
 ## Problem
 
 The v7 record contract is repeated in several places:

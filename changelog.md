@@ -21,6 +21,8 @@
 - **Pinned record announcements:** added a homepage path for surfacing an experiment, release note, or operational update globally without creating an incident.
 - **Per-page feeds:** added RSS and Atom links in the modern footer when a page exposes its own feeds.
 - **Release checks:** added a workflow for v7 and `master` that builds the example site with Hugo and verifies generated records, URLs, JSON, and template placeholders.
+- **Canonical v7 contract fixture:** added `test/fixtures/v7-index.json` as the shared API 2.1 compatibility payload for the theme, Decap CMS, cstate-cli, MonitorBot, and HTML embed. It covers all eight operational record types and their required fields.
+- **Ecosystem checks:** added fixture-backed test workflows to cstate-cli, MonitorBot, and the HTML embed so record-model drift fails in the repository that consumes it.
 - **cState website:** redesigned and gave more attention to the cState marketing website. Visit it at https://cstate.uncascade.com.
 
 ### Changed
@@ -29,9 +31,17 @@
 - **Homepage clarity:** gave current status, active incidents, component health, experiment context, and pinned records distinct visual roles.
 - **API/index JSON:** expanded output so operational records can be consumed alongside incident and component data. Record JSON now includes `kind`, `severity`, `statusImpact`, and `pin`.
 - **Affected-system JSON:** exposed experiment status, visible experiments, running experiment counts, and absolute experiment URLs.
+- **Component availability:** the optional 60-day percentage now uses the duration of published `down` incident intervals, merges overlapping outages, and clips them to the observation window. It is incident-history-derived availability, not an active probe or SLA measurement.
 - **Component histograms:** components without history now render a stable all-OK view when history JSON is absent.
 - **Theme colors:** normalized configured colors before rendering CSS, JavaScript color variables, and status shadows. Short hex values and missing values are handled with safer fallbacks.
-- **Pinned records:** separated pinned operational records from incident announcements, with shorter homepage cards that point to the full record.
+- **Pinned records:** separated pinned operational records from incident announcements. A pinned notice now appears above components in combined and separate history modes, includes its concise summary, and remains visible when incident history is disabled. Ordinary history cards stay compact.
+- **Experiment timing:** a future-dated experiment is shown as starting soon even if its frontmatter already says `state: active`; it becomes running when its publication date arrives.
+- **History limits:** modern combined history now honors `incidentPostsPerPage` and links to the incident and record archives when more entries exist.
+- **Record defaults:** omitted state values normalize to `active` for experiments and roadmap entries and `completed` for other operational records; omitted non-incident severity normalizes to `none`.
+- **Private-by-default typography:** the modern skin now uses the system font stack and no longer contacts Google Fonts on page load.
+- **Localized v7 UI:** record labels and state, history controls, empty states, pinned notices, experiment timing, informational badges, and calendar actions now use Hugo translation keys. English and Lithuanian v7 copy is included; other locales fall back to the site’s configured default language until native strings are contributed.
+- **HTML embed notices:** disruption and outage dialogs remain dominant. Healthy record notices are quiet by default and can be enabled with `cStateShowRecordNotices = true`; record-aware dialogs expose the highest-priority active record’s kind, title, summary, and permalink.
+- **MonitorBot safety:** MonitorBot now defaults to dry-run mode, accepts `DEPLOYMENT_METHOD`, honors millisecond `CHECK_INTERVAL` values without invalid cron expressions, skips overlapping runs, and requires an explicit local path only when a real local/Git write occurs.
 - **README positioning:** updated the product framing around operational publishing from Markdown, humans, and AI agents.
 - **Hugo v0.158.0+ compatibility:** updated the example config and templates to replace `languageCode` with `locale`, and replace `.Site.LanguageCode` with `.Site.Language.Locale`.
 
@@ -39,6 +49,8 @@
 
 - **Older Hugo sites:** existing sites that stay on older Hugo versions can keep their old `languageCode` config.
 - **Hugo v0.158.0 or later:** update your site config from `languageCode` to `locale` to avoid Hugo deprecation warnings. Upgrading cState at the same time is recommended so the theme templates use Hugo's new language APIs too.
+- **MonitorBot:** deployments are now dry-run by default. Set `TESTMODE=false` only after choosing `DEPLOYMENT_METHOD` and configuring `LOCAL_CSTATE_PATH` for local/Git or all `FTP_*` values for FTP.
+- **HTML embed:** existing outage/disruption behavior is unchanged. Define `cStateShowRecordNotices = true` before `dialog.js` only if healthy operational-record notices should open a dialog.
 
 ### Fixed
 
@@ -48,6 +60,16 @@
 - **Histogram loading text:** fixed typoed loading translation usage in component histograms.
 - **Optional JSON fields:** fixed `severity` and `resolvedAt` output so missing values do not leak Hugo `<no value>` placeholders.
 - **Experiment URLs:** fixed generated JSON so API consumers receive absolute URLs where expected.
+- **Availability percentage:** fixed a full-day penalty for incidents that lasted only minutes or hours, and prevented overlapping outage intervals from being counted twice.
+- **Pinned record visibility:** fixed `pin: true` having no visible effect in the default combined history mode and restored the context needed for global announcements.
+- **Future experiments:** fixed future-dated active experiments being reported as currently running.
+- **Combined history pagination:** fixed the modern combined stream ignoring the configured homepage history limit.
+- **Undocumented third-party request:** removed the default Google Fonts stylesheet and preconnect requests.
+- **Record localization:** fixed new record labels and state text bypassing Hugo i18n.
+- **Calendar downloads:** fixed maintenance descriptions being JSON encoded twice; calendar title, description, location, and reminder text now escape RFC 5545 text delimiters and line breaks, and generated blob URLs are revoked.
+- **Record JSON:** fixed valid titles and base URLs containing quotes, backslashes, or control characters breaking `/records/index.json`.
+- **MonitorBot deployments:** fixed CommonJS `require()` calls in the ESM FTP path, created missing parent directories before local/Git record writes, rejected paths outside `LOCAL_CSTATE_PATH`, applied `FTP_REMOTE_PATH`, and made missing deployment configuration fail clearly.
+- **MonitorBot SSL actions:** fixed TLS callbacks returning before incident creation/resolution finished and prevented a failed incident action from being launched twice.
 
 ## How to use the new features
 
@@ -91,10 +113,10 @@ Frontmatter fields:
 - `recordType` is optional when the record is in one of the standard sections; cState infers it from the folder.
 - `recordKind` describes what the entry is. Incidents default to `incident`, legacy informational posts default to `announcement`, and experiments default to `experiment`. The API exposes this as `kind`.
 - `affected` links the record to existing systems/components. For non-incidents this is shown as related context, not downtime.
-- `state` is optional. Supported non-incident states are `active`, `completed`, and `archived`.
+- `state` is optional. Supported non-incident states are `active`, `completed`, and `archived`. When omitted, experiments and roadmap entries normalize to `active`; other operational records normalize to `completed`.
 - `severity` remains the status-impact marker. Incidents use `notice`, `disrupted`, or `down` for operational status. Records default to `none`; an active experiment with `severity: notice` shows a component/category notice without changing status.
 - `pin: true` shows a record in the homepage announcement band. This is the global notice path for experiments and other operational records.
-- `summary` is optional and is used in cards, JSON, and feeds when present.
+- `summary` is optional and is used in pinned notices, record detail/API output, and feeds when present. Ordinary history cards remain concise.
 
 Behavior rules:
 

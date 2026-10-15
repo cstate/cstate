@@ -1,5 +1,5 @@
 {{ $severity := .Params.severity | default "notice" }}
-{{ $statusIcon := cond (eq $severity "down") "x-circle" (cond (eq $severity "disrupted") "alert-circle" "info") }}
+{{ $statusIcon := cond (eq $severity "down") "x" (cond (eq $severity "disrupted") "alert-triangle" "info-mark") }}
 {{ $statusText := T "thisIsNotice" }}
 {{ if eq $severity "down" }}
   {{ $statusText = T "thisIsDown" }}
@@ -10,7 +10,7 @@
 {{ $resolvedText := "" }}
 {{ $resolvedDate := "" }}
 {{ if .Params.informational }}
-  {{ $statusText = "Informational" }}
+  {{ $statusText = T "informational" }}
 {{ else if .Params.Resolved }}
   {{ $resolvedTime := (time .Params.ResolvedWhen) }}
   {{ $timeDiff := (sub $resolvedTime.Unix .Date.Unix) }}
@@ -55,14 +55,14 @@
       </span>
       {{ if $resolvedText }}
         <span class="modern-issue-detail__meta-item modern-issue-detail__meta-item--resolution" {{ if $resolvedDate }}title="{{ $resolvedDate }}"{{ end }}>
-          {{ partial "skins/modern/icon" (dict "name" (cond .Params.Resolved "check-circle" $statusIcon) "class" "modern-issue-detail__meta-icon") }}
+          {{ partial "skins/modern/icon" (dict "name" (cond .Params.Resolved "check" $statusIcon) "class" "modern-issue-detail__meta-icon") }}
           {{ $resolvedText }}
         </span>
       {{ end }}
     </div>
 
     {{ if .Params.Affected }}
-      <div class="modern-issue-detail__tags" aria-label="Affected systems">
+      <div class="modern-issue-detail__tags" aria-label="{{ T "affectedSystems" }}">
         {{ range .Params.Affected }}
           <a href="{{ printf "affected/%s/" (. | urlize) | relURL }}" class="tag modern-issue-detail__tag no-underline">{{ . }}</a>
         {{ end }}
@@ -75,79 +75,19 @@
   </div>
 
   {{ if eq .Params.severity "notice" }}
-    <aside class="modern-issue-detail__calendar" aria-label="Calendar event">
+    <aside class="modern-issue-detail__calendar" aria-label="{{ T "calendarEvent" }}">
       <div class="modern-issue-detail__calendar-copy">
         {{ partial "skins/modern/icon" (dict "name" "calendar" "class" "modern-issue-detail__calendar-icon") }}
         <div>
-          <h2>Add this period to your calendar</h2>
-          <p>Download an event file for this maintenance window.</p>
+          <h2>{{ T "addToCalendar" }}</h2>
+          <p>{{ T "calendarDownloadDescription" }}</p>
         </div>
       </div>
       <button id="addToCalendarBtn" class="modern-issue-detail__calendar-button">
         {{ partial "skins/modern/icon" (dict "name" "download" "class" "modern-issue-detail__button-icon") }}
-        Download event (.ics)
+        {{ T "downloadCalendarEvent" }}
       </button>
     </aside>
-
-    {{ $theTitle := .Title | default "Event" | plainify }}
-    {{ $theDescription := .Content | default "" | plainify | jsonify }}
-
-    <script>
-      const eventTitle = {{ $theTitle }};
-      const eventDescription = {{ $theDescription }};
-      const eventStart = "{{ .Date }}";
-      const endDateRaw = "{{ .Params.resolvedWhen }}";
-      const eventLocation = "{{ .Site.BaseURL }}";
-
-      let eventEnd = endDateRaw;
-      if (!endDateRaw || endDateRaw.trim() === "") {
-        const startTimeObj = new Date(eventStart);
-        startTimeObj.setHours(startTimeObj.getHours() + 1);
-        eventEnd = startTimeObj.toISOString();
-      }
-
-      function downloadICS() {
-        function toICSDate(dString) {
-          const d = new Date(dString);
-          return d.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
-        }
-
-        const dtStart = toICSDate(eventStart);
-        const dtEnd = toICSDate(eventEnd);
-        const icsData = [
-          "BEGIN:VCALENDAR",
-          "VERSION:2.0",
-          "PRODID:-//cState//EN",
-          "BEGIN:VEVENT",
-          `UID:${Date.now()}@cstate`,
-          `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, "").split(".")[0]}Z`,
-          `DTSTART:${dtStart}`,
-          `DTEND:${dtEnd}`,
-          `SUMMARY:${eventTitle}`,
-          `LOCATION:${eventLocation}`,
-          `DESCRIPTION:${eventDescription}`,
-          "BEGIN:VALARM",
-          "ACTION:DISPLAY",
-          "DESCRIPTION:Reminder",
-          "TRIGGER:-PT1H",
-          "END:VALARM",
-          "END:VEVENT",
-          "END:VCALENDAR"
-        ].join("\r\n");
-
-        const blob = new Blob([icsData], { type: "text/calendar" });
-        const blobUrl = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = blobUrl;
-        link.download = eventTitle.replace(/[^\w\s-]/g, "") + ".ics";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      }
-
-      document
-        .getElementById("addToCalendarBtn")
-        .addEventListener("click", downloadICS);
-    </script>
+    {{ partial "calendar-event-script.html" . }}
   {{ end }}
 </article>

@@ -1,5 +1,7 @@
 # Plan: Make html-embed Use v7 Record Context Better
 
+> Implemented on 2026-07-18. Retained as the original problem statement.
+
 ## Problem
 
 html-embed is compatible with v7, but it consumes only a thin slice of the new model. `dialog.js` reads `summaryStatus` and checks `records` for active experiments, then shows generic copy.

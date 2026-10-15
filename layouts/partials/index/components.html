@@ -324,7 +324,7 @@
 			z-index: 20;
 			bottom: calc(100% + 10px);
 			left: 50%;
-			display: block;
+			display: none;
 			width: max-content;
 			min-width: 190px;
 			max-width: 260px;
@@ -358,6 +358,7 @@
 
 		.histogram-bar:hover .histogram-tooltip,
 		.histogram-bar:focus-visible .histogram-tooltip {
+			display: block;
 			opacity: 1;
 			transform: translate(-50%, 0);
 			visibility: visible;
@@ -412,6 +413,27 @@
 				min-width: 170px;
 				max-width: min(230px, calc(100vw - 56px));
 			}
+
+			.histogram-bar:nth-child(n+21):nth-child(-n+31) .histogram-tooltip {
+				left: 0;
+				transform: translate(0, 6px);
+			}
+
+			.histogram-bar:nth-child(n+21):nth-child(-n+31):hover .histogram-tooltip,
+			.histogram-bar:nth-child(n+21):nth-child(-n+31):focus-visible .histogram-tooltip {
+				transform: translate(0, 0);
+			}
+
+			.histogram-bar:nth-last-child(-n+11) .histogram-tooltip {
+				left: auto;
+				right: 0;
+				transform: translate(0, 6px);
+			}
+
+			.histogram-bar:nth-last-child(-n+11):hover .histogram-tooltip,
+			.histogram-bar:nth-last-child(-n+11):focus-visible .histogram-tooltip {
+				transform: translate(0, 0);
+			}
 		}
 
 		/* Show all 50 on desktop; only 30 on mobile/tablet (max-width: 640px) */
@@ -441,15 +463,54 @@
 		return value.toFixed(precision).replace(/\.0$/, '') + '%';
 	}
 
-	function renderUptimePercentage(component, dayStats) {
+	// availability-calculation:start
+	function calculateAvailabilityPercentage(incidents, windowStart, windowEnd) {
+		var startMs = windowStart.getTime();
+		var endMs = windowEnd.getTime();
+		var windowDuration = endMs - startMs;
+		if (!(windowDuration > 0)) return 100;
+
+		var outages = (incidents || []).filter(function (incident) {
+			return String(incident.severity || '').toLowerCase() === 'down';
+		}).map(function (incident) {
+			var incidentStart = new Date(incident.createdAt).getTime();
+			var incidentEnd = incident.resolved ? new Date(incident.resolvedAt).getTime() : endMs;
+			return [Math.max(startMs, incidentStart), Math.min(endMs, incidentEnd)];
+		}).filter(function (interval) {
+			return Number.isFinite(interval[0]) && Number.isFinite(interval[1]) && interval[1] > interval[0];
+		}).sort(function (a, b) {
+			return a[0] - b[0];
+		});
+
+		var downtime = 0;
+		var mergedStart = null;
+		var mergedEnd = null;
+		outages.forEach(function (interval) {
+			if (mergedStart === null) {
+				mergedStart = interval[0];
+				mergedEnd = interval[1];
+			} else if (interval[0] <= mergedEnd) {
+				mergedEnd = Math.max(mergedEnd, interval[1]);
+			} else {
+				downtime += mergedEnd - mergedStart;
+				mergedStart = interval[0];
+				mergedEnd = interval[1];
+			}
+		});
+		if (mergedStart !== null) downtime += mergedEnd - mergedStart;
+
+		return Math.max(0, Math.min(100, ((windowDuration - downtime) / windowDuration) * 100));
+	}
+	// availability-calculation:end
+
+	function renderUptimePercentage(component, incidents) {
 		if (!showComponentUptimePercent) return;
 		var uptimeSpan = component.querySelector('.component-uptime');
-		if (!uptimeSpan || !dayStats.length) return;
+		if (!uptimeSpan) return;
 
-		var okDays = dayStats.filter(function (day) {
-			return day.worstSeverity === 'ok';
-		}).length;
-		var uptime = (okDays / dayStats.length) * 100;
+		var windowEnd = new Date();
+		var windowStart = new Date(windowEnd.getTime() - (DAYS * 24 * 60 * 60 * 1000));
+		var uptime = calculateAvailabilityPercentage(incidents, windowStart, windowEnd);
 		var formatted = formatUptimePercentage(uptime);
 		uptimeSpan.textContent = formatted;
 		uptimeSpan.setAttribute('aria-label', formatted + ' uptime');
@@ -553,7 +614,7 @@
 					histogramDiv.textContent = '';
 					renderOkHistogram(histogramDiv, componentPath);
 				}
-				renderUptimePercentage(component, buildOkDayStats());
+				renderUptimePercentage(component, []);
 				return;
 			}
 			fetch(endpoint)
@@ -621,7 +682,7 @@
 						});
 					});
 
-					renderUptimePercentage(component, dayStats);
+					renderUptimePercentage(component, incidents);
 
 					// Now build 60 bars, from oldest on the left to newest on the right
 					if (!histogramDiv) return;
@@ -664,7 +725,7 @@
 							histogramDiv.textContent = ''; // Clear "Loading..."
 							renderOkHistogram(histogramDiv, componentPath);
 						}
-						renderUptimePercentage(component, buildOkDayStats());
+						renderUptimePercentage(component, []);
 					} else {
 						// Network errors, server errors (500, 503), or other actual problems
 						console.error('Histogram load error for', systemName + ':', err);

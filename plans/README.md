@@ -1,14 +1,16 @@
 # cState v7 Ecosystem Audit
 
+> Implemented on 2026-07-18. The numbered documents are retained as the original audit record; `../changelog.md` and `../documentation.md` describe shipped behavior and verification commands.
+
 Planned at: cState `4359909`, cstate-cli `2298a83`, monitorbot `2a54b2b`, html-embed `045c810`
 
-## Current read
+## Original read
 
 The old v7 gaps around experiment authoring are mostly handled now. The theme builds, the RSS double-slash bug is fixed through Hugo output formats, Decap can write `recordKind`, `severity`, and `pin`, the CLI can create experiment records with notice/global fields, and MonitorBot can emit `content/experiments` records.
 
 The remaining product risk is ecosystem reliability: v7 has a richer contract, but that contract is still duplicated across the theme, Decap, CLI, MonitorBot, and embeds. A few runtime/deployment paths and docs are still sharp enough to create failed first installs or weak global notices.
 
-## Highest-priority plans
+## Implemented plans
 
 1. `001-pinned-record-notice-surface.md` - make `pin: true` records feel like real global notices, not only linked titles.
 2. `002-monitorbot-runtime-hardening.md` - fix MonitorBot deployment/runtime paths that can fail outside the tested local Markdown generator.
@@ -29,4 +31,4 @@ cd /Users/mantas/Git/uncwo/cstate-extra/html-embed && npm test
 cd /Users/mantas/Git/uncwo/cstate-extra/monitorbot && npm test
 ```
 
-`cstate-cli` tests were not rerun in this pass because `node_modules` is not installed locally and this audit did not mutate source trees outside `plans/`.
+All three sibling repository tests were run after implementation. cstate-cli, MonitorBot, and html-embed consume the canonical `test/fixtures/v7-index.json` payload and pass from their repository roots; their CI workflows check out the same contract fixture.

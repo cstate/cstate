@@ -2,6 +2,7 @@
 
 {{ $incidents := where .Site.RegularPages "Params.section" "issue" }}
 {{ $active := where $incidents "Params.resolved" "=" false }}
+{{ $skin := .Site.Params.skin | default "modern" | urlize }}
 
 {{ $isNotice := where $active "Params.severity" "=" "notice" }}
 {{ $isDisrupted := where $active "Params.severity" "=" "disrupted" }}
@@ -15,11 +16,16 @@
       <!-- Enable JavaScript banner -->
       {{ partial "index/noscript" . }}
 
-      <!-- "All systems operational" (or not) banner -->
-      {{ partial "skin-partial" (dict "page" . "name" "index/summary") }}
+      <div{{ if eq $skin "modern" }} class="modern-alert-stack"{{ end }}>
+        <!-- "All systems operational" (or not) banner -->
+        {{ partial "skin-partial" (dict "page" . "name" "index/summary") }}
 
-      <!-- Announcement box (title and short summary) -->
-      {{ partial "skin-partial" (dict "page" . "name" "index/announcements") }}
+        <!-- Announcement box (title and short summary) -->
+        {{ partial "skin-partial" (dict "page" . "name" "index/announcements") }}
+
+        <!-- Pinned operational records stay visible independently of history mode. -->
+        {{ partial "skin-partial" (dict "page" . "name" "index/records") }}
+      </div>
 
       <!-- Auto refresh -->
       {{ partial "index/autorefresh" . }}
@@ -42,7 +48,6 @@
       {{ $historyMode := .Site.Params.homepageHistoryMode | default "combined" | urlize }}
       {{ if eq $historyMode "separate" }}
 	    {{ partial "skin-partial" (dict "page" . "name" "index/incidents") }}
-	    {{ partial "skin-partial" (dict "page" . "name" "index/records") }}
       {{ else }}
 	    {{ partial "skin-partial" (dict "page" . "name" "index/history") }}
       {{ end }}

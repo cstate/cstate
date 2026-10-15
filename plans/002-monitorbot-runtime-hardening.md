@@ -1,5 +1,7 @@
 # Plan: Harden MonitorBot Runtime and Deployment Paths
 
+> Implemented on 2026-07-18. Retained as the original problem statement.
+
 ## Problem
 
 MonitorBot's v7 Markdown generation is now in decent shape, but important runtime paths are not covered by the current test and can fail in real installs.

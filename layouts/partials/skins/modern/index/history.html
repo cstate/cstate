@@ -2,6 +2,7 @@
 {{ $recordSections := partial "records/sections.html" . }}
 {{ $records := where .Site.RegularPages "Section" "in" $recordSections }}
 {{ $history := sort (union $incidents $records) "Date" "desc" }}
+{{ $postsPerPage := .Site.Params.incidentPostsPerPage | default 10 }}
 
 {{ if not $history }}
   <section class="modern-empty-history">
@@ -9,10 +10,10 @@
     <p>{{ T "noIncidentsDesc" }}</p>
   </section>
 {{ else }}
-  <p class="modern-history-empty" data-history-empty hidden>No matching history.</p>
+  <p class="modern-history-empty" data-history-empty hidden>{{ T "noMatchingHistory" }}</p>
 
   <div class="modern-incident-list modern-incident-list--combined" data-history-list>
-    {{ range $history }}
+    {{ range first $postsPerPage $history }}
       {{ if eq .Params.section "issue" }}
         {{ .Render "small" }}
       {{ else }}
@@ -20,6 +21,15 @@
       {{ end }}
     {{ end }}
   </div>
+
+  {{ if gt (len $history) $postsPerPage }}
+    <div class="modern-history-more history-archive-links">
+      <a href="{{ "issues/" | relURL }}" class="next-link">{{ T "incidents" }} &rarr;</a>
+      {{ if $records }}
+        <a href="{{ "records/" | relURL }}" class="next-link">{{ T "records" }} &rarr;</a>
+      {{ end }}
+    </div>
+  {{ end }}
 
   <script>
     (function () {
@@ -31,7 +41,24 @@
       var typeInputs = Array.prototype.slice.call(root.querySelectorAll('[data-history-type-filter]'));
       var timeSelect = root.querySelector('[data-history-time-filter]');
       var countLabel = root.querySelector('[data-history-filter-count]');
+      var typeFilter = root.querySelector('[data-history-filter]');
+      var typeFilterToggle = typeFilter ? typeFilter.querySelector('.modern-history-filter__summary') : null;
       var empty = document.querySelector('[data-history-empty]');
+
+      function setTypeFilterOpen(isOpen, options) {
+        if (!typeFilter || !typeFilterToggle) return;
+        typeFilter.open = isOpen;
+        typeFilterToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+
+        if (isOpen && options && options.focusFirst && typeInputs.length) {
+          var target = options.focusLast ? typeInputs[typeInputs.length - 1] : typeInputs[0];
+          window.requestAnimationFrame(function () { target.focus(); });
+        }
+
+        if (!isOpen && options && options.restoreFocus) {
+          typeFilterToggle.focus();
+        }
+      }
 
       function selectedTypes() {
         return typeInputs.filter(function (input) { return input.checked; }).map(function (input) { return input.value; });
@@ -39,7 +66,7 @@
 
       function updateCount(types) {
         if (!countLabel) return;
-        countLabel.textContent = types.length === typeInputs.length ? 'All' : String(types.length);
+        countLabel.textContent = types.length === typeInputs.length ? countLabel.getAttribute('data-history-all-label') : String(types.length);
       }
 
       function itemWithinRange(item, days) {
@@ -77,6 +104,40 @@
         input.addEventListener('change', applyHistoryFilters);
       });
       if (timeSelect) timeSelect.addEventListener('change', applyHistoryFilters);
+
+      if (typeFilter && typeFilterToggle) {
+        typeFilter.addEventListener('toggle', function () {
+          typeFilterToggle.setAttribute('aria-expanded', typeFilter.open ? 'true' : 'false');
+        });
+
+        typeFilterToggle.addEventListener('keydown', function (event) {
+          if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
+          event.preventDefault();
+          setTypeFilterOpen(true, {
+            focusFirst: true,
+            focusLast: event.key === 'ArrowUp'
+          });
+        });
+
+        typeFilter.addEventListener('keydown', function (event) {
+          if (event.key !== 'Escape' || !typeFilter.open) return;
+          event.preventDefault();
+          event.stopPropagation();
+          setTypeFilterOpen(false, { restoreFocus: true });
+        });
+
+        typeFilter.addEventListener('focusout', function (event) {
+          if (!typeFilter.contains(event.relatedTarget)) {
+            setTypeFilterOpen(false);
+          }
+        });
+
+        document.addEventListener('pointerdown', function (event) {
+          if (typeFilter.open && !typeFilter.contains(event.target)) {
+            setTypeFilterOpen(false);
+          }
+        }, true);
+      }
 
       applyHistoryFilters();
     })();

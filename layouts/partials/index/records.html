@@ -12,6 +12,10 @@
           <a href="{{ .RelPermalink }}" class="announcement-link"><strong class="bold">{{ .Title }} →</strong></a>
         </p>
 
+        {{ with (.Params.summary | default .Summary) }}
+          <p>{{ . | plainify }}</p>
+        {{ end }}
+
         <p><small>
           {{ range $record.affected }}
           <a href="{{ printf "affected/%s/" (. | urlize) | relURL }}" class="tag no-underline">{{ . }}</a>

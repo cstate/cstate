@@ -5,14 +5,7 @@
 {{- if eq $record.type "roadmap" -}}{{- $icon = "history" -}}{{- end -}}
 {{- if eq $record.type "eval-report" -}}{{- $icon = "check-circle" -}}{{- end -}}
 {{- $stateIcon := cond $record.isActive "clock" "check-circle" -}}
-{{- $stateText := "" -}}
-{{- if $record.state -}}
-  {{- if and (eq $record.type "experiment") $record.isActive -}}
-    {{- $stateText = "Experiment running" -}}
-  {{- else -}}
-    {{- $stateText = printf "%s %s" $record.stateLabel $record.label -}}
-  {{- end -}}
-{{- end -}}
+{{- $stateText := $record.stateLabel -}}
 
 <article class="modern-record-detail modern-record-detail--{{ $record.type }}">
   <header class="modern-record-detail__hero">

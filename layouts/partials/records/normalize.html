@@ -18,17 +18,28 @@
 {{- $pluralLabel := printf "%ss" $label -}}
 {{- with $metadata.label -}}{{- $label = . -}}{{- end -}}
 {{- with $metadata.pluralLabel -}}{{- $pluralLabel = . -}}{{- end -}}
-{{- if eq $recordType "incident" -}}{{- $label = "Incident" -}}{{- $pluralLabel = "Incidents" -}}{{- end -}}
+{{- $localizedRecordTypes := slice "incident" "experiment" "release-note" "changelog" "roadmap" "eval-report" "agent-run" "decision" "research-note" -}}
+{{- if in $localizedRecordTypes $recordType -}}
+  {{- $labelKey := printf "recordType_%s" $recordType -}}
+  {{- $pluralLabelKey := printf "recordType_%s_plural" $recordType -}}
+  {{- with T $labelKey -}}{{- $label = . -}}{{- end -}}
+  {{- with T $pluralLabelKey -}}{{- $pluralLabel = . -}}{{- end -}}
+{{- end -}}
 
 {{- $state := $page.Params.state | default "" -}}
 {{- if and (eq $state "") (eq ($page.Params.severity | default "") "ongoing") -}}
   {{- $state = "active" -}}
 {{- end -}}
+{{- if and (eq $state "") (in (slice "experiment" "roadmap") $recordType) -}}
+  {{- $state = "active" -}}
+{{- else if and (eq $state "") (ne $recordType "incident") -}}
+  {{- $state = "completed" -}}
+{{- end -}}
 
 {{- $stateLabel := "" -}}
-{{- if eq $state "active" -}}{{- $stateLabel = "Active" -}}{{- end -}}
-{{- if eq $state "completed" -}}{{- $stateLabel = "Completed" -}}{{- end -}}
-{{- if eq $state "archived" -}}{{- $stateLabel = "Archived" -}}{{- end -}}
+{{- if eq $state "active" -}}{{- $stateLabel = T "recordStateActive" -}}{{- end -}}
+{{- if eq $state "completed" -}}{{- $stateLabel = T "recordStateCompleted" -}}{{- end -}}
+{{- if eq $state "archived" -}}{{- $stateLabel = T "recordStateArchived" -}}{{- end -}}
 
 {{- $kind := $page.Params.recordKind | default ($page.Params.kind | default "") -}}
 {{- if eq $kind "" -}}
@@ -43,7 +54,7 @@
   {{- end -}}
 {{- end -}}
 
-{{- $severity := $page.Params.severity | default "" -}}
+{{- $severity := $page.Params.severity | default (cond (eq $recordType "incident") "notice" "none") -}}
 {{- $statusImpact := $severity | default "none" -}}
 {{- if eq $statusImpact "ongoing" -}}
   {{- $statusImpact = "none" -}}

@@ -335,6 +335,14 @@ params:
   # Default: We continuously monitor the status of our services and if there are any interruptions, a note will be posted here.
   description: We continuously monitor the status of our services and post updates when needed.
 
+  # Optional links shown in the footer.
+  # Use the same name/link format as customTabs.
+  footerLinks:
+    - name: Documentation
+      link: https://github.com/cstate/cstate/wiki
+    - name: Support
+      link: https://github.com/cstate/cstate/discussions
+
   # Tabs on homepage
   # Uncomment to enable.
   #

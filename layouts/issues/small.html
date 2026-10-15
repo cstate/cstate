@@ -6,13 +6,13 @@
 {{ $isDown := where $active "Params.severity" "=" "down" }}
 
 {{ if eq (.Site.Params.skin | default "modern" | urlize) "modern" }}
-  {{ $icon := "info" }}
+  {{ $icon := "info-mark" }}
   {{ $statusClass := "notice" }}
   {{ $statusText := T "thisIsNotice" }}
   {{ $tooltipTitle := T "thisIsNotice" }}
   {{ $tooltipDetail := "" }}
   {{ if .Params.Resolved }}
-    {{ $icon = "check-circle" }}
+    {{ $icon = "check" }}
     {{ $statusClass = "resolved" }}
     {{ $tooltipTitle = T "resolved" }}
     {{ $t := (time .Params.ResolvedWhen) }}
@@ -31,13 +31,13 @@
     {{ end }}
     {{ $tooltipDetail = $statusText }}
   {{ else if eq .Params.severity "down" }}
-    {{ $icon = "x-circle" }}
+    {{ $icon = "x" }}
     {{ $statusClass = "down" }}
     {{ $statusText = printf "%s - %s" (T "thisIsDown") (T "downtimeOngoing") }}
     {{ $tooltipTitle = T "thisIsDown" }}
     {{ $tooltipDetail = T "downtimeOngoing" }}
   {{ else if eq .Params.severity "disrupted" }}
-    {{ $icon = "alert-circle" }}
+    {{ $icon = "alert-triangle" }}
     {{ $statusClass = "disrupted" }}
     {{ $statusText = printf "%s - %s" (T "thisIsDisrupted") (T "downtimeOngoing") }}
     {{ $tooltipTitle = T "thisIsDisrupted" }}
@@ -51,7 +51,7 @@
     </span>
     <span class="modern-incident__content">
       {{ if .Params.informational }}
-        <span class="modern-incident__badge modern-incident__badge--info">Informational</span>
+        <span class="modern-incident__badge modern-incident__badge--info">{{ T "informational" }}</span>
       {{ end }}
       <span class="modern-incident__title">{{ .Title }}</span>
       {{ if not .Params.informational }}

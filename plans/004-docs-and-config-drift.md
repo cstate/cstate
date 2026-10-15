@@ -1,5 +1,7 @@
 # Plan: Remove Docs and Config Drift Before v7 Release
 
+> Implemented on 2026-07-18. Retained as the original problem statement.
+
 ## Problem
 
 Several docs now disagree with the current code. These are small individually, but they undermine trust during setup.

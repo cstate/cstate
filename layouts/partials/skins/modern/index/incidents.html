@@ -9,13 +9,13 @@
 {{ else }}
   <div class="modern-incident-list">
     {{ range first $postsPerPage $incidents }}
-      {{ $icon := "info" }}
+      {{ $icon := "info-mark" }}
       {{ $statusClass := "notice" }}
       {{ $statusText := T "thisIsNotice" }}
       {{ $tooltipTitle := T "thisIsNotice" }}
       {{ $tooltipDetail := "" }}
       {{ if .Params.Resolved }}
-        {{ $icon = "check-circle" }}
+        {{ $icon = "check" }}
         {{ $statusClass = "resolved" }}
         {{ $tooltipTitle = T "resolved" }}
         {{ $t := (time .Params.ResolvedWhen) }}
@@ -31,21 +31,21 @@
         {{ end }}
         {{ $tooltipDetail = $statusText }}
       {{ else if eq .Params.severity "down" }}
-        {{ $icon = "x-circle" }}
+        {{ $icon = "x" }}
         {{ $statusClass = "down" }}
         {{ $statusText = printf "%s - %s" (T "thisIsDown") (T "downtimeOngoing") }}
         {{ $tooltipTitle = T "thisIsDown" }}
         {{ $tooltipDetail = T "downtimeOngoing" }}
       {{ else if eq .Params.severity "disrupted" }}
-        {{ $icon = "alert-circle" }}
+        {{ $icon = "alert-triangle" }}
         {{ $statusClass = "disrupted" }}
         {{ $statusText = printf "%s - %s" (T "thisIsDisrupted") (T "downtimeOngoing") }}
         {{ $tooltipTitle = T "thisIsDisrupted" }}
         {{ $tooltipDetail = T "downtimeOngoing" }}
 	      {{ else if .Params.informational }}
 	        {{ $statusClass = "informational" }}
-	        {{ $statusText = "Informational" }}
-	        {{ $tooltipTitle = "Informational" }}
+	        {{ $statusText = T "informational" }}
+	        {{ $tooltipTitle = T "informational" }}
 	      {{ end }}
 
 	      <a href="{{ .Permalink }}" class="issue modern-incident no-underline" data-history-item data-history-kind="incident" data-history-type="incident" data-history-date="{{ .Date.Format "2006-01-02" }}">
@@ -55,7 +55,7 @@
 	        </span>
 	        <span class="modern-incident__content">
 	          {{ if .Params.informational }}
-	            <span class="modern-incident__badge modern-incident__badge--info">Informational</span>
+	            <span class="modern-incident__badge modern-incident__badge--info">{{ T "informational" }}</span>
 	          {{ end }}
 	          <span class="modern-incident__title">{{ .Title }}</span>
 	          {{ if not .Params.informational }}

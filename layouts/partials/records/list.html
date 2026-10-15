@@ -1,11 +1,11 @@
 {{- $records := sort .Pages "Date" "desc" -}}
 {{- if not $records -}}
 <div class="padding"></div>
-<h3>No records yet</h3>
-<p>This section does not have any published operational records.</p>
+<h3>{{ T "noRecordsYet" }}</h3>
+<p>{{ T "noPublishedRecordsInSection" }}</p>
 <div class="padding"></div>
 {{- else -}}
-<small class="faded">{{ len $records }} records, {{ T "newestToOldest" }}</small>
+<small class="faded">{{ T "recordCount" (dict "Count" (len $records)) }}, {{ T "newestToOldest" }}</small>
 <div class="padding"></div>
 {{ range $records }}
   {{ partial "records/card.html" . }}
