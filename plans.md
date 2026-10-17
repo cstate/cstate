@@ -1,16 +1,18 @@
 # cState v7 ecosystem reliability implementation plan
 
-## Active v7-r1 publication — 2026-10-17
+## Completed v7-r1 publication — 2026-10-17
 
 Commit and push all current v7 work in cstate, monitorbot, cstate-cli, and html-embed. Run remote CI against each exact pushed head and repair failures. Publish cState `v7-r1` as a GitHub prerelease; do not promote v7 to production. Do not modify master, v6.0.2, cstate/example, or tickets. Use plain Git for commits/pushes and preserve remote commits without force-pushing. Earlier local-only constraints are historical.
 
 - [x] Prepare source version `7.0.0-r1`, exact `v7-r1` tag handling, notes, and prerelease-only container aliases.
-- [ ] Commit and push the complete current v7 state in all four repositories after preservation/whitespace checks.
-- [ ] Inspect remote CI for every pushed head; fix and push any failures until required jobs pass.
-- [ ] Publish/verify the prerelease, versioned images/downloadable artifacts, clean local/remote parity, and unchanged stable/default refs.
+- [x] Commit and push the complete current v7 state in all four repositories after preservation/whitespace checks.
+- [x] Inspect remote CI for every pushed head; fix and push any failures until required jobs pass.
+- [x] Publish/verify the prerelease, versioned images/downloadable artifacts, clean local/remote parity, and unchanged stable/default refs.
 
 Acceptance: four clean v7 worktrees match remote heads; exact-head Actions runs succeed; `v7-r1` exists as published `prerelease: true`; stable/latest remains 6.0.2; container tags cannot alter `7`, `7.0`, or `latest`; no ticket messages or labels change. Baseline refs/backups and publication proof live in `/tmp/cstate-v7-r1-20261017/`.
 
+
+Publication result: all four source heads passed remote CI; `v7-r1` is published as a prerelease with four verified public assets. The release workflow passed. The organization disables public GHCR visibility, so install instructions use the public image archives; registry versions remain private and no organization policy was changed. Stable/default refs and latest 6.0.2 are unchanged. Final proof is retained in `/tmp/cstate-v7-r1-20261017/`.
 
 ## Completed stabilization goal — 2026-10-16
 

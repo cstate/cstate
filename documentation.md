@@ -8,6 +8,19 @@ This runbook tracks the multi-repository v7 reliability work. It must describe c
 
 The v7 worktrees include #344 container artifacts and the #198 optional MonitorBot backend. The static theme remains independent of MonitorBot. v6.0.2 remains the latest published stable release; v7 is unpublished and no issue replies are part of this work.
 
+## v7-r1 publication — 2026-10-17
+
+The [v7-r1 prerelease](https://github.com/cstate/cstate/releases/tag/v7-r1) targets theme commit `494ef9d6fb66858e660e8f1f4625d6a3e1e8e003`. Its assets are the AMD64/ARM64 archives from that commit's successful CI run, `SHA256SUMS`, and `v7-r1-builds.json` with companion commit pins. GitHub reports `prerelease: true`, `draft: false`; `/releases/latest` still resolves to v6.0.2.
+
+Exact source CI passed:
+
+- [Theme Hugo/browser checks](https://github.com/cstate/cstate/actions/runs/39025992181) and [both static image architectures](https://github.com/cstate/cstate/actions/runs/39025992262).
+- [MonitorBot Node 20/22 and non-root container](https://github.com/cstate/monitorbot/actions/runs/39025998209), commit `97f0084e9e053d4bc249f25f3a732c45fc6d0c6b`.
+- [CLI Node 20/22 and real Hugo authoring](https://github.com/cstate/cstate-cli/actions/runs/39026000652), commit `aabae8656c1a3fed6b39126f7427e1a9905c2865`.
+- [Embed contract and hostile-content Chromium checks](https://github.com/cstate/html-embed/actions/runs/39026002077), commit `39cd7cf9ac520da399f84582d99d5488202b2c21`.
+
+The [release-triggered image publication](https://github.com/cstate/cstate/actions/runs/39026215747) passed, including both architectures and the version-only registry push. The package remains private under organization policy; public release archives supply anonymous downloads. This workflow is separate from the branch checks. Publication proof, downloaded artifacts, source refs, checksums, and run/job snapshots are retained locally in `/tmp/cstate-v7-r1-20261017/`. Master, v6.0.2, cstate/example, and issue tickets are outside this release's mutations.
+
 ## Repositories
 
 - `cstate`: Hugo theme, Decap admin, canonical v7 fixture, example site, release documentation.
@@ -179,14 +192,16 @@ docker run -d --name cstate -p 8080:80 -v cstate-site:/app \
 
 Use `arm64` in the archive and tag names for ARM hosts. These images support 64-bit x86 and ARM; 32-bit x86 is not included. Pushes and pull requests targeting `v7`, and manual workflow runs, produce build artifacts without publishing images. Once a v7 release is published, the workflow also uploads versioned images to `ghcr.io/cstate/cstate`. Stable releases receive major/minor and `latest` aliases. A semver prerelease suffix or GitHub's prerelease checkbox restricts publication to its version tag; neither can advance stable aliases. Non-v7 releases are excluded.
 
-After the first stable v7 image has been published:
+Authorized registry users can run the prerelease image:
 
 ```bash
 docker run -d --name cstate -p 8080:80 -v cstate-site:/app \
   -e CSTATE_BASE_URL=http://localhost:8080/ ghcr.io/cstate/cstate:v7-r1
 ```
 
-Before publication, build and run the same image locally:
+This registry command requires an account with package access. Public prerelease archives are available on the release page. Use the archive instructions above for anonymous installation.
+
+To build and run the same image locally:
 
 ```bash
 docker build -t cstate:local .
@@ -200,7 +215,7 @@ The image serves `.mjs` files as JavaScript so the reporting tool and Decap adap
 
 The build pattern follows [Docker's multi-platform GitHub Actions guide](https://docs.docker.com/build/ci/github-actions/multi-platform/). The editor handoff uses the [GitHub file editor](https://docs.github.com/en/repositories/working-with-files/managing-files/creating-new-files) and [GitLab Web Editor](https://docs.gitlab.com/user/project/repository/web_editor/).
 
-For `v7-r1`, the registry exposes `v7-r1` and `7.0.0-r1`. The short release tag is normalized for semantic version consumers and never receives production aliases, even if a release flag is misconfigured.
+For `v7-r1`, the registry exposes `v7-r1` and `7.0.0-r1` to authorized registry users. Organization policy disables public container-package visibility; the GitHub release archives are the public installation path and need no registry login. Load an archive with `docker load -i cstate-linux-amd64.tar.gz`, then run `cstate:verify-amd64` (use `arm64` for ARM). The short release tag is normalized for semantic version consumers and never receives production aliases, even if a release flag is misconfigured.
 
 ## Optional MonitorBot backend (#198)
 
