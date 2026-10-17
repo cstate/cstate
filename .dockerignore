@@ -7,3 +7,7 @@ exampleSite/themes
 .hugo_build.lock
 exampleSite/.hugo_build.lock
 .DS_Store
+.env
+.env.*
+.monitorbot
+node_modules

@@ -13,15 +13,15 @@
         "is": "issue",
         "kind": {{ .Params.recordKind | default (.Params.kind | default (cond .Params.informational "announcement" "incident")) | default "" | jsonify }},
         "title": {{ .Title | default "" | jsonify }},
-        "createdAt": {{ printf "%v" .Date | jsonify }},
-        "lastMod": {{ printf "%v" .Lastmod | jsonify }},
+        "createdAt": {{ .Date | jsonify }},
+        "lastMod": {{ .Lastmod | jsonify }},
         "permalink": {{ .Permalink | default "" | jsonify }},
         "severity": {{ .Params.severity | default "" | jsonify }},
         "statusImpact": {{ .Params.severity | default "none" | default "" | jsonify }},
         "resolved": {{ if .Params.resolved }}true{{ else }}false{{ end }},
         "informational": {{ if .Params.informational }}true{{ else }}false{{ end }},
         "pin": {{ if .Params.pin }}true{{ else }}false{{ end }},
-        "resolvedAt": {{ .Params.resolvedWhen | default "" | jsonify }},
+        "resolvedAt": {{ partial "api/timestamp.html" .Params.resolvedWhen | jsonify }},
         "affected": [{{ range $i, $e := .Params.Affected }}{{ if $i }}, {{ end }}{{ . | default "" | jsonify }}{{ end }}],
         "filename": {{ .File.LogicalName | default "" | jsonify }}
       }
@@ -31,8 +31,8 @@
       {
         "is": "page",
         "title": {{ .Title | default "" | jsonify }},
-        "createdAt": {{ printf "%v" .Date | jsonify }},
-        "lastMod": {{ printf "%v" .Lastmod | jsonify }},
+        "createdAt": {{ .Date | jsonify }},
+        "lastMod": {{ .Lastmod | jsonify }},
         "permalink": {{ .Permalink | default "" | jsonify }},
         "filename": {{ .File.LogicalName | default "" | jsonify }},
         "summary": {{ jsonify .Summary }}

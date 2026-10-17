@@ -1,0 +1,10 @@
+{{- $timestamp := "" -}}
+{{- with . -}}
+  {{- $parsed := try (time.AsTime .) -}}
+  {{- if $parsed.Err -}}
+    {{- warnf "Cannot serialize API timestamp %q: %s" . $parsed.Err -}}
+  {{- else -}}
+    {{- $timestamp = $parsed.Value.Format "2006-01-02T15:04:05.999999999Z07:00" -}}
+  {{- end -}}
+{{- end -}}
+{{- return $timestamp -}}

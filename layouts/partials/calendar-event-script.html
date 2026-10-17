@@ -5,7 +5,7 @@
     const eventTitle = {{ $eventTitle | jsonify | safeJS }};
     const eventDescription = {{ $eventDescription | jsonify | safeJS }};
     const eventStart = {{ .Date | jsonify | safeJS }};
-    const endDateRaw = {{ (.Params.resolvedWhen | default "") | jsonify | safeJS }};
+    const endDateRaw = {{ (partial "api/timestamp.html" .Params.resolvedWhen) | jsonify | safeJS }};
     const eventLocation = {{ .Site.BaseURL | jsonify | safeJS }};
     const reminderText = {{ T "reminder" | jsonify | safeJS }};
     const button = document.getElementById("addToCalendarBtn");

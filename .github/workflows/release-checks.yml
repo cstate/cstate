@@ -51,10 +51,24 @@ jobs:
           node scripts/verify-bugfixes.mjs
           node scripts/verify-status-tool.mjs
           node scripts/verify-v7-features.mjs
+          node scripts/verify-release-policy.mjs
 
-      - name: Verify history filters and record defaults in Chromium
+      - name: Verify inferred Decap record metadata
+        run: |
+          admin_tools="$RUNNER_TEMP/cstate-admin-test"
+          npm install --prefix "$admin_tools" --no-save --ignore-scripts --no-package-lock js-yaml@4.3.2 smol-toml@1.9.1
+          CSTATE_ADMIN_TEST_MODULES="$admin_tools" node scripts/verify-admin-records.mjs
+
+      - name: Verify browser history, dates, and real Decap editing
         run: |
           browser_tools="$RUNNER_TEMP/cstate-browser-tools"
           npm install --prefix "$browser_tools" --no-save --package-lock=false playwright@1.62.1
-          "$browser_tools/node_modules/.bin/playwright" install --with-deps chromium
+          "$browser_tools/node_modules/.bin/playwright" install --with-deps chromium webkit
           CSTATE_PLAYWRIGHT_MODULE="$browser_tools/node_modules/playwright" node scripts/verify-v7-review.mjs
+          CSTATE_PLAYWRIGHT_MODULE="$browser_tools/node_modules/playwright" node scripts/verify-v7-timestamps.mjs
+          curl -fsSL --retry 3 'https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js' -o "$RUNNER_TEMP/decap-cms.js"
+          CSTATE_PLAYWRIGHT_MODULE="$browser_tools/node_modules/playwright" \
+            CSTATE_ADMIN_TEST_MODULES="$RUNNER_TEMP/cstate-admin-test" \
+            CSTATE_ADMIN_CMS_BUNDLE="$RUNNER_TEMP/decap-cms.js" \
+            CSTATE_ADMIN_YAML_BROWSER="$RUNNER_TEMP/cstate-admin-test/node_modules/js-yaml/dist/js-yaml.min.js" \
+            node scripts/verify-admin-browser.mjs

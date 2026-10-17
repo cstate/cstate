@@ -1,6 +1,6 @@
 {
   "is": "index",
-  "cStateVersion": "7.0",
+  "cStateVersion": "7.0.0-r1",
   "apiVersion": "2.1",
   "summaryStatus": "disrupted",
   "records": [

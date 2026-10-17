@@ -21,7 +21,7 @@ const generated = JSON.parse(fs.readFileSync(generatedPath, 'utf-8'));
 
 function assertIndexContract(payload, label) {
   assert.equal(payload.is, 'index', `${label} should identify the index endpoint`);
-  assert.equal(payload.cStateVersion, '7.0', `${label} should expose cStateVersion`);
+  assert.equal(payload.cStateVersion, '7.0.0-r1', `${label} should expose cStateVersion`);
   assert.equal(payload.apiVersion, '2.1', `${label} should expose apiVersion`);
   assert.match(payload.summaryStatus, /^(ok|notice|disrupted|down)$/, `${label} has invalid summaryStatus`);
   assert.equal(Array.isArray(payload.records), true, `${label} should expose records`);

@@ -17,7 +17,7 @@
     {{ range .AlternativeOutputFormats -}}
     {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink ($.Site.Title | htmlEscape) | safeHTML }}
     {{ end -}}
-    <meta name="generator" content="cState v7.0 - https://github.com/cstate/cstate">
+    <meta name="generator" content="cState v7.0.0-r1 - https://github.com/cstate/cstate">
     <meta name="theme-color" content="{{ $brandColor.css }}">
     <script>
     var themeBrandColor = '{{ $brandColor.css }}';

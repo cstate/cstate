@@ -10,7 +10,8 @@ RUN apk add --no-cache ca-certificates curl \
     && tar -xzf "hugo_${HUGO_VERSION}_linux-${TARGETARCH}.tar.gz" hugo
 
 FROM nginx:1.28-alpine
-RUN apk add --no-cache ca-certificates git && mkdir -p /app
+RUN apk add --no-cache ca-certificates git && mkdir -p /app \
+    && sed -i 's|application/javascript[[:space:]]*js;|application/javascript js mjs;|' /etc/nginx/mime.types
 COPY --from=hugo /download/hugo /usr/local/bin/hugo
 COPY exampleSite/ /cstate/
 COPY . /cstate/themes/cstate/

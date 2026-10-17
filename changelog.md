@@ -1,5 +1,24 @@
 # Changelog
 
+## v7-r1 — prerelease (2026-10-17)
+
+First v7 preview for testing. Includes the modern/classic skins, operational records and feeds, reporting component, container artifacts, optional MonitorBot API/integrations, and the reliability fixes below. Source/API version: `7.0.0-r1`. v6.0.2 remains the stable release.
+
+The exact `v7-r1` release tag publishes only the `7.0.0-r1` and `v7-r1` container tags; it cannot advance stable aliases. Companion tools remain on their v7 branches with independently versioned packages.
+
+### v7 stabilization (2026-10-16)
+
+- Fixed incident API timestamps and maintenance calendar end times to include timezone offsets. Safari now calculates the same incident-history availability as Chromium; legacy frontmatter dates still honor the site's timezone.
+- Kept section-inferred operational records visible and editable in Decap without exposing `_index.md` files as records or admitting conflicting explicit record types. Default states are applied when reading; listing content never writes files. YAML, TOML, and JSON frontmatter are supported.
+- Escaped titles in healthy opt-in embed notices, kept record text inert, rejected unsafe update links, and constrained long text to mobile viewports. Completed/archived records and future experiments no longer appear as running notices.
+- Prevented CLI create/draft commands from overwriting existing files, preserved literal template replacement characters, retained incident resolution times, and wrote timezone-aware dates. Historical incidents and maintenance windows validate start/end chronology.
+- Forwarded Hugo arguments through the CLI's build, serve, and dev commands and propagated subprocess failures to the exit code.
+- Updated the CLI's YAML/date dependencies and the admin YAML parser to patched versions; added installed-dependency and real Hugo authoring checks.
+- Gave every MonitorBot outage cycle a distinct durable path, isolated state by monitor identity, and retained existing open incident paths during unambiguous legacy migration. Ambiguous or conflicting legacy histories stop with an actionable error.
+- Reset consecutive failure counters after healthy checks, kept failed publications pending for exact retries, and made single-run execution/publication failures exit nonzero while scheduled monitoring continues reporting failures.
+- Fixed busy webhook retries and journaled multi-monitor dispatch progress across restarts. Failed state checkpoints cannot acknowledge an unsaved API write or skip a check that never started.
+- Protected stable container aliases from both semantic prerelease tags and GitHub's prerelease flag, and served browser modules with the correct MIME type in the static image. Added Chromium/WebKit, Decap, hostile embed, CLI, lifecycle, persistence-failure, and release-policy regression gates.
+
 ### Additional v7 fixes and integrations (2026-10-15)
 
 - Fixed combined-history filters searching only the initial display window; matching entries are now selected from the complete history before applying the page limit.
@@ -12,7 +31,10 @@
 - Kept the existing locale migration, RSS URL fix, Atom feeds, experiments, operational records, and modern skin (#355, #357, #341, #288).
 - Added separate, severity-ordered notices and excluded informational announcements from operational status and availability (#283).
 - Added a dependency-free reporting web component, Hugo shortcode, example page, Markdown export, and GitHub/GitLab editor handoff (#348).
-- Added checksum-verified, multi-platform container builds and a release-triggered GHCR publication workflow (#344).
+- Completed amd64/arm64 container packaging with downloadable image archives and SHA-256 checksums in CI, persistent site volumes, and startup/restart/failure checks on both architectures. GHCR publication remains gated on a future published v7 release (#344).
+- Added an optional MonitorBot backend with a scoped write/control API, incident create/update/resolve, all eight v7 record types, CLI/JavaScript clients, and an OpenAPI contract (#198).
+- Added signed inbound/outbound webhooks, configured-monitor run/pause/resume, GitHub/GitLab repository publishing, and CI monitoring examples. Durable replay keys, publication journaling, revision checks, and a private non-root container keep automation separate from the fully static public site.
+- Updated MonitorBot's axios and simple-git dependencies to patched versions and added HTTP, webhook, provider, restart, container, and Hugo round-trip checks. The API remains disabled by default and deployments remain dry-run by default.
 - Added generated-output regression checks, reporting round-trip tests, Atom validation, and a Hugo 0.158/0.167 CI matrix.
 
 ## v7.0

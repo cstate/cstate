@@ -1,8 +1,10 @@
 name: Container images
 
 on:
+  push:
+    branches: [v7]
   pull_request:
-    paths: ['Dockerfile', '.dockerignore', 'docker/**', '.github/workflows/container.yml']
+    branches: [v7]
   release:
     types: [published]
   workflow_dispatch:
@@ -12,29 +14,56 @@ permissions:
 
 jobs:
   smoke:
+    if: github.event_name != 'release' || startsWith(github.event.release.tag_name, 'v7.') || startsWith(github.event.release.tag_name, '7.') || startsWith(github.event.release.tag_name, 'v7-r') || startsWith(github.event.release.tag_name, '7-r')
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [amd64, arm64]
     steps:
       - uses: actions/checkout@v4
-      - name: Build and serve the bundled site
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - uses: docker/setup-qemu-action@v3
+      - uses: docker/setup-buildx-action@v3
+      - name: Build the platform image without publishing
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/${{ matrix.arch }}
+          load: true
+          push: false
+          tags: cstate:verify-${{ matrix.arch }}
+      - name: Verify startup, persistence, base paths, and failed builds
+        run: node scripts/verify-container.mjs cstate:verify-${{ matrix.arch }} linux/${{ matrix.arch }}
+      - name: Export downloadable image and checksum
         run: |
-          docker build -t cstate:test .
-          docker run -d --name cstate-test -p 8080:80 cstate:test
-          for attempt in $(seq 1 30); do
-            if curl -fsS http://localhost:8080/index.json -o /tmp/index.json; then break; fi
-            sleep 1
-          done
-          python3 -c 'import json; data=json.load(open("/tmp/index.json")); assert data["cStateVersion"] == "7.0"'
-          docker logs cstate-test
+          mkdir -p dist
+          docker save cstate:verify-${{ matrix.arch }} | gzip > dist/cstate-linux-${{ matrix.arch }}.tar.gz
+          cd dist
+          sha256sum cstate-linux-${{ matrix.arch }}.tar.gz > SHA256SUMS
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cstate-linux-${{ matrix.arch }}
+          path: dist/
+          if-no-files-found: error
 
   image:
     needs: smoke
-    if: github.event_name != 'release' || startsWith(github.event.release.tag_name, 'v7.') || startsWith(github.event.release.tag_name, '7.')
+    if: github.event_name == 'release' && (startsWith(github.event.release.tag_name, 'v7.') || startsWith(github.event.release.tag_name, '7.') || startsWith(github.event.release.tag_name, 'v7-r') || startsWith(github.event.release.tag_name, '7-r'))
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Select version tags and protect stable aliases
+        id: version
+        run: node scripts/container-release-policy.mjs
       - uses: docker/setup-qemu-action@v3
       - uses: docker/setup-buildx-action@v3
       - uses: docker/login-action@v3
@@ -47,11 +76,8 @@ jobs:
         id: metadata
         with:
           images: ghcr.io/${{ github.repository }}
-          tags: |
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=semver,pattern={{major}}
-            type=raw,value=preview,enable=${{ github.event_name != 'release' }}
+          flavor: latest=false
+          tags: ${{ steps.version.outputs.tags }}
       - uses: docker/build-push-action@v6
         with:
           context: .

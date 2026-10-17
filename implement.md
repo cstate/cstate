@@ -1,5 +1,11 @@
 # Execution contract
 
+Current release contract (2026-10-17): commit and push all four v7 worktrees with plain Git, verify their exact pushed commits in remote CI, fix failures, and publish `v7-r1` as a prerelease with stable/latest promotion disabled. No master/v6.0.2/example or ticket mutations. Preserve remote history; never force-push. Earlier unpublished-work constraints below are historical.
+
+Stabilization completion: all listed findings are implemented with regression coverage and final verification recorded in plans.md and documentation.md. Preserve dirty work. Keep v7 unpublished and do not push or post comments.
+
+Current scope: finish the containers and optional MonitorBot backend checklist in `plans.md`. Preserve dirty work and keep v7 unpublished; do not mutate tickets, master, 6.0.2, or cstate/example. API tests use loopback servers and fake publishing providers. Validate actual container startup on both architectures before claiming completion.
+
 Implement the cState v7 ecosystem reliability plan end to end.
 
 ## Non-negotiable behavior

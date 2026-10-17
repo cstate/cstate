@@ -2,13 +2,13 @@
   "is": "issue",
   "title": {{ .Title | default "" | jsonify }},
   "body": {{ jsonify .Content }},
-  "createdAt": {{ printf "%v" .Date | jsonify }},
-  "lastMod": {{ printf "%v" .Lastmod | jsonify }},
+  "createdAt": {{ .Date | jsonify }},
+  "lastMod": {{ .Lastmod | jsonify }},
   "permalink": {{ .Permalink | default "" | jsonify }},
   "severity": {{ .Params.severity | default "" | jsonify }},
   "resolved": {{ if .Params.resolved }}true{{ else }}false{{ end }},
   "informational": {{ if .Params.informational }}true{{ else }}false{{ end }},
-  "resolvedAt": {{ .Params.resolvedWhen | default "" | jsonify }},
+  "resolvedAt": {{ partial "api/timestamp.html" .Params.resolvedWhen | jsonify }},
   "affected": [{{ range $i, $e := .Params.Affected }}{{ if $i }}, {{ end }}{{ . | default "" | jsonify }}{{ end }}],
   "filename": {{ .File.LogicalName | default "" | jsonify }}
 }

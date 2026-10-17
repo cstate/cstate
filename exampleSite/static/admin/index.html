@@ -16,7 +16,7 @@
     <script>console.log('You are using cState. The version can be looked at from the console on the homepage or incidents view. https://github.com/cstate')</script>
 
     <script>window.CMS_MANUAL_INIT = true;</script>
-    <script src="https://unpkg.com/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+    <script src="https://unpkg.com/js-yaml@4.3.2/dist/js-yaml.min.js"></script>
           <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
     <script>
       var recordLabels = {};
@@ -571,8 +571,11 @@
           });
           config.collections = buildCollections(config.collections, recordSections);
           config.load_config_file = false;
-          return registerLocaleOverride(activeAdminLocale).then(function() {
-            CMS.init({ config: config });
+          return import("./record-backend.mjs").then(function(recordBackend) {
+            recordBackend.installRecordBackend(CMS, config, recordSections, { yaml: jsyaml });
+            return registerLocaleOverride(activeAdminLocale).then(function() {
+              CMS.init({ config: config });
+            });
           });
         })
         .catch(function(error) {

@@ -1,0 +1,26 @@
+services:
+  status:
+    build:
+      context: ..
+    ports:
+      - "127.0.0.1:8080:80"
+    environment:
+      CSTATE_BASE_URL: ${CSTATE_BASE_URL:-http://localhost:8080/}
+    volumes:
+      - cstate-site:/app
+  monitorbot:
+    profiles: [automation]
+    image: ${MONITORBOT_IMAGE:-cstate-monitorbot:local}
+    ports:
+      - "127.0.0.1:8081:8081"
+    environment:
+      MONITORBOT_API_ENABLED: "true"
+      MONITORBOT_API_HOST: 0.0.0.0
+      MONITORBOT_API_TOKEN: ${MONITORBOT_API_TOKEN:-}
+      RUNNING_METHOD: server
+      TESTMODE: "true"
+    volumes:
+      - monitorbot-state:/data
+volumes:
+  cstate-site:
+  monitorbot-state:

@@ -1,5 +1,13 @@
 # cState v7 ecosystem reliability
 
+Current objective: commit and push the complete v7 work across the theme, MonitorBot, CLI, and embed; run remote CI and repair failures; publish only the `v7-r1` GitHub prerelease. Preserve user work. Leave master, v6.0.2, cstate/example, and tickets unchanged. The following dated missions describe earlier work and their no-push restrictions are superseded by this objective. Plan before coding.
+
+Current objective: implement the 2026-10-16 stabilization checklist in plans.md across all four v7 repositories. Preserve existing edits and keep all releases, tickets, master, and 6.0.2 unchanged. Plan before coding and verify every audited defect with a regression.
+
+## Current mission — 2026-10-15
+
+Finish #344 and #198 in the existing v7 worktrees. Deliver tested container artifacts and an optional MonitorBot backend with an authenticated write/control API, signed inbound webhooks, outbound integrations, and GitHub/GitLab publishing. Keep Hugo fully static and independent. Preserve all existing edits. Do not publish v7, post issue replies, change master, or change the 6.0.2 release/example repository.
+
 Act as the senior product engineer and release owner for cState v7. Finish the release across the Hugo theme and the sibling CLI, MonitorBot, and HTML embed repositories without discarding existing uncommitted work.
 
 ## Mission

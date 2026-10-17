@@ -178,7 +178,9 @@ As you can imagine, manual building is a little bit tedious but a great option t
 
 cState comes with a Dockerfile and Netlify ([according to their article from 2016](https://www.netlify.com/blog/2016/10/18/how-our-build-bots-build-sites/)) uses a similar Docker system to build cState. This is an option for people who prefer Docker and NGINX instead of serverless, but serverless still has the priority in cState development.
 
-cState v7 includes a multi-platform image build and a release-triggered GHCR publishing workflow. See the [container runbook](documentation.md#container-releases-344) for local builds, persistent site volumes, and the quick-start command to use after the first v7 image is published. Community images are also available from [AethiQs-Felix/cstate_docker](https://github.com/AethiQs-Felix/cstate_docker).
+cState v7 includes tested amd64/arm64 container builds, downloadable image archives with checksums in CI, and a release-triggered GHCR publishing workflow. See the [container runbook](documentation.md#container-releases-344) for local builds, persistent site volumes, and the quick-start command to use after the first v7 image is published. Community images are also available from [AethiQs-Felix/cstate_docker](https://github.com/AethiQs-Felix/cstate_docker).
+
+For automation, the optional [MonitorBot backend](documentation.md#optional-monitorbot-backend-198) adds authenticated record publishing, monitor controls, signed webhooks, and GitHub/GitLab integrations. The public cState site remains fully static and works without MonitorBot.
 
 ## Updating 🎉
 
@@ -236,9 +238,9 @@ This is what you would see for an issue that has been resolved.
 Time to break that down.
 
 `title`: This is the one of the most important parts of an incident. *(required)*
-`date`: An ISO-8601 formatted date. Does not include time zone. This is when you first discovered the issue. *(required)*
+`date`: When you first discovered the issue. Use an ISO-8601 timestamp with a timezone, such as `2026-01-02T10:00:00Z` or `2026-01-02T12:00:00+02:00`. Legacy dates without an offset use the Hugo site's `timeZone` (UTC by default). *(required)*
 `resolved`: Whether issue should affect overall status. Either `true` or `false`. *(boolean, required)*
-`resolvedWhen`: An ISO-8601 formatted date. Does not include time zone. This is when downtime stopped. You may set the time that downtime ended without completely resolving the issue (thus leaving time for monitoring).
+`resolvedWhen`: When downtime stopped, using the same date format. You may set this before completely resolving the issue to leave time for monitoring. JSON APIs emit both dates with explicit timezone offsets so browsers calculate the same incident duration.
 `severity`: If an issue is not resolved, it will have an applied severity. There are 3 levels of severity: `notice`, `disrupted`, and `down`. If there are multiple issues, the status page will take the appearance of the more drastic issue (such as `disrupted` instead of `notice`). For non-incident records, `severity` is optional and defaults to `none`; `notice` can surface an active experiment without changing operational status. *(required for unresolved incidents)*
 `affected`. Add the items that were present in the config file which should alter the status of each individual system (component). *(array, required)*
 `section`. This must be `issue`, so that Hugo treats it as one. *(required)*
